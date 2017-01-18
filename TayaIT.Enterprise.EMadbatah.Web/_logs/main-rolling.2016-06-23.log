@@ -1,0 +1,126 @@
+----------------------------------------
+Timestamp: 6/21/2016 5:04:58 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.NonSecretVoteSubjectHelper.NonSecretVotesByEparID()  - Priority: -1 - Title:Sequence contains no elements
+
+Message: <SOURCE>System.Core</SOURCE><STACKTRACE>   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__0[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.First[TSource](IQueryable`1 source)
+   at TayaIT.Enterprise.EMadbatah.DAL.NonSecretVoteSubjectHelper.GetNonSecretVotesByEparID(Int64 eparID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\NonSecretVoteSubjectHelper.cs:line 48</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:02:04 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(154,/test/154/)  - Priority: -1 - Title:Could not find a part of the path '/test/154/MadbatahcoverDoc.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 98
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 31</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:11:38 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(155,/test/155/)  - Priority: -1 - Title:Could not find a part of the path '/test/155/MadbatahcoverDoc.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 98
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 31</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:21:42 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(155,/test/155/)  - Priority: -1 - Title:The specified package is invalid. The main part is missing.
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.Load()
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.OpenCore(String path, Boolean readWriteMode)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Open(String path, Boolean isEditable, OpenSettings openSettings)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Open(String path, Boolean isEditable)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1617
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 66</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:26:05 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(156,/test/156/)  - Priority: -1 - Title:Could not find a part of the path '/test/156/MadbatahcoverDoc.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 98
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 31</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:26:38 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(156,/test/156/)  - Priority: -1 - Title:The specified package is invalid. The main part is missing.
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.Load()
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.OpenCore(String path, Boolean readWriteMode)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Open(String path, Boolean isEditable, OpenSettings openSettings)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Open(String path, Boolean isEditable)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1617
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 66</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:42:18 PM
+
+Category: approve session  - Priority: -1 - Title:b4 send mail
+
+Message: b4 send mail
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:42:19 PM
+
+Category: approve session  - Priority: -1 - Title:after send mail
+
+Message: after send mail
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:42:19 PM
+
+Category: approve session  - Priority: -1 - Title:thread1
+
+Message: thread1
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:42:19 PM
+
+Category: approve session  - Priority: -1 - Title:start thread
+
+Message: start thread
+
+----------------------------------------
+----------------------------------------
+Timestamp: 6/22/2016 12:45:33 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------

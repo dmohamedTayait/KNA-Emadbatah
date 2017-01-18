@@ -40,28 +40,37 @@
                                     return false;
                                 }
                                 </script>
-    <div class="reviewcontainer">
-        <div class="row">:اذهب إلى ملف 
-        <br />
-            <% foreach (SessionAudioFile s in sd.SessionFiles)
+    <div class="reviewcontainer" id="maintable1">
+     <div class="row">
+     <div class="grid_3 h2"> :اذهب إلى ملف </div>
+    
+     <table class="table deftable h2" border="0" cellspacing="0" cellpadding="0" >
+                <thead>
+                    <tr>
+                        <th class="column column4">
+                        اسم الملف
+                        </th>
+                        <th class="column column5">
+                            الحالة
+                        </th>
+                        <th></th>
+                        </tr>
+                         </thead>
+                <tbody>
+                 <% int loop = 0;
+                     foreach (SessionAudioFile s in sd.SessionFiles)
                {
                    if (!s.IsSessionStart)
                    {  %>
-                <a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a> | 
+                   <tr class="tbrow tbrowNew tbrowID1">
+                   <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
+                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString()) %></td>
+                   <td  class="column column5">   <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
+                </tr>
             <%}
                }%>
-        </div>
-
-        <div class="row">الموافقة على مقاطع ملف كامل: 
-            <% foreach(SessionAudioFile s in sd.SessionFiles ){
-                   if (!s.IsSessionStart)
-                   {  
-                   %>
-            <!-- here better to show only files that has any un-approved items underbeneath -->
-
-                <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name) %></a> <br />
-            <%}
-               }%>
+                  </tbody>
+            </table>
         </div>
 
         <!--reviewmaincontent start-->

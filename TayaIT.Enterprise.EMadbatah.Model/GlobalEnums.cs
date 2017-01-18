@@ -87,7 +87,8 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         Secretariat = 4,
         President = 5,
         NA = 6,
-        UnKnown = 7
+        UnKnown = 7,
+        UnAssigned = 8
     }
 
     public enum AttendantTitle

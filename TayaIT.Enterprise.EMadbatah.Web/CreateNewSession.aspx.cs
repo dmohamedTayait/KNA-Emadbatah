@@ -24,7 +24,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             if (!Page.IsPostBack)
             {
                 EMadbatahEntities context = new EMadbatahEntities();
-                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).OrderBy(x => x.OrderByAttendantType).ToList();
+                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).OrderBy(x => x.OrderByAttendantType).Where(cc => cc.Type != (int)Model.AttendantType.UnAssigned).ToList();
                 ddlPresident.DataSource = DefaultAttendants;
                 ddlPresident.DataTextField = "Name";
                 ddlPresident.DataValueField = "ID";

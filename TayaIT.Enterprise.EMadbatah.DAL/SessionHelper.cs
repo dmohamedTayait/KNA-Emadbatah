@@ -139,7 +139,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     if (context.Sessions.Count<Session>() > 0)
                     {
                         allSessions = context.Sessions
-                                        .OrderByDescending(c => c.Date)
+                                        .OrderByDescending(c => c.StartTime)
                                         .Skip(count * pageNo)
                                         .Take(count).ToList<Session>();
 
@@ -216,7 +216,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         else
                             allSessions = context.Sessions
                                         .Where(c => c.SessionStatusID != statusCode)
-                                        .OrderByDescending(c => c.Date)
+                                        .OrderByDescending(c => c.StartTime)
                                         .Skip(count * pageNo)
                                         .Take(count).ToList<Session>();
 

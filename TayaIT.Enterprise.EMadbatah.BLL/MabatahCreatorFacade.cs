@@ -242,6 +242,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     if (!sessionItem.MergedWithPrevious.Value)
                                     {
                                         Attendant att = sessionItem.Attendant;
+                                        if(att.Type != (int)Model.AttendantType.UnAssigned)
+                                        {
                                      /*   if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
                                             doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ": " + "(" + sessionItem.CommentOnAttendant + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                                         else
@@ -284,6 +286,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                             speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString() + ",", att.Type));
                                         else
                                             speakersIndex[itemIndex].PageNum += pageNum + ", ";
+                                    }
                                     }
                                 }
 
@@ -978,7 +981,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
           //  return ("السيد العضو : " + attName).Trim();
             string attFullPresentationName = "";
             if (att.AttendantTitle == null)
-                attFullPresentationName = "السيد " + att.Name.Trim();
+            {
+                if (att.Type != (int)Model.AttendantType.UnAssigned)
+                    attFullPresentationName = "السيد " + att.Name.Trim();
+                else attFullPresentationName = att.Name.Trim();
+            }
             else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
             return attFullPresentationName;
         }

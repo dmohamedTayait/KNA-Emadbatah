@@ -22,13 +22,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-            //TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(140,"/test/140/", "");
-         //  bool is_test = TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(140, "/test/140/", "");
-          string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(140);
-            //bool is_test = TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98, "/test/98/", "");
-           /* string htmlText = "<span>test span</span> <span>test span2</span> test betweeen line<div>test div</div>test between line2<div>test div2</div>";
-            Regex regex = new Regex(@"<div[^>]*?>(.*?)</div>", RegexOptions.IgnorePatternWhitespace);
-            string pattern = @"<div[^>]*?>(.*?)</div>";
+            TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(158, "/test/158/", "");
+             //string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(155);
+
+            string htmlText = "<span>test span</span> <span>test span2</span> test betweeen line<p procedure-id>test div</p>test between line2<p procedure-id>test div2</p>";
+            Regex regex = new Regex(@"<p procedure-id[^>]*?>(.*?)</p>", RegexOptions.IgnorePatternWhitespace);
+            string pattern = @"<p procedure-id[^>]*?>(.*?)</p>";
 
             MatchCollection matches = Regex.Matches(htmlText, pattern);
             // replace all html tags (and consequtive whitespaces) by spaces
@@ -36,8 +35,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             string[] resultText = regex.Split(htmlText);
 
-            string s = "s";*/
+            string s = "s";
+        }
 
+        public string [] create(string str)
+        {
+            string pattern = @"<p procedure-id[^>]*?>(.*?)</p>";
+            MatchCollection matches = Regex.Matches(str, pattern);
+
+            return new string [] {};
         }
     }
 }

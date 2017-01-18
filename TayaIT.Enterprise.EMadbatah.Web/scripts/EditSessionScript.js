@@ -13,6 +13,8 @@ var prevAgendaSubItemIndex;
 var prevSpeakerIndex;
 var prevSpeakerTitle;
 var prevFragOrder;
+var prevSpeakerJob;
+var prevSpeakerImgUrl;
 
 
 
@@ -21,7 +23,7 @@ $(document).ready(function() {
     var endTime = $('.hdendTime');
     var currentOrder = $('.hdcurrentOrder');
     //all choosable items
-    var allInputs = $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch")
+    var allInputs = $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerOtherJob,#specialBranch,#MainContent_ddlOtherTitles,#MainContent_ddlCommittee")
         // validate form onsubmit
     var formvalidation = $("#editSessionFileForm").validate({
         errorPlacement: function(error, element) {
@@ -128,12 +130,12 @@ $(document).ready(function() {
         if ($(".sameAsPrevSpeaker").is(':checked')) {
             //$("#editSessionFileForm").resetForm()
             $("#MainContent_ddlAgendaItems").val(prevAgendaItemIndex);
-
             $('#MainContent_ddlAgendaItems').trigger('change');
-
             $("#MainContent_ddlAgendaSubItems").val(prevAgendaSubItemIndex);
             $("#MainContent_ddlSpeakers").val(prevSpeakerIndex);
-            $("#MainContent_txtSpeakerJob").html(prevSpeakerTitle);
+            $("#MainContent_txtSpeakerOtherJob").val(prevSpeakerTitle);
+            $("#MainContent_imgSpeakerAvatar").attr("src",prevSpeakerImgUrl);
+            $("#MainContent_txtSpeakerJob").html(prevSpeakerJob);
             allInputs.attr('disabled', 'disabled');
             // remove all errors
             $('label.error').remove()
@@ -146,9 +148,11 @@ $(document).ready(function() {
             } else {
                 $("#MainContent_ddlAgendaSubItems").removeAttr('disabled', 'disabled');
             }
-            $
-                ("#MainContent_ddlSpeakers").val(0);
-
+            $("#MainContent_ddlSpeakers").val(0);
+            $("#MainContent_ddlOtherTitles").val(0);
+            $("#MainContent_ddlCommittee").val(0).hide();
+            $("#MainContent_txtSpeakerOtherJob").val("");
+            $("#MainContent_imgSpeakerAvatar").attr("src","/images/AttendantAvatars/unknown.jpg");
         }
     });
 
@@ -237,15 +241,29 @@ $(document).ready(function() {
                 dataType: 'json',
                 success: function(data) {
                     if (data != 'error') {
-                        var d = new Date();
+                       var d = new Date();
                         var n = d.getTime(); 
                         var dataArr = data.split(",");
                         $('#MainContent_txtSpeakerJob').html(dataArr[0]);
                         $('#MainContent_imgSpeakerAvatar').attr("src","/images/AttendantAvatars/" + dataArr[1]+"?" + n.toString());
+                        $('#MainContent_ddlOtherTitles').val(0).removeAttr('disabled', 'disabled');
+                        $('#MainContent_ddlCommittee').val(0).hide().removeAttr('disabled', 'disabled');
+                        $('#MainContent_txtSpeakerOtherJob').val("").removeAttr('disabled', 'disabled');
+						if($("#MainContent_ddlSpeakers > option:selected").text() == "غير محدد"){
+						    $('#MainContent_ddlOtherTitles').val(0).attr('disabled', 'disabled');
+                            $('#MainContent_ddlCommittee').val(0).hide().attr('disabled', 'disabled');
+                            $('#MainContent_txtSpeakerOtherJob').val("").attr('disabled', 'disabled');
+						}
                     }
                 }
 
             });
+        }else{
+          $('#MainContent_txtSpeakerJob').html("");
+          $('#MainContent_imgSpeakerAvatar').attr("src","/images/AttendantAvatars/unknown.jpg");
+          $('#MainContent_ddlOtherTitles').val(0).removeAttr('disabled', 'disabled');
+          $('#MainContent_ddlCommittee').val(0).hide().removeAttr('disabled', 'disabled');
+          $('#MainContent_txtSpeakerOtherJob').val("").removeAttr('disabled', 'disabled');
         }
     });
 
@@ -265,6 +283,7 @@ $(document).ready(function() {
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
             var SpeakerJob = $("#MainContent_txtSpeakerOtherJob").val();
+            var SpeakerImgUrl = $("#MainContent_imgSpeakerAvatar").attr("src");
             // editor value
             var clone = $('<div>').append($("#MainContent_elm1").val());
             clone.find('span').removeClass('highlight editable hover');
@@ -320,6 +339,8 @@ $(document).ready(function() {
                         prevAgendaItemIndex = AgendaItemID;
                         prevSpeakerIndex = SpeakerID;
                         prevSpeakerTitle = SpeakerJob;
+                        prevSpeakerImgUrl = SpeakerImgUrl;
+                        prevSpeakerJob = $("#MainContent_txtSpeakerJob").html();
                         prevFragOrder = currentOrder.val();
                         BindData(response)
                         nextAndprev({
@@ -348,9 +369,41 @@ $(document).ready(function() {
         var selectedContent = ed.selection.getContent();
         var filterTheHtml = $('<div/>').text(selectedContent).filter('*[:empty]').remove().text().replace('&nbsp;','');
         if(filterTheHtml != ''){
+            // get the selection and split
             splitAction(selectedContent);
         }else{
-            alert('select any text ya ban2dam')
+            // select where the cursor is
+            var range = ed.selection.getRng();
+            var rangeStart = ed.selection.getNode();
+            // check if the start not the body
+            if(rangeStart.nodeName == 'BODY'){
+                rangeStart = ed.selection.getRng().startContainer.nextSibling
+            }
+            // check if the element is block element or not
+            var isBlock = ed.dom.isBlock(rangeStart);
+            // select all the siblings until reach another element
+            var nextSiblings = $(rangeStart).nextUntil(':not('+rangeStart.nodeName.toLowerCase()+')');
+            // if block element select it
+            if(isBlock || nextSiblings.length == 0){
+                ed.selection.select(rangeStart);
+            }else{
+                // check if there is any siblings
+                if(nextSiblings.length){
+                    var lastElement = $(rangeStart).nextUntil(':not('+rangeStart.nodeName.toLowerCase()+')').last();
+                    if(lastElement){
+                        range.setStart(rangeStart,0);
+                        range.setEnd(lastElement[0],1);
+                        ed.selection.setRng(range);
+                    }else{
+                        console.log('lastElement',lastElement)
+                    }
+                }else{
+                    console.log('nextSiblings.length',nextSiblings.length)
+                }
+            }
+            // get the selection and split
+            var selectedContent = ed.selection.getContent();
+            splitAction(selectedContent);
         }
     });
 
@@ -374,13 +427,13 @@ $(document).ready(function() {
         var selectID = $(".ddlOtherTitles option:selected").attr("value");
         if( selectID == "5" || selectID == "6")
         {
-        $(".divddlCommittee").show();
+        $(".ddlCommittee").show().val(0);
         }
         else{
-        $(".divddlCommittee").hide();
+        $(".ddlCommittee").hide();
         }
 
-        if(selectID != "0" && selectID != "4"  && selectID != "4"  && selectID != "7")
+        if(selectID != "0" && selectID != "4" && selectID != "7" && selectID != "8")
         {
         $(".txtSpeakerOtherJob").val($(".ddlOtherTitles option:selected").text());
         }
@@ -390,14 +443,14 @@ $(document).ready(function() {
      });
 
      $(".ddlCommittee").change(function() {
-         var selecText =  $(".txtSpeakerOtherJob").val() + " " + $(".ddlCommittee option:selected").text();
+         var selecText = $("#MainContent_ddlOtherTitles  option:selected").text() + " " + $(".ddlCommittee option:selected").text();
          $(".txtSpeakerOtherJob").val(selecText);
      });
 
 
     // split function
     function splitAction(selectedHtml){
-        if (confirm("هل أنت متأكد من أنك تريد قطع النص الحالي؟ .. هذه الخطوة لا يمكن الرجوع فيها")) {
+      //  if (confirm("هل أنت متأكد من أنك تريد قطع النص الحالي؟ .. هذه الخطوة لا يمكن الرجوع فيها")) {
             // cut
             tinyMCE.execCommand('mceReplaceContent',false,'');
             // vars
@@ -427,7 +480,7 @@ $(document).ready(function() {
             });
             $(".popupoverlay").hide();
             $(".reviewpopup_cont1").hide();
-        }
+      //  }
     }
 
     // previous button onclick
@@ -488,6 +541,8 @@ $(document).ready(function() {
                     //prevAgendaSubItemIndex = response.prevAgendaSubItemID; // Item.AgendaSubItemID;
                     prevSpeakerIndex = response.prevAttendantID; // Item.AttendantID;
                     prevSpeakerTitle = response.prevAttendantJobTitle; // Item.CommentOnAttendant;
+                    prevSpeakerImgUrl = response.AttendantAvatar;
+                    prevSpeakerJob = response.AttendantJobTitle;
                     BindData(response)
                         //prev clicked and no prev content item exist in db
                     if (response.prevAgendaItemID == null)
@@ -526,7 +581,8 @@ $(document).ready(function() {
             $('#MainContent_btnNext').attr('disabled', 'disabled');
         }
 
-
+         $('#MainContent_ddlOtherTitles').val(0);
+         $('#MainContent_ddlCommittee').val(0).hide();
         // update editor text
         if (response.Message == "success") {
             $(".btnAddProcuder").removeAttr('disabled', 'disabled');
@@ -609,6 +665,13 @@ $(document).ready(function() {
             } else {
                 $("#MainContent_ddlSpeakers > option[value=" + Speakers_SelectedID + "]").attr('selected', 'selected');
             }
+           
+            	if($("#MainContent_ddlSpeakers > option:selected").text() == "غير محدد"){
+                    $('#MainContent_ddlOtherTitles').val(0).attr('disabled', 'disabled');
+                    $('#MainContent_ddlCommittee').val(0).hide().attr('disabled', 'disabled');
+                    $('#MainContent_txtSpeakerOtherJob').val("").attr('disabled', 'disabled');
+                    }
+
             // end binding DDL
             // to hide some controls base on current fragment order, i.e hide next when we are in the last fragment
             if (response.ItemOrder == "first") {
@@ -643,7 +706,6 @@ $(document).ready(function() {
             //if not the same speaker
             if (!response.SameAsPrevSpeaker) //&& response.Item.AttendantID == null) {
             {
-
                 allInputs.removeAttr('disabled');
                 $('.sameAsPrevSpeaker').removeAttr('disabled').removeAttr('checked');
             } else { // 
@@ -915,7 +977,7 @@ $(document).ready(function() {
         })
         // tinymce
     $('textarea.tinymce').tinymce({
-        custom_undo_redo: false,
+        custom_undo_redo: true,
         // Location of TinyMCE script
         script_url: 'scripts/tiny_mce/tiny_mce.js',
         // General options
@@ -931,7 +993,7 @@ $(document).ready(function() {
         height: 200,
         theme_advanced_source_editor_wrap: true,
         // Theme options
-        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright",
+        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright,|,undo,redo",
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_buttons4: "",
@@ -946,8 +1008,8 @@ $(document).ready(function() {
         // valid elements
         valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br",
         force_br_newlines: true,
-        force_p_newlines: true,
-        forced_root_block: '',
+        force_p_newlines: false,
+        forced_root_block: false,
         setup: function(ed) {
             // function to make the span editable
             function editableSpan(ed, e) {
@@ -1129,7 +1191,7 @@ $(document).ready(function() {
 
     // tinymce for the popup window
     var defaultOptions = {
-        custom_undo_redo: false,
+        custom_undo_redo: true,
         // Location of TinyMCE script
         script_url: 'scripts/tiny_mce/tiny_mce.js',
         // General options
@@ -1145,7 +1207,7 @@ $(document).ready(function() {
         height: 400,
         theme_advanced_source_editor_wrap: true,
         // Theme options
-        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright",
+        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright,|,undo,redo",
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_buttons4: "",
@@ -1160,8 +1222,13 @@ $(document).ready(function() {
         // valid elements
         valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br",
         force_br_newlines: true,
-        force_p_newlines: true,
-        forced_root_block: ''
+        force_p_newlines: false,
+        forced_root_block: false
+        /*setup : function(ed) {
+            ed.onNodeChange.add(function(ed, evt) {
+                console.log($(ed.getBody()));
+            });
+        }*/
     };
     $('#MainContent_Textarea1, #MainContent_Textarea2').tinymce(defaultOptions);
     // change the default options
@@ -1215,17 +1282,25 @@ $(document).ready(function() {
                     var $this = $(this);
                     var addingParText = $this.text();
                     var clone = $('<p/>').append(addingParText).attr('procedure-id', $this.data('value'));
-                    var tintMceActive = tinyMCE.activeEditor.selection;
+                    var ed = $('#MainContent_Textarea2').tinymce();
+                    var tintMceActive = ed.selection;
                     var nodeName = tintMceActive.getNode().nodeName;
                     clone = clone.wrapAll('<div>');
+                    var cloneHTML = clone.parent().html();
                     tinymce.execCommand('mceFocus',false,'MainContent_Textarea2');
-                    
-                    if((nodeName == 'SPAN' || nodeName == 'P') && tintMceActive.getRng().startOffset == 0){
-                        $(tinyMCE.activeEditor.selection.getNode()).before(clone.parent().html());
+                    // add to the undo manager
+                    ed.undoManager.add();
+                    if((nodeName == 'SPAN' || nodeName == 'P' || nodeName == 'BODY') && tintMceActive.getRng().startOffset <= 1){
+                        // if the node is the body
+                        if(nodeName == 'BODY'){
+                            $(ed.getBody()).prepend(cloneHTML);
+                        }else{
+                            $(tinyMCE.activeEditor.selection.getNode()).before(cloneHTML);
+                        }
                     }else if((nodeName == 'SPAN' || nodeName == 'P')){
-                        $(tinyMCE.activeEditor.selection.getNode()).after(clone.parent().html());
+                        $(tinyMCE.activeEditor.selection.getNode()).after(cloneHTML);
                     }else{
-                        tinymce.activeEditor.execCommand('mceInsertContent', false, clone.parent().html());
+                        tinymce.activeEditor.execCommand('mceInsertContent', false, cloneHTML);
                     }
                 });
             }
@@ -1236,10 +1311,16 @@ $(document).ready(function() {
     });
     // add procuder button
     $(".btnAddProcuder").click(function(e) {
-        var htmlContent = $('#MainContent_elm1').val();
+        // get the editors
+        var ed1 = $('#MainContent_elm1').tinymce();
+        var ed2 = $('#MainContent_Textarea2').tinymce();
+        // clear the html
+        var htmlContent = ed1.getContent();
         var clone = $('<div>').append(htmlContent)
         clone.find('span').removeClass('highlight editable hover');
-        $("textarea.splittinymce", '.reviewpopup_cont2').val(clone.html());
+        ed2.setContent(clone.html());
+        // clear the undo manager
+        ed2.undoManager.clear();
         // show the popup
         $(".popupoverlay").show();
         $(".reviewpopup_cont2").show();

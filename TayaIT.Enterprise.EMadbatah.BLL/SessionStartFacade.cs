@@ -46,6 +46,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 + " %PresidentTitle%"
                 + ")";
 
+        public static string madbatahStartsection2 = "** وتولى الأمانة العامة السيد علام علي الكندري الأمين العام للمجلس والسيد عادل عيسى اللوغاني الأمين العام المساعد لقطاع الجلسات والسيد محمد عبدالمجيد الخنفر مدير إدارة المضابط .";
+
         public static string presidentStr = "السيد الرئيــــــــــــــــــــــــــــــــــس :";
         public static string tempPresidentStr = "السيد رئيس الجلســــــــــــــــــــــة :";
         public static string sessionAttendantTitle = "* وبحضــور الســــادة الأعضــــــــاء : ";
@@ -246,7 +248,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
             string madbatahStart = "<html style=\"direction: rtl; font-family: AdvertisingMedium; font-size: 16pt; line-height: 20px;\">";
             madbatahStart += "<body dir=\"rtl\">";
-            madbatahStart += sessionStart + body;// +"<br/>";
+            madbatahStart += sessionStart + body +"<br/>";
+            madbatahStart += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + madbatahStartsection2 + "</div><br/>";
             madbatahStart += "</body></html>";
             return madbatahStart;
         }

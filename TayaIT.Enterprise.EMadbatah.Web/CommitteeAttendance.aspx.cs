@@ -40,7 +40,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 }
 
                 // Get All DefaultAttendants and bind them to GV
-                List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants();
+                List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants(false);
                 GVDefaultAttendants.DataSource = DefaultAttendants;
                 GVDefaultAttendants.DataBind();
             }
@@ -50,7 +50,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         {
             lblInfo1.Visible = false;
             lblInfo2.Visible = false;
-            List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants();
+            List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants(false);
             GVDefaultAttendants.DataSource = DefaultAttendants;
             GVDefaultAttendants.DataBind();
         }
@@ -110,7 +110,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         {
             lblInfo1.Visible = false;
             lblInfo2.Visible = false;
-            List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants();
+            List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants(false);
             GVDefaultAttendants.DataSource = DefaultAttendants;
             GVDefaultAttendants.DataBind();
         }

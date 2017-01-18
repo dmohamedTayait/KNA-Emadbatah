@@ -8,13 +8,22 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 {
     public class DefaultAttendantHelper
     {
-        public static List<DefaultAttendant> GetAllDefaultAttendants()
+        public static List<DefaultAttendant> GetAllDefaultAttendants(bool unassigned)
         {
             try
             {
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                    List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(c => c).ToList();
+                    List<DefaultAttendant> DefaultAttendants = new List<DefaultAttendant>();
+                    if (unassigned)
+                    {
+                        DefaultAttendants = context.DefaultAttendants.Select(c => c).ToList();
+                    }
+                    else
+                    {
+                        DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8).ToList();
+                    }
+                   
                     return DefaultAttendants;
                 }
             }

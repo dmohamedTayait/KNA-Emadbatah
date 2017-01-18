@@ -731,7 +731,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             List<SessionAttendant> attendants = new List<SessionAttendant>();
             if (session.Attendants.IsLoaded)
             {
-                foreach (Attendant attendant in session.Attendants.Where(c => c.SessionAttendantType == session.SessionStartFlag).ToList<Attendant>())
+                foreach (Attendant attendant in session.Attendants.Where(c => c.SessionAttendantType == session.SessionStartFlag && c.Type != (int)Model.AttendantType.UnAssigned).ToList<Attendant>())
                 {                    
                     Model.AttendantState stateEnum = Model.AttendantState.Attended;
                     stateEnum = (Model.AttendantState)attendant.State;

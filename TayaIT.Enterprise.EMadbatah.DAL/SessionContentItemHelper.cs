@@ -69,14 +69,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         session_content_item.VotingID = voteID;
 
                     context.SessionContentItems.AddObject(session_content_item);
-                    if (!string.IsNullOrEmpty(commentOnAttendant))
-                    {
-                        var att = context.Attendants.FirstOrDefault<Attendant>(a => a.ID == attendantID);
-                        if (att != null)
-                        {
-                            att.JobTitle = commentOnAttendant;
-                        }
-                    }
                     context.SaveChanges();
                     return session_content_item.ID;
 
@@ -1050,15 +1042,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         //updated_session_content_item.Duration = duration;
                     }
 
-                    if (!string.IsNullOrEmpty(commentsOnAttendant))
-                    {
-                        var att = context.Attendants.FirstOrDefault<Attendant>(a => a.ID == attendantID);
-                        if (att != null)
-                        {
-                            att.JobTitle = commentsOnAttendant;
-                        }
-                    }
-
                     int res = context.SaveChanges();
                     return res;
                 }
@@ -1112,15 +1095,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                             updated_session_content_item.UpdateDate = DateTime.Now;
                         else
                             updated_session_content_item.CreatedDate = DateTime.Now;
-
-                        if (!string.IsNullOrEmpty(commentsOnAttendant))
-                        {
-                            var att = context.Attendants.FirstOrDefault<Attendant>(a => a.ID == attendantID);
-                            if (att != null)
-                            {
-                                att.JobTitle = commentsOnAttendant;
-                            }
-                        }
 
                         //updated_session_content_item.StartTime = startTime;
                         //updated_session_content_item.EndTime = endTime;
