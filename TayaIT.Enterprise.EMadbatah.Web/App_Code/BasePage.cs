@@ -379,10 +379,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
 
             string testUser = "Develop\\unada";//id.Name.ToLower();\\"Develop\\noha";
-            CurrentUser = EMadbatahFacade.GetUserByUserID(92);//EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
+            CurrentUser = EMadbatahFacade.GetUserByUserID(92);// EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
 
             CurrentDomain = id.Name.Split('\\')[0].ToLower();
 
+        
 
 
             DisablePageCaching();

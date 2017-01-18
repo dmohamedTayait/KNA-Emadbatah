@@ -180,47 +180,18 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     foreach (List<SessionContentItem> groupedItems in allItems)
                     {
                         AgendaItem curAgendaItem = groupedItems[0].AgendaItem;
-                        AgendaSubItem curAgendaSubItem = groupedItems[0].AgendaSubItem;
-                        //if (writtenAgendaItems.IndexOf(curAgendaItem.Name) == -1)//12-04-2012
+                        string originalName = curAgendaItem.Name;
+                        writtenAgendaItems.Add(curAgendaItem.Name);
+                        string updatedAgendaName = "";
+                        if (curAgendaItem.Name != "غير معرف")
                         {
-                            string originalName = curAgendaItem.Name;
-                            writtenAgendaItems.Add(curAgendaItem.Name);
-                            string updatedAgendaName = "";
-                            if (curAgendaItem.IsCustom != null && curAgendaItem.IsCustom == true)
-                            {
-                                updatedAgendaName = LocalHelper.GetLocalizedString("str" + (curAgendaItem.Order)) + ": " + curAgendaItem.Name; ////usama new ordering
-                            }
-                            else
-                            {
-                                //string updatedAgendaName = "البند " + LocalHelper.GetLocalizedString("str" + (writtenAgendaItems.Count)) + ": " + curAgendaItem.Name; ////usama new ordering
-                                updatedAgendaName = "البند " + LocalHelper.GetLocalizedString("str" + (curAgendaItem.Order)) + ": " + curAgendaItem.Name; ////usama new ordering
-                            }
+                            updatedAgendaName = curAgendaItem.Name; ////usama new ordering
+
                             string agendaItem = Application[Constants.HTMLTemplateFileNames.ReviewItemAgendaItem].ToString()
                                                     .Replace("<%itemText%>", "* " + updatedAgendaName + ":");
                             sb.Append(agendaItem);
                         }
-
-                        if (curAgendaItem.IsGroupSubAgendaItems)//&& WrittenAgendaItemWithGroupedSubItems.IndexOf(curAgendaItem.ID)==-1)//12-04-2012
-                        {
-                            List<AgendaSubItem> list =  DAL.AgendaHelper.GetAgendaSubItemsByAgendaID(curAgendaItem.ID);
-                            foreach (AgendaSubItem sub in list)
-                            {
-                                string agendaSubItem = Application[Constants.HTMLTemplateFileNames.ReviewItemAgendaItem].ToString()
-                                                   .Replace("<%itemText%>", "- " + sub.Name);
-                                sb.Append(agendaSubItem);
-                            }
-                            WrittenAgendaItemWithGroupedSubItems.Add(curAgendaItem.ID);
-                        }
-                        if (curAgendaSubItem != null && !curAgendaItem.IsGroupSubAgendaItems)
-                        {
-                            string agendaSubItem = Application[Constants.HTMLTemplateFileNames.ReviewItemAgendaItem].ToString()
-                                                    .Replace("<%itemText%>", "- " + curAgendaSubItem.Name);
-                            sb.Append(agendaSubItem);
-
-
-                        }
-
-                        
+                     
                         foreach (SessionContentItem item in groupedItems)
                         {
                             if (lastSFID == 0)
@@ -240,14 +211,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             foreach (SessionContentItem item in items)
                             {*/
 
-                            if (!item.MergedWithPrevious.Value )//|| item.Attendant.Name == "غير معرف")
+                            if (!item.MergedWithPrevious.Value)//|| item.Attendant.Name == "غير معرف")
                             {
                                 Attendant att = item.Attendant;
-                                string attName = MabatahCreatorFacade.GetAttendantTitle(att,sessionId);
+                                string attName = MabatahCreatorFacade.GetAttendantTitle(att, sessionId);
                                 if (string.IsNullOrEmpty(attName))
                                     attName = "غير معرف: ";
                                 string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
-                                                    .Replace("<%itemText%>", attName +":");
+                                                    .Replace("<%itemText%>", attName + ":");
                                 sb.Append(speaker);
                             }
 
@@ -268,14 +239,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                     .Replace("<%title%>", "");
 
 
-                            reviewItem = reviewItem.Replace("<%FileRevName%>",item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
+                            reviewItem = reviewItem.Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
                                 .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
-                                .Replace("<%UserName%>", item.User == null? "لا يوجد" : item.User.FName)
+                                .Replace("<%UserName%>", item.User == null ? "لا يوجد" : item.User.FName)
                                 .Replace("<%RevName%>", sd.ReviewerName);
 
 
 
-                            if(item.SessionFile.FileReviewerID != null)
+                            if (item.SessionFile.FileReviewerID != null)
                                 reviewItem = reviewItem.Replace("<%FileRevID%>", item.SessionFile.FileReviewer.ID.ToString());
                             else
                                 reviewItem = reviewItem.Replace("<%FileRevID%>", "");
@@ -285,9 +256,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             string mp3FilePath = string.Format("{0}://{1}:{2}/", Request.Url.Scheme, Request.Url.Host, Request.Url.Port) + item.SessionFile.Name.Substring(1).Replace(@"\", "/");
                             reviewItem = reviewItem.Replace("<%MP3FilePath%>", mp3FilePath);
                             reviewItem = reviewItem.Replace("<%MP3FileStartTime%>", item.StartTime.ToString());
-                            reviewItem = reviewItem.Replace("<%MP3FileEndTime%>", item.EndTime.ToString());                            
+                            reviewItem = reviewItem.Replace("<%MP3FileEndTime%>", item.EndTime.ToString());
                             reviewItem = reviewItem.Replace("<%IsSessionStart%>", "0");
-                            
+
                             switch ((Model.SessionContentItemStatus)item.StatusID)
                             {
                                 case Model.SessionContentItemStatus.Approved: //approved
@@ -316,7 +287,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                        .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
                                         .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
                                         .Replace("<%UserName%>", item.User.FName)
-                                        .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تعليق"); 
+                                        .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تعليق");
                                 sb.Append(reviewItemComment);
                             }
                             //for footnote

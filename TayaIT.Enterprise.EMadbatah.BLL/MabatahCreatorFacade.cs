@@ -14,6 +14,7 @@ using TayaIT.Enterprise.EMadbatah.Pdf2Word;
 using TayaIT.Enterprise.EMadbatah.OpenXml.Word;
 using System.Xml.Linq;
 
+
 namespace TayaIT.Enterprise.EMadbatah.BLL
 {
     public class MabatahCreatorFacade
@@ -54,7 +55,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 mergeList.Add(SessionWorkingDir + "indexDoc.docx");
                 mergeList.Add(SessionWorkingDir + "indexSpeakers.docx");//done
                 mergeList.Add(ServerMapPath + "\\docs\\BodyCover.docx");//ready
-               // mergeList.Add(SessionWorkingDir + "body.docx");
+                mergeList.Add(SessionWorkingDir + "body.docx");
                 mergeList.Add(ServerMapPath + "\\docs\\EndCover.docx");//ready
                 File.Copy(SessionWorkingDir + "coverDoc.docx", SessionWorkingDir + sessionID + ".docx", true);
                 WordprocessingWorker.MergeWithAltChunk(SessionWorkingDir + sessionID + ".docx", mergeList.ToArray());
@@ -129,8 +130,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             WordTemplateHandler.replaceCustomXML(outCoverPath, sb.ToString());
         }
 
-        public static int CreateMadbatahBody(long sessionID, string outFilePath, string SessionWorkingDir, string ServerMapPath, Model.SessionDetails details, out List<MadbatahIndexItem> index, out List<SpeakersIndexItem> speakersIndex
-            )
+        public static int CreateMadbatahBody(long sessionID, string outFilePath, string SessionWorkingDir, string ServerMapPath, Model.SessionDetails details, out List<MadbatahIndexItem> index, out List<SpeakersIndexItem> speakersIndex)
         {
 
             string docPath = outFilePath;
@@ -153,9 +153,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             {
                 WordprocessingWorker doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.CreateNew);
                 {
-                    doc.MakeFooter();
-                    doc.MakeHeader();
-
+                    doc.DocHeaderString = "ــــــــــــــــــــــــــــــــــــــ            " + details.EparlimentID.ToString() + " / " + details.Type + "             ــــــــــــــــــــــــــــــــ";
+                    doc.ApplyHeaderAndFooter();
+                 
                     CreateMadbatahStart(details, doc);
                     index = new List<MadbatahIndexItem>();
                     speakersIndex = new List<SpeakersIndexItem>();
@@ -209,10 +209,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 {
                                     int ind = index.FindIndex(curIndexItem => curIndexItem.ID == updatedAgenda.ID);
                                     if (ind == -1)
-                                    {
-                                        //doc.AddParagraph("* " + updatedAgenda.Name + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                                         index.Add(new MadbatahIndexItem(updatedAgenda.ID, updatedAgenda.Name, pageNum + "", true, "", "", false, int.Parse(updatedAgenda.IsIndexed.ToString()), false));
-                                    }
                                     else
                                         index[ind].PageNum += ", " + pageNum;
                                 }
@@ -253,8 +250,29 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         string wordAttFilePath = SessionWorkingDir + attach.Name.ToLower().Replace(".pdf", ".pdf.docx");
                                         string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, ""));
 
-                                        doc.AddParagraph(contentItemAsText.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
-                                        contentItemAsText = "";
+                                       // doc.AddParagraph(contentItemAsText.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
+                                        //contentItemAsText = "";
+                                        string[] sep = new string[1] { "#!#!#!" };
+                                        string[] paragraphs = contentItemAsText.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                                        string parag = "";
+                                        foreach (string strP in paragraphs)
+                                        {
+                                            if (strP.IndexOf("procedure-id") != -1)
+                                            {
+                                                parag = TextHelper.StripHTML(strP.ToLower()).Trim();
+                                                if (parag != "")
+                                                {
+                                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                    doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Center, false, "");
+                                                }
+                                            }
+                                            else
+                                            {
+                                                parag = TextHelper.StripHTML(strP.ToLower()).Trim();
+                                                if (parag != "")
+                                                    doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
+                                            }
+                                        }
                                         text = "";
                                         foreach (string f in files)
                                         {
@@ -264,8 +282,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                                 if (speakerGroup[j].Count == k)
                                 {
-                                    string[] sep = new string[1];
-                                    sep[0] = "#!#!#!";
+                                    string[] sep = new string[1] {"#!#!#!"};
                                     string[] paragraphs = contentItemAsText.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                                     string parag = "";
                                     foreach (string strP in paragraphs)
@@ -312,8 +329,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             {
                                 string tt = TextHelper.StripHTML(part.ToLower()).Trim() + " ";
 
-                                fileText = tt;                                     // added by ihab
-                                sf = SessionFileHelper.GetSessionFileByID((int)sessionItem.SessionFileID);   // added by ihab
+                                fileText = tt;                                    
+                                sf = SessionFileHelper.GetSessionFileByID((int)sessionItem.SessionFileID);   
 
                                 if (sf.FileError == 1)  // added by ihab
                                 {
@@ -335,8 +352,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         }
                     }
 
-                    doc.AddParagraph("الأمين العام للمجلس								رئيس المجلس"
-                           , ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
+                    doc.AddParagraph("الرئيس", ParagraphStyle.NormalArabic, ParagrapJustification.LTR, false, "");
+
+                    doc.AddParagraph("الأمين العام"
+                           , ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
 
                     doc.Save();
                     int num = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
@@ -632,18 +651,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             long seasonStage = details.Stage;// "الخامس";
             string sessionSeason = details.Season + "";// "الرابع عشر";
 
-            string docStartOnTime = " كان محددا لاجتماع مجلس الأمة بجلسته العادية العلنية تمام الساعة ";
-            docStartOnTime += timeInHour;
-            docStartOnTime += " ";
-            docStartOnTime += "من صباح يوم ";
-            docStartOnTime += hijriDate;
-            docStartOnTime += " ، ";
-            docStartOnTime += " الموافق ";
-            docStartOnTime += gDate;
-            docStartOnTime += " و فى تمام الساعة ";
-            docStartOnTime += timeInHour;
-            docStartOnTime += " حضر الى منصة الرئاسة السيد على الغانم رئيس مجلس الأمة";
-            docStartOnTime += ".";
+            string docStartOnTime = SessionStartFacade.madbatahHeader.Replace("%sessionNum%", sessionNum).Replace("%GeorgianDate%", gDate).Replace("%sessionTime%", timeInHour).Replace("%hijriDate%", hijriDate).Replace("%President%", details.Presidnt);
+
+
 
             doc.AddParagraph(docStartOnTime, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
             doc.AddParagraph(" ", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
@@ -670,25 +680,25 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                     if (attendants.Count > 0)
                     {
-                        doc.AddParagraph("* و بحضور السادة الأعضاء:", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("* و بحضور السادة الأعضاء:", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                         writeAttendantNFile(attendants, doc);
                     }
 
                     if (attendantsWithinSession.Count > 0)
                     {
-                        doc.AddParagraph("* و فى أثناء الجلسة حضر كل من السادة الأعضاء:", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("* و فى أثناء الجلسة حضر كل من السادة الأعضاء:", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                         writeAttendantNFile(attendantsWithinSession, doc);
                     }
 
                     if (abologAttendants.Count > 0)
                     {
-                        doc.AddParagraph("* الغائبون بعذر:", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("* الغائبون بعذر:", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                         writeAttendantNFile(abologAttendants, doc);
                     }
 
                     if (absenceAttendants.Count > 0)
                     {
-                        doc.AddParagraph("*الغائبون بدون اعتذار:", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("*الغائبون بدون اعتذار:", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                         writeAttendantNFile(absenceAttendants, doc);
                     }
                 }
@@ -707,27 +717,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                     if (attendants.Count > 0)
                     {
-                        doc.AddParagraph("* و بحضور السادة الأعضاء:", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("* و بحضور السادة الأعضاء:", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                         writeAttendantNFile(attendants, doc);
                     }
                 }
 
-                doc.AddParagraph("السيد الرئيس:", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                doc.AddParagraph("السيد الرئيس:", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                 doc.AddParagraph("بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، نتيجة لعدم اكتمال النصاب تأخر الجلسة لمدة نصف ساعة.", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                 doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
-                string docStartNotOnTime = "";
-                docStartNotOnTime = "( أخرت الجلسة فى تمام الساعة ";
-                docStartNotOnTime += timeInHour;
-                docStartNotOnTime += " صباحا ثم عقد مجلس الأمة جلسته العادية العلنية فى تمام الساعة ";
-                docStartNotOnTime += timeInHour;
-                docStartNotOnTime += " من صباح يوم ";
-                docStartNotOnTime += hijriDate;
-                docStartNotOnTime += " ، ";
-                docStartNotOnTime += " الموافق ";
-                docStartNotOnTime += gDate;
-                docStartNotOnTime += ") برئاسة السيد مرزوق على الغانم رئيس مجلس الأمة";
+                string docStartNotOnTime = SessionStartFacade.madbatahStartNotOnTime.Replace("%sessionNum%", sessionNum).Replace("%GeorgianDate%", gDate).Replace("%sessionTime%", timeInHour).Replace("%hijriDate%", hijriDate).Replace("%President%", details.Presidnt);
 
                 doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
@@ -736,7 +736,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                 doc.AddParagraph("السيد الرئيس:", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                doc.AddParagraph("بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، تتتح الجلسة و تتلى اسماء الأعضاء ثم أسماء المعتذرين عن جلسة اليوم ثم أسماء الغائبين و المنصرفين عن الجلسة الماضية دون إذن أو اخطار .", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+
+                if (details.Date.DayOfWeek == DayOfWeek.Tuesday)
+                    doc.AddParagraph(SessionStartFacade.madbatahTuesdayIntro, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                else
+                    doc.AddParagraph(SessionStartFacade.madbatahWednesdayIntro, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                 allAttendants = SessionStartFacade.GetSessionAttendantOrderedByStatus(details.SessionID, (int)SessionOpenStatus.OnTime);
                 if (allAttendants.Count > 0)

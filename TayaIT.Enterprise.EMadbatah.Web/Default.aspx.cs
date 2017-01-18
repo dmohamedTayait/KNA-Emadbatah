@@ -43,10 +43,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                 //initialize new session from vecsys folder            
                                 InitializeVecsysNewSession(sd);
                             }
-
-                        }
-                        else
-                        {
                         }
                     }
                 }

@@ -28,6 +28,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         private DocumentSettingsPart _docSettingsPart;
         private FooterPart _docFooterPart;
         private HeaderPart _docHeaderPart;
+        private string _docHeaderString;
         private ThemePart _themePart;
         private WebSettingsPart _webSettingsPart;
         private ExtendedFilePropertiesPart _extendedFilePropertiesPart;
@@ -44,6 +45,17 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             get
             {
                 return _docMainPart;
+            }
+        }
+        public string DocHeaderString
+        {
+            get
+            {
+                return _docHeaderString;
+            }
+            set
+            {
+                _docHeaderString = value;
             }
         }
 
@@ -251,7 +263,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             {
                 using (StreamWriter ts = new StreamWriter(outputStream))
                 {
-                    ts.Write(footerPartXml.InnerXml);
+                    ts.Write("footer");
                 }
             }
 
@@ -263,7 +275,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             {
                 using (StreamWriter ts = new StreamWriter(outputStream))
                 {
-                    ts.Write(headerPartXml.InnerXml);
+                    ts.Write("header");
                 }
             }
 
@@ -319,6 +331,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             _themePart = _docMainPart.ThemePart;
             _docStylePart = _docMainPart.StyleDefinitionsPart;
             _docSettingsPart = _docMainPart.DocumentSettingsPart;
+            _docHeaderPart = _docMainPart.HeaderParts.FirstOrDefault<HeaderPart>();
             _docFooterPart = _docMainPart.FooterParts.FirstOrDefault<FooterPart>();
             _webSettingsPart = _docMainPart.WebSettingsPart;
 
@@ -1130,7 +1143,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             //create our Header reference
             HeaderReference headerRef = new HeaderReference();
             headerRef.Id = rId;
-
+            
             sectionProps.RemoveAllChildren<HeaderReference>();
             sectionProps.Append(headerRef);
 
@@ -1181,13 +1194,17 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         {
             Header header = new Header();
             Paragraph paragraph = new Paragraph();
-            Run run = new Run();
-            Text text = new Text();
-            text.Text = "عباس الضو هيدر";
-            run.Append(text);
+            Run run = new Run(new Text(_docHeaderString) { Space = SpaceProcessingModeValues.Preserve });
+             ParagraphProperties paragraphProp = new ParagraphProperties();
+            BiDi biDi1 = new BiDi();
+            Justification justification = new Justification();
+            justification.Val = JustificationValues.Center;
+            paragraphProp.Append(justification);
+            paragraphProp.ParagraphStyleId = new ParagraphStyleId() { Val = ParagraphStyle.NormalArabic.ToString() }; // we set the style
+            paragraph.Append(paragraphProp);    //HeadingArabic
             paragraph.Append(run);
-            header.Append(paragraph);
 
+            header.Append(paragraph);
             return header;
         }
 
@@ -1201,7 +1218,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                                 new TabStop() { Val = TabStopValues.Clear, Position = 4320 },
                                 new TabStop() { Val = TabStopValues.Clear, Position = 8640 },
                                 new TabStop() { Val = TabStopValues.Center, Position = 4820 },
-                                new TabStop() { Val = TabStopValues.Right, Position = 9639 }));
+                                new TabStop() { Val = TabStopValues.Right, Position = 6639 }));
 
             Paragraph paragraph = new Paragraph(
 
@@ -1213,15 +1230,8 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         ),
                         new Run(
                             new FieldChar() { FieldCharType = FieldCharValues.End }),
-
                         new Run(
-                            new PositionalTab() { Alignment = AbsolutePositionTabAlignmentValues.Center, RelativeTo = AbsolutePositionTabPositioningBaseValues.Margin, Leader = AbsolutePositionTabLeaderCharValues.None }
-                        ),
-                        new Run(
-                            new PositionalTab() { Alignment = AbsolutePositionTabAlignmentValues.Right, RelativeTo = AbsolutePositionTabPositioningBaseValues.Margin, Leader = AbsolutePositionTabLeaderCharValues.None }
-                        ),
-                        new Run(
-                            new Text("صفحة ") { Space = SpaceProcessingModeValues.Preserve }
+                            new Text(" - ") { Space = SpaceProcessingModeValues.Preserve }
                         ),
                         new SimpleField(
                             new Run(
@@ -1229,7 +1239,13 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                                     new NoProof()),
                                 new Text("1")
                             )
-                        ) { Instruction = " PAGE   \\* MERGEFORMAT " }
+                        ) { Instruction = " PAGE   \\* MERGEFORMAT " },
+                        new Run(
+                            new Text(" - ") { Space = SpaceProcessingModeValues.Preserve }
+                        ),
+                        new Run(
+                            new Text(" الأمانة العامة لمجلس الأمة | قطاع الجلسات | إدارة المضابط ") { Space = SpaceProcessingModeValues.Preserve }
+                        )
                     );
 
             footer.Append(paragraph);
