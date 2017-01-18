@@ -7,7 +7,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
 {
     public class MadbatahIndexItem: IComparable
     {
-        public MadbatahIndexItem(long _id , string _n, string _p, bool _isMain, string _qFrom, string _qTo, bool? isCustom, bool _isMerged)
+        public MadbatahIndexItem(long _id, string _n, string _p, bool _isMain, string _qFrom, string _qTo, bool? isCustom, int isIndexed, bool _isMerged)
         {
             ID = _id;
             Name = _n;
@@ -16,6 +16,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             QFrom = _qFrom;
             QTo = _qTo;
             IsCustom = isCustom;
+            IsIndexed = isIndexed;
             IsGroupSubAgendaItems = _isMerged;
         }
         public int CompareTo(object obj)
@@ -46,6 +47,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         public string QTo { get; set; }
         public long ID { get; set; }
         public bool? IsCustom { get; set; }
+        public int IsIndexed { get; set; }
         public bool IsGroupSubAgendaItems { get; set; }
     }
 }

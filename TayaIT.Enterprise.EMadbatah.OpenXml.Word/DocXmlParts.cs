@@ -11,6 +11,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         public string SettingsPartPath { get; set; }
         public string ThemePartPath { get; set; }
         public string FooterPartPath { get; set; }
+        public string HeaderPartPath { get; set; }
         public string WebSettingsPartPath { get; set; }
         public string FilePropPartPath { get; set; }
         public string NumberingDefinitionsPartPath { get; set; }

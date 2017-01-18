@@ -87,6 +87,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string AGENDA_ITEM_TEXT { get { return "agendaitemtext"; } }
             public string EDIT_PAGE_MODE { get { return "editmode"; } }
             public string SESSION_CONTENT_ITEM_STATUS { get { return "scistatus"; } }
+            public string AGENDA_IS_INDEXED { get { return "isindexed"; } }
 
             public string AgendaItemID { get { return "AgendaItemID"; } }
             public string AgendaSubItemID { get { return "AgendaSubItemID"; } }

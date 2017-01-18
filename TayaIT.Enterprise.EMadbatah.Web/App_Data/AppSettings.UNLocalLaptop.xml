@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Emadbatah>
     <Conf>
-        <VecSysServerPath>\\192.168.0.90\Share\emadbatah\SimulateVecsysServerFolder</VecSysServerPath>
-        <AudioServerPath>\\192.168.0.90\Share\emadbatah\SimulateAudioServerFolder</AudioServerPath>
+        <VecSysServerPath>\\192.168.0.92\Share\emadbatah\SimulateVecsysServerFolder</VecSysServerPath>
+        <AudioServerPath>\\192.168.0.92\Share\emadbatah\SimulateAudioServerFolder</AudioServerPath>
         <EParlimrntWebServiceURL>http://localhost:10001/EPService.svc</EParlimrntWebServiceURL>
         <OfflineDevMode>True</OfflineDevMode>
         <AllowedDomainName>hp-hp</AllowedDomainName>

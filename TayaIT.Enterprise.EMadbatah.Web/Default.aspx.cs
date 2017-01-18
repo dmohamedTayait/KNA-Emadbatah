@@ -21,17 +21,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-          
-
-
-             //           MasterPage master = this.Master;
-           // master.RemoveHTMLTags(
-
-
-           // litStartupScript.Text = "<script type=\"text/javascript\"> var constants =  eval(" + serializer.Serialize(Constants.QSKeyNames) + "); alert(constants.AJAX_FUNCTION_NAME); </script>";
             if (!Page.IsPostBack)
             {
-
                 UserRuleHidden.Value = CurrentUser.Role.ToString();
 
                 if (SessionIDEParliment != null)
@@ -50,41 +41,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             if (sd.Status == SessionStatus.New)
                             {
                                 //initialize new session from vecsys folder            
-                                //InitializeVecsysNewSession(sd);
+                                InitializeVecsysNewSession(sd);
                             }
 
                         }
                         else
                         {
-                            //very new we need to get its data from web service then we insert in database
-
-                            //try catch web service dead // display error
-
-                            SessionDetails newSessionDetails = null;
-
-                            try
-                            {
-                                Eparliment ep = new Eparliment();
-                                newSessionDetails = ep.GetSessionDetails(sessionIDEparlimet);
-                                if (newSessionDetails == null)
-                                    spnWarn.InnerText = GetLocalizedString("strMsgErrorEPService"); // sssion doesn't exist in e-parliament
-                            }
-                            catch (Exception ex)
-                            {
-                                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.Web._Default.Page_Load()");
-                                spnWarn.InnerText = GetLocalizedString("strMsgErrorEPService");
-                            }
-
-                            if (newSessionDetails != null)
-                            {
-                                //send to DB
-                                sd = EMadbatahFacade.AddNewSessionDetailsToDB(newSessionDetails);
-                                if (sd.SessionID != -1)
-                                {
-                                    //initialize new session from vecsys folder            
-                                    InitializeVecsysNewSession(sd);
-                                }
-                            }
                         }
                     }
                 }
@@ -135,7 +97,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                 List<DirectoryInfo> dirs = mp3Dirinfo.GetDirectories().ToList<DirectoryInfo>();
                 //chose dir to default select in dropdown
-                string dirToChose = GetDirNameToSelect(dirs, sd.Serial.ToString(), sd.Date);
+                string dirToChose = GetDirNameToSelect(dirs, sd.EparlimentID.ToString(), sd.Date);
                 //TransFile transFile = Vecsys.VecsysParser.ParseTransXml(sessionPath);
 
                 selectVecsysFolders.Visible = true;

@@ -75,6 +75,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             GetAgendaSubItems,
             AddAgendaItem,
             UpdateAgendaItem,
+            AssignAttachToSessionContentItem,
             DoNext,
             DoPrevious,
             BackToOriginalContent,

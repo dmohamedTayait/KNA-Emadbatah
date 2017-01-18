@@ -368,7 +368,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         ShowWarn(message);
                     }
 
-                    bool IsSessionContainUndefinedAgendaItem = SessionContentItemHelper.DoesSessionContainsUndefinedAgendaItem(sessionId);
+                   /* bool IsSessionContainUndefinedAgendaItem = SessionContentItemHelper.DoesSessionContainsUndefinedAgendaItem(sessionId);
                     if (IsSessionContainUndefinedAgendaItem)
                     {
                         string message = "لا يمكن ظهور الموافقة على الجلسة أو التصديق عليها في وجود أي مقطع لبند غير معرف";
@@ -389,14 +389,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         }
 
                         ShowWarn(message);
-                    }
+                    }*/
 
                     Model.SessionStatus sessionStatus = (Model.SessionStatus) s.SessionStatusID;
                     if(sessionStatus == Model.SessionStatus.New || 
                         sessionStatus == Model.SessionStatus.InProgress ||
                         sessionStatus == Model.SessionStatus.FinalApproved ||
                         SessionContentItemHelper.GetSessionContentItemsBySessionIDAndNotStatusID(sessionId, (int)Model.SessionContentItemStatus.Approved).Count != 0 ||
-                        IsSessionContainUndefinedAttendant || IsSessionContainUndefinedAgendaItem)
+                        IsSessionContainUndefinedAttendant)
                     {
                         btnApproveSession.Style.Add("display", "none");
                         btnFinalApproveSession.Style.Add("display", "none");

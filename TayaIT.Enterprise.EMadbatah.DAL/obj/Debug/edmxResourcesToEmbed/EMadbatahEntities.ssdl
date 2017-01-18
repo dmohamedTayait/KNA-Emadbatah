@@ -86,6 +86,10 @@
       <End Role="AgendaSubItem" EntitySet="AgendaSubItem" />
       <End Role="SessionContentItem" EntitySet="SessionContentItem" />
     </AssociationSet>
+    <AssociationSet Name="FK_SessionContentItem_Attachement" Association="EMadbatahModel.Store.FK_SessionContentItem_Attachement">
+      <End Role="Attachement" EntitySet="Attachement" />
+      <End Role="SessionContentItem" EntitySet="SessionContentItem" />
+    </AssociationSet>
     <AssociationSet Name="FK_SessionContentItem_Attendant" Association="EMadbatahModel.Store.FK_SessionContentItem_Attendant">
       <End Role="Attendant" EntitySet="Attendant" />
       <End Role="SessionContentItem" EntitySet="SessionContentItem" />
@@ -144,11 +148,12 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="varchar" MaxLength="500" />
+    <Property Name="Name" Type="text" />
     <Property Name="IsCustom" Type="bit" />
     <Property Name="SessionID" Type="bigint" />
     <Property Name="Order" Type="int" />
     <Property Name="IsGroupSubAgendaItems" Type="bit" Nullable="false" />
+    <Property Name="IsIndexed" Type="int" />
   </EntityType>
   <EntityType Name="AgendaSubItem">
     <Key>
@@ -325,6 +330,7 @@
     <Property Name="UpdateDate" Type="datetime" Nullable="false" />
     <Property Name="Ignored" Type="bit" />
     <Property Name="FileReviewerID" Type="bigint" />
+    <Property Name="AttachementID" Type="bigint" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>
@@ -580,6 +586,18 @@
       </Principal>
       <Dependent Role="SessionContentItem">
         <PropertyRef Name="AgendaSubItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SessionContentItem_Attachement">
+    <End Role="Attachement" Type="EMadbatahModel.Store.Attachement" Multiplicity="0..1" />
+    <End Role="SessionContentItem" Type="EMadbatahModel.Store.SessionContentItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attachement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionContentItem">
+        <PropertyRef Name="AttachementID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -729,7 +729,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             List<SessionAttendant> attendants = new List<SessionAttendant>();
             if (session.Attendants.IsLoaded)
             {
-                foreach (Attendant attendant in session.Attendants.ToList<Attendant>())
+                foreach (Attendant attendant in session.Attendants.Where(c => c.SessionAttendantType == session.SessionStartFlag).ToList<Attendant>())
                 {                    
                     Model.AttendantState stateEnum = Model.AttendantState.Attended;
                     stateEnum = (Model.AttendantState)attendant.State;
@@ -741,7 +741,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     typeEnum = (Model.AttendantType)attendant.Type;
                     //if (Enum.IsDefined(typeof(Model.AttendantType), attendant.AttendantType.Name))
                     //    typeEnum = (Model.AttendantType)Enum.Parse(typeof(Model.AttendantType), attendant.AttendantType.Name);
-                    int attendant_title_id = get_session_attendant_title_id(Convert.ToInt64(session.ID),Convert.ToInt64(attendant.ID));
+                    int attendant_title_id = 1; //get_session_attendant_title_id(Convert.ToInt64(session.ID), Convert.ToInt64(attendant.ID));
                    
                     attendants.Add(new SessionAttendant(attendant.EparlimentID, attendant.ID, attendant.Name, attendant.JobTitle, stateEnum, typeEnum, attendant.FirstName,attendant.SecondName, attendant.TribeName,attendant_title_id));
                 }
@@ -807,56 +807,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
             }
             
-            //if (!session.AgendaItems.Childs.IsLoaded)
-            //   {
-            //      session.AgendaItems.Childs.Load();
-            //   }
-            //foreach (AgendaItem item in session.AgendaItems.Childs.ToList<AgendaItem>())
-            //{
-            //    long id = item.ID;
-            //    long idParent = (long)item.ParentID;
-            //    long idParentEP = (long)item.EParliamentID;
-            //    string title = item.Name;
-
-            //    if (agendaItems.ContainsKey(idParent))
-            //    {
-            //        SessionAgendaItem tmp = (SessionAgendaItem)agendaItems[idParent];
-            //        tmp.SubAgendaItems.Add(new SessionAgendaItem(id, title));
-            //        agendaItems[idParent] = tmp;
-            //    }
-            //    else
-            //    {
-            //        agendaItems.Add(id, new SessionAgendaItem(id, title));
-            //    }
-                
-            //    if(!item.Childs.IsLoaded)
-            //    {
-            //        item.Childs.Load();
-            //    }
+         
 
 
-
-            //    foreach (AgendaItem itemlevel2 in session.AgendaItem.Childs.ToList<AgendaItem>())
-            //    {
-            //        long id2 = itemlevel2.ID;
-            //        long idParent2 = (long)itemlevel2.ParentID;
-            //        long idParentEP2 = (long)itemlevel2.EParliamentID;
-            //        string title2 = item.Name;
-
-            //        if (agendaItems.ContainsKey(idParent2))
-            //        {
-            //            SessionAgendaItem tmp = (SessionAgendaItem)agendaItems[idParent2];
-            //            tmp.SubAgendaItems.Add(new SessionAgendaItem(id2, title2));
-            //            agendaItems[idParent2] = tmp;
-            //        }
-            //        else
-            //        {
-            //            agendaItems.Add(id2, new SessionAgendaItem(id2, title2));
-            //        }
-                
-            //    }
-
-            //}
+         
             string reviwerName = "";
             if(session.ReviewerID!=null)
                 reviwerName= UserHelper.GetUserByID((long)session.ReviewerID).FName;
@@ -883,7 +837,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 session.Subject,
                 session.ReviewerID,
                 reviwerName,
-                session.MP3FolderPath
+                session.MP3FolderPath,
+               (int) session.SessionStartFlag
                 );
 
             return sd;
@@ -1014,10 +969,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         MailManager.SendMail(new Email(new Emailreceptionist(threadUser.Email, threadUser.Name)), SystemMailType.MadbatahFileCreated, emailData, threadContext);
                                         break;
                                     case FileVersion.final:
-                                        DAL.SessionHelper.UpdateSessionMadabathFilesStatus(details.SessionID, (int)Model.MadbatahFilesStatus.FinalCreated);
+                                       int result = DAL.SessionHelper.UpdateSessionMadabathFilesStatus(details.SessionID, (int)Model.MadbatahFilesStatus.FinalCreated);
                                         Eparliment ep = new Eparliment();
-                                        bool result = ep.IngestContentsForFinalApprove(sessionID);
-                                        if (result)
+                                       // bool result = ep.IngestContentsForFinalApprove(sessionID);
+                                        if (result != -1)
                                             MailManager.SendMail(new Email(new Emailreceptionist(threadUser.Email, threadUser.Name)), SystemMailType.FinalApproveSession, emailData, threadContext);
                                         else
                                         {
@@ -1138,7 +1093,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                     Model.AttendantType typeEnum = Model.AttendantType.FromTheCouncilMembers;
                     typeEnum = (Model.AttendantType)attendant.Type;
-                    int attendant_title_id = get_session_attendant_title_id(Convert.ToInt64(sessionID), Convert.ToInt64(attendant.ID));
+                    int attendant_title_id = 1;// get_session_attendant_title_id(Convert.ToInt64(sessionID), Convert.ToInt64(attendant.ID));
                     attendants.Add(new SessionAttendant(attendant.EparlimentID, attendant.ID, attendant.Name, attendant.JobTitle, stateEnum, typeEnum, attendant.FirstName, attendant.SecondName, attendant.TribeName, attendant_title_id));
                 }
             }

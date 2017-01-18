@@ -12,19 +12,19 @@ var prevAgendaItemIndex;
 var prevAgendaSubItemIndex;
 var prevSpeakerIndex;
 var prevSpeakerTitle;
-var prevFragOrder ;
+var prevFragOrder;
 
 
 
-$(document).ready(function () {
+$(document).ready(function() {
     var startTime = $('.hdstartTime');
     var endTime = $('.hdendTime');
     var currentOrder = $('.hdcurrentOrder');
     //all choosable items
     var allInputs = $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch")
-    // validate form onsubmit
+        // validate form onsubmit
     var formvalidation = $("#editSessionFileForm").validate({
-        errorPlacement: function (error, element) {
+        errorPlacement: function(error, element) {
             if (element.attr('id') == 'txtAgendaItem') {
                 element.next().next('.errorCont').html(error)
             } else {
@@ -72,7 +72,7 @@ $(document).ready(function () {
         href: resetText.attr('data-div')
     });
     // popup buttons actions
-    $('#yes').click(function () {
+    $('#yes').click(function() {
         var ed = $('#MainContent_elm1').tinymce();
         var sessionContentItemID = getParameterByName("scid");
         var sessionFileID = getParameterByName("sfid");
@@ -88,49 +88,48 @@ $(document).ready(function () {
                 scid: sessionContentItemID
             },
             dataType: 'json',
-            success: function (response) {
+            success: function(response) {
                 if (response != '') {
                     ed.setProgressState(0); // Hide progress
                     //ed.setContent(html);
                     if (response.Message == "success") {
                         $("#MainContent_elm1").val(response.Item.Text);
                         $("#MainContent_CurrentItemID").val(response.FragOrderInXml);
-                    }
-                    else {
+                    } else {
                         alert("عفواً . غير مسموح لك بالتعديل في هذه الصفحة");
                     }
                 }
             },
-            error: function () {
+            error: function() {
 
             }
         });
         // close popup
         $.fancybox.close()
     })
-    $('#no').click(function () {
+    $('#no').click(function() {
         $.fancybox.close()
     })
 
     //onchange ignored
-    $('.chkIgnoredSegment').change(function () {
-    
-//    if($(this).attr('checked'))
-//    {
-//    $('.sameAsPrevSpeaker').selected(true);
-//    $(".sameAsPrevSpeaker").attr('checked', 'checked');
-//    }
-   
-    
+    $('.chkIgnoredSegment').change(function() {
+
+        //    if($(this).attr('checked'))
+        //    {
+        //    $('.sameAsPrevSpeaker').selected(true);
+        //    $(".sameAsPrevSpeaker").attr('checked', 'checked');
+        //    }
+
+
     });
 
     // onchange event for SameSpeaker checkbox
-    $('.sameAsPrevSpeaker').change(function () {
+    $('.sameAsPrevSpeaker').change(function() {
         if ($(".sameAsPrevSpeaker").is(':checked')) {
             //$("#editSessionFileForm").resetForm()
             $("#MainContent_ddlAgendaItems").val(prevAgendaItemIndex);
 
-             $('#MainContent_ddlAgendaItems').trigger('change');
+            $('#MainContent_ddlAgendaItems').trigger('change');
 
             $("#MainContent_ddlAgendaSubItems").val(prevAgendaSubItemIndex);
             $("#MainContent_ddlSpeakers").val(prevSpeakerIndex);
@@ -141,45 +140,42 @@ $(document).ready(function () {
             $('.error').removeClass('error')
         } else {
             allInputs.removeAttr('disabled', 'disabled');
-             
-             if ($(".chkGroupSubAgendaItems").is(':checked')) {
-                    $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
-                } else {
-                    $("#MainContent_ddlAgendaSubItems").removeAttr('disabled', 'disabled');            
-                }
+
+            if ($(".chkGroupSubAgendaItems").is(':checked')) {
+                $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
+            } else {
+                $("#MainContent_ddlAgendaSubItems").removeAttr('disabled', 'disabled');
+            }
             $
-            ("#MainContent_ddlSpeakers").val(0);
+                ("#MainContent_ddlSpeakers").val(0);
 
         }
     });
 
     //usama march
-        // onchange event for SameSpeaker checkbox
-    $('.chkGroupSubAgendaItems').change(function () {
+    // onchange event for SameSpeaker checkbox
+    $('.chkGroupSubAgendaItems').change(function() {
         if ($(".chkGroupSubAgendaItems").is(':checked')) {
             $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
-            $("#MainContent_ddlAgendaItems > option:selected").attr("IsGroupSubAgendaItems","true");
+            $("#MainContent_ddlAgendaItems > option:selected").attr("IsGroupSubAgendaItems", "true");
         } else {
-            $("#MainContent_ddlAgendaSubItems").removeAttr('disabled', 'disabled');            
-            $("#MainContent_ddlAgendaItems > option:selected").attr("IsGroupSubAgendaItems","false");
+            $("#MainContent_ddlAgendaSubItems").removeAttr('disabled', 'disabled');
+            $("#MainContent_ddlAgendaItems > option:selected").attr("IsGroupSubAgendaItems", "false");
         }
     });
 
 
     // cascading drop down lists, to get AgendaSubItems By AgendaItem ID
-    $("#MainContent_ddlAgendaItems").change(function () {
+    $("#MainContent_ddlAgendaItems").change(function() {
         $("#MainContent_ddlAgendaSubItems").html("");
         var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").attr("value");
 
         var IsGroupSubAgendaItems = $("#MainContent_ddlAgendaItems > option:selected").attr("IsGroupSubAgendaItems");
 
-        if(AgendaItemID <=0 )
-        {
+        if (AgendaItemID <= 0) {
             $('#specialBranch').attr('disabled', 'disabled');
             $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled')
-        }
-        else
-        {
+        } else {
             $('#specialBranch').removeAttr('disabled');
             $('select#MainContent_ddlAgendaSubItems').removeAttr('disabled');
         }
@@ -196,31 +192,27 @@ $(document).ready(function () {
                 },
                 //contentType: "application/json; charset=utf-8",
                 dataType: 'json',
-                success: function (subitems) {
-                    $.each(subitems, function () {
+                success: function(subitems) {
+                    $.each(subitems, function() {
                         $("#MainContent_ddlAgendaSubItems").append($("<option></option>").val(this['ID']).html(this['Text']));
                     });
                     if (subitems.length > 0) {
                         $('select#MainContent_ddlAgendaSubItems').removeAttr('disabled')
                     }
 
-                    if(IsGroupSubAgendaItems == 'true')
-                    {
+                    if (IsGroupSubAgendaItems == 'true') {
                         $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled');
                         $(".chkGroupSubAgendaItems").attr("checked", "checked");
-                    }
-                    else
-                    {                       
+                    } else {
                         $(".chkGroupSubAgendaItems").removeAttr("checked");
                     }
 
-                    if ($(".sameAsPrevSpeaker").is(':checked')) 
-                    {
-                         $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled').val(prevAgendaSubItemIndex);
+                    if ($(".sameAsPrevSpeaker").is(':checked')) {
+                        $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled').val(prevAgendaSubItemIndex);
                     }
 
                 },
-                error: function () {
+                error: function() {
 
                 }
             });
@@ -229,10 +221,10 @@ $(document).ready(function () {
 
 
 
-    $("#MainContent_ddlSpeakers").change(function () {        
+    $("#MainContent_ddlSpeakers").change(function() {
         var attendantID = $("#MainContent_ddlSpeakers > option:selected").attr("value");
         if (attendantID != 0) {
-           // $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled')
+            // $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled')
             jQuery.ajax({
                 cache: false,
                 type: 'post',
@@ -243,25 +235,24 @@ $(document).ready(function () {
                 },
                 //contentType: "application/json; charset=utf-8",
                 dataType: 'json',
-                success: function (data) 
-                {
-                   if(data != 'error')
-                   {
+                success: function(data) {
+                    if (data != 'error') {
                         $('#MainContent_txtSpeakerJob').val(data);
                     }
                 }
-                
+
             });
         }
     });
 
 
     // next button onclick
-    $(".next").click(function () {
+    $(".next").click(function() {
         if ($("#editSessionFileForm").valid()) {
             $(".next").attr("disabled", "disabled");
-            var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
-            var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+           // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+          //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+            var AgendaItemID =  $('.agendaItemId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -271,19 +262,19 @@ $(document).ready(function () {
             var clone = $('<div>').append($("#MainContent_elm1").attr("value"))
             clone.find('span').removeClass('highlight editable hover')
             var Text = encodeURI(clone.html())
-            // comments value
+                // comments value
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
             // Show progress
             var ed = $('#MainContent_elm1').tinymce()
             ed.setProgressState(1);
+             $(".addingNewAgendaItem").show();
             // pause the player
             $("#jquery_jplayer_1").jPlayer("pause");
             //
             if (currentOrder.val() - 0 > prevFragOrder - 0) {
-                if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID &&
-                prevAgendaSubItemIndex == AgendaSubItemID &&
-                prevSpeakerIndex == SpeakerID) {
+                if (SameAsPrevSpeaker == false &&
+                    prevSpeakerIndex == SpeakerID) {
                     if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
                         $(".sameAsPrevSpeaker").attr('checked', 'checked');
                         allInputs.attr('disabled', 'disabled');
@@ -305,7 +296,6 @@ $(document).ready(function () {
                     data: {
                         funcname: 'DoNext',
                         AgendaItemID: AgendaItemID,
-                        AgendaSubItemID: AgendaSubItemID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -316,18 +306,20 @@ $(document).ready(function () {
                         Footer: Footer
                     },
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         prevAgendaItemIndex = AgendaItemID;
-                        prevAgendaSubItemIndex = AgendaSubItemID;
                         prevSpeakerIndex = SpeakerID;
                         prevSpeakerTitle = SpeakerJob;
                         prevFragOrder = currentOrder.val();
                         BindData(response)
-                        nextAndprev({ ed: ed, response: response })
-                        //
+                        nextAndprev({
+                                ed: ed,
+                                response: response
+                            })
+                            //
 
                     },
-                    error: function () {
+                    error: function() {
                         alert("لقد حدث خطأ");
                         $(".next").removeAttr("disabled");
                         ed.setProgressState(0);
@@ -335,67 +327,66 @@ $(document).ready(function () {
                     }
                 });
             }
+       }
+    });
+
+    function htmlEncode(value) {
+        return $('<div/>').text(value).html();
+    }
+    $(".split").click(function() {
+        $("textarea.splittinymce",'.reviewpopup_cont1').val('');
+        $(".popupoverlay").show();
+        $(".reviewpopup_cont1").show();
+    });
+
+    $(".close_btn").click(function() {
+        $(".popupoverlay").hide();
+        $(".reviewpopup_cont").hide();
+    });
+
+    $(".approve1").click(function() {
+        if ($("textarea.splittinymce",'.reviewpopup_cont1').val() == '') {
+            alert("لا يمكن القطع إلا بوجود نص");
+            $(".popupoverlay").hide();
+            $(".reviewpopup_cont1").hide();
+            return;
+        }
+        if (confirm("هل أنت متأكد من أنك تريد قطع النص الحالي؟ .. هذه الخطوة لا يمكن الرجوع فيها")) {
+            var currentFileID = getParameterByName("sfid");
+            jQuery.ajax({
+                cache: false,
+                type: 'post',
+                url: 'EditSessionHandler.ashx',
+                data: {
+                    funcname: 'SplitItem',
+                    FRAGORDER: $(".hdcurrentOrder").val(),
+                    XMLPATH: $(".hdxmlFilePath").val(),
+                    SPLITTEDTEXT: htmlEncode($("textarea.splittinymce",'.reviewpopup_cont1').val()),
+                    sfid: currentFileID,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $(".next").removeAttr("disabled");
+                },
+                error: function() {
+                    alert("لقد حدث خطأ");
+                    ed.setProgressState(0);
+                    $(".prev").removeAttr("disabled");
+                }
+            });
+            $(".popupoverlay").hide();
+            $(".reviewpopup_cont1").hide();
         }
     });
-    function htmlEncode(value) {
-         return $('<div/>').text(value).html();
-     }
-    $(".split").click(function () {
-        $("textarea.splittinymce").val('');
-        $(".popupoverlay").show();
-        $(".reviewpopup_cont").show();
-    });
 
-    $(".close_btn").click(function () {
-         $(".popupoverlay").hide();
-         $(".reviewpopup_cont").hide();
-     });
-
-    $(".approve").click(function () {
-
-    if($("textarea.splittinymce").val() == '')
-    {
-        alert("لا يمكن القطع إلا بوجود نص");
-        $(".popupoverlay").hide();
-         $(".reviewpopup_cont").hide();
-         return;
-    }
-
-        if(confirm("هل أنت متأكد من أنك تريد قطع النص الحالي؟ .. هذه الخطوة لا يمكن الرجوع فيها"))
-    {
-        var currentFileID = getParameterByName("sfid");
-        jQuery.ajax({
-            cache: false,
-            type: 'post',
-            url: 'EditSessionHandler.ashx',
-            data: {
-                funcname: 'SplitItem',
-                FRAGORDER: $(".hdcurrentOrder").val(),
-                XMLPATH: $(".hdxmlFilePath").val(),
-                SPLITTEDTEXT: htmlEncode($("textarea.splittinymce").val()),
-                sfid: currentFileID,
-            },
-            dataType: 'json',
-            success: function (response) {
-            $(".next").removeAttr("disabled");
-            },
-            error: function () {
-                alert("لقد حدث خطأ");
-                ed.setProgressState(0);
-                $(".prev").removeAttr("disabled");
-            }
-        });
-        $(".popupoverlay").hide();
-         $(".reviewpopup_cont").hide();
-    }});
-    
     // previous button onclick
-    $(".prev").click(function () {
+    $(".prev").click(function() {
         if ($("#editSessionFileForm").valid()) {
             $(".prev").attr("disabled", "disabled");
             var PrevContentID = $("#MainContent_CurrentItemID").val() != "0" ? $("#MainContent_CurrentItemID").val() : "";
-            var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
-            var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+           // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+            //var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+            var AgendaItemID =  $('.agendaItemId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -405,10 +396,10 @@ $(document).ready(function () {
             var clone = $('<div>').append($("#MainContent_elm1").attr("value"))
             clone.find('span').removeClass('highlight editable hover')
             var Text = encodeURI(clone.html())
-            // comments value
+                // comments value
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
-
+              $(".addingNewAgendaItem").show();
 
             // Show progress
             var ed = $('#MainContent_elm1').tinymce()
@@ -424,7 +415,7 @@ $(document).ready(function () {
                     funcname: 'DoPrevious',
                     PrevContentID: PrevContentID,
                     AgendaItemID: AgendaItemID,
-                    AgendaSubItemID: AgendaSubItemID,
+                   // AgendaSubItemID: AgendaSubItemID,
                     SpeakerID: SpeakerID,
                     SameAsPrevSpeaker: SameAsPrevSpeaker,
                     IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -435,18 +426,21 @@ $(document).ready(function () {
                     Footer: Footer
                 },
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
                     prevAgendaItemIndex = response.prevAgendaItemID; // Item.AgendaItemID;
-                    prevAgendaSubItemIndex = response.prevAgendaSubItemID; // Item.AgendaSubItemID;
+                    //prevAgendaSubItemIndex = response.prevAgendaSubItemID; // Item.AgendaSubItemID;
                     prevSpeakerIndex = response.prevAttendantID; // Item.AttendantID;
                     prevSpeakerTitle = response.prevAttendantJobTitle; // Item.CommentOnAttendant;
                     BindData(response)
-                    //prev clicked and no prev content item exist in db
+                        //prev clicked and no prev content item exist in db
                     if (response.prevAgendaItemID == null)
                         $('.sameAsPrevSpeaker').attr('disabled', 'disabled');
-                    nextAndprev({ ed: ed, response: response })
+                    nextAndprev({
+                        ed: ed,
+                        response: response
+                    })
                 },
-                error: function () {
+                error: function() {
                     alert("لقد حدث خطأ");
                     ed.setProgressState(0);
                     $(".prev").removeAttr("disabled");
@@ -454,10 +448,11 @@ $(document).ready(function () {
             });
         }
     });
+
     function nextAndprev(o) {
         // remove the loading
         o.ed.setProgressState(0)
-        // remove undo level
+            // remove undo level
         o.ed.undoManager.clear();
         o.ed.undoManager.add();
         var AudioPlayer = $("#jquery_jplayer_1");
@@ -470,14 +465,14 @@ $(document).ready(function () {
     // bind data to controls
     function BindData(response) {
 
-    if(response.ItemOrder == "last")
-    {
-        $('#MainContent_btnNext').attr('disabled', 'disabled');
-    }
+        if (response.ItemOrder == "last") {
+            $('#MainContent_btnNext').attr('disabled', 'disabled');
+        }
 
 
         // update editor text
         if (response.Message == "success") {
+           $(".btnAddProcuder").removeAttr('disabled', 'disabled');
             // update text controls value
             $("#MainContent_elm1").val(response.Item.Text);
             $("#MainContent_CurrentItemID").val(response.FragOrderInXml);
@@ -489,7 +484,9 @@ $(document).ready(function () {
             var AgendaSubItem_SelectedID = $("#MainContent_ddlAgendaSubItems > option:selected").attr("value");
             var AgendaSubItem_html = $("#MainContent_ddlAgendaSubItems").html();
             var Speakers_SelectedID = $("#MainContent_ddlSpeakers > option:selected").attr("value");
-
+            $('.agendaItemId').val(response.AgendaItemID);
+            $('.agendaItemTxt').html(response.AgendaItemText);
+                        
             //alert(AgendaSubItem_SelectedID);
 
             // set start and end time in hidden fields
@@ -500,30 +497,28 @@ $(document).ready(function () {
             // agenda items DDL
             $("#MainContent_ddlAgendaItems").html("");
             $("#MainContent_ddlAgendaItems").append($("<option selected='selected'></option>").val("0").html("-------- اختر البند --------"));
-            $.each(response.AgendaItems, function () {
-           
-                $("#MainContent_ddlAgendaItems").append($("<option></option>").val(this['ID']).html(this['Text']).attr('IsGroupSubAgendaItems',this['IsGroupSubAgendaItems']));
+            $.each(response.AgendaItems, function() {
+
+                $("#MainContent_ddlAgendaItems").append($("<option></option>").val(this['ID']).html(this['Text']).attr('IsGroupSubAgendaItems', this['IsGroupSubAgendaItems']));
             });
             //select option
             // $("#MainContent_ddlAgendaItems").val(
 
             if (response.Item.AgendaItemID != null && response.Item.AgendaItemID != 0) {
                 $("#MainContent_ddlAgendaItems > option[value=" + response.Item.AgendaItemID + "]").attr('selected', 'selected');
-            }
-            else {
+            } else {
                 $("#MainContent_ddlAgendaItems > option[value=" + AgendaItem_SelectedID + "]").attr('selected', 'selected');
             }
             // agenda sub items DDL
             $("#MainContent_ddlAgendaSubItems").html("");
             //$('#MainContent_ddlAgendaSubItems').removeAttr('disabled')
             if (response.Item.AgendaSubItemID != null && response.Item.AgendaSubItemID != 0) {
-                $.each(response.AgendaSubItems, function () {
+                $.each(response.AgendaSubItems, function() {
                     $("#MainContent_ddlAgendaSubItems").append($("<option></option>").val(this['ID']).html(this['Text']));
                 });
                 $("#MainContent_ddlAgendaSubItems > option[value=" + response.Item.AgendaSubItemID + "]").attr('selected', 'selected');
-            }
-            else {
-            //25-03-2012 -- UN
+            } else {
+                //25-03-2012 -- UN
                 $("#MainContent_ddlAgendaSubItems").attr("disabled", "disabled");
                 $("#MainContent_ddlAgendaSubItems").html(AgendaSubItem_html);
                 $("#MainContent_ddlAgendaSubItems > option[value=" + AgendaSubItem_SelectedID + "]").attr('selected', 'selected');
@@ -532,8 +527,7 @@ $(document).ready(function () {
             if (response.Item.AttendantID != null && response.Item.AttendantID != 0) {
                 $("#MainContent_ddlSpeakers > option:selected").removeAttr("selected");
                 $("#MainContent_ddlSpeakers > option[value=" + response.Item.AttendantID + "]").attr('selected', 'selected');
-            }
-            else {
+            } else {
                 $("#MainContent_ddlSpeakers > option[value=" + Speakers_SelectedID + "]").attr('selected', 'selected');
             }
             // end binding DDL
@@ -542,57 +536,47 @@ $(document).ready(function () {
                 $(".prev").attr("disabled", "disabled");
                 allInputs.add(".next").removeAttr('disabled');
                 $(".sameAsPrevSpeaker").attr("disabled", "disabled");
-            }
-            else if (response.ItemOrder == "last") {
+            } else if (response.ItemOrder == "last") {
                 $(".sameAsPrevSpeaker,.prev,.finish").add(allInputs).removeAttr("disabled");
                 $(".next").attr("disabled", "disabled");
-            }
-            else {
+            } else {
                 $(".next,.prev").removeAttr("disabled");
                 // $(".sameAsPrevSpeaker").removeAttr("disabled"); //kill same as
             }
 
-            if(response.Ignored)
-            {
+            if (response.Ignored) {
                 $(".chkIgnoredSegment").attr('checked', 'checked');
-            }
-            else
-            {
+            } else {
                 $('.chkIgnoredSegment').removeAttr('checked');
             }
 
-           // alert('response.IsGroupSubAgendaItems ' + response.IsGroupSubAgendaItems);
-            
-            //usama march                
-            if (response.IsGroupSubAgendaItems == true)
-            {
-                 $('.chkGroupSubAgendaItems').attr('checked', 'checked');
-                  $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
+            // alert('response.IsGroupSubAgendaItems ' + response.IsGroupSubAgendaItems);
 
-             }
-            else if(response.IsGroupSubAgendaItems != null)
-            {
-                 $('.chkGroupSubAgendaItems').removeAttr('checked');
-                  $("#MainContent_ddlAgendaSubItems").removeAttr('disabled');
-             }
+            //usama march                
+            if (response.IsGroupSubAgendaItems == true) {
+                $('.chkGroupSubAgendaItems').attr('checked', 'checked');
+                $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
+
+            } else if (response.IsGroupSubAgendaItems != null) {
+                $('.chkGroupSubAgendaItems').removeAttr('checked');
+                $("#MainContent_ddlAgendaSubItems").removeAttr('disabled');
+            }
             //if not the same speaker
-            if (!response.SameAsPrevSpeaker)//&& response.Item.AttendantID == null) {
+            if (!response.SameAsPrevSpeaker) //&& response.Item.AttendantID == null) {
             {
 
                 allInputs.removeAttr('disabled');
                 $('.sameAsPrevSpeaker').removeAttr('disabled').removeAttr('checked');
-            }
-            else { // 
+            } else { // 
                 $('.sameAsPrevSpeaker').attr('checked', 'checked');
                 allInputs.attr('disabled', 'disabled');
             }
-            if (response.Item.AttendantID == 0) {//if data is from xml, so initialized the speaker
+            if (response.Item.AttendantID == 0) { //if data is from xml, so initialized the speaker
                 $("#MainContent_ddlSpeakers").val(0);
                 allInputs.removeAttr('disabled');
 
                 //usama march
-                if($(".chkGroupSubAgendaItems").is(':checked'))
-                {
+                if ($(".chkGroupSubAgendaItems").is(':checked')) {
                     $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
                 }
 
@@ -602,33 +586,32 @@ $(document).ready(function () {
                 $('.chkIgnoredSegment').removeAttr('checked');
             }
 
-            if($("#MainContent_chkGroupSubAgendaItems").is(':checked'))
-                 $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
-        }
-        else {        
+            if ($("#MainContent_chkGroupSubAgendaItems").is(':checked'))
+                $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
+        } else {
             //alert("عفواً . غير مسموح لك بالتعديل في هذه الصفحة");
             $(".prev,.next").removeAttr("disabled");
         }
     }
     // save and exit button onclick
-    $("#btnSaveAndExit").click(function () {
+    $("#btnSaveAndExit").click(function() {
         if ($("#editSessionFileForm").valid()) {
             var mode = "1";
             var sessionContentItem;
             if ($(".hdPageMode").val().length == 0) {
                 mode = "1";
-            }
-            else {
+            } else {
                 mode = $(".hdPageMode").val();
                 sessionContentItem = $(".hdSessionContentItemID").val();
             }
             var sessionID = $(".sessionID").val();
             $("#btnSaveAndExit").attr("disabled", "disabled");
-            var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
-            var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+          //  var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+          //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+             var AgendaItemID =  $('.agendaItemId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
-             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
+            var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
             var SpeakerJob = $("#MainContent_txtSpeakerJob").val();
             var Text = encodeURI($("#MainContent_elm1").attr("value"));
@@ -636,14 +619,12 @@ $(document).ready(function () {
             var Footer = $("#MainContent_txtFooter").val();
 
             if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID &&
-                prevAgendaSubItemIndex == AgendaSubItemID &&
-                prevSpeakerIndex == SpeakerID) {
+                    prevSpeakerIndex == SpeakerID) {
                 if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
                     $(".sameAsPrevSpeaker").attr('checked', 'checked');
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
                     SameAsPrevSpeaker = true;
-                }
-                else {
+                } else {
                     $("#MainContent_ddlSpeakers").val(0);
                     ed.setProgressState(0);
                     return;
@@ -658,7 +639,6 @@ $(document).ready(function () {
                     data: {
                         funcname: 'SaveAndExit',
                         AgendaItemID: AgendaItemID,
-                        AgendaSubItemID: AgendaSubItemID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -672,23 +652,22 @@ $(document).ready(function () {
 
                     },
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.Message == "success") {
                             $("btnSaveAndExit").removeAttr("disabled");
                             if (mode == "2")
                                 window.location = "ReviewNotes.aspx?sid=" + sessionID;
                             else
-                                if (mode == "3")
-                                    window.location = "Review.aspx?sid=" + sessionID;
-                                else
-                                    window.location = "default.aspx";
-                        }
-                        else {
+                            if (mode == "3")
+                                window.location = "Review.aspx?sid=" + sessionID;
+                            else
+                                window.location = "default.aspx";
+                        } else {
                             alert("لقد حدث خطأ");
                             allInputs.removeAttr('disabled');
                         }
                     },
-                    error: function () {
+                    error: function() {
                         alert("لقد حدث خطأ");
                         allInputs.removeAttr('disabled');
                     }
@@ -697,14 +676,15 @@ $(document).ready(function () {
         }
     });
     // finish: save and exit button onclick
-    $(".finish").click(function () {
+    $(".finish").click(function() {
         if ($("#editSessionFileForm").valid()) {
             $(".finish").attr("disabled", "disabled");
-            var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
-            var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+           // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+           // var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+            var AgendaItemID =  $('.agendaItemId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
-             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
+            var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
             var SpeakerJob = $("#MainContent_txtSpeakerJob").val();
             var Text = encodeURI($("#MainContent_elm1").attr("value"));
@@ -713,14 +693,12 @@ $(document).ready(function () {
             var sessionID = $(".sessionID").val();
 
             if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID &&
-                prevAgendaSubItemIndex == AgendaSubItemID &&
                 prevSpeakerIndex == SpeakerID) {
                 if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
                     $(".sameAsPrevSpeaker").attr('checked', 'checked');
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
                     SameAsPrevSpeaker = true;
-                }
-                else {
+                } else {
                     $("#MainContent_ddlSpeakers").val(0);
                     ed.setProgressState(0);
                     return;
@@ -735,7 +713,6 @@ $(document).ready(function () {
                     data: {
                         funcname: 'UpdateSessionFileStatusCompleted',
                         AgendaItemID: AgendaItemID,
-                        AgendaSubItemID: AgendaSubItemID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -747,16 +724,15 @@ $(document).ready(function () {
                         sid: sessionID
                     },
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         if (response.Message == "success") {
                             window.location = "default.aspx";
-                        }
-                        else {
+                        } else {
                             alert("لقد حدث خطأ");
                             allInputs.removeAttr('disabled');
                         }
                     },
-                    error: function () {
+                    error: function() {
                         alert("لقد حدث خطأ");
                         allInputs.removeAttr('disabled');
                     }
@@ -766,86 +742,81 @@ $(document).ready(function () {
     });
 
     // for the small window popup
-    $('#specialBranch').click(function () {
-        if ($(this).is(':checked')) {
-            $('#smallwindow').show()
-            $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled')
-        } else {
-            $('#smallwindow').hide()
-            $('select#MainContent_ddlAgendaSubItems').removeAttr('disabled')
-        }
-    })
-    // 
-    $('#btnAddCustomAgendaItem').click(function () {
+    $('#specialBranch').click(function() {
+            if ($(this).is(':checked')) {
+                $('#smallwindow').show()
+                $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled')
+            } else {
+                $('#smallwindow').hide()
+                $('select#MainContent_ddlAgendaSubItems').removeAttr('disabled')
+            }
+        })
+        // 
+    $('#btnAddCustomAgendaItem').click(function() {
         if ($("#txtAgendaItem").valid()) {
             var itemText = $('#txtAgendaItem').val();
             var parentAgendaItemID = $("#MainContent_ddlAgendaItems").val();
 
             var dropdown = $("#MainContent_ddlAgendaSubItems");
             var isDuplicate = false;
-           $("#MainContent_ddlAgendaSubItems > option").each(function() {
-                if(jQuery.trim(this.text) == jQuery.trim(itemText))
-                {
+            $("#MainContent_ddlAgendaSubItems > option").each(function() {
+                if (jQuery.trim(this.text) == jQuery.trim(itemText)) {
                     isDuplicate = true;
                     alert("هذا البند الفرعي موجود .. لا يمكنك إضافة بندين بنفس الإسم");
                     return false;
-                    
-                 }
-
-            });
-            if(isDuplicate == true)
-            return ;
-            else{
- 
-
-            jQuery.ajax({
-                cache: false,
-                type: 'post',
-                url: 'EditSessionHandler.ashx',
-                data: {
-                    funcname: 'AddAgendaItem',
-                    agendaitemtext: itemText,
-                    sid: sessionID
-                },
-                dataType: 'json',
-                success: function (item_id) {
-                    if (item_id != 0) 
-                    {
-
-                        $("#MainContent_ddlAgendaSubItems").removeAttr('disabled');
-                        $('#smallwindow').hide();
-                        $("#MainContent_ddlAgendaSubItems > option:selected").removeAttr('selected')
-                        $("#MainContent_ddlAgendaSubItems").append($("<option selected='selected'></option>").val(item_id).html(itemText));
-                        //$('select#MainContent_ddlAgendaSubItems').html("").attr('disabled', 'disabled');
-                    }
-                    else
-                    { alert("عفواً ... هذا البند تم تسجيله من قبل ") }
-                },
-                error: function () {
-
                 }
             });
+
+            if (isDuplicate == true)
+                return;
+            else {
+                jQuery.ajax({
+                    cache: false,
+                    type: 'post',
+                    url: 'EditSessionHandler.ashx',
+                    data: {
+                        funcname: 'AddAgendaItem',
+                        agendaitemtext: itemText,
+                        sid: sessionID
+                    },
+                    dataType: 'json',
+                    success: function(item_id) {
+                        if (item_id != 0) {
+
+                            $("#MainContent_ddlAgendaSubItems").removeAttr('disabled');
+                            $('#smallwindow').hide();
+                            $("#MainContent_ddlAgendaSubItems > option:selected").removeAttr('selected')
+                            $("#MainContent_ddlAgendaSubItems").append($("<option selected='selected'></option>").val(item_id).html(itemText));
+                            //$('select#MainContent_ddlAgendaSubItems').html("").attr('disabled', 'disabled');
+                        } else {
+                            alert("عفواً ... هذا البند تم تسجيله من قبل ")
+                        }
+                    },
+                    error: function() {
+
+                    }
+                });
             }
         }
     });
     // add new job & edit button
-    $('#addnewjobbutton').click(function (e) {
+    $('#addnewjobbutton').click(function(e) {
         if ($("#editSessionFile").valid()) {
             $('#newjobtitle').attr('class', 'done')
-            // insert text
+                // insert text
             var value = $('input[name=addnewjobtext]').val();
             $('#newjobtitle .donemode strong').html(value)
-            // send the value
+                // send the value
         }
         e.preventDefault()
     })
-    $('#editnewjobbutton').click(function (e) {
-        $('#newjobtitle').attr('class', 'edit')
-        e.preventDefault()
-    })
-    // tinymce
+    $('#editnewjobbutton').click(function(e) {
+            $('#newjobtitle').attr('class', 'edit')
+            e.preventDefault()
+        })
+        // tinymce
     $('textarea.tinymce').tinymce({
-        custom_undo_redo : false,
+        custom_undo_redo: false,
         // Location of TinyMCE script
         script_url: 'scripts/tiny_mce/tiny_mce.js',
         // General options
@@ -878,7 +849,7 @@ $(document).ready(function () {
         force_br_newlines: true,
         force_p_newlines: false,
         forced_root_block: '',
-        setup: function (ed) {
+        setup: function(ed) {
             // function to make the span editable
             function editableSpan(ed, e) {
                 if (e) {
@@ -890,22 +861,22 @@ $(document).ready(function () {
                         $(e).addClass('editable');
                         // time from the span
                         var time = Math.floor($(e).attr('data-stime'))
-                        // seek
+                            // seek
                         $("#jquery_jplayer_1").jPlayer("pause", time);
                     }
                 }
             }
             // click on text tinyMCE editor
-            ed.onMouseUp.add(function (ed, e) {
+            ed.onMouseUp.add(function(ed, e) {
                 editableSpan(ed, e.target)
             });
             // oninit
-            ed.onInit.add(function (ed) {
+            ed.onInit.add(function(ed) {
                 var AudioPlayer = $("#jquery_jplayer_1");
                 // all span segments
                 var all_spans_segments = $('span.segment', ed.contentDocument);
                 // hover effect
-                all_spans_segments.live("mouseover mouseout", function (event) {
+                all_spans_segments.live("mouseover mouseout", function(event) {
                     if (event.type == "mouseover") {
                         // remove all classes
                         $(this).toggleClass('hover');
@@ -922,7 +893,7 @@ $(document).ready(function () {
                 });*/
                 AudioPlayer.jPlayer({
                     swfPath: "/scripts/jPlayer/",
-                    wmode:"window",
+                    wmode: "window",
                     solution: 'html, flash',
                     supplied: "mp3",
                     preload: 'metadata',
@@ -930,35 +901,35 @@ $(document).ready(function () {
                     cssSelectorAncestor: '#jp_container_1',
                     errorAlerts: false,
                     warningAlerts: false,
-                    ready: function () {
+                    ready: function() {
                         // get start and end time in hidden fields
                         var firstTime = Math.floor(startTime.val())
-                        // play the jplayer
+                            // play the jplayer
                         $(this).jPlayer("setMedia", {
                             mp3: $(".MP3FilePath").val() // mp3 file path
                         }).jPlayer("play", firstTime);
                         // next x seconds button
-                        $('.jp-audio .next-jp-xseconds').click(function(e){
-                            AudioPlayer.jPlayer("play",playertime + 5)
-                        })
-                        // prev x seconds button
-                        $('.jp-audio .prev-jp-xseconds').click(function(e){
-                            AudioPlayer.jPlayer("play",playertime - 5)
+                        $('.jp-audio .next-jp-xseconds').click(function(e) {
+                                AudioPlayer.jPlayer("play", playertime + 5)
+                            })
+                            // prev x seconds button
+                        $('.jp-audio .prev-jp-xseconds').click(function(e) {
+                            AudioPlayer.jPlayer("play", playertime - 5)
                         })
                     },
-                    timeupdate: function (event) {
+                    timeupdate: function(event) {
                         if (!$(this).data("jPlayer").status.paused) {
                             // all span segments
                             var all_spans_segments = $('span.segment', ed.contentDocument);
                             firstTime = Math.floor(startTime.val())
-                            var lastTime = Math.floor($('span.segment:last',ed.contentDocument).attr('data-stime'))//endTime.val() from hidden field
-                            // remove all classes
+                            var lastTime = Math.floor($('span.segment:last', ed.contentDocument).attr('data-stime')) //endTime.val() from hidden field
+                                // remove all classes
                             all_spans_segments.removeClass('highlight editable');
                             // highlight the word by time
                             playertime = event.jPlayer.status.currentTime;
                             if (Math.round(playertime) > lastTime && !AudioPlayer.hasClass('playerStoppedBefore')) {
-                                AudioPlayer.addClass('playerStoppedBefore').jPlayer('pause',firstTime);
-                            } else if(Math.floor(playertime) < firstTime){
+                                AudioPlayer.addClass('playerStoppedBefore').jPlayer('pause', firstTime);
+                            } else if (Math.floor(playertime) < firstTime) {
                                 //$(this).jPlayer('play',Math.round(startTime.val()));
                             } else {
                                 //
@@ -968,7 +939,7 @@ $(document).ready(function () {
                                 // highlight the span
                                 var highlight = all_spans_segments.filter('span.segment[data-stime^=' + playerfixedTimeToArray[0] + '\\.]');
                                 if (highlight.length > 1) {
-                                    highlight = highlight.filter(function () {
+                                    highlight = highlight.filter(function() {
                                         // get the nearest span
                                         var spanTime = $(this).attr('data-stime')
                                         var spanTimeToArray = spanTime.split('.');
@@ -982,8 +953,8 @@ $(document).ready(function () {
                                 // highlight
                                 highlight.addClass('highlight')
                             }
-                            if($.browser.msie && $.browser.version == '9.0'){
-                                if (Math.round(playertime) > lastTime || Math.floor(playertime) < firstTime){
+                            if ($.browser.msie && $.browser.version == '9.0') {
+                                if (Math.round(playertime) > lastTime || Math.floor(playertime) < firstTime) {
                                     AudioPlayer.jPlayer('stop')
                                 }
                             }
@@ -991,50 +962,50 @@ $(document).ready(function () {
                     }
                 });
                 // jplayer shorcuts
-                $(document).add(ed.dom.doc.body).bind('keydown',function(e){
-                     var k = e.keyCode;
-                     if($(e.target).find(':input,select').length){ // not input
-                         if(k == 88 || k== 67 || k == 86 || k == 66){
+                $(document).add(ed.dom.doc.body).bind('keydown', function(e) {
+                    var k = e.keyCode;
+                    if ($(e.target).find(':input,select').length) { // not input
+                        if (k == 88 || k == 67 || k == 86 || k == 66) {
                             e.preventDefault();
                             return;
-                         }
-                     }
-                     if(k == 116){
+                        }
+                    }
+                    if (k == 116) {
                         window.location.href = window.location.href;
-                     }
-                }).bind('keydown', 'alt+z',function(){
+                    }
+                }).bind('keydown', 'alt+z', function() {
                     // previous page
                     $(".btn.prev").trigger('click')
-                }).bind('keydown', 'alt+w',function(){
+                }).bind('keydown', 'alt+w', function() {
                     // play & pause player
                     if (AudioPlayer.data("jPlayer").status.paused) {
                         AudioPlayer.jPlayer("play");
                     } else {
                         AudioPlayer.jPlayer("pause");
                     }
-                }).bind('keydown', 'alt+q',function(){
+                }).bind('keydown', 'alt+q', function() {
                     // stop player
                     AudioPlayer.jPlayer("stop");
-                }).bind('keydown', 'alt+x',function(){
+                }).bind('keydown', 'alt+x', function() {
                     // next page
                     $(".btn.next").trigger('click')
-                }).bind('keydown', 'alt+5',function(){
+                }).bind('keydown', 'alt+5', function() {
                     // next x seconds
                     $('.jp-audio .next-jp-xseconds').trigger('click')
-                }).bind('keydown', 'alt+4',function(){
+                }).bind('keydown', 'alt+4', function() {
                     // prev x seconds
                     $('.jp-audio .prev-jp-xseconds').trigger('click')
-                }).bind('keydown', 'ctrl+x',function(){
+                }).bind('keydown', 'ctrl+x', function() {
                     // split key
                     $(".split").trigger('click')
                 })
-           });
+            });
         }
     });
 
     // tinymce for the popup window
-    $('#MainContent_Textarea1').tinymce({
-        custom_undo_redo : false,
+    var defaultOptions = {
+        custom_undo_redo: false,
         // Location of TinyMCE script
         script_url: 'scripts/tiny_mce/tiny_mce.js',
         // General options
@@ -1067,5 +1038,131 @@ $(document).ready(function () {
         force_br_newlines: true,
         force_p_newlines: false,
         forced_root_block: ''
+    };
+    $('#MainContent_Textarea1, #MainContent_Textarea2').tinymce(defaultOptions);
+    // change the default options
+    defaultOptions.height = 120;
+    $('#MainContent_Textarea3').tinymce(defaultOptions);
+
+    // ajax load the dropdown list
+    jQuery.ajax({
+        cache: false,
+        type: 'get',
+        url: 'ProcedureHandler.ashx',
+        data: {
+            funcname: 'GetProcedureTypes'
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response != '') {
+                // vars
+                var MainContent_DropDownList1 = $('#MainContent_DropDownList1');
+                var MainContent_DropDownList2 = $('#MainContent_DropDownList2');
+                // loop to create the options
+                for(var i=0;i<response.length;i++){
+                    var option = response[i];
+                    // create the option in the dropdown list
+                    MainContent_DropDownList1.append($('<option></option>').attr('value',option.ID).text(option.ProcedureType));
+                }
+                // first list
+                MainContent_DropDownList1.change(function(){
+                   if(MainContent_DropDownList1.val() != 0){
+                        // reset
+                        MainContent_DropDownList2.find('option:not(:eq(0))').remove();
+                        // vars
+                        var selectOptionIndex = $('option:selected',MainContent_DropDownList1).index() - 1;
+                        var newDropDownListValues = response[selectOptionIndex];
+                        var newDropDownListValuesLength = newDropDownListValues.SessionProcedureObj.length;
+                        // loop to create the options
+                        for(var i=0;i<newDropDownListValuesLength;i++){
+                            var option = newDropDownListValues.SessionProcedureObj[i];
+                            // create the option in the dropdown list
+                            MainContent_DropDownList2.append($('<option></option>').attr('value',option.ID).text(option.ProcedureTitle));
+                        }
+                   }
+                });
+                // second list
+                MainContent_DropDownList2.change(function(){
+                    if(MainContent_DropDownList2.val() != 0){
+                        // vars
+                        var OldtextareaValue = $("textarea.splittinymce",'.reviewpopup_cont2').val();
+                        var selectedOption = $('option:selected',MainContent_DropDownList2);
+                        var addingParText =  selectedOption.text();
+                        var clone = $('<span>').before('</br>').append(addingParText).attr('procedure-id',MainContent_DropDownList2.val());
+                        clone = clone.wrapAll('<div>');
+                        // change the html
+                        $("textarea.splittinymce",'.reviewpopup_cont2').append(clone.parent().html());
+                        // reset
+                        MainContent_DropDownList2.val(0)
+                    }
+                });
+            }
+        },
+        error: function() {
+
+        }
+    });
+    // add procuder button
+    $(".btnAddProcuder").click(function(e) {
+        var htmlContent = $('#MainContent_elm1').val();
+        var clone = $('<div>').append(htmlContent)
+        clone.find('span').removeClass('highlight editable hover');
+        $("textarea.splittinymce",'.reviewpopup_cont2').val(clone.html());
+        // show the popup
+        $(".popupoverlay").show();
+        $(".reviewpopup_cont2").show();
+        e.preventDefault();
+    });
+    // add procuder yes button
+    $(".approve2").click(function(e) {
+        // bind the new value
+        $('#MainContent_elm1').val($("textarea.splittinymce",'.reviewpopup_cont2').val());
+        // close the popup
+        $(".popupoverlay").hide();
+        $(".reviewpopup_cont2").hide();
+        e.preventDefault();
+    });
+    // add new agenda button
+    $(".addingNewAgendaItem").click(function(e) {
+        // show the popup
+        $(".popupoverlay").show();
+        $(".reviewpopup_cont3").show();
+        e.preventDefault();
+    });
+    // add new agenda yes button
+    $(".approve3").click(function(e) {
+        // vars
+        var checked = $('.isAgendaItemIndexed','.reviewpopup_cont3').is('checked');
+        var htmlData = $("textarea.splittinymce",'.reviewpopup_cont3').val();
+        checked = (checked) ? 1 : 0;
+        if(htmlData != ''){
+            // ajax load
+            jQuery.ajax({
+                cache: false,
+                type: 'post',
+                url: 'EditSessionHandler.ashx',
+                data: {
+                    funcname: 'AddAgendaItem',
+                    agendaitemtext: encodeURIComponent(htmlData),
+                    sid: $(".sessionID").val(),
+                    isindexed: checked,
+                    c: $(".hdSessionContentItemID").val()
+                },
+                dataType: 'json',
+                success: function(response) {
+                    // save the id
+                    $('.agendaItemId').val(response);
+                    // close the popup
+                    $(".popupoverlay").hide();
+                    $(".reviewpopup_cont3").hide();
+                    // repalce the button with the content
+                    $(".addingNewAgendaItem").hide();
+                    $('.agendaItemTxt').html(htmlData);
+                },
+                error: function() {
+                }
+            });
+        }
+        e.preventDefault();
     });
 });

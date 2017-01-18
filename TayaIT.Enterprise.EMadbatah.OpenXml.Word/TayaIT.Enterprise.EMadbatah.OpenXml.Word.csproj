@@ -70,6 +70,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="HTMLtoDOCX.cs" />
     <Compile Include="HtmlToOpenXml.cs" />
+    <Compile Include="HtmlToText.cs" />
     <Compile Include="ImageWriter.cs" />
     <Compile Include="PdfMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

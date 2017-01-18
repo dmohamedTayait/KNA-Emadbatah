@@ -27,6 +27,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         private StyleDefinitionsPart _docStylePart;
         private DocumentSettingsPart _docSettingsPart;
         private FooterPart _docFooterPart;
+        private HeaderPart _docHeaderPart;
         private ThemePart _themePart;
         private WebSettingsPart _webSettingsPart;
         private ExtendedFilePropertiesPart _extendedFilePropertiesPart;
@@ -129,6 +130,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             xmlFilesPaths.FilePropPartPath = resfolderpath + "app.xml";
             xmlFilesPaths.FontTablePart = resfolderpath + "fontTable.xml";
             xmlFilesPaths.FooterPartPath = resfolderpath + "footer1.xml";
+            xmlFilesPaths.HeaderPartPath = resfolderpath + "header.xml";
             xmlFilesPaths.FootnotesPart = resfolderpath + "footnotes.xml";
             xmlFilesPaths.NumberingDefinitionsPartPath = resfolderpath + "numbering.xml";
             xmlFilesPaths.SettingsPartPath = resfolderpath + "settings.xml";
@@ -250,6 +252,18 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 using (StreamWriter ts = new StreamWriter(outputStream))
                 {
                     ts.Write(footerPartXml.InnerXml);
+                }
+            }
+
+
+            XmlDocument headerPartXml = new XmlDocument();
+            headerPartXml.Load(_docXmlParts.HeaderPartPath);
+            _docHeaderPart = _docMainPart.AddNewPart<HeaderPart>("rId2");
+            using (Stream outputStream = _docHeaderPart.GetStream())
+            {
+                using (StreamWriter ts = new StreamWriter(outputStream))
+                {
+                    ts.Write(headerPartXml.InnerXml);
                 }
             }
 
@@ -515,6 +529,24 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     */
 
                     break;
+                case ParagraphStyle.UnderLineParagraphTitle:
+                    RunProperties runUnderlineParagraphTitleTextProp = new RunProperties();
+                    RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+                    Bold Underlinebold = new Bold();
+                    Underline underline = new Underline() { Val = DocumentFormat.OpenXml.Wordprocessing.UnderlineValues.Single };
+                    BoldComplexScript boldUnderlineComplexScript = new BoldComplexScript();
+                    FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "28" };
+                    FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
+                    RightToLeftText rtlUnderlineTextParagraphTitle = new RightToLeftText();
+                    runUnderlineParagraphTitleTextProp.Append(runUnderlineParagraphTitleTextFonts);
+                    runUnderlineParagraphTitleTextProp.Append(Underlinebold);
+                    runUnderlineParagraphTitleTextProp.Append(underline);
+                    runUnderlineParagraphTitleTextProp.Append(boldUnderlineComplexScript);
+                    runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleTextSize);
+                    runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleComplexScriptSize);
+                    runUnderlineParagraphTitleTextProp.Append(rtlUnderlineTextParagraphTitle);
+                    run.Append(runUnderlineParagraphTitleTextProp);
+                    break;
                 case ParagraphStyle.NormalArabic:
                     RunProperties runNormalTextProp = new RunProperties();
                     RunFonts runNormalTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
@@ -773,6 +805,34 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
 
 
+
+                // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
+                RunProperties runUnderlineParagraphTitleTextProp = new RunProperties();
+                RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+                Bold Underlinebold = new Bold();
+                Underline underline = new Underline() { Val = DocumentFormat.OpenXml.Wordprocessing.UnderlineValues.Single };
+                BoldComplexScript UnderlineboldComplexScript = new BoldComplexScript();
+                FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "28" };
+                FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
+                RightToLeftText UnderlinertlTextParagraphTitle = new RightToLeftText();
+                runUnderlineParagraphTitleTextProp.Append(runUnderlineParagraphTitleTextFonts);
+                runUnderlineParagraphTitleTextProp.Append(Underlinebold);
+                runUnderlineParagraphTitleTextProp.Append(underline);
+                runUnderlineParagraphTitleTextProp.Append(UnderlineboldComplexScript);
+                runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleTextSize);
+                runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleComplexScriptSize);
+                runUnderlineParagraphTitleTextProp.Append(UnderlinertlTextParagraphTitle);
+                //runParagraphTitleTextProp.Append(languages);
+                //runParagraphTitleText.Append(runParagraphTitleTextProp);
+                Style styleUnderlineParagraphTitle = new Style();
+                styleUnderlineParagraphTitle.StyleId = "UnderLineParagraphTitle";
+                styleUnderlineParagraphTitle.Append(new Name() { Val = "Taya Madbatah UnderLine Paragraph Title Text" });
+                styleUnderlineParagraphTitle.Append(new BasedOn() { Val = "Normal" });
+                styleUnderlineParagraphTitle.Append(new NextParagraphStyle() { Val = "Normal" });
+                styleUnderlineParagraphTitle.Append(runUnderlineParagraphTitleTextProp);
+
+
+
                 // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
                 RunProperties runParagraphItalicTextProp = new RunProperties();
                 RunFonts runParagraphItalicTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
@@ -868,6 +928,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 _docStylePart.Styles = new Styles();
                 _docStylePart.Styles.Append(styleNormalText);
                 _docStylePart.Styles.Append(styleParagraphTitle);
+                _docStylePart.Styles.Append(styleUnderlineParagraphTitle);
                 _docStylePart.Styles.Append(styleParagraphTitleItalic);
                 _docStylePart.Styles.Append(styleParagraphTitleBoldItalic);
                 //_docStylePart.Styles.Append(styleFootNoteRef);

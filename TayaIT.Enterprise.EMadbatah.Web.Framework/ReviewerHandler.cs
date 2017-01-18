@@ -111,7 +111,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 DAL.SessionContentItem curContItem = DAL.SessionContentItemHelper.GetSessionContentItemById(sessionContentItemId);
                                 long unknownAgendaItemID = DAL.AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", sessionId).ID;
 
-                                if (curContItem.AttendantID == (int)Model.AttendantType.UnKnown || curContItem.AgendaItemID == unknownAgendaItemID)
+                                if (curContItem.AttendantID == (int)Model.AttendantType.UnKnown)//|| curContItem.AgendaItemID == unknownAgendaItemID
                                 {
                                     jsonStringOut = SerializeObjectInJSON(-2);
                                     break;

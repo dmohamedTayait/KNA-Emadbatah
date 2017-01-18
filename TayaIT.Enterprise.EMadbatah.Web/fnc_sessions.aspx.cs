@@ -12,17 +12,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           // DateTime tt = new DateTime();
-           // tt.AddSeconds(100);
+            // DateTime tt = new DateTime();
+            // tt.AddSeconds(100);
 
-          //  DateTime segStartTime = new DateTime();
-     //
+            //  DateTime segStartTime = new DateTime();
+            //
             //        segStartTime = sessionStartTime.AddSeconds(prevTiming).AddSeconds((double)item.StartTime);
-               
 
-
-           Eparliment ep = new Eparliment();
-            bool result = ep.IngestContentsForFinalApprove(long.Parse(SessionID));
         }
     }
 }

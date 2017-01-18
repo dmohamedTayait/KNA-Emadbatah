@@ -87,6 +87,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
             return output;
         }
+        public string agendaItemTxt = "";
         private void BindData()
         {
             string html; // editor rendered HTML text
@@ -179,11 +180,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             //bind Speakers Drop Down List
             ListItem li;
-            //ddlSpeakers.DataSource = current_session.Attendants;
-            //ddlSpeakers.DataValueField = "ID"; 
-            //ddlSpeakers.DataTextField = "Name";
-            //ddlSpeakers.DataBind();
-            foreach (Attendant item in current_session.Attendants)
+       
+            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag))
             {
                 ListItem liAttendant = new ListItem(BLL.MabatahCreatorFacade.GetAttendantTitle(item, current_session.ID), item.ID.ToString());
                 ddlSpeakers.Items.Add(liAttendant);
@@ -192,13 +190,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             li = new ListItem("-------- اختر المتحدث --------", "0");
             ddlSpeakers.Items.Insert(0, li);
 
-            //bind Agenda Items Drop Down List
-            //ddlAgendaItems.DataSource = current_session.AgendaItems;
-            //ddlAgendaItems.DataValueField = "ID";
-            //ddlAgendaItems.DataTextField = "Name";
-            //ddlAgendaItems.DataBind();
-
-            foreach (AgendaItem item in current_session.AgendaItems)
+           foreach (AgendaItem item in current_session.AgendaItems)
             {
                 ListItem liAgenda = new ListItem(item.Name, item.ID.ToString());
                 liAgenda.Attributes["IsGroupSubAgendaItems"] = item.IsGroupSubAgendaItems.ToString().ToLower();
@@ -210,8 +202,20 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             if (lastContentItem != null)
             {
-                ddlAgendaItems.SelectedValue = lastContentItem.AgendaItemID.ToString();
-                
+                //ddlAgendaItems.SelectedValue = lastContentItem.AgendaItemID.ToString();
+
+
+                if (lastContentItem.AgendaItemID != null)
+                {
+                    // btn_addNewAgendaItem.Style.Add("display", "none");
+                    agendaItemTxt = lastContentItem.AgendaItem.Name;
+                    agendaItemId.Value = lastContentItem.AgendaItem.ID.ToString();
+                }
+                else
+                {
+                    agendaItemId.Value = lastContentItem.AgendaItem.ID.ToString();
+                    btn_addNewAgendaItem.Style.Add("display", "");
+                }
                 //check for subitems
 
 
@@ -229,7 +233,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 else
                     chkGroupSubAgendaItems.Attributes.Remove("checked");
 
-                if(lastContentItem.MergedWithPrevious == null || lastContentItem.MergedWithPrevious == false)
+                if (lastContentItem.MergedWithPrevious == null || lastContentItem.MergedWithPrevious == false)
                     sameAsPrevSpeaker.Attributes.Remove("checked");
                 else
                     sameAsPrevSpeaker.Attributes.Add("checked", "checked");
@@ -251,6 +255,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 }
                 else
                     ddlAgendaSubItems.Enabled = false;
+            }
+            else
+            {
+                AgendaItem sessionUnknownItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", current_session.ID);
+                agendaItemTxt = sessionUnknownItem.Name;
+                agendaItemId.Value = sessionUnknownItem.ID.ToString();
             }
 
 

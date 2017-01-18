@@ -74,7 +74,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         break;
                     case WebFunctions.SessionsFunctions.GetAllSessions:
                         break;
-                    case WebFunctions.SessionsFunctions.UpdateSessionInfo:
+                   /* case WebFunctions.SessionsFunctions.UpdateSessionInfo:
                         if (SessionID != null && long.TryParse(SessionID, out sessionID))
                         {
                             Eparliment ep = new Eparliment();
@@ -83,7 +83,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             
                    
                         }
-                        break;
+                        break;*/
                     case WebFunctions.SessionsFunctions.CreateNewSession:
 
                         break;
@@ -148,12 +148,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                     string originalName = curAgendaItem.Name;
                                     writtenAgendaItems.Add(curAgendaItem.Name);
 
-                                    index.Add(new MadbatahIndexItem(curAgendaItem.ID, originalName, 0+"", true, "", "", curAgendaItem.IsCustom, curAgendaItem.IsGroupSubAgendaItems) { ID = curAgendaItem.ID });
+                                    index.Add(new MadbatahIndexItem(curAgendaItem.ID, originalName, 0+"", true, "", "", curAgendaItem.IsCustom,int.Parse(curAgendaItem.IsIndexed.ToString()),curAgendaItem.IsGroupSubAgendaItems) { ID = curAgendaItem.ID });
                                 }
 
                                 if (curAgendaSubItem != null)
                                 {
-                                    index.Add(new MadbatahIndexItem(curAgendaSubItem.ID, curAgendaSubItem.Name, 0+"", false, curAgendaSubItem.QFrom, curAgendaSubItem.QTo, curAgendaSubItem.IsCustom,  curAgendaItem.IsGroupSubAgendaItems) { ID = curAgendaSubItem.ID });
+                                    index.Add(new MadbatahIndexItem(curAgendaSubItem.ID, curAgendaSubItem.Name, 0+"", false, curAgendaSubItem.QFrom, curAgendaSubItem.QTo, curAgendaSubItem.IsCustom,0,  curAgendaItem.IsGroupSubAgendaItems) { ID = curAgendaSubItem.ID });
                                 }
                             }
                             jsonStringOut = SerializeObjectInJSON(index);

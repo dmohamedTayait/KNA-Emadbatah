@@ -3,6 +3,7 @@
     public enum ParagraphStyle
     {        
         ParagraphTitle,
+        UnderLineParagraphTitle,
         NormalArabic,
         SeparatorMark,
         ParagraphItalic,

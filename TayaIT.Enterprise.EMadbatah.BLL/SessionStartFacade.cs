@@ -20,7 +20,49 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
         public static string madbatahIntro = "<p style=\"text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\"><strong>عقد المجلس الوطني الاتحادي </strong> %sessionNum%في دور انعقاده ال%sessionType% %sessionStage% من الفصل التشريعي %sessionSeason% ، وذلك في تمام الساعة %sessionTime% يوم %HijriDate% الموافق %GeorgianDate% برئاسة معالي / %sessionPresident% – رئيس المجلس .</p>";
 
+        public static List<List<Attendant>> GetSessionAttendantOrderedByStatus(long sessionID, int sessionAttendantType)
+        {
+            List<Attendant> sessionAttendants = new List<Attendant>();
+            List<Attendant> attendants = new List<Attendant>();
+            List<Attendant> attendantsWithinSession = new List<Attendant>();
+            List<Attendant> absenceAttendants = new List<Attendant>();
+            List<Attendant> abologyAttendants = new List<Attendant>();
+            List<Attendant> inMissionAttendants = new List<Attendant>();
+            List<List<Attendant>> allAttendants = new List<List<Attendant>>();
 
+            sessionAttendants = AttendantHelper.GetAttendantInSession(sessionID, sessionAttendantType);
+
+        
+            foreach (Attendant attendant in sessionAttendants)
+            {
+                switch ((Model.AttendantState)attendant.State)
+                {
+                    case Model.AttendantState.Apology:
+                        abologyAttendants.Add(attendant);
+                        break;
+                    case Model.AttendantState.Absent:
+                        absenceAttendants.Add(attendant);
+                        break;
+                    case Model.AttendantState.Attended:
+                        attendants.Add(attendant);
+                        break;
+                    case Model.AttendantState.InMission:
+                        inMissionAttendants.Add(attendant);
+                        break;
+                    case Model.AttendantState.AttendWithinSession:
+                        attendantsWithinSession.Add(attendant);
+                        break;
+                }
+            }
+            allAttendants.Add(attendants); //بحضور السادة الاعضاء
+            allAttendants.Add(attendantsWithinSession); // حضر أثناء الجلسة
+            allAttendants.Add(abologyAttendants);//الغائبون بعذر
+            allAttendants.Add(abologyAttendants);// الغائبون بدون عذر
+            allAttendants.Add(inMissionAttendants);//مهمة
+
+
+            return allAttendants;
+        }
         public static SessionDetails GetSessionDetails(long sessionID)
         {
             return EMadbatahFacade.GetSessionDetailsBySessionID(sessionID);

@@ -46,6 +46,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_Committee", "Committee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Committee), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionContentItem_Attachement", "Attachement", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attachement), "SessionContentItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionContentItem), true)]
 
 #endregion
 
@@ -760,6 +761,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.Boolean _IsGroupSubAgendaItems;
         partial void OnIsGroupSubAgendaItemsChanging(global::System.Boolean value);
         partial void OnIsGroupSubAgendaItemsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> IsIndexed
+        {
+            get
+            {
+                return _IsIndexed;
+            }
+            set
+            {
+                OnIsIndexedChanging(value);
+                ReportPropertyChanging("IsIndexed");
+                _IsIndexed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsIndexed");
+                OnIsIndexedChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _IsIndexed;
+        partial void OnIsIndexedChanging(Nullable<global::System.Int32> value);
+        partial void OnIsIndexedChanged();
 
         #endregion
     
@@ -1335,6 +1360,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Session>("EMadbatahModel.FK_Attachement_Session", "Session", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionContentItem_Attachement", "SessionContentItem")]
+        public EntityCollection<SessionContentItem> SessionContentItems
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SessionContentItem>("EMadbatahModel.FK_SessionContentItem_Attachement", "SessionContentItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionContentItem>("EMadbatahModel.FK_SessionContentItem_Attachement", "SessionContentItem", value);
                 }
             }
         }
@@ -4472,6 +4519,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int64> _FileReviewerID;
         partial void OnFileReviewerIDChanging(Nullable<global::System.Int64> value);
         partial void OnFileReviewerIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AttachementID
+        {
+            get
+            {
+                return _AttachementID;
+            }
+            set
+            {
+                OnAttachementIDChanging(value);
+                ReportPropertyChanging("AttachementID");
+                _AttachementID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AttachementID");
+                OnAttachementIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AttachementID;
+        partial void OnAttachementIDChanging(Nullable<global::System.Int64> value);
+        partial void OnAttachementIDChanged();
 
         #endregion
     
@@ -4815,6 +4886,44 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("EMadbatahModel.FK_SessionContentItem_FileReviewer", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionContentItem_Attachement", "Attachement")]
+        public Attachement Attachement
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attachement>("EMadbatahModel.FK_SessionContentItem_Attachement", "Attachement").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attachement>("EMadbatahModel.FK_SessionContentItem_Attachement", "Attachement").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Attachement> AttachementReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attachement>("EMadbatahModel.FK_SessionContentItem_Attachement", "Attachement");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Attachement>("EMadbatahModel.FK_SessionContentItem_Attachement", "Attachement", value);
                 }
             }
         }

@@ -20,7 +20,7 @@ namespace TayaIT.Enterprise.EMadbatah.Util
             string cleaned = Regex.Replace(htmlString, "<script.*?</script>", "", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             cleaned = Regex.Replace(cleaned, "<!--.*?-->", String.Empty, RegexOptions.Singleline);
 
-
+           // string[] sttt = Regex.Split(htmlString, pattern);
             cleaned = Regex.Replace(cleaned, pattern, string.Empty);
 
 

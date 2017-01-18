@@ -31,8 +31,8 @@
         {
             Context.Response.Redirect("~/Error.aspx");
         }
-    //if (CurrentUser.ID == file.UserID || file.UserID == null
-    //            || ((CurrentUser.Role != UserRole.DataEntry) && (current_session.ReviewerID == CurrentUser.ID)))
+        //if (CurrentUser.ID == file.UserID || file.UserID == null
+        //            || ((CurrentUser.Role != UserRole.DataEntry) && (current_session.ReviewerID == CurrentUser.ID)))
             
     %>
     <form id="editSessionFileForm" runat="server">
@@ -44,6 +44,7 @@
     <input type="hidden" id="startTime" runat="server" value="" class="hdstartTime" />
     <input type="hidden" id="endTime" runat="server" value="" class="hdendTime" />
     <input type="hidden" id="currentOrder" runat="server" value="" class="hdcurrentOrder" />
+    <input type="hidden" name="agendaItemId" id="agendaItemId" value="" runat="server" class="agendaItemId" />
     <div id="editSessionFile" class="grid_22 prefix_1 suffix_1">
         <div class="borderBD row">
             <div class="fr">
@@ -62,6 +63,14 @@
         </div>
         <div class="row">
             <div class="row">
+                <div class="grid_22">
+                   <h2>البند: </h2> <p class="agendaItemTxt"><%= agendaItemTxt%></p>
+                    <br />
+                    <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn addingNewAgendaItem" value="اضافة بند جديد" />
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!--<div class="row">
                 <div class="grid_3">
                     <span class="red">*</span> البند:
                 </div>
@@ -70,18 +79,12 @@
                         <asp:DropDownList ID="ddlAgendaItems" AutoPostBack="false" runat="server">
                         </asp:DropDownList>
                     </div>
-
-
-
                     <div>
-                        <input type="checkbox" class="chkGroupSubAgendaItems" id="chkGroupSubAgendaItems" runat="server" />
-                        <label>دمج البنود الفرعية</label>
+                        <input type="checkbox" class="chkGroupSubAgendaItems" id="chkGroupSubAgendaItems"
+                            runat="server" />
+                        <label>
+                            دمج البنود الفرعية</label>
                     </div>
-
-
-
-
-
                 </div>
                 <div class="grid_3 prefix_1">
                     البند الفرعى:</div>
@@ -90,7 +93,7 @@
                         <asp:DropDownList ID="ddlAgendaSubItems" AutoPostBack="false" runat="server">
                         </asp:DropDownList>
                     </div>
-                                        <div>
+                    <div>
                         <input name="" type="checkbox" id="specialBranch" value="" />
                         <label for="specialBranch">
                             بند استثنائى</label>
@@ -112,7 +115,7 @@
                 </div>
                 <div class="clear">
                 </div>
-            </div>
+            </div>-->
             <div class="row">
                 <div class="grid_3">
                     <span class="red">*</span> المتحدث:
@@ -203,30 +206,30 @@
                     &nbsp;&nbsp;
                     <input name="" runat="server" disabled="disabled" id="btnPrev" type="button" class="btn prev"
                         value="السابق" />
-                        &nbsp;&nbsp;
-                       
-<%--                        <input name="" runat="server" disabled="disabled" id="Button1" type="button" class="btn"
+                    &nbsp;&nbsp;
+                    <%--                        <input name="" runat="server" disabled="disabled" id="Button1" type="button" class="btn"
                         value="تجاهل" />--%>
-                                               <input name="chkIgnoredSegment" id="chkIgnoredSegment" runat="server" class="chkIgnoredSegment" type="checkbox"
-                            value="" />
-                        <label for="chkIgnoredSegment">تجاهل هذا المقطع</label>
-
-
+                    <input name="chkIgnoredSegment" id="chkIgnoredSegment" runat="server" class="chkIgnoredSegment"
+                        type="checkbox" value="" />
+                    <label for="chkIgnoredSegment">
+                        تجاهل هذا المقطع</label>
                 </div>
                 <div class="fr prefix_3">
                     <input name="" runat="server" disabled="disabled" id="btnFinish" type="button" class="btn finish"
                         value="انهاء" />
                 </div>
                 <div class="fl">
-                    
-                    <input name="" id="btnSplit" runat="server" type="button" class="btn split"
-                        value="اقطع" />
-                        &nbsp;&nbsp;
+                    <input name="" id="btnSplit" runat="server" type="button" class="btn split" value="اقطع" />
+                    &nbsp;&nbsp;
                     <input name="" type="button" id="btnSaveAndExit" class="btn" value="حفظ و خروج" />
                     &nbsp;&nbsp;
                     <input name="" type="button" id="various1" data-div="#inline1" class="btn" value="عودة للنص الأصلى" />
                     &nbsp;&nbsp;
-                    <input id="Button1" class ="btn " type="button"  value="خطأ" onclick="return Button1_onclick()" />
+                    <input id="Button1" class="btn " type="button" value="خطأ" onclick="return Button1_onclick()" />
+                </div>
+                <div>
+                    <input name="" runat="server" id="btnAddProcuder" type="button" class="btn finish btnAddProcuder"
+                        value="اضافة اجراء" />
                 </div>
                 <div class="clear">
                 </div>
@@ -248,20 +251,88 @@
             </div>
         </div>
         <div class="popupoverlay">
-                    </div>
-        <div class="reviewpopup_cont graybg">
+        </div>
+        <div class="reviewpopup_cont reviewpopup_cont1 graybg">
             <div class="close_btn">
             </div>
             <div class="clear">
             </div>
             <div class="datacontainer inputcont">
-                 <textarea id="Textarea1" runat="server" name="elm1" rows="3" style="width: 100%" class="splittinymce"></textarea>
+                <textarea id="Textarea1" runat="server" name="elm1" rows="3" style="width: 100%"
+                    class="splittinymce"></textarea>
             </div>
             <div class="poppbtnscont fl">
                 <div class="fl">
-                    <div class="fl">
-                        <input type="button" id="approve" class="approve" value="موافق" />
+                    <input type="button" id="approve" class="approve1" value="موافق" />
+                    <div class="clear">
                     </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="reviewpopup_cont reviewpopup_cont2 graybg">
+            <div class="close_btn">
+            </div>
+            <div class="clear">
+            </div>
+            <div class="row">
+                <div class="grid_3">
+                    الاجراءات:
+                </div>
+                <div class="grid_7">
+                    <asp:DropDownList ID="DropDownList1" AutoPostBack="false" runat="server">
+                        <asp:ListItem Text="-------- اختر الاجراء --------" Value="0"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="row">
+                <div class="grid_3">
+                    &nbsp;
+                </div>
+                <div class="grid_7">
+                    <asp:DropDownList ID="DropDownList2" AutoPostBack="false" runat="server">
+                        <asp:ListItem Text="-------- اختر --------" Value="0"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="datacontainer inputcont">
+                <textarea id="Textarea2" runat="server" name="elm1" rows="3" style="width: 100%" class="splittinymce"></textarea>
+            </div>
+            <div class="poppbtnscont fl">
+                <div class="fl">
+                    <input type="button" id="Button2" class="approve2" value="موافق" />
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="reviewpopup_cont reviewpopup_cont3 graybg">
+            <div class="close_btn">
+            </div>
+            <div class="clear">
+            </div>
+            <div>
+                <h2><span class="red">*</span> البند :</h2>
+            </div>
+            <div class="datacontainer inputcont">
+                <textarea id="Textarea3" runat="server" name="elm1" rows="3" style="width: 100%" class="splittinymce"></textarea>
+            </div>
+            <div>
+                <input type="checkbox" class="isAgendaItemIndexed" id="isAgendaItemIndexed" runat="server" value="1" />
+                <label for="MainContent_isAgendaItemIndexed">مسلسل</label>
+            </div>
+            <div class="poppbtnscont fl">
+                <div class="fl">
+                    <input type="button" id="Button3" class="approve3" value="اضافة بند جديد" />
                     <div class="clear">
                     </div>
                 </div>
@@ -273,5 +344,6 @@
         </div>
         <div class="clear">
         </div>
+      
     </form>
 </asp:Content>

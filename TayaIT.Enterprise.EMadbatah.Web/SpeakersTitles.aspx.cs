@@ -66,7 +66,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             //try catch web service dead // display error
 
                             SessionDetails newSessionDetails = null;
-
+/*
                             try
                             {
                                 Eparliment ep = new Eparliment();
@@ -79,7 +79,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.Web._Default.Page_Load()");
                                 spnWarn.InnerText = GetLocalizedString("strMsgErrorEPService");
                             }
-
+                            */
                             if (newSessionDetails != null)
                             {
                                 //send to DB

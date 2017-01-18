@@ -75,7 +75,8 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         Attended = 1,
         Absent = 2,
         Apology = 3,
-        InMission = 4
+        InMission = 4,
+        AttendWithinSession = 5
     }
 
     public enum AttendantType
@@ -107,6 +108,13 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         Completed = 3,
         Approved = 4,
         FinalApproved = 5
+    }
+
+
+    public enum SessionOpenStatus
+    {
+        OnTime = 1,
+        NotOnTime = 0
     }
 
     public enum SessionFileStatus

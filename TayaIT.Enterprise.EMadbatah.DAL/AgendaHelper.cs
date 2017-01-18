@@ -38,7 +38,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
 
-        public static bool AddAgendaItem(AgendaItem agendaItem, long sessionID)
+        public static long AddAgendaItem(AgendaItem agendaItem, long sessionID)
         {
             try
             {
@@ -48,13 +48,13 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     session.AgendaItems.Add(agendaItem);
                     context.SaveChanges();
                     //context.Refresh(System.Data.Objects.RefreshMode.StoreWins, item);
-                    return true;
+                    return agendaItem.ID;
                 }
             }
             catch (Exception ex)
             {
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem()");
-                return false;
+                return 0;
             }
 
         }

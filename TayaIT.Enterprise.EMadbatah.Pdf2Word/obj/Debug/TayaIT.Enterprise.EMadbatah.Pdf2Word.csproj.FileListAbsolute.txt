@@ -14,11 +14,3 @@ E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\it
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\ResolveAssemblyReference.cache
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
-E:\28_4\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\gsdll32.dll
-E:\28_4\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
-E:\28_4\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
-E:\28_4\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\itextsharp.dll
-E:\28_4\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\itextsharp.xtra.dll
-E:\28_4\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.csprojResolveAssemblyReference.cache
-E:\28_4\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
-E:\28_4\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb

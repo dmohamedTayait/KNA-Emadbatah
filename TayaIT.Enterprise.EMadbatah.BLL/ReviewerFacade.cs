@@ -46,8 +46,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 SessionHelper.UpdateSessionStatus(sessionId, (int)Model.SessionStatus.FinalApproved);
                 /*Dina Comment: Madbatah creation failed, I think error file path*/
                 /*to b commented*/
-                Eparliment ep = new Eparliment();
-                ep.IngestContentsForFinalApprove(sessionId);
+               // Eparliment ep = new Eparliment();
+               // ep.IngestContentsForFinalApprove(sessionId);
                 /*End to b commented*/
                 return true;
             }

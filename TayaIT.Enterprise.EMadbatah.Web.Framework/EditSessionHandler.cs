@@ -85,7 +85,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             {
                                 // collect sessionContentItem attributes/values
                                 //loadSessionValues();
-                                long id = EditorFacade.AddNewAgendaItem(HttpUtility.HtmlDecode(AgendaItemText), long.Parse(SessionID));
+                                int agendaItemIsIndexed = int.Parse(WebHelper.GetQSValue(Constants.QSKeyNames.AGENDA_IS_INDEXED, _context));
+                                long id = EditorFacade.AddNewAgendaItem(HttpUtility.HtmlDecode(AgendaItemText),agendaItemIsIndexed, long.Parse(SessionID));
                                 jsonStringOut = SerializeObjectInJSON(id);
                                 break;
                             }
@@ -98,6 +99,17 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             {
                                 string res = EditorFacade.UpdateAgendaItem(agendItemID, AgendaItemText);
                                 jsonStringOut = SerializeObjectInJSON(res);
+                                break;
+                            }
+                            else
+                                break;
+                        }
+                    case WebFunctions.EditWizard.AssignAttachToSessionContentItem:
+                        {
+                            if (SessionContentItemID != null && AttachmentID !=null)
+                            {
+                                int res = EditorFacade.AssignAttachmentToSessionContentItem(long.Parse(AttachmentID), long.Parse(SessionContentItemID));
+                                jsonStringOut = SerializeObjectInJSON(res.ToString());
                                 break;
                             }
                             else
@@ -142,6 +154,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         SessionContentItem retItem = getReturnedContentItemObject(nextContentItem);
                                         result["Item"] = retItem;
                                         result["ItemFragOrder"] = NextItemOrderID.ToString();
+                                        AgendaItem selectedAgendaItem = AgendaHelper.GetAgendaItemById(retItem.AgendaItemID);
+                                        if (selectedAgendaItem == null)
+                                            selectedAgendaItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", currentSession.ID);
+                                        result["AgendaItemText"] = selectedAgendaItem != null ? selectedAgendaItem.Name : "";
+                                        result["AgendaItemID"] = selectedAgendaItem != null ? selectedAgendaItem.ID.ToString() : "";
                                         List<AgendaItem> AgendaItems = currentSession.AgendaItems.ToList<AgendaItem>();
                                         List<SessionAgendaItem> retAgendaItems = new List<SessionAgendaItem>();
                                         foreach (AgendaItem agendaItem in AgendaItems)
@@ -237,6 +254,11 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
 
                                       SessionContentItem retItem = getReturnedContentItemObject(prevContentItem);
                                       result["Item"] = retItem;
+                                      AgendaItem selectedAgendaItem = AgendaHelper.GetAgendaItemById(retItem.AgendaItemID);
+                                      if (selectedAgendaItem == null)
+                                          selectedAgendaItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", currentSession.ID);
+                                      result["AgendaItemText"] = selectedAgendaItem != null ? selectedAgendaItem.Name : "";
+                                      result["AgendaItemID"] = selectedAgendaItem != null ? selectedAgendaItem.ID.ToString() : "";
                                       result["ItemFragOrder"] = prevItemOrderID.ToString();
                                       List<AgendaItem> AgendaItems = currentSession.AgendaItems.ToList<AgendaItem>();
                                       List<SessionAgendaItem> retAgendaItems = new List<SessionAgendaItem>();
@@ -512,7 +534,7 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
 
                         long unknownAgendaItemID = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", Session_ID).ID;
 
-                        if ((int)SpeakerID == (int)Model.AttendantType.UnKnown || AgendaItemID == unknownAgendaItemID )
+                        if ((int)SpeakerID == (int)Model.AttendantType.UnKnown)
                         {
                             int status = (int)Model.SessionContentItemStatus.Rejected;
                             if (CurrentUser.Role != UserRole.DataEntry)

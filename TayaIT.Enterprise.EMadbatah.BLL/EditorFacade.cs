@@ -22,19 +22,26 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 subItems.Add(new SessionAgendaItem(subItem.ID, 0, 0, subItem.Name, subItem.Order, subItem.QFrom, subItem.QTo));
             return subItems;
         }
-        public static long AddNewAgendaItem(string itemText, long sessionID)
+        public static long AddNewAgendaItem(string itemText,int itemIndexed ,long sessionID)
         {
             AgendaItem item = AgendaHelper.GetAgendaItemByName(itemText);
             long itemID;
             if (item == null)
             {
-                // itemID = AgendaHelper.AddCustomSubAgendaItem(itemText, parentItemID);
-                itemID = AgendaHelper.AddCustomAgendaItem(itemText, sessionID);
-                TayaIT.Enterprise.EMadbatah.DAL.SessionStartHelper.UpdateSessionStartStatus(sessionID, (int)Model.SessionFileStatus.New);
+                AgendaItem newitem = new AgendaItem
+                {
+                    Name = itemText,
+                    SessionID = sessionID,
+                    IsIndexed = itemIndexed,
+                    IsCustom = false,
+                    Order = 1
+                };
+                itemID = AgendaHelper.AddAgendaItem(newitem, sessionID);
+                //TayaIT.Enterprise.EMadbatah.DAL.SessionStartHelper.UpdateSessionStartStatus(sessionID, (int)Model.SessionFileStatus.New);
             }
             else
             {
-                itemID = 0;
+                itemID = item.ID;
             }
             return itemID;
         }
@@ -43,10 +50,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             AgendaHelper.UpdateAgendaItem(id, itemText);
             return "success";
         }
-        public static void AddNewSessionItem(string itemText, long sessionID)
+        public static int AssignAttachmentToSessionContentItem(long attachmentID, long sessionContentItemID)
         {
-            //long itemID = SessionIte.AddCustomAgendaItem(itemText, sessionID);
-            //return itemID;
+            return SessionContentItemHelper.AssignAttachmentToSessionContentItem(attachmentID, sessionContentItemID);
         }
     }
 }

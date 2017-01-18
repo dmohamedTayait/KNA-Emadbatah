@@ -4,6 +4,7 @@
     <EntitySetMapping Name="AgendaItems">
       <EntityTypeMapping TypeName="EMadbatahModel.AgendaItem">
         <MappingFragment StoreEntitySet="AgendaItem">
+          <ScalarProperty Name="IsIndexed" ColumnName="IsIndexed" />
           <ScalarProperty Name="IsGroupSubAgendaItems" ColumnName="IsGroupSubAgendaItems" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -112,6 +113,7 @@
     <EntitySetMapping Name="SessionContentItems">
       <EntityTypeMapping TypeName="EMadbatahModel.SessionContentItem">
         <MappingFragment StoreEntitySet="SessionContentItem">
+          <ScalarProperty Name="AttachementID" ColumnName="AttachementID" />
           <ScalarProperty Name="FileReviewerID" ColumnName="FileReviewerID" />
           <ScalarProperty Name="Ignored" ColumnName="Ignored" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />

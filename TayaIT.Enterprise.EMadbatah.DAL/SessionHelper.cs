@@ -91,6 +91,42 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+
+        public static long CreateNewSession(Session NewSession)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    context.Sessions.AddObject(NewSession);
+                    context.SaveChanges();
+                    context.AgendaItems.AddObject(new AgendaItem()
+                    {
+                        Name = "<strong>أسماء السادة الأعضاء</strong>",
+                        SessionID = NewSession.ID,
+                        Order = 0,
+                        IsCustom = true
+                    });
+                    context.AgendaItems.AddObject(new AgendaItem()
+                    {
+                        Name = "غير معرف",
+                        SessionID = NewSession.ID,
+                        Order = 1,
+                        IsCustom = true
+                    });
+                    context.SaveChanges();
+                    return NewSession.ID;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.CreateNewSession()");
+                return -1;
+            }
+
+
+        }
+
         //public static int 
 
         //???

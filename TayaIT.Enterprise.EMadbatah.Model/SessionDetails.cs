@@ -10,7 +10,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
 {
     public class SessionDetails
     {
-        public SessionDetails() 
+        public SessionDetails()
         {
             Attendance = new List<SessionAttendant>();
             AgendaItems = new Hashtable();
@@ -35,34 +35,12 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             SessionID = sessionID;
             Status = status;
             Subject = subject;
-            
+
         }
         //end
-       
-        public SessionDetails(int  eparlimentID, 
-            long serial, 
-            DateTime date, 
-            DateTime dateHijri,
-            DateTime startTime,
-            DateTime endTime,
-            string type,
-            string president,
-            string place,
-            long season, 
-            long stage, 
-            string stageType,
-            List<SessionAttendant> attendance,
-            Hashtable agendaItems,
-            SessionStatus status,
-            string subject) 
-            {
-                Initialize(eparlimentID, -1, serial, date, dateHijri, startTime, endTime, type, president, place, season, stage, stageType,null ,attendance,null, agendaItems, status, subject);
-
-            }
 
         public SessionDetails(int eparlimentID,
-            long sessionID, 
-            long serial, 
+            long serial,
             DateTime date,
             DateTime dateHijri,
             DateTime startTime,
@@ -70,8 +48,30 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             string type,
             string president,
             string place,
-            long season, 
-            long stage, 
+            long season,
+            long stage,
+            string stageType,
+            List<SessionAttendant> attendance,
+            Hashtable agendaItems,
+            SessionStatus status,
+            string subject)
+        {
+            Initialize(eparlimentID, -1, serial, date, dateHijri, startTime, endTime, type, president, place, season, stage, stageType, null, attendance, null, agendaItems, status, subject,0);
+
+        }
+
+        public SessionDetails(int eparlimentID,
+            long sessionID,
+            long serial,
+            DateTime date,
+            DateTime dateHijri,
+            DateTime startTime,
+            DateTime endTime,
+            string type,
+            string president,
+            string place,
+            long season,
+            long stage,
             string stageType,
             List<SessionAudioFile> sessionFiles,
             List<SessionAttendant> attendance,
@@ -80,10 +80,11 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             SessionStatus status,
             string subject,
             long? reviewerID,
-            string reviewerName, 
-            string mp3FolderPath) 
+            string reviewerName,
+            string mp3FolderPath,
+            int sessionStartFlag)
         {
-            Initialize(eparlimentID, sessionID, serial, date, dateHijri, startTime, endTime, type, president, place, season, stage, stageType, sessionFiles, attendance,attachments , agendaItems, status, subject);
+            Initialize(eparlimentID, sessionID, serial, date, dateHijri, startTime, endTime, type, president, place, season, stage, stageType, sessionFiles, attendance, attachments, agendaItems, status, subject, sessionStartFlag);
             ReviewerID = reviewerID;
             ReviewerName = reviewerName;
             MP3FolderPath = mp3FolderPath;
@@ -107,7 +108,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             List<SessionAttachment> attachments,
             Hashtable agendaItems,
             SessionStatus status,
-            string subject)
+            string subject, int sessionStartFlag)
         {
             Status = status;
             EparlimentID = eparlimentID;
@@ -124,7 +125,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             Stage = stage;
             StageType = stageType;
             Subject = subject;
-
+            SessionStartFlag = (int)sessionStartFlag;
             if (attendance != null)
                 Attendance = attendance;
             else
@@ -148,7 +149,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
 
         public int EparlimentID { get; set; }
         public long Serial { get; set; } //(مسلسل)
-        public DateTime Date { get; set; } 
+        public DateTime Date { get; set; }
         public DateTime DateHijri { get; set; } //date hijri
         public DateTime StartTime { get; set; } //session start time
         public DateTime EndTime { get; set; } //session end time
@@ -162,7 +163,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         //public List<SessionAgendaItem> AgendaItems { get; set; }
         //Ahmed Samir : properties
         public long UserId { get; set; }
-        
+
         public List<SessionAttachment> Attachments { get; set; }
         public List<SessionAudioFile> SessionFiles { get; set; }
         public List<string> ReviewerStatus { get; set; }
@@ -172,7 +173,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         public long? ReviewerID { get; set; }
         public string ReviewerName { get; set; }
         public string Subject { get; set; }
-
+        public int SessionStartFlag { get; set; }
 
         //END
         public string MP3FolderPath { get; set; }

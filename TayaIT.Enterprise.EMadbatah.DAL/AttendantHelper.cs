@@ -52,7 +52,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     int res = context.SaveChanges();
                     return res;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -119,7 +119,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     int res = context.SaveChanges();
                     return res;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -150,7 +150,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         {
             try
             {
-                
+
                 Attendant attendant = null;
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
@@ -165,8 +165,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         //unknownAttendant.EparlimentID = -1;
                         //unknownAttendant.JobTitle = "";
                         //unknownAttendant.Name = "غير معرف";
-                        
-                        
+
+
                         //AddNewAttendant("غير معرف", "", -1, 7, 1, sessionID);
                         attendant = new Attendant
                         {
@@ -205,12 +205,12 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
                     Session s = context.Sessions.FirstOrDefault(c => c.ID == sessionid);
-                    if(s != null)
+                    if (s != null)
                         return s.Attendants.ToList<Attendant>();
 
                 }
                 return null;
-                
+
             }
             catch (Exception ex)
             {
@@ -232,14 +232,14 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     if (!isAllSpeakers && (agendaitemID < 0 || subagendaid < 0))
                     {
                         attendants = (from att in context.Sessions.FirstOrDefault(s => s.ID == sessionID).Attendants
-                                         where att.State != null && att.State == 1
-                                         select att).ToList<Attendant>();
+                                      where att.State != null && att.State == 1
+                                      select att).ToList<Attendant>();
                         return attendants;
                     }
 
-                    if(subagendaid > 0)
+                    if (subagendaid > 0)
                         scis = context.AgendaSubItems.FirstOrDefault(c => c.ID == subagendaid).SessionContentItems.ToList<SessionContentItem>();
-                    else if(agendaitemID > 0)
+                    else if (agendaitemID > 0)
                         scis = context.AgendaItems.FirstOrDefault(c => c.ID == agendaitemID).SessionContentItems.ToList<SessionContentItem>();
 
                     if (scis != null)
@@ -256,7 +256,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         }
                         return attendants;
                     }
-                        
+
 
                 }
                 return null;
@@ -288,6 +288,72 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static bool AddNewSessionAttendant(Attendant attendant, long SessionIDCreated)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
 
+                    context.Attendants.AddObject(attendant);
+                    Session sss = context.Sessions.FirstOrDefault(s => s.ID == SessionIDCreated);
+                    attendant.Sessions.Add(sss);
+                    int resu = context.SaveChanges();
+                    long AttendantAdded = attendant.ID;
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.AddNewAttendant()");
+                return false;
+            }
+        }
+
+        public static List<Attendant> GetAttendantInSession(long SessionID, int SessionAttendantType)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    List<Attendant> attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                    return attendantsInTime;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        public static bool UpdateAttendantState(int AttendantStatus, int DefaultAttendantId, DateTime? AttendDate)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    Attendant atendant = context.Attendants.Select(eee => eee).Where(aaa => aaa.ID == DefaultAttendantId).FirstOrDefault();
+                    atendant.State = AttendantStatus;
+                    if (AttendDate != null)
+                    {
+                        atendant.AttendDate = AttendDate;
+                    }
+
+                    if (AttendantStatus != 0)
+                    {
+                        int res = context.SaveChanges();
+                    }
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+       
     }
 }

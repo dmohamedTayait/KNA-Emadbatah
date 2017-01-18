@@ -16,11 +16,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
     {
         
 
-        EPServiceClient.EPServiceClient _client = null;
+      //  EPServiceClient.EPServiceClient _client = null;
 
         public Eparliment()
         {
-            dynamic binding = new BasicHttpBinding();
+          /*  dynamic binding = new BasicHttpBinding();
 	        binding.Name = "BasicHttpBinding_IEPService";
 	        binding.CloseTimeout = TimeSpan.FromMinutes(2);
 	        binding.OpenTimeout = TimeSpan.FromMinutes(2);
@@ -63,10 +63,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 	        dynamic endpoint = new EndpointAddress(endpointStr);
 	        //Instantiate the SOAP client using the binding and endpoint'
 	        //that were defined above'
-	        _client = new EPServiceClient.EPServiceClient(binding, endpoint);
+	        _client = new EPServiceClient.EPServiceClient(binding, endpoint);*/
         }
 
-        public SessionDetails GetSessionDetails(int epSessionID)
+       /* public SessionDetails GetSessionDetails(int epSessionID)
         {
             DataSet dsSessionDetails =  _client.GetEParlimentSessionDetails(epSessionID);
             if (dsSessionDetails != null)
@@ -75,11 +75,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
             else
                 return null;
-
+            
             //consume webservice
-        }
+        }*/
 
-        public bool UpdateSessionDetails(long sid)
+       /* public bool UpdateSessionDetails(long sid)
         {
             DAL.Session session = DAL.SessionHelper.GetSessionByID(sid);
             if (session != null)
@@ -98,11 +98,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 return false;
 
             //consume webservice
-        }
+        }*/
 
 
 
-        public bool IngestContentsForFinalApprove(long sessionID)
+      /*  public bool IngestContentsForFinalApprove(long sessionID)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
             
             
-        }
+        }*/
 
         private SessionDetails SessionDetailsFromDataSet(int sessionEparlimentID, DataSet epData)
         {

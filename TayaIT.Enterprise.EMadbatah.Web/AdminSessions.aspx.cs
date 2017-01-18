@@ -68,7 +68,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                             SessionDetails newSessionDetails = null;
 
-                            try
+                          /*  try
                             {
                                 Eparliment ep = new Eparliment();
                                 newSessionDetails = ep.GetSessionDetails(sessionIDEparlimet);
@@ -79,7 +79,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             {
                                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.Web._Default.Page_Load()");
                                 spnWarn.InnerText = GetLocalizedString("strMsgErrorEPService");
-                            }
+                            }*/
 
                             if (newSessionDetails != null)
                             {

@@ -379,24 +379,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
 
             string testUser = "Develop\\unada";//id.Name.ToLower();\\"Develop\\noha";
-            CurrentUser = EMadbatahFacade.GetUserByUserID(92);//  EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
+            CurrentUser = EMadbatahFacade.GetUserByUserID(92);//EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
 
             CurrentDomain = id.Name.Split('\\')[0].ToLower();
 
-                       if (CurrentUser == null && AppConfig.GetInstance().MainAdmin != null)
-            {
-                EMadbatahUser mainAdmin = AppConfig.GetInstance().MainAdmin;
-                if (!string.IsNullOrEmpty(mainAdmin.DomainUserName)
-                    && !string.IsNullOrEmpty(mainAdmin.Email)
-                    && !string.IsNullOrEmpty(mainAdmin.Name))
-                {
-                    long newid = EMadbatahFacade.AddNewUser(new EMadbatahUser(UserRole.Admin, mainAdmin.Name, mainAdmin.DomainUserName, mainAdmin.Email, true));
-                    CurrentUser = EMadbatahFacade.GetUserByUserID(newid);
 
-                }
-            }
-
-          
 
             DisablePageCaching();
 

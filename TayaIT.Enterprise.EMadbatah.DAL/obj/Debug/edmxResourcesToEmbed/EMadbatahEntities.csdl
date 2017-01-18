@@ -133,6 +133,10 @@
       <End Role="Session" EntitySet="Sessions" />
       <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
     </AssociationSet>
+    <AssociationSet Name="FK_SessionContentItem_Attachement" Association="EMadbatahModel.FK_SessionContentItem_Attachement">
+      <End Role="Attachement" EntitySet="Attachements" />
+      <End Role="SessionContentItem" EntitySet="SessionContentItems" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AgendaItem">
     <Key>
@@ -147,6 +151,7 @@
     <NavigationProperty Name="AgendaSubItems" Relationship="EMadbatahModel.FK_AgendaSubItem_AgendaItem" FromRole="AgendaItem" ToRole="AgendaSubItem" />
     <NavigationProperty Name="SessionContentItems" Relationship="EMadbatahModel.FK_SessionContentItem_AgendaItem" FromRole="AgendaItem" ToRole="SessionContentItem" />
     <Property Type="Boolean" Name="IsGroupSubAgendaItems" Nullable="false" />
+    <Property Type="Int32" Name="IsIndexed" />
   </EntityType>
   <EntityType Name="AgendaSubItem">
     <Key>
@@ -173,6 +178,7 @@
     <Property Name="FileType" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
     <Property Name="FileContent" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
     <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_Attachement_Session" FromRole="Attachement" ToRole="Session" />
+    <NavigationProperty Name="SessionContentItems" Relationship="EMadbatahModel.FK_SessionContentItem_Attachement" FromRole="Attachement" ToRole="SessionContentItem" />
   </EntityType>
   <EntityType Name="Attendant">
     <Key>
@@ -293,6 +299,8 @@
     <Property Type="Boolean" Name="Ignored" Nullable="true" />
     <Property Type="Int64" Name="FileReviewerID" />
     <NavigationProperty Name="FileReviewer" Relationship="EMadbatahModel.FK_SessionContentItem_FileReviewer" FromRole="SessionContentItem" ToRole="User" />
+    <Property Type="Int64" Name="AttachementID" />
+    <NavigationProperty Name="Attachement" Relationship="EMadbatahModel.FK_SessionContentItem_Attachement" FromRole="SessionContentItem" ToRole="Attachement" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>
@@ -747,6 +755,18 @@
       </Principal>
       <Dependent Role="CommitteeAttendant">
         <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SessionContentItem_Attachement">
+    <End Type="EMadbatahModel.Attachement" Role="Attachement" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.SessionContentItem" Role="SessionContentItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attachement">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionContentItem">
+        <PropertyRef Name="AttachementID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

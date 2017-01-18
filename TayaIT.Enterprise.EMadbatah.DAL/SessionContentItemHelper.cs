@@ -89,7 +89,15 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     session_content_item = context.SessionContentItems.FirstOrDefault(c => c.SessionFileID == sessionFileID
                                                                                 && c.FragOrderInXml == fragmentOrderInXML);
                     if (session_content_item != null)
+                    {
                         session_content_item.AgendaItem = session_content_item.AgendaItem;
+                        AgendaItem sessionUnknownItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", session_content_item.SessionID);
+                        if (session_content_item.AgendaItemID == 0)
+                        {
+                            session_content_item.AgendaItemID = sessionUnknownItem.ID;
+                            context.SaveChanges();
+                        }
+                    }
                 }
 
                 return session_content_item;
@@ -374,6 +382,31 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 newList.Add(curList); ;
             return newList;
         }
+
+
+        public static List<List<SessionContentItem>> filterOnAdjacentSessionFiles(List<SessionContentItem> list)
+        {
+            if (list.Count == 0)
+                return new List<List<SessionContentItem>>();
+            List<List<SessionContentItem>> newList = new List<List<SessionContentItem>>();
+
+            List<SessionContentItem> curList = new List<SessionContentItem>() { list[0] };
+            for (int i = 1; i < list.Count; i++)
+            {
+                SessionContentItem cur = list[i];
+                if (cur.SessionFileID == curList[curList.Count - 1].SessionFileID)
+                    curList.Add(cur);
+                else
+                {
+                    newList.Add(curList);
+                    curList = new List<SessionContentItem>();
+                    curList.Add(cur);
+                }
+            }
+            if (curList.Count != 0)
+                newList.Add(curList); ;
+            return newList;
+        }
         //for madbatahCreator
         public static List<List<SessionContentItem>> GetItemsBySessionIDGrouped(long sessionID)
         {
@@ -447,7 +480,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                        select new
                        {
                            Val = g.ToList<SessionContentItem>()
-                       };
+                       }
+                       ;
 
 
                     //foreach (List<SessionContentItem> gTemp in groups)
@@ -494,7 +528,113 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
         }
 
-       
+        public static List<SessionContentItem> GetItemsBySessionID(long sessionID)
+        {
+            try
+            {
+                //List<List<SessionContentItem>> toRet = new List<List<SessionContentItem>>();
+                List<SessionContentItem> tempRet = new List<SessionContentItem>();
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    var sessionFiles =
+                        from sf in context.SessionFiles
+                        orderby sf.Order
+                        where sf.SessionID == sessionID
+                        select sf;
+
+                    foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
+                    {
+                        var sessionContentItems =
+                            from sci in file.SessionContentItems
+                            orderby sci.FragOrderInXml
+                            select sci;
+                        foreach (SessionContentItem it in sessionContentItems)
+                        {
+                            it.AgendaItem = it.AgendaItem;
+                            it.Attendant = it.Attendant;
+                            it.Reviewer = it.Reviewer;
+                            it.User = it.User;
+                            it.SessionFile.FileReviewer = it.SessionFile.FileReviewer;
+                            it.SessionFile = it.SessionFile;
+
+                            if (!it.Ignored.Value)
+                                tempRet.Add(it);
+                        }
+                    }
+
+                    return tempRet;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.GetSessionContentItemsBySessionID(" + sessionID + ")");
+                return null;
+            }
+
+        }
+
+        public static List<List<SessionContentItem>> GetItemsBySessionIDGroupedBySessionFile(long sessionID)
+        {
+            try
+            {
+                List<List<SessionContentItem>> toRet = new List<List<SessionContentItem>>();
+                List<SessionContentItem> tempRet = new List<SessionContentItem>();
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    var sessionFiles =
+                        from sf in context.SessionFiles
+                        orderby sf.Order
+                        where sf.SessionID == sessionID
+                        select sf;
+
+                    foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
+                    {
+                        var sessionContentItems =
+                            from sci in file.SessionContentItems
+                            orderby sci.FragOrderInXml
+                            select sci;
+
+                        foreach (SessionContentItem it in sessionContentItems)
+                        {
+                            it.AgendaItem = it.AgendaItem;
+                            it.AgendaSubItem = it.AgendaSubItem;
+                            it.Attendant = it.Attendant;
+                            it.Reviewer = it.Reviewer;
+                            it.User = it.User;
+                            it.SessionFile.FileReviewer = it.SessionFile.FileReviewer;
+                            if (it.User == null)
+                            {
+                                ;
+                            }
+                            it.SessionFile = it.SessionFile;
+
+                            if (!it.Ignored.Value)
+                                tempRet.Add(it);
+                        }
+                    }
+
+                    var groups =
+                       from t in tempRet.WithAdjacentGrouping()
+                       group t by t.SessionFileID.ToString() into g
+                       select new
+                       {
+                           Val = g.ToList<SessionContentItem>()
+                       };
+
+                    foreach (var g2 in groups)
+                    {
+                        foreach (var g3 in filterOnAdjacentSessionFiles(g2.Val))
+                            toRet.Add(g3);
+                    }
+                    return toRet;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.GetSessionContentItemsBySessionID(" + sessionID + ")");
+                return null;
+            }
+        }
 
         //for reviewNotes page
         public static List<SessionContentItem> GetItemsByFileIDAndStatusID(long sessionFileID, int statusID)
@@ -1198,6 +1338,51 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
 
+        }
+
+        public SessionContentItem GetSessionContentItemByID(long contentID)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    SessionContentItem toRet = null;
+                    if (context.SessionContentItems.Count<SessionContentItem>() > 0)
+                    {
+                        toRet = context.SessionContentItems.FirstOrDefault(s => s.ID == contentID);
+                    }
+                    return toRet;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionContentItemByID(" + contentID + ")");
+                return null;
+            }
+        }
+
+        public static int AssignAttachmentToSessionContentItem(long AttachmentID, long contentID)
+        {
+            int ret = 0;
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    SessionContentItem toRet = null;
+                    if (context.SessionContentItems.Count<SessionContentItem>() > 0)
+                    {
+                        toRet = context.SessionContentItems.FirstOrDefault(s => s.ID == contentID);
+                        toRet.AttachementID = AttachmentID;
+                        ret = context.SaveChanges();
+                    }
+                    return ret;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.AssignAttachmentToSessionContentItem(" + AttachmentID + "," + contentID + ")");
+                return ret;
+            }
         }
     }
 }
