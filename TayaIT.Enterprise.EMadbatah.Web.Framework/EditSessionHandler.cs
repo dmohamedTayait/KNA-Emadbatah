@@ -488,6 +488,43 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             jsonStringOut = SerializeObjectInJSON(SaveAndExit(out currentSession));
                             break;
                         }
+                    case WebFunctions.EditWizard.SaveOnly:
+                        {
+                             Session currentSession = null;
+                            Hashtable result = SaveAndExit(out currentSession); ;
+                            if (result["Message"] == "fail")
+                            {
+                                jsonStringOut = SerializeObjectInJSON(result);
+                                break;
+                            }
+                            else
+                            {
+                                int currentItemOrderID = FragOrder;
+                                // check current user privellge
+                                SessionAudioFile file = SessionFileFacade.GetSessionFilesByID(Session_File_ID);
+                                if (CurrentUser.ID == file.UserID)
+                                {
+                                    result["Message"] = "success";
+                                    // load item from DB
+                                    SessionContentItem currentContentItem = SessionContentItemFacade.GetSessionContentItemByIdAndFragmentOrder(Session_File_ID, currentItemOrderID);
+                                    if (currentContentItem == null)
+                                    {
+                                        result = new Hashtable();
+                                        result["Message"] = "fail";
+
+                                    }
+                                    else
+                                    {
+                                        SessionContentItem retItem = getReturnedContentItemObject(currentContentItem);
+                                        result["Item"] = retItem;
+                                    }
+                                    jsonStringOut = SerializeObjectInJSON(result);
+                                    break;
+                                }
+                            }
+                            jsonStringOut = SerializeObjectInJSON(jsonStringOut);
+                            break;
+                        }
                     case WebFunctions.EditWizard.UpdateSessionFileStatusCompleted:
                         {
                             long sessionID;
@@ -893,7 +930,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             {
                 foreach (TayaIT.Enterprise.EMadbatah.Model.VecSys.Word word in segment.words)
                 {
-                    output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value + "</span> ";
+                    output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value.Replace(".","،") + "</span> ";
                 }
             }
             return output;

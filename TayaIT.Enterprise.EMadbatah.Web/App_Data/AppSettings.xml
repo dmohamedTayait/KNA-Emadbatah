@@ -4,7 +4,7 @@
     <VecSysServerPath>\\192.168.0.92\\Share\emadbatah\SimulateVecsysServerFolder</VecSysServerPath>
     <AudioServerPath>\\192.168.0.92\Share\emadbatah\SimulateAudioServerFolder</AudioServerPath>
     <EParlimrntWebServiceURL>http://localhost:10001/EPService.svc</EParlimrntWebServiceURL>
-    <OfflineDevMode>True</OfflineDevMode>
+    <OfflineDevMode>false</OfflineDevMode>
     <ValidADDomainName>alommah.gov.kw</ValidADDomainName>
     <ValidADUserName>dmohamed</ValidADUserName>
     <ValidADUserPassword>A123456</ValidADUserPassword>

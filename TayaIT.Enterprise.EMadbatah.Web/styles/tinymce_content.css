@@ -8,17 +8,18 @@ body{
 }
 /* span */
 .highlight{
-	background-color:#1484ff;
+	background-color:#fb969e;
 	cursor:pointer;
-	color:#fff;
+	color:#000;
 }
 .hover{
-	background-color:#1630ff;
+	/*background-color:#208820;*/
+	background-color:#9be19b;
 	cursor:pointer;
-	color:#fff;
+	color:#000;
 }
 .editable{
-	background-color:#437ec4 !important;
+	/*background-color:#c01 !important;
 	cursor:text !important;
-	color:#FFF;
+	color:#FFF;*/
 }

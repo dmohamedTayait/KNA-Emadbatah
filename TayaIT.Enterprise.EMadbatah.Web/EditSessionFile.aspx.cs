@@ -50,7 +50,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 current_session = EditorFacade.GetSessionByID(file.SessionID);
 
                 if (CurrentUser.ID == file.UserID || flag
-                    || ((CurrentUser.Role != UserRole.DataEntry) && (current_session.ReviewerID == CurrentUser.ID)))
+                    || ((CurrentUser.Role != UserRole.DataEntry) && (current_session.ReviewerID == CurrentUser.ID))
+                    || ((CurrentUser.Role != UserRole.DataEntry) && (file.FileReviewrID == CurrentUser.ID)))
                 {
                     sessionId = file.SessionID;
                     sessionID.Value = sessionId.ToString();
@@ -91,7 +92,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             {
                 foreach (TayaIT.Enterprise.EMadbatah.Model.VecSys.Word word in segment.words)
                 {
-                    output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value + "</span> ";
+                    output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value.Replace(".", "،") +"</span> ";
                 }
             }
             return output;

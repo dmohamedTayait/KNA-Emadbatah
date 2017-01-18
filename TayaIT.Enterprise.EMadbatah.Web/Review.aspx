@@ -182,7 +182,7 @@
                 </div>
                 <div class="graybg relpos">
                     <!--popupdiv start-->
-                    <div class="reviewpopup_cont graybg">
+                    <div class="reviewpopup_cont graybg" style="height:400px ! important">
                         <div class="close_btn">
                         </div>
                         <div class="clear">
@@ -212,7 +212,7 @@
                         <div class="clear">
                         </div>
                         <div class="datacontainer inputcont">
-                            <textarea id="elm1" name="elm1" rows="15" style="width: 100%" runat="server" class="tinymce"></textarea>
+                            <textarea id="elm1" name="elm1" rows="15" style="width: 100%;height:300px !important" runat="server" class="tinymce"></textarea>
                             <script type="text/javascript">
                                 try {
                                     // tinymce

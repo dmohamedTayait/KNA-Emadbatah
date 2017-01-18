@@ -57,8 +57,12 @@
                     <input name="" runat="server" id="btnAssignAttachToContentItem" type="button" class="btn inputBlock mb-5 btnAssignAttachToContentItem btn_editsession" value="اضافة مرفق" />
                     <input name="" runat="server" id="btnAddNewVote" type="button" class="btn inputBlock mb-5 btnAddNewVote btn_editsession" value="اضافة تصويت" />
                     <input name="" id="btnSplit" runat="server" type="button" class="btn inputBlock mb-5 split btn_editsession" value="اقطع" data-clipboard-action="cut" data-clipboard-target="#MainContent_txtFooter" />
+                    <input name="" type="button" id="btnSaveOnly" class="btn inputBlock mb-5 btnSaveOnly btn_editsession" value="حفظ" />
                     <input name="" type="button" id="btnSaveAndExit" class="btn inputBlock mb-5 btnSaveAndExit btn_editsession" value="حفظ و خروج" />
                     <input name="" type="button" id="various1" data-div="#inline1" class="btn inputBlock mb-5 btn_editsession" value="عودة للنص الأصلى" />
+                    <div class="h2" style="margin-top: 15px;"> <input name="chkIgnoredSegment" id="chkIgnoredSegment" runat="server" class="chkIgnoredSegment" type="checkbox" value="" />
+                   <label for="chkIgnoredSegment">تجاهل هذا المقطع</label></div>
+                   
                    <%-- <input id="Button1" class="btn inputBlock mb-5" type="button" value="خطأ" onclick="return Button1_onclick()" />--%>
                 </div>
             </div>
@@ -162,7 +166,6 @@
                             <div class="grid_11">
                                 <asp:DropDownList ID="ddlOtherTitles" AutoPostBack="false" runat="server" CssClass="inputBlock ddlOtherTitles">
                                     <asp:ListItem Text="-- أختر --" Value="0"></asp:ListItem>
-                                    <asp:ListItem Text="رئيس الجلسة" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="المقرر" Value="2"></asp:ListItem>
                                     <asp:ListItem Text="عن المقرر" Value="3"></asp:ListItem>
                                     <asp:ListItem Text="-------------------" Value="4"></asp:ListItem>
@@ -253,8 +256,7 @@
         </div>
         <div class="row">
             <div class="grid_21 suffix_3">
-                <input name="chkIgnoredSegment" id="chkIgnoredSegment" runat="server" class="chkIgnoredSegment" type="checkbox" value="" />
-                <label for="chkIgnoredSegment">تجاهل هذا المقطع</label>
+               
             </div>
         </div>
     </div>

@@ -215,15 +215,93 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             if (!item.MergedWithPrevious.Value )//|| item.Attendant.Name == "غير معرف")
                             {
                                 Attendant att = item.Attendant;
-                                if (att.Type != (int)Model.AttendantType.UnAssigned)
+                              /*  if (att.Type != (int)Model.AttendantType.UnAssigned)
                                 {
                                     string attName = MabatahCreatorFacade.GetAttendantTitle(att, sessionId);
                                     if (string.IsNullOrEmpty(attName))
                                         attName = "غير معرف: ";
                                     string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
-                                                        .Replace("<%itemText%>", attName + ":");
+                                                        .Replace("<%itemText%>", attName + ":")
+                                                        .Replace("<%speakerJob%>", "")
+                                                        .Replace("<%speakerJob2%>", "");
                                     sb.Append(speaker);
+                                }*/
+
+
+
+                                //
+                                if (att.Type != (int)Model.AttendantType.UnAssigned)
+                                {
+                                    /*   if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
+                                           doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ": " + "(" + sessionItem.CommentOnAttendant + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                       else
+                                           doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                       */
+
+                                    string attFullPresentationName = "";
+                                    string name = "";
+                                    string job = "";
+                                     string job2 = "";
+                                    if ((Model.AttendantType)att.Type == Model.AttendantType.President)
+                                    {
+                                        string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
+                                                       .Replace("<%itemText%>", "السيد الرئيـــــــــــــــــــــــــــس :")
+                                                       .Replace("<%speakerJob%>", "")
+                                                       .Replace("<%speakerJob2%>", "");
+                                        sb.Append(speaker);
+                                    }
+                                    else
+                                    {
+                                        if (item.IsSessionPresident == 1)
+                                        {
+                                            name = "السيد رئيـس الجلســـــــــــــــــــــــة :";
+
+                                            if (att.AttendantTitle == null)
+                                                attFullPresentationName = "السيد " + att.Name.Trim();
+                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                            attFullPresentationName = "( " + attFullPresentationName;
+                                           // if (string.IsNullOrEmpty(item.CommentOnAttendant))
+                                           // {
+                                                if (att.Type != 3)
+                                                    attFullPresentationName = attFullPresentationName + ")";
+                                                if (att.Type == 3)
+                                                    job2 = "    " + att.JobTitle + ")";
+                                           /* }
+                                            else
+                                            {
+                                                job2 = "    " + item.CommentOnAttendant + ")";
+                                            }
+                                            */
+                                            string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
+                                                      .Replace("<%itemText%>", name)
+                                                      .Replace("<%speakerJob%>", attFullPresentationName)
+                                                      .Replace("<%speakerJob2%>", job2);
+                                            sb.Append(speaker);
+                                        }
+                                        else
+                                        {
+                                            if (att.AttendantTitle == null)
+                                                attFullPresentationName = "السيد " + att.Name.Trim();
+                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                            if (string.IsNullOrEmpty(item.CommentOnAttendant))
+                                            {
+                                                if (att.Type == 3)
+                                                    job = att.JobTitle;
+                                            }
+                                            else
+                                            {
+                                                job = "    " + item.CommentOnAttendant;
+                                            }
+
+                                            string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
+                                                     .Replace("<%itemText%>", attFullPresentationName)
+                                                     .Replace("<%speakerJob%>", job)
+                                                     .Replace("<%speakerJob2%>", "");
+                                            sb.Append(speaker);
+                                        }
+                                    }
                                 }
+                                ////////////////////////////////
                             }
 
                             string reviewItem = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()

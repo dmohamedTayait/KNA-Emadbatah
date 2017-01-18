@@ -66,7 +66,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(Constants.PageNames.FINAL_APPROVED_SESSION);
+            sb.Append(Constants.PageNames.DEFAULT_HOME);
             sb.Append("?").Append(Constants.QSKeyNames.PAGE_NO).Append("=").Append(pageNo);
 
             sb.Append("&").Append(Constants.QSKeyNames.ITEMS_PER_PAGE).Append("=").Append(resPerPage);

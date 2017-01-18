@@ -397,7 +397,7 @@
     <value>موافق عليه</value>
   </data>
   <data name="strSessionFileStatusCompleted" xml:space="preserve">
-    <value>تم</value>
+    <value>تم التعديل</value>
   </data>
   <data name="strSessionFileStatusInProgress" xml:space="preserve">
     <value>قيد التعديل</value>

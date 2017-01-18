@@ -1,5 +1,5 @@
-﻿<%@ Page Title="المضبطة الإلكترونية - المضابط المصدق عليها" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" 
-CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
+﻿<%@ Page Title="المضبطة الإلكترونية - المضابط المصدق عليها" Language="C#" MasterPageFile="~/Site.master"
+    AutoEventWireup="true" CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
 
 <%@ Import Namespace="TayaIT.Enterprise.EMadbatah.Model" %>
 <%@ Import Namespace="TayaIT.Enterprise.EMadbatah.BLL" %>
@@ -16,7 +16,7 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
     <link href="styles/fileuploader.css" rel="stylesheet" type="text/css" />
     <input type="hidden" runat="server" id="UserRuleHidden" />
     <div id="mainContent" runat="server">
-        <div id="maintable1"  class="MainhomeWrapper">
+        <div id="maintable1" class="MainhomeWrapper">
             <table class="table deftable" border="0" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
@@ -102,7 +102,8 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                         <%=sessionDate%>
                                     </td>
                                     <td class="column column3">
-                                        <span class="status"><span class="icon"></span> <%=sessionStatus%></span>
+                                        <span class="status"><span class="icon"></span>
+                                            <%=sessionStatus%></span>
                                     </td>
                                     <% switch (session.Status)
                                        {
@@ -146,36 +147,50 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                     <th>
                                                         المصحح
                                                     </th>
-
                                                     <th>
                                                         المراجع
                                                     </th>
-
-
                                                     <th>
                                                         آخر تعديل
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody class="displayOnOpen">
-                                            <tr><td>
-                                            <%if (session.Status != SessionStatus.Approved 
+                                                <tr>
+                                                    <td>
+                                                        <%if (session.Status != SessionStatus.Approved 
                                                   && session.Status != SessionStatus.FinalApproved 
                                                   && CurrentUser.Role != UserRole.Reviewer 
                                                   && CurrentUser.Role != UserRole.FileReviewer)
                                               {%>
-                                            <input type="button"  value="تحميل الملفات" class="btnReloadSessionFiles" data-sid="<%=session.SessionID%>" />
-                                            <%} %>
-                                            </td> 
-
-                                            <td></td><td></td><td></td> <td></td> 
-                                            </tr>
-
-                                            <% /*if (session.Status == SessionStatus.Completed)
+                                                        <input type="button" value="تحميل الملفات" class="btnReloadSessionFiles" data-sid="<%=session.SessionID%>" />
+                                                        <%} %>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <% /*if (session.Status == SessionStatus.Completed)
                                               { %>
-                                            <tr><td><a href="EditIndexItems.aspx?sid=<%=session.SessionID%>">تعديل فهرس المضبطة</a> </td> <td></td><td></td><td></td><td></td>  </tr>
-                                            <%}*/ %>
-                                            
+                                                <tr>
+                                                    <td>
+                                                        <a href="EditIndexItems.aspx?sid=<%=session.SessionID%>">تعديل فهرس المضبطة</a>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <%}*/ %>
                                                 <%
                                                     //session files
                                                     foreach (SessionAudioFile saf in session.SessionFiles)
@@ -194,7 +209,8 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                 <tr data-order="<%=sessionFileOrder%>" data-id="<%=saf.ID%>" data-sessionid="<%=session.SessionID%>">
                                                     <td title="<%=sessionFileName%>">
                                                         <span>
-                                                            <%=sessionFileName%></span> <%--//TextHelper.Truncate(sessionFileName, 18, "...")--%>
+                                                            <%=sessionFileName%></span>
+                                                        <%--//TextHelper.Truncate(sessionFileName, 18, "...")--%>
                                                     </td>
                                                     <td class="<%=((saf.UserID != CurrentUser.ID) && (saf.UserID != null))?"lock":""%>">
                                                         <%=sessionFileStatus%>
@@ -207,7 +223,8 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                                         if ((saf.UserID == CurrentUser.ID || saf.UserID == null))
                                                                         {
                                                                             if (!saf.IsSessionStart)
-                                                                            {%><br /><a href="EditSessionFile.aspx?sfid=<%=saf.ID%>&sid=<%=saf.SessionID%>">[تعديل]</a><%}
+                                                                            {%><br />
+                                                        <a href="EditSessionFile.aspx?sfid=<%=saf.ID%>&sid=<%=saf.SessionID%>">[تعديل]</a><%}
                                                                             else
                                                                             {
 
@@ -218,7 +235,8 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                                                 if (notCompletedSessionFiles.ToList<SessionAudioFile>().Count == 0)
                                                                                 {
                                                                                         
-                                                                                %><br /><a href="SessionStart.aspx?sid=<%=saf.SessionID%>">[تعديل]</a><%}
+                                                        %><br />
+                                                        <a href="SessionStart.aspx?sid=<%=saf.SessionID%>">[تعديل]</a><%}
                                                                             }
                                                                             }
                                                                             break;
@@ -227,9 +245,11 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                                             if (saf.UserID == CurrentUser.ID)
                                                                             {
                                                                                 if (!saf.IsSessionStart)
-                                                                                {%><br /><a href="EditSessionFile.aspx?sfid=<%=saf.ID%>&sid=<%=saf.SessionID%>">[استكمال التعديل]</a><%}
+                                                                                {%><br />
+                                                        <a href="EditSessionFile.aspx?sfid=<%=saf.ID%>&sid=<%=saf.SessionID%>">[استكمال التعديل]</a><%}
                                                                                 else
-                                                                                {%><br /><a href="SessionStart.aspx?sid=<%=saf.SessionID%>">[استكمال التعديل]</a><%}
+                                                                                {%><br />
+                                                        <a href="SessionStart.aspx?sid=<%=saf.SessionID%>">[استكمال التعديل]</a><%}
                                                                             }
                                                                             break;
                                                                         case SessionFileStatus.Completed:
@@ -240,28 +260,28 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                                             if (saf.UserID == CurrentUser.ID)
                                                                             {
                                                                                 if (!saf.IsSessionStart)
-                                                                                {%><br /><a href="EditSessionFile.aspx?sfid=<%=saf.ID%>&reedit=true&sid=<%=saf.SessionID%>">[اعادة التعديل]</a><%}
+                                                                                {%><br />
+                                                        <a href="EditSessionFile.aspx?sfid=<%=saf.ID%>&reedit=true&sid=<%=saf.SessionID%>">[اعادة
+                                                            التعديل]</a><%}
                                                                                                     else
-                                                                                                    {%><br /><a href="SessionStart.aspx?sid=<%=saf.SessionID%>">[اعادة التعديل]</a><%}
+                                                                                                    {%><br />
+                                                        <a href="SessionStart.aspx?sid=<%=saf.SessionID%>">[اعادة التعديل]</a><%}
                                                                                                 }
                                                                                                 break;
                                                                                             default:
                                                                                                 break;
                                                                     }
                                                                 }
-                                                                                                  %>
+                                                        %>
                                                     </td>
                                                     <td title="<%=sessionFileOwnerName%>">
                                                         <span>
                                                             <%= TextHelper.Truncate(sessionFileOwnerName, 15, "...")%></span>
                                                     </td>
-
-
                                                     <td title="<%=sessionFileRevName%>">
                                                         <span>
                                                             <%= TextHelper.Truncate(sessionFileRevName, 15, "...")%></span>
                                                     </td>
-
                                                     <td>
                                                         <!-- usama here add reorder js ajax calls -->
                                                         <%=lastModefied%>
@@ -276,11 +296,9 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                         <%} %>
                                                     </td>
                                                 </tr>
-                                                
                                                 <%
                                                                     }//end foreach
                                                 %>
-                                                
                                             </tbody>
                                         </table>
                                     </td>
@@ -382,7 +400,8 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                                             && !(session.Status == SessionStatus.FinalApproved))
                                                                         {
                                                 %>
-                                                                <div><a href="Review.aspx?sid=<%=session.SessionID%>">[صفحة المراجعة]</a></div>
+                                                <div>
+                                                    <a href="Review.aspx?sid=<%=session.SessionID%>">[صفحة المراجعة]</a></div>
                                                 <%   
                                                                         }
                                                                         if (nRejected > 0)
@@ -393,20 +412,20 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                                            CurrentUser.Role == UserRole.Admin)
                                                                        {
                                                 %>
-                                                                <div> <a href="ReviewNotes.aspx?sid=<%=session.SessionID%>">[جميع الملاحظات]</a></div>
+                                                <div>
+                                                    <a href="ReviewNotes.aspx?sid=<%=session.SessionID%>">[جميع الملاحظات]</a></div>
                                                 <%} %>
                                                 <%
                                                     }
 
                                                                         if (CurrentUser.Role != UserRole.DataEntry)
                                                                         {
-                                                                            %> 
-                                                                            <div style="padding-top:5px;padding-bottom:5px">
-                                                                            <a href="statistics.aspx?sid=<%=session.SessionID%>">[إحصائيات]</a></div>
-                                                                            <%
+                                                %>
+                                                <div style="padding-top: 5px; padding-bottom: 5px">
+                                                    <a href="statistics.aspx?sid=<%=session.SessionID%>">[إحصائيات]</a></div>
+                                                <%
                                                                         } 
                                                 %>
-                                                
                                             </div>
                                         </div>
                                     </td>

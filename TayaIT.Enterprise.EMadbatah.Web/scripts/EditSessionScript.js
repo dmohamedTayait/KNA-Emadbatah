@@ -127,13 +127,15 @@ $(document).ready(function() {
     //onchange ignored
     $('.chkIgnoredSegment').change(function() {
 
-        //    if($(this).attr('checked'))
-        //    {
-        //    $('.sameAsPrevSpeaker').selected(true);
-        //    $(".sameAsPrevSpeaker").attr('checked', 'checked');
-        //    }
-
-
+            if($(this).attr('checked'))
+            {
+                var selectedSpeakerID = $("#MainContent_ddlSpeakers").val();
+                if(selectedSpeakerID == 0)
+                {
+                    $("#MainContent_ddlSpeakers option:contains(" + "غير محدد" + ")").attr('selected', 'selected');
+                    $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
+                }
+            }
     });
 
     // onchange event for SameSpeaker checkbox
@@ -361,22 +363,22 @@ $(document).ready(function() {
                         Footer: Footer
                     },
                     dataType: 'json',
-                    success: function(response) {
+                    success: function (response) {
                         prevAgendaItemIndex = AgendaItemID;
                         prevSpeakerIndex = SpeakerID;
                         prevSpeakerTitle = SpeakerJob;
                         prevSpeakerImgUrl = SpeakerImgUrl;
                         prevSpeakerJob = $("#MainContent_txtSpeakerJob").html();
                         prevFragOrder = currentOrder.val();
-                        BindData(response)
+                        BindData(response,1);
                         nextAndprev({
-                                ed: ed,
-                                response: response
-                            })
-                            //
+                            ed: ed,
+                            response: response
+                        })
+                        //
 
                     },
-                    error: function() {
+                    error: function () {
                         alert("لقد حدث خطأ");
 
                         $(".next").removeAttr("disabled");
@@ -391,55 +393,194 @@ $(document).ready(function() {
     function htmlEncode(value) {
         return $('<div/>').text(value).html();
     }
-    $(".split").click(function() {
+ 
+ /* $(".split").click(function () {
+        // VARS
         var ed = $('#MainContent_elm1').tinymce();
-        var selectedContent = ed.selection.getContent();
-        var ContentLength = $(ed.getContent()).not('#text').length;
-        var filterTheHtml = $('<div/>').text(selectedContent).filter('*[:empty]').remove().text().replace('&nbsp;','');
-        if(filterTheHtml != ''){
-            // get the selection and split
-            splitAction(selectedContent);
-        }else{
-            // select where the cursor is
-            var range = ed.selection.getRng();
-            var rangeStart = ed.selection.getNode();
-            // check if the start not the body
-            if(rangeStart.nodeName == 'BODY'){
-                rangeStart = ed.selection.getRng().startContainer.nextSibling
-            }
-            // check if the element is block element or not
-            var isBlock = ed.dom.isBlock(rangeStart);
-            // select all the siblings until reach another element
-            var nextSiblings = $(rangeStart).nextUntil(':not('+rangeStart.nodeName.toLowerCase()+')');
-            // if block element select it
-            if(isBlock || nextSiblings.length == 0){
-                ed.selection.select(rangeStart);
-            }else if((nextSiblings.length+1) == ContentLength){
-                alert('You selected the whole text')
-            }else if(nextSiblings.length){// check if there is any siblings
+        // check if the user selected the whole text
+        if (
+            (ed.contentDocument.body.firstChild == ed.contentDocument.body.lastChild) || 
+            (ed.contentDocument.body.firstChild == ed.selection.getStart()) || 
+            (ed.contentDocument.body.firstChild == ed.selection.getStart() && ed.contentDocument.body.lastChild == ed.selection.getEnd())
+        ){
+            // alert the user
+            alert('لقد قمت باختيار النص كاملاً');
+            return;
+        }
+        // select where the cursor is
+        var range = ed.selection.getRng();
+        var rangeStart = ed.selection.getNode();
+        // check if the start not the body
+        if (rangeStart.nodeName == 'BODY') {
+            getNextSibling = 
+            rangeStart = ed.selection.getRng().startContainer.nextSibling;
+        }
+        var $rangeStart = $(rangeStart);
+        // remove classes
+        $rangeStart.removeClass('highlight editable hover');
 
-
-
-                var lastElement = $(rangeStart).nextUntil(':not('+rangeStart.nodeName.toLowerCase()+')').last();
-                if(lastElement){
-                    range.setStart(rangeStart,0);
-                    range.setEnd(lastElement[0],1);
-                    ed.selection.setRng(range);
-                }else{
-                    console.log('lastElement',lastElement)
-                }
-
-
-
-            }
-            // get the selection and split
-            var selectedContent = ed.selection.getContent();
-            if(selectedContent){
-                splitAction(selectedContent);
+        // check if the element is block element or not
+        var isBlock = ed.dom.isBlock(rangeStart);
+        // if block element select it
+        if (isBlock) {
+            var lastElement = $rangeStart.nextAll().andSelf().last();
+            range.setStart(rangeStart, 0);
+            range.setEnd(lastElement[0], 1);
+            ed.selection.setRng(range);
+        }else if(rangeStart.nodeName == 'SPAN') {
+            // Check if there is more than one word
+            var words = $rangeStart.html().split(' ').filter(function(n){ return n != ''});
+            var wordsLength = words.length;
+            if(wordsLength == 1){
+                var lastElement = $rangeStart.nextAll().andSelf().last();
+                range.setStart(rangeStart, 0);
+                range.setEnd(lastElement[0], 1);
+                ed.selection.setRng(range);
             }else{
-                console.log('No content selected');
+                // CHECK THE SELECTION START
+                var selectedWords = [];
+                var selectedWordsLength = 0;
+                for(var index=0; index < wordsLength; index++){
+                    // vars
+                    selectedWordsLength += words[index].length + 1;
+                    // check teh selected words
+                    if(selectedWordsLength > range.startOffset+1){
+                        selectedWords.push(words[index]);
+                    }
+                }
+                // remove the words
+                $rangeStart.html($rangeStart.html().replace(selectedWords.join(' '),''));
+                // add the new words in new span
+                var $newSpan = $rangeStart.clone(false).html(selectedWords.join(' ') + ' ');
+                $rangeStart.after($newSpan);
+                // select
+                var lastElement = $newSpan.nextAll().last();
+                range.setStart($newSpan[0], 0);
+                range.setEnd(lastElement[0], 1);
+                ed.selection.setRng(range);
             }
         }
+
+
+        // get the selection and split
+        var selectedContent = ed.selection.getContent();
+        // split action
+        splitAction(selectedContent);
+
+    });*/
+
+    
+    $(".split").click(function () {
+        // VARS
+        var ed = $('#MainContent_elm1').tinymce();
+        // clean up
+        ed.execCommand('mceCleanup');
+        // check if the user selected the whole text
+        if (
+            ed.selection.getContent().length ||
+            (ed.contentDocument.body.firstChild == ed.contentDocument.body.lastChild) ||
+            (ed.contentDocument.body.firstChild == ed.selection.getStart() && ed.contentDocument.body.lastChild == ed.selection.getEnd())
+        ){
+            // alert the user
+            alert('You selected the whole text');
+            return;
+        }
+        // select where the cursor is
+        var range = ed.selection.getRng();
+        var rangeStart = ed.selection.getNode();
+        // check if the start not the body
+        if (rangeStart.nodeName == 'BODY') {
+            // insert mark where the mouse
+            ed.execCommand('mceInsertRawHTML', false,'<i id="mark"></i>');
+            // get the mark
+            var $mark = $(ed.getBody()).find('#mark');
+            // get the nearest
+	        rangeStart = $mark.next();
+	        // get the nearest
+	        if(!rangeStart.length){
+		        rangeStart = $mark.prev();
+	        }
+	        // get the dom
+	        if(rangeStart){
+		        rangeStart = rangeStart[0];
+	        }
+            // remove mark
+            $mark.remove();
+        }
+        var $rangeStart = $(rangeStart);
+        // remove classes
+        $rangeStart.removeClass('highlight editable hover');
+
+        // check if the element is block element or not
+        var isBlock = ed.dom.isBlock(rangeStart);
+        // if block element select it
+        if (isBlock) {
+            var lastElement = $rangeStart.nextAll().andSelf().last();
+            range.setStart(rangeStart, 0);
+            range.setEnd(lastElement[0], 1);
+            ed.selection.setRng(range);
+        }else if(rangeStart.nodeName == 'SPAN') {
+            // Check if there is more than one word
+            var words = $rangeStart.html().split(' ').filter(function(n){ return n != ''});
+            var wordsLength = words.length;
+            // check if he in the end of teh selection or not
+            if(range.startOffset == 1 && rangeStart.nextSibling.nodeName == '#text'){
+                rangeStart = rangeStart.nextSibling;
+                $rangeStart = $(rangeStart);
+            }
+            if(wordsLength == 1){
+                var lastElement = $rangeStart.nextAll().andSelf().last();
+                range.setStart(rangeStart, 0);
+                range.setEnd(lastElement[0], 1);
+                ed.selection.setRng(range);
+            }else{
+                // CHECK THE SELECTION START
+                var selectedWords = [];
+                var selectedWordsLength = 0;
+                for(var index=0; index < wordsLength; index++){
+                    // vars
+                    selectedWordsLength += words[index].length + 1;
+                    // check teh selected words
+                    if(selectedWordsLength > range.startOffset+1){
+                        selectedWords.push(words[index]);
+                    }
+                }
+                // remove the words
+                $rangeStart.html($rangeStart.html().replace(selectedWords.join(' '),''));
+                // add the new words in new span
+                var newSpanContent = (selectedWords.length == 1) ? ' '+selectedWords.join(' ') : selectedWords.join(' ')+' ';
+                var $newSpan = $rangeStart.clone(false).html(newSpanContent);
+                $rangeStart.after($newSpan);
+                // select
+                var lastElement = $newSpan.nextAll().andSelf().last();
+                range.setStart($newSpan[0], 0);
+                range.setEnd(lastElement[0], 1);
+                ed.selection.setRng(range);
+                // check if there is no text
+                if($rangeStart.text().trim() == ''){
+                    $rangeStart.remove();
+                }
+            }
+        }
+        // check if the user selected the whole text
+        if (
+            ed.contentDocument.body.firstChild == ed.selection.getStart() && ed.contentDocument.body.lastChild == ed.selection.getEnd()
+        ){
+            // alert the user
+            alert('You selected the whole text');
+            // deselect
+            ed.selection.collapse(true);
+            return;
+        }
+        // get the selection and split
+        var selectedContent = ed.selection.getContent();
+        // check if there is any tag
+        if(!$(selectedContent).length){
+            var cloneRangeStart = $rangeStart.clone().html(selectedContent);
+            selectedContent = cloneRangeStart[0].outerHTML;
+        }
+        // split action
+        splitAction(selectedContent);
     });
 
     $(".close_btn").click(function() {
@@ -534,7 +675,7 @@ $(document).ready(function() {
             var SpeakerID = $("#MainContent_ddlSpeakers").val();
             SpeakerID = SpeakerID == 0 ?  $("#MainContent_ddlSpeakers option:contains(" + "غير محدد" + ")").attr('selected', 'selected').val() : SpeakerID;
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
-            var SpeakerName = $("#txtNewSpeaker").val();
+            var SpeakerName = $("#MainContent_txtNewSpeaker").val();
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -585,7 +726,7 @@ $(document).ready(function() {
                     prevSpeakerTitle = response.prevAttendantJobTitle; // Item.CommentOnAttendant;
                     prevSpeakerImgUrl = response.AttendantAvatar;
                     prevSpeakerJob = response.AttendantJobTitle;
-                    BindData(response)
+                    BindData(response,2);
                         //prev clicked and no prev content item exist in db
                     if (response.prevAgendaItemID == null)
                         $('.sameAsPrevSpeaker').attr('disabled', 'disabled');
@@ -605,6 +746,7 @@ $(document).ready(function() {
     });
 
     function nextAndprev(o) {
+   
         // remove the loading
         o.ed.setProgressState(0)
             // remove undo level
@@ -612,13 +754,14 @@ $(document).ready(function() {
         o.ed.undoManager.add();
         var AudioPlayer = $("#jquery_jplayer_1");
         // pause player
-        AudioPlayer.jPlayer("stop").jPlayer("play")
-        AudioPlayer.jPlayer("pause", Math.floor(startTime.val()));
+        AudioPlayer.jPlayer("stop").jPlayer("play");
+       // $($('textarea.tinymce').html(),'span.segment').last().attr('data-stime')
+       // AudioPlayer.jPlayer("pause", $($('textarea.tinymce').html(),'span.segment').last().attr('data-stime'));
         // remove the class to let the user seek the time
        // AudioPlayer.removeClass('playerStoppedBefore')
     }
     // bind data to controls
-    function BindData(response) {
+    function BindData(response,prevOrNext) {
 
         if (response.ItemOrder == "last") {
             $('#MainContent_btnNext').attr('disabled', 'disabled');
@@ -649,6 +792,13 @@ $(document).ready(function() {
                     value: response.SpeakerID,
                     text: $('.txtNewSpeaker').val()
                  })); 
+            }
+            if(prevOrNext == 1 && Speakers_SelectedID == 1.5)
+            {
+              //  prevSpeakerTitle = $('.txtNewSpeaker').val();
+                 prevSpeakerIndex = response.Item.AttendantID;
+                //        prevSpeakerTitle = SpeakerJob;
+                //        prevSpeakerImgUrl = SpeakerImgUrl;
             }
             $('#MainContent_txtNewSpeaker').val('');
             $('#divNewSpeaker').hide();
@@ -821,7 +971,7 @@ $(document).ready(function() {
             var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
-            var SpeakerName = $("#txtNewSpeaker").val();
+            var SpeakerName = $("#MainContent_txtNewSpeaker").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -896,6 +1046,133 @@ $(document).ready(function() {
             }
         }
     });
+
+    // save and exit button onclick
+    $("#btnSaveOnly").click(function() {
+       // if ($("#editSessionFileForm").valid()) {
+            var mode = "1";
+            var sessionContentItem;
+            if ($(".hdPageMode").val().length == 0) {
+                mode = "1";
+            } else {
+                mode = $(".hdPageMode").val();
+                sessionContentItem = $(".hdSessionContentItemID").val();
+            }
+            var sessionID = $(".sessionID").val();
+            $("#btnSaveOnly").attr("disabled", "disabled");
+            //  var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+            //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+            var AgendaItemID = $('.agendaItemId').val();
+            var AttachID = $('.attachId').val();
+            var VoteID = $('.voteId').val();
+   
+            var SpeakerID = $("#MainContent_ddlSpeakers").val();
+            SpeakerID = SpeakerID == 0 ?  $("#MainContent_ddlSpeakers option:contains(" + "غير محدد" + ")").attr('selected', 'selected').val() : SpeakerID;
+            SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
+           // $("#MainContent_ddlSpeakers").val(SpeakerID);
+            //$("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
+
+            var SpeakerName = $("#MainContent_txtNewSpeaker").val();
+            var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+            var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
+            var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
+            var Ignored = $(".chkIgnoredSegment").is(':checked');
+            var SpeakerJob = $("#MainContent_txtSpeakerOtherJob").val();
+            var Text = encodeURI($("#MainContent_elm1").attr("value"));
+            var Comments = $("#MainContent_txtComments").val();
+            var Footer = $("#MainContent_txtFooter").val();
+
+            //$("#MainContent_ddlSpeakers option:contains(" + "أخرى" + ")").val() != SpeakerID &&
+            if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID && 
+                prevSpeakerIndex == SpeakerID) {
+                if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
+
+                    $(".sameAsPrevSpeaker").attr('checked', 'checked');
+                    $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
+                    SameAsPrevSpeaker = true;
+                } else {
+                    $("#MainContent_ddlSpeakers").val(0).trigger("change");
+                    $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
+                    ed.setProgressState(0);
+                    return;
+                }
+            }
+
+            if (AgendaItemID != 0) {
+                jQuery.ajax({
+                    cache: false,
+                    type: 'post',
+                    url: 'EditSessionHandler.ashx',
+                    data: {
+                        funcname: 'SaveOnly',
+                        AgendaItemID: AgendaItemID,
+                        AttachID: AttachID,
+                        VoteID: VoteID,
+                        SpeakerID: SpeakerID,
+                        SpeakerName: SpeakerName,
+                        SameAsPrevSpeaker: SameAsPrevSpeaker,
+                        IsSessionPresident: IsSessionPresident,
+                        IsGroupSubAgendaItems: IsGroupSubAgendaItems,
+                        Ignored: Ignored,
+                        SpeakerJob: SpeakerJob,
+                        Text: Text,
+                        Comments: Comments,
+                        Footer: Footer,
+                        editmode: mode,
+                        scid: sessionContentItem
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.Message == "success") {
+                            $("#btnSaveOnly").removeAttr("disabled");
+                            var Speakers_SelectedID = $("#MainContent_ddlSpeakers").val();
+                            //alert(Speakers_SelectedID);
+                            if(Speakers_SelectedID == 1.5)
+                            {
+                             //Add New Option
+                             $('#MainContent_ddlSpeakers').append($('<option>', {
+                                    value: response.SpeakerID,
+                                    text: $('.txtNewSpeaker').val()
+                                 })); 
+                            }
+                            $('#MainContent_txtNewSpeaker').val('');
+                            $('#divNewSpeaker').hide();
+ 
+                          try{
+                                    if (response.Item.AttendantID != null && response.Item.AttendantID != 0) {
+                                        $("#MainContent_ddlSpeakers > option:selected").removeAttr("selected");
+                                        $("#MainContent_ddlSpeakers > option[value=" + response.Item.AttendantID + "]").attr('selected', 'selected');
+                                        $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
+                                    } else {
+                                        $("#MainContent_ddlSpeakers > option[value=" + Speakers_SelectedID + "]").attr('selected', 'selected');
+                                        $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
+                                    }
+                                   }catch(err){
+                        }
+            	                        if($("#MainContent_ddlSpeakers > option:selected").text() == "غير محدد"){
+                                            $('#MainContent_ddlOtherTitles').val(0).attr('disabled', 'disabled');
+                                            $('#MainContent_ddlCommittee').val(0).hide().attr('disabled', 'disabled');
+                                            $('#MainContent_txtSpeakerOtherJob').val("").attr('disabled', 'disabled');
+                                            }
+					
+					
+
+
+                            alert("تم الحفظ بنجاح");
+                        }else {
+                            alert("لقد حدث خطأ");
+                            allInputs.removeAttr('disabled');
+                        }
+                    },
+                    error: function() {
+                        alert("لقد حدث خطأ");
+                        allInputs.removeAttr('disabled');
+                    }
+                });
+            }
+        //}
+    });
+
     // finish: save and exit button onclick
     $(".finish").click(function() {
         if ($("#editSessionFileForm").valid()) {
@@ -907,7 +1184,7 @@ $(document).ready(function() {
             var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
-            var SpeakerName = $("#txtNewSpeaker").val();
+            var SpeakerName = $("#MainContent_txtNewSpeaker").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -1036,13 +1313,13 @@ $(document).ready(function() {
         }
     });
     // add new job & edit button
-    $('#addnewjobbutton').click(function(e) {
+    $('#addnewjobbutton').click(function (e) {
         if ($("#editSessionFile").valid()) {
             $('#newjobtitle').attr('class', 'done')
-                // insert text
+            // insert text
             var value = $('input[name=addnewjobtext]').val();
             $('#newjobtitle .donemode strong').html(value)
-                // send the value
+            // send the value
         }
         e.preventDefault()
     })
@@ -1065,7 +1342,7 @@ $(document).ready(function() {
         cleanup: true,
         cleanup_on_startup: true,
         width: '100%',
-        height: 200,
+        height: 400,
         theme_advanced_source_editor_wrap: true,
         // Theme options
         theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright,|,undo,redo",
@@ -1081,13 +1358,13 @@ $(document).ready(function() {
         // invalid elements
         invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,head,,html,iframe,img,input,link,meta,object,option,param,script,select,style,table,tbody,tr,td,th,tbody,textarea,xmp",
         // valid elements
-        valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br",
+        valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br,i[!id]",
         force_br_newlines: true,
         force_p_newlines: false,
         forced_root_block: false,
         setup: function(ed) {
             // function to make the span editable
-            function editableSpan(ed, e) {
+            function editableSpan(ed, e, higlightonly) {
                 if (e) {
                     // remove all classes from the editor
                     $('span.editable', ed.contentDocument).removeClass('editable');
@@ -1095,10 +1372,13 @@ $(document).ready(function() {
                     if (e.nodeName == 'SPAN') {
                         // add class editable
                         $(e).addClass('editable');
-                        // time from the span
-                        var time = Math.floor($(e).attr('data-stime'))
+                        // check the flag
+                        if(!higlightonly){
+                            // time from the span
+                            var time = Math.floor($(e).attr('data-stime'))
                             // seek
-                        $("#jquery_jplayer_1").jPlayer("pause", time);
+                            $("#jquery_jplayer_1").jPlayer("pause", time);
+                        }
                     }
                 }
             }
@@ -1106,36 +1386,19 @@ $(document).ready(function() {
             ed.onMouseUp.add(function(ed, e) {
                 editableSpan(ed, e.target)
             });
-            // check if the user writes on no where
-            ed.onKeyDown.add(function(ed, l) {
-                var dom = ed.dom;
-                var currentNode = ed.selection.getNode();
-                var keycode = l.keyCode;
-                var valid = 
-                    (keycode > 47 && keycode < 58)   || // number keys
-                    keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
-                    (keycode > 64 && keycode < 91)   || // letter keys
-                    (keycode > 95 && keycode < 112)  || // numpad keys
-                    (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
-                    (keycode > 218 && keycode < 227);   // [\]' (in order)
-                if(currentNode.nodeName == 'BODY' && valid){
-                    // select the nearest tag
-                    var nextElement = ed.selection.getRng().startContainer.nextSibling;
-                    if(nextElement){
-                        var mark = $('<i>.</i>');
-                        $(nextElement).prepend(mark);
-                        ed.selection.select(mark[0]);
-                        ed.execCommand('mceCleanup');
-                    }
-                }
+            // click on text tinyMCE editor
+            ed.onKeyUp.add(function(ed, e) {
+                editableSpan(ed, ed.selection.getStart(),true)
             });
+            // on keys
+            editorEvents(ed);
             // oninit
-            ed.onInit.add(function(ed) {
+            ed.onInit.add(function (ed) {
                 var AudioPlayer = $("#jquery_jplayer_1");
                 // all span segments
                 var all_spans_segments = $('span.segment', ed.contentDocument);
                 // hover effect
-                all_spans_segments.live("mouseover mouseout", function(event) {
+                all_spans_segments.live("mouseover mouseout", function (event) {
                     if (event.type == "mouseover") {
                         // remove all classes
                         $(this).toggleClass('hover');
@@ -1160,35 +1423,35 @@ $(document).ready(function() {
                     cssSelectorAncestor: '#jp_container_1',
                     errorAlerts: false,
                     warningAlerts: false,
-                    ready: function() {
+                    ready: function () {
                         // get start and end time in hidden fields
-                        var firstTime = Math.floor(startTime.val())
-                            // play the jplayer
+                        var firstTime = Math.floor($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                        // play the jplayer
                         $(this).jPlayer("setMedia", {
                             mp3: $(".MP3FilePath").val() // mp3 file path
                         }).jPlayer("play", firstTime);
                         // next x seconds button
-                        $('.jp-audio .next-jp-xseconds').click(function(e){
+                        $('.jp-audio .next-jp-xseconds').click(function (e) {
                             var lastTime = Math.floor($('span.segment:last', ed.contentDocument).attr('data-stime'));
                             if(!((playertime+5) >= lastTime)){
                                 AudioPlayer.jPlayer("play", playertime + 5);
                             }
                         })
-                            // prev x seconds button
-                        $('.jp-audio .prev-jp-xseconds').click(function(e) {
-                            var firstTime = Math.floor($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                        // prev x seconds button
+                        $('.jp-audio .prev-jp-xseconds').click(function (e) {
                             if(!((playertime-5) <= firstTime)){
                                 AudioPlayer.jPlayer("play", playertime - 5);
                             }
                         })
                     },
-                    timeupdate: function(event) {
+                    timeupdate: function (event) {
                         if (!$(this).data("jPlayer").status.paused) {
                             // all span segments
                             var all_spans_segments = $('span.segment', ed.contentDocument);
-                            firstTime = Math.floor(startTime.val())
-                            var lastTime = Math.floor($('span.segment:last', ed.contentDocument).attr('data-stime')) //endTime.val() from hidden field
-                                // remove all classes
+                            //firstTime = Math.floor(startTime.val())
+                            var firstTime = Math.floor($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                            var lastTime = Math.floor($('span.segment:last', ed.contentDocument).attr('data-stime'));
+                            // remove all classes
                             all_spans_segments.removeClass('highlight editable');
                             // highlight the word by time
                             playertime = event.jPlayer.status.currentTime;
@@ -1204,7 +1467,7 @@ $(document).ready(function() {
                                 // highlight the span
                                 var highlight = all_spans_segments.filter('span.segment[data-stime^=' + playerfixedTimeToArray[0] + '\\.]');
                                 if (highlight.length > 1) {
-                                    highlight = highlight.filter(function() {
+                                    highlight = highlight.filter(function () {
                                         // get the nearest span
                                         var spanTime = $(this).attr('data-stime')
                                         var spanTimeToArray = spanTime.split('.');
@@ -1227,7 +1490,7 @@ $(document).ready(function() {
                     }
                 });
                 // jplayer shorcuts
-                $(document).add(ed.dom.doc.body).bind('keydown', function(e) {
+                $(document).add(ed.dom.doc.body).bind('keydown', function (e) {
                     var k = e.keyCode;
                     if ($(e.target).find(':input,select').length) { // not input
                         if (k == 88 || k == 67 || k == 86 || k == 66) {
@@ -1317,16 +1580,115 @@ $(document).ready(function() {
         // invalid elements
         invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,head,,html,iframe,img,input,link,meta,object,option,param,script,select,style,table,tbody,tr,td,th,tbody,textarea,xmp",
         // valid elements
-        valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br",
+        valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br,i[!id]",
         force_br_newlines: true,
         force_p_newlines: false,
-        forced_root_block: false
-        /*setup : function(ed) {
-            ed.onNodeChange.add(function(ed, evt) {
-                console.log($(ed.getBody()));
-            });
-        }*/
+        forced_root_block: false,
+        setup : function(ed) {
+            // on keypress
+             editorEvents(ed);
+        }
     };
+
+    // get where the cursor position
+    function getCursorPosition(ed,callBack){
+        // insert mark where the mouse
+        ed.execCommand('mceInsertRawHTML', false,'<i id="mark"></i>');
+        // get the mark
+        var $mark = $(ed.getBody()).find('#mark');
+        // get the tags
+        var previousSibling = $mark[0].previousSibling;
+        var nextSibling = $mark[0].nextSibling;
+        // get the accurate tags
+        if(!previousSibling){
+            previousSibling = ($mark.parent().length) ? $mark.parent()[0].previousSibling : false;
+        }
+        // get the accurate tags
+        if(!nextSibling){
+            nextSibling = ($mark.parent().length) ? $mark.parent()[0].nextSibling : false;
+        }
+        // collect the mark
+        var objects = {
+            $mark:$mark,
+            $parent:$mark.parent(),
+            nextSibling:nextSibling,
+            previousSibling:previousSibling
+        };
+        // check callback
+        if(callBack){
+            var callBackData = callBack(objects);
+            // select the mark tag
+            ed.selection.select($mark[0])
+            // remove the mark
+            $mark.remove();
+            // return
+            return callBackData;
+        }
+        // return
+        return objects;
+    }
+
+    // function for on key press
+    function editorEvents(ed){
+        // on keydown
+        ed.onKeyDown.add(function (ed, e) {
+            // to disable the merge of p tag
+            var dom = ed.dom;
+            var currentNode = ed.selection.getNode();
+            var backSpaceKey = (e.keyCode == 8);
+            var deleteKey = (e.keyCode == 46);
+            // backspace
+            if (backSpaceKey || deleteKey) {
+                // get where the cursor position
+                if(getCursorPosition(ed,function(OB){
+                    if(backSpaceKey){
+                        if(OB.previousSibling && OB.previousSibling.nodeName == 'P'){
+                            return true;
+                        }
+                    }else if(OB.nextSibling.nodeName == 'P'){
+                        return true;
+                    }
+                })){
+                    e.preventDefault();
+                }
+            }
+        });
+        // check if the user writes on no where
+        ed.onKeyPress.add(function (ed, e) {
+            var dom = ed.dom;
+            var currentNode = ed.selection.getNode();
+            if (currentNode.nodeName == 'BODY' && e.charCode != 13) {
+                // select the nearest tag
+                var nextElement = ed.selection.getRng().startContainer.nextSibling;
+                if (nextElement) {
+                    var mark = $('<i>.</i>');
+                    $(nextElement).prepend(mark);
+                    ed.selection.select(mark[0]);
+                    ed.execCommand('mceCleanup');
+                }
+            }
+        });
+        // click on text tinyMCE editor
+        ed.onKeyUp.add(function(ed, e) {
+            // check if the backspace
+            if(e.keyCode == 8 || e.keyCode == 46){
+                var selectedTag = ed.selection.getEnd();
+                if(selectedTag.nodeName == 'SPAN' && selectedTag.nextSibling.nodeName == 'SPAN'){
+                    // VARS
+                    var $selectedTag = $(selectedTag);
+                    var nextSibling = selectedTag.nextSibling;
+                    var $nextSibling = $(nextSibling);
+                    // add teh text to the selected tag
+                    $selectedTag.append($nextSibling.html());
+                    // remove the old on
+                    $nextSibling.remove();
+                    // clean up
+                    ed.execCommand('mceCleanup');
+                }
+            }
+        });
+    }
+    //
     $('#MainContent_Textarea1, #MainContent_Textarea2').tinymce(defaultOptions);
     // change the default options
     var newOptions = $.extend({},defaultOptions);
@@ -1384,28 +1746,13 @@ $(document).ready(function() {
                     var nodeName = tintMceActive.getNode().nodeName;
                     clone = clone.wrapAll('<div>');
                     var cloneHTML = clone.parent().html();
-                    tinymce.execCommand('mceFocus',false,'MainContent_Textarea2');
-                    // add to the undo manager
-                 /*   ed.undoManager.add();
-                    if((nodeName == 'SPAN' || nodeName == 'P' || nodeName == 'BODY') && tintMceActive.getRng().startOffset <= 1){
-                        // if the node is the body
-                        if(nodeName == 'BODY'){
-                            $(ed.getBody()).prepend(cloneHTML);
-                        }else{
-                            $(tinyMCE.activeEditor.selection.getNode()).before(cloneHTML);
-                        }
-                    }else if((nodeName == 'SPAN' || nodeName == 'P')){
-                        $(tinyMCE.activeEditor.selection.getNode()).after(cloneHTML);
-                    }else{
-                        tinymce.activeEditor.execCommand('mceInsertContent', false, cloneHTML);
-                    }*/
-                      if ((nodeName == 'SPAN' || nodeName == 'P') && tintMceActive.getRng().startOffset == 0) {
-                        $(tinyMCE.activeEditor.selection.getNode()).before(cloneHTML);
 
+                    if (((nodeName == 'SPAN' || nodeName == 'P')) && (tintMceActive.getRng().startOffset != $(tintMceActive.getNode()).text().length)) {
+                        $(tintMceActive.getNode()).before(cloneHTML);
                     } else if (nodeName == 'SPAN' || nodeName == 'P') {
-                        $(tinyMCE.activeEditor.selection.getNode()).after(cloneHTML);
+                        $(tintMceActive.getNode()).after(cloneHTML);
                     } else {
-                        tinymce.activeEditor.execCommand('mceInsertContent', false, cloneHTML);
+                        ed.execCommand('mceInsertContent', false, cloneHTML);
                     }
 
                     // add to the undo manager
@@ -1415,7 +1762,7 @@ $(document).ready(function() {
                 });
             }
         },
-        error: function() {
+        error: function () {
 
         }
     });

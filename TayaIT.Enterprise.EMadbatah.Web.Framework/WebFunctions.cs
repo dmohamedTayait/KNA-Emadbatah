@@ -81,6 +81,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             DoPrevious,
             BackToOriginalContent,
             SaveAndExit,
+            SaveOnly,
             StartFromBeginning,
             ContinueEdit,
             GetAllAgendaItems,
