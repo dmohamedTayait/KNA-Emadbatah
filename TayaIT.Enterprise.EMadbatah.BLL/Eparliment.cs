@@ -29,9 +29,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 	        binding.AllowCookies = false;
 	        binding.BypassProxyOnLocal = false;
 	        binding.HostNameComparisonMode = HostNameComparisonMode.StrongWildcard;
-            binding.MaxReceivedMessageSize = 200000000;
-            binding.MaxBufferSize = 200000000;
-            binding.MaxBufferPoolSize = 200000000;
+	        binding.MaxBufferSize = 65536;
+	        binding.MaxBufferPoolSize = 524288;
 	        binding.MessageEncoding = WSMessageEncoding.Text;
 	        binding.TextEncoding = System.Text.Encoding.UTF8;
 	        binding.TransferMode = TransferMode.Buffered;

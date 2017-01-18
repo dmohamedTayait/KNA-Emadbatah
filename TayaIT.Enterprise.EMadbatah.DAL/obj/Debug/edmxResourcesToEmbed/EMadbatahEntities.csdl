@@ -109,6 +109,12 @@
       <End Role="SessionFile" EntitySet="SessionFiles" />
     </AssociationSet>
     <EntitySet Name="sysdiagrams" EntityType="EMadbatahModel.sysdiagram" />
+    <EntitySet Name="Procedures" EntityType="EMadbatahModel.Procedure" />
+    <EntitySet Name="ProcedureTypes" EntityType="EMadbatahModel.ProcedureType" />
+    <AssociationSet Name="FK_Procedure_ProcedureType" Association="EMadbatahModel.FK_Procedure_ProcedureType">
+      <End Role="ProcedureType" EntitySet="ProcedureTypes" />
+      <End Role="Procedure" EntitySet="Procedures" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AgendaItem">
     <Key>
@@ -625,4 +631,34 @@
     <Property Type="Int32" Name="version" />
     <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
   </EntityType>
+  <EntityType Name="Procedure">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="ProcedureTitle" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Type="Int64" Name="ProcedureTypeID" />
+    <NavigationProperty Name="ProcedureType" Relationship="EMadbatahModel.FK_Procedure_ProcedureType" FromRole="Procedure" ToRole="ProcedureType" />
+  </EntityType>
+  <EntityType Name="ProcedureType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="ProcedureTypeStr" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="ProcedureTypeOrder" />
+    <NavigationProperty Name="Procedures" Relationship="EMadbatahModel.FK_Procedure_ProcedureType" FromRole="ProcedureType" ToRole="Procedure" />
+  </EntityType>
+  <Association Name="FK_Procedure_ProcedureType">
+    <End Type="EMadbatahModel.ProcedureType" Role="ProcedureType" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.Procedure" Role="Procedure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProcedureType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Procedure">
+        <PropertyRef Name="ProcedureTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

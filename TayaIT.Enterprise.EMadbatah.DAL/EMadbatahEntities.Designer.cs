@@ -41,6 +41,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionFile_Reviewer", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.User), "SessionFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionFile), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionContentItem_FileReviewer", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.User), "SessionContentItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionContentItem), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionFile_FileReviewer", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.User), "SessionFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionFile), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Procedure_ProcedureType", "ProcedureType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.ProcedureType), "Procedure", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Procedure), true)]
 
 #endregion
 
@@ -347,6 +348,38 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
         private ObjectSet<sysdiagram> _sysdiagrams;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Procedure> Procedures
+        {
+            get
+            {
+                if ((_Procedures == null))
+                {
+                    _Procedures = base.CreateObjectSet<Procedure>("Procedures");
+                }
+                return _Procedures;
+            }
+        }
+        private ObjectSet<Procedure> _Procedures;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProcedureType> ProcedureTypes
+        {
+            get
+            {
+                if ((_ProcedureTypes == null))
+                {
+                    _ProcedureTypes = base.CreateObjectSet<ProcedureType>("ProcedureTypes");
+                }
+                return _ProcedureTypes;
+            }
+        }
+        private ObjectSet<ProcedureType> _ProcedureTypes;
 
         #endregion
         #region AddTo Methods
@@ -477,6 +510,22 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         public void AddTosysdiagrams(sysdiagram sysdiagram)
         {
             base.AddObject("sysdiagrams", sysdiagram);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Procedures EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProcedures(Procedure procedure)
+        {
+            base.AddObject("Procedures", procedure);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProcedureTypes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProcedureTypes(ProcedureType procedureType)
+        {
+            base.AddObject("ProcedureTypes", procedureType);
         }
 
         #endregion
@@ -2022,6 +2071,278 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Session>("EMadbatahModel.FK_Session_MadbatahFilesStatus", "Session", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="Procedure")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Procedure : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Procedure object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Procedure CreateProcedure(global::System.Int64 id)
+        {
+            Procedure procedure = new Procedure();
+            procedure.ID = id;
+            return procedure;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ProcedureTitle
+        {
+            get
+            {
+                return _ProcedureTitle;
+            }
+            set
+            {
+                OnProcedureTitleChanging(value);
+                ReportPropertyChanging("ProcedureTitle");
+                _ProcedureTitle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ProcedureTitle");
+                OnProcedureTitleChanged();
+            }
+        }
+        private global::System.String _ProcedureTitle;
+        partial void OnProcedureTitleChanging(global::System.String value);
+        partial void OnProcedureTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> ProcedureTypeID
+        {
+            get
+            {
+                return _ProcedureTypeID;
+            }
+            set
+            {
+                OnProcedureTypeIDChanging(value);
+                ReportPropertyChanging("ProcedureTypeID");
+                _ProcedureTypeID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcedureTypeID");
+                OnProcedureTypeIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _ProcedureTypeID;
+        partial void OnProcedureTypeIDChanging(Nullable<global::System.Int64> value);
+        partial void OnProcedureTypeIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_Procedure_ProcedureType", "ProcedureType")]
+        public ProcedureType ProcedureType
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProcedureType>("EMadbatahModel.FK_Procedure_ProcedureType", "ProcedureType").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProcedureType>("EMadbatahModel.FK_Procedure_ProcedureType", "ProcedureType").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<ProcedureType> ProcedureTypeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ProcedureType>("EMadbatahModel.FK_Procedure_ProcedureType", "ProcedureType");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ProcedureType>("EMadbatahModel.FK_Procedure_ProcedureType", "ProcedureType", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="ProcedureType")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ProcedureType : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ProcedureType object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static ProcedureType CreateProcedureType(global::System.Int64 id)
+        {
+            ProcedureType procedureType = new ProcedureType();
+            procedureType.ID = id;
+            return procedureType;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ProcedureTypeStr
+        {
+            get
+            {
+                return _ProcedureTypeStr;
+            }
+            set
+            {
+                OnProcedureTypeStrChanging(value);
+                ReportPropertyChanging("ProcedureTypeStr");
+                _ProcedureTypeStr = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ProcedureTypeStr");
+                OnProcedureTypeStrChanged();
+            }
+        }
+        private global::System.String _ProcedureTypeStr;
+        partial void OnProcedureTypeStrChanging(global::System.String value);
+        partial void OnProcedureTypeStrChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ProcedureTypeOrder
+        {
+            get
+            {
+                return _ProcedureTypeOrder;
+            }
+            set
+            {
+                OnProcedureTypeOrderChanging(value);
+                ReportPropertyChanging("ProcedureTypeOrder");
+                _ProcedureTypeOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProcedureTypeOrder");
+                OnProcedureTypeOrderChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ProcedureTypeOrder;
+        partial void OnProcedureTypeOrderChanging(Nullable<global::System.Int32> value);
+        partial void OnProcedureTypeOrderChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_Procedure_ProcedureType", "Procedure")]
+        public EntityCollection<Procedure> Procedures
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Procedure>("EMadbatahModel.FK_Procedure_ProcedureType", "Procedure");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Procedure>("EMadbatahModel.FK_Procedure_ProcedureType", "Procedure", value);
                 }
             }
         }

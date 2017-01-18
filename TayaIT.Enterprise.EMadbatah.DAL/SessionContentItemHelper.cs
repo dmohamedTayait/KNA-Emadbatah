@@ -946,7 +946,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                             var att = context.Attendants.FirstOrDefault<Attendant>(a => a.ID == attendantID);
                             if (att != null)
                             {
-                               // att.JobTitle = commentsOnAttendant;
+                                att.JobTitle = commentsOnAttendant;
                             }
                         }
 

@@ -8,6 +8,8 @@
     <EntitySet Name="AttendantState" EntityType="EMadbatahModel.Store.AttendantState" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AttendantType" EntityType="EMadbatahModel.Store.AttendantType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MadbatahFilesStatus" EntityType="EMadbatahModel.Store.MadbatahFilesStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Procedure" EntityType="EMadbatahModel.Store.Procedure" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProcedureType" EntityType="EMadbatahModel.Store.ProcedureType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Role" EntityType="EMadbatahModel.Store.Role" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Session" EntityType="EMadbatahModel.Store.Session" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionAttendant" EntityType="EMadbatahModel.Store.SessionAttendant" store:Type="Tables" Schema="dbo" />
@@ -37,6 +39,10 @@
     <AssociationSet Name="FK_Attendant_AttendantType" Association="EMadbatahModel.Store.FK_Attendant_AttendantType">
       <End Role="AttendantType" EntitySet="AttendantType" />
       <End Role="Attendant" EntitySet="Attendant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Procedure_ProcedureType" Association="EMadbatahModel.Store.FK_Procedure_ProcedureType">
+      <End Role="ProcedureType" EntitySet="ProcedureType" />
+      <End Role="Procedure" EntitySet="Procedure" />
     </AssociationSet>
     <AssociationSet Name="FK_Session_MadbatahFilesStatus" Association="EMadbatahModel.Store.FK_Session_MadbatahFilesStatus">
       <End Role="MadbatahFilesStatus" EntitySet="MadbatahFilesStatus" />
@@ -187,6 +193,22 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Procedure">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ProcedureTitle" Type="nvarchar" MaxLength="1000" />
+    <Property Name="ProcedureTypeID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="ProcedureType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ProcedureTypeStr" Type="nvarchar" MaxLength="500" />
+    <Property Name="ProcedureTypeOrder" Type="int" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -386,6 +408,18 @@
       </Principal>
       <Dependent Role="Attendant">
         <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Procedure_ProcedureType">
+    <End Role="ProcedureType" Type="EMadbatahModel.Store.ProcedureType" Multiplicity="0..1" />
+    <End Role="Procedure" Type="EMadbatahModel.Store.Procedure" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProcedureType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Procedure">
+        <PropertyRef Name="ProcedureTypeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -627,8 +661,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="DeleteData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-  <Function Name="DeleteSessionData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="sessionid" Type="bigint" Mode="In" />
-  </Function>
 </Schema>

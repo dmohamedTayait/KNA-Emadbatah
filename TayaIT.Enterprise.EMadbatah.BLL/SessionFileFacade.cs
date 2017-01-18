@@ -20,7 +20,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             {
                 foreach (SessionFile sf in sessionFiles)
                 {
-                    sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.User.FName, (DateTime)sf.LastModefied, sf.User == null ? null : sf.User.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null));
+                    sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.FileReviewer.FName, (DateTime)sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null));
                 }
 
                 return sessionAudioFiles;
@@ -33,7 +33,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         {
             SessionFile sf = new SessionFile();
             sf = SessionFileHelper.GetSessionFileByID(sessionFileID);
-            return new SessionAudioFile(sf.ID, sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, (sf.User == null ? null : sf.User.FName), sf.LastModefied, sf.User == null ? null : sf.User.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null);
+            return new SessionAudioFile(sf.ID, sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, (sf.FileReviewer == null ? null : sf.FileReviewer.FName), sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null);
         }
         public static bool LockSessionFile(long sessionFileID, long userID, bool isAdmin)
         {

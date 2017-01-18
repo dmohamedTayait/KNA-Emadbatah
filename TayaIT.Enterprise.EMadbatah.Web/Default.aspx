@@ -15,7 +15,6 @@
     <link href="styles/uniform.aristo.css" rel="stylesheet" type="text/css" />
     <link href="styles/fileuploader.css" rel="stylesheet" type="text/css" />
     <input type="hidden" runat="server" id="UserRuleHidden" />
-     <input type="hidden" runat="server" id="test" />
     <div id="mainContent" runat="server">
         <div id="maintable1"  class="MainhomeWrapper">
             <table class="table deftable" border="0" cellspacing="0" cellpadding="0">

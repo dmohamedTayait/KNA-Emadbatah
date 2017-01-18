@@ -224,5 +224,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Procedures">
+      <EntityTypeMapping TypeName="EMadbatahModel.Procedure">
+        <MappingFragment StoreEntitySet="Procedure">
+          <ScalarProperty Name="ProcedureTypeID" ColumnName="ProcedureTypeID" />
+          <ScalarProperty Name="ProcedureTitle" ColumnName="ProcedureTitle" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProcedureTypes">
+      <EntityTypeMapping TypeName="EMadbatahModel.ProcedureType">
+        <MappingFragment StoreEntitySet="ProcedureType">
+          <ScalarProperty Name="ProcedureTypeOrder" ColumnName="ProcedureTypeOrder" />
+          <ScalarProperty Name="ProcedureTypeStr" ColumnName="ProcedureTypeStr" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

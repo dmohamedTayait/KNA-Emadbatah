@@ -44,8 +44,8 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string SESSION_FILE_ID { get { return "sfid"; } }
             public string SESSION_START_ID { get { return "ssid"; } }
             public string SESSION_CONTENT_ITEM_ID { get { return "scid"; } }
-           
 
+            public string PROCEDURE_TYPE_ID { get { return "proctypeid"; } }
 
             public string AJAX_FUNCTION_NAME { get { return "funcname"; } }
 

@@ -96,5 +96,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             Download,
             GetFilesStatus
         }
+
+        public enum ProcedureFunctions
+        {
+            GetProcedureTypes,
+            GetProcedures
+        }
     }
 }

@@ -332,7 +332,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 foreach (SessionFile sf in sessionFiles)
 	            {
-                    sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.User.FName, (DateTime)sf.LastModefied, sf.User == null ? null : sf.User.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null));
+                    sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.FileReviewer.FName, (DateTime)sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null));
 	            }
 
                 SessionDetails detail = GetSessionDetailsFromSessionObj(session);
@@ -805,9 +805,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         sf.Order,
                         sf.DurationSecs,
                         (Model.SessionFileStatus)sf.Status,
-                        (sf.User != null) ? sf.User.FName : null,
+                        (sf.FileReviewer != null) ? sf.FileReviewer.FName : null,
                         sf.LastModefied,
-                        (sf.User != null) ? sf.User.Email : null, 
+                        (sf.FileReviewer != null) ? sf.FileReviewer.Email : null, 
                         sf.IsSessionStart, 
                         sf.SessionStartText,
                         sf.FileReviewerID, 

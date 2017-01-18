@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SessionProcedureType.cs" />
+    <Compile Include="SessionProcedure.cs" />
     <Compile Include="EMadbatahUser.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="EmailServer.cs" />
