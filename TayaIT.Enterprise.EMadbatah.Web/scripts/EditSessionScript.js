@@ -678,11 +678,18 @@ $(document).ready(function() {
             var Speakers_SelectedID = $("#MainContent_ddlSpeakers").val();
             if(Speakers_SelectedID == 1.5)
             {
-             //Add New Option
-             $('#MainContent_ddlSpeakers').append($('<option>', {
-                    value: response.SpeakerID,
-                    text: $('.txtNewSpeaker').val()
-                 })); 
+             var if_added_b4 = $("#MainContent_ddlSpeakers > option[value=" + response.SpeakerID + "]");
+             if(if_added_b4.length == 0 ){
+                 //Add New Option
+                 $('#MainContent_ddlSpeakers').append($('<option>', {
+                        value: response.SpeakerID,
+                        text: $('.txtNewSpeaker').val()
+                     })); 
+                }
+
+              //  $("#MainContent_ddlSpeakers > option:selected").removeAttr("selected");
+              // $("#MainContent_ddlSpeakers > option[value=" + response.SpeakerID + "]").attr('selected', 'selected');
+              //  $("#select2-MainContent_ddlSpeakers-container").html($('.txtNewSpeaker').val());
             }
             if(prevOrNext == 1 && Speakers_SelectedID == 1.5)
             {
@@ -697,6 +704,8 @@ $(document).ready(function() {
             $('.attachId').val(response.AttachID);
             $('.voteId').val(response.VoteID);
             $('.agendaItemTxt').html(response.AgendaItemText);
+            $('.agendaItemIsIndexed').val(response.AgendaItemIsIndexed);
+            
             if (response.AgendaItemText == "غير معرف") {
                 $('.divAgenda').hide();
             } else {
@@ -1015,14 +1024,21 @@ $(document).ready(function() {
                             $(".btnSaveOnly").removeAttr("disabled");
                             var Speakers_SelectedID = $("#MainContent_ddlSpeakers").val();
                             //alert(Speakers_SelectedID);
-                            if(Speakers_SelectedID == 1.5)
-                            {
-                             //Add New Option
-                             $('#MainContent_ddlSpeakers').append($('<option>', {
-                                    value: response.SpeakerID,
-                                    text: $('.txtNewSpeaker').val()
-                                 })); 
-                            }
+                             if(Speakers_SelectedID == 1.5)
+                                {
+                                 var if_added_b4 = $("#MainContent_ddlSpeakers > option[value=" + response.SpeakerID + "]");
+                                 if(if_added_b4.length == 0 ){
+                                     //Add New Option
+                                     $('#MainContent_ddlSpeakers').append($('<option>', {
+                                            value: response.SpeakerID,
+                                            text: $('.txtNewSpeaker').val()
+                                         })); 
+                                    }
+
+                                  //  $("#MainContent_ddlSpeakers > option:selected").removeAttr("selected");
+                                  // $("#MainContent_ddlSpeakers > option[value=" + response.SpeakerID + "]").attr('selected', 'selected');
+                                  //  $("#select2-MainContent_ddlSpeakers-container").html($('.txtNewSpeaker').val());
+                                }
                             $('#MainContent_txtNewSpeaker').val('');
                             $('#divNewSpeaker').hide();
  
@@ -1327,7 +1343,7 @@ $(document).ready(function() {
         height: 400,
         theme_advanced_source_editor_wrap: true,
         // Theme options
-        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright,|,undo,redo",
+        theme_advanced_buttons1: "justifycenter,justifyright,|,undo,redo",
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_buttons4: "",
@@ -1444,7 +1460,7 @@ $(document).ready(function() {
                             var playerfixedTimeString = playerfixedTime.toString();
                             var playerfixedTimeToArray = playerfixedTimeString.split('.');
                             // highlight the span
-                            var highlight = all_spans_segments.filter('span.segment[data-stime^=' + playerfixedTimeToArray[0] + ']');
+                            var highlight = all_spans_segments.filter('span.segment[data-stime^="' + playerfixedTimeToArray[0] + '."]');
                             if (highlight.length > 1) {
                                 highlight = highlight.filter(function () {
                                     // get the nearest span
@@ -1548,7 +1564,7 @@ $(document).ready(function() {
         height: 400,
         theme_advanced_source_editor_wrap: true,
         // Theme options
-        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright,|,undo,redo",
+        theme_advanced_buttons1: "justifycenter,justifyright,|,undo,redo",
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_buttons4: "",
@@ -1703,6 +1719,9 @@ $(document).ready(function() {
     // change the default options
     var newOptions = $.extend({},defaultOptions);
     newOptions.height = 200;
+    newOptions.theme_advanced_buttons1 = "bold,|,undo,redo";
+    newOptions.valid_elements = "@[class],strong,br,i[!id]";
+    newOptions.setup = function() {}
     $('#MainContent_Textarea3').tinymce(newOptions);
 
     // ajax load the dropdown list
@@ -1738,7 +1757,7 @@ $(document).ready(function() {
                         for (var i = 0; i < newDropDownListValuesLength; i++) {
                             var option = newDropDownListValues.SessionProcedureObj[i];
                             // create the option in the dropdown list
-                            listData.append($('<li/>').data('value', option.ID).text(option.ProcedureTitle));
+                            listData.append($('<li/>').data('value', option.ID).html(option.ProcedureTitle));
                         }
                     }else{
                         // reset
@@ -1749,7 +1768,7 @@ $(document).ready(function() {
                 $(listData).delegate('li','click',function(){
                     // vars
                     var $this = $(this);
-                    var addingParText = $this.text();
+                    var addingParText = $this.html();
                     var clone = $('<p/>').append(addingParText).attr('procedure-id', $this.data('value'));
                     var cloneHTML = clone[0].outerHTML;
                     var ed = $('#MainContent_Textarea2').tinymce();
@@ -1762,7 +1781,7 @@ $(document).ready(function() {
                             var nodeName = OB.$target[0].nodeName;
                             // check node name
                             if (nodeName == 'BODY') {
-                                ed.execCommand('mceInsertContent', false, cloneHTML);
+                                ed.execCommand('mceInsertRawHTML', false, cloneHTML);
                             }else{
                                 if(OB.endOffset >= (OB.$target.text().length/2)){
                                     $(OB.$target).after(cloneHTML);
@@ -1920,8 +1939,18 @@ $(document).ready(function() {
         $(".popupoverlay").show();
         $(".reviewpopup_cont3").show();
         // reset values
-        $("textarea.splittinymce", '.reviewpopup_cont3').val('');
-        $('.isAgendaItemIndexed', '.reviewpopup_cont3').prop('checked', false);
+         if($('.agendaItemIsIndexed').val() == "1")
+            $('.isAgendaItemIndexed', '.reviewpopup_cont3').prop('checked', true);
+        else  $('.isAgendaItemIndexed', '.reviewpopup_cont3').prop('checked', false);
+
+        if($.trim($('.agendaItemTxt').html()) != 'غير معرف')
+        $("textarea.splittinymce", '.reviewpopup_cont3').val($('.agendaItemTxt').html());
+        else{
+          $("textarea.splittinymce", '.reviewpopup_cont3').val('');
+         // $('.isAgendaItemIndexed', '.reviewpopup_cont3').prop('checked', false);
+          }
+       
+        
         e.preventDefault();
     });
     // add new agenda yes button
@@ -1941,7 +1970,8 @@ $(document).ready(function() {
                     agendaitemtext: encodeURIComponent(htmlData),
                     sid: $(".sessionID").val(),
                     isindexed: checked,
-                    c: $(".hdSessionContentItemID").val()
+                    c: $(".hdSessionContentItemID").val(),
+                    agendaid: $('.agendaItemId').val() == $('.unAssignedAgendaId').val() ? '' : $('.agendaItemId').val()
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -1951,8 +1981,9 @@ $(document).ready(function() {
                     $(".popupoverlay").hide();
                     $(".reviewpopup_cont3").hide();
                     // repalce the button with the content
-                    $(".addingNewAgendaItem").hide();
+                    // $(".addingNewAgendaItem").hide();
                     $('.agendaItemTxt').html(htmlData);
+                    $('.agendaItemIsIndexed').val(checked);
                     if (response != 0) {
                         $(".divAgenda").show();
                     }

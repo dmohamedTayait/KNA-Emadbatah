@@ -98,6 +98,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             return output;
         }
         public string agendaItemTxt = "";
+        public string agendaItemIsIndexed = "0";
         private void BindData()
         {
             string html; // editor rendered HTML text
@@ -229,6 +230,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 rdlattachments.Items.Add(liAttach);
             }
 
+            AgendaItem sessionUnknownItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", current_session.ID);
+            unAssignedAgendaId.Value = sessionUnknownItem.ID.ToString();
+
             if (lastContentItem != null)
             {
                 Attendant attendObj = AttendantHelper.GetAttendantById(lastContentItem.AttendantID);
@@ -253,6 +257,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 {
                     // btn_addNewAgendaItem.Style.Add("display", "none");
                     agendaItemTxt = lastContentItem.AgendaItem.Name;
+                    agendaItemIsIndexed = lastContentItem.AgendaItem.IsIndexed.ToString();
                     agendaItemId.Value = lastContentItem.AgendaItem.ID.ToString();
                     if (lastContentItem.AgendaItem.Name == "غير معرف")
                         divAgenda.Style.Add("display", "none");
@@ -342,8 +347,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
             else
             {
-                AgendaItem sessionUnknownItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", current_session.ID);
+               
                 agendaItemTxt = sessionUnknownItem.Name;
+                agendaItemIsIndexed = sessionUnknownItem.IsIndexed.ToString();
                 agendaItemId.Value = sessionUnknownItem.ID.ToString();
 
 

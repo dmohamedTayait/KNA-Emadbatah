@@ -50,6 +50,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             AgendaHelper.UpdateAgendaItem(id, itemText);
             return "success";
         }
+        public static string UpdateAgendaItem(long id, string itemText, int itemIndexed)
+        {
+            AgendaHelper.UpdateAgendaItem(id, itemText, itemIndexed);
+            return "success";
+        }
         public static int AssignAttachmentToSessionContentItem(long attachmentID, long sessionContentItemID)
         {
             return SessionContentItemHelper.AssignAttachmentToSessionContentItem(attachmentID, sessionContentItemID);

@@ -1125,6 +1125,7 @@ span.revFilelock {
     font-family: AdvertisingBold;
     font-size:14pt;
     line-height: 35px;
+    direction: rtl;
 }
 .Edititem:hover,
 .blueitem .item:hover,
@@ -1440,7 +1441,7 @@ span.revFilelock {
     outline: 0 none;
 }
 .agendaItemTxt {
-    font-size: 16px;
+    font-size: 16pt;
 }
 .divVote,
 .divAttach {

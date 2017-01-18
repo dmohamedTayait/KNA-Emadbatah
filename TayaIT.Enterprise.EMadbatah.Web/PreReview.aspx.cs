@@ -59,6 +59,19 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                     foreach (SessionContentItem item in lsCntItems)
                     {
+                        AgendaItem curAgendaItem = item.AgendaItem;
+
+                        string originalName = curAgendaItem.Name;
+                        writtenAgendaItems.Add(curAgendaItem.Name);
+                        string updatedAgendaName = "";
+                        if (curAgendaItem.Name != "غير معرف")
+                        {
+                            updatedAgendaName = curAgendaItem.Name;
+                            string agendaItem = Application[Constants.HTMLTemplateFileNames.ReviewItemAgendaItem].ToString()
+                                                    .Replace("<%itemText%>", "* " + updatedAgendaName + ":");
+                            sb.Append(agendaItem);
+                        }
+
                         if (!item.MergedWithPrevious.Value)
                         {
                             Attendant att = item.Attendant;
@@ -92,12 +105,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                             attFullPresentationName = "    " + item.CommentOnAttendant + ")";
                                         if (att.Type == 3)
                                             job2 = "    " + att.JobTitle + ")";
-                                        /* }
-                                         else
-                                         {
-                                             job2 = "    " + item.CommentOnAttendant + ")";
-                                         }
-                                         */
+                                      
                                         string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
                                                   .Replace("<%itemText%>", name)
                                                   .Replace("<%speakerJob%>", attFullPresentationName)

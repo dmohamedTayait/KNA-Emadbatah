@@ -30,7 +30,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 //MadbatahCover
                 CreateMadbatahCover(details, SessionWorkingDir + "MadbatahcoverDoc.docx", ServerMapPath);
 
-                int sessionStartSize = 0;
+                int sessionStartSize = 1;
                 SessionFile start = SessionStartFacade.GetSessionStartBySessionID(sessionID);
                 //HtmlToOpenXml.SaveHtmlToWord(start.SessionStartText, SessionWorkingDir + "sessionStartDoc.docx", ServerMapPath+ "\\resources\\", out sessionStartSize);
                 HTMLtoDOCX hd = new HTMLtoDOCX();
@@ -54,8 +54,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 if (speakerSize == -1)
                     throw new Exception("Speakers Index Creation Failed.");
 
-                MabatahCreatorFacade.CreateMadbatahIndex(index, SessionWorkingDir, indexSize + speakerSize + 2, bodySize, SessionWorkingDir + "indexDoc.docx", ServerMapPath, details);
-                MabatahCreatorFacade.CreateSpeakersIndex(speakersIndex, indexSize + speakerSize + 2, ServerMapPath, SessionWorkingDir + "indexSpeakers.docx");
+                MabatahCreatorFacade.CreateMadbatahIndex(index, SessionWorkingDir, indexSize + speakerSize + coverSize + sessionStartSize, bodySize, SessionWorkingDir + "indexDoc.docx", ServerMapPath, details);
+                MabatahCreatorFacade.CreateSpeakersIndex(speakersIndex, indexSize + speakerSize + coverSize + sessionStartSize, ServerMapPath, SessionWorkingDir + "indexSpeakers.docx");
 
                 //Merga All Generated Files
                 List<string> mergeList = new List<string>();
@@ -195,18 +195,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                         pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                         int ctr = 0;
-                        //meshmesh: to handle merged with prev issue
+                       
                         List<List<SessionContentItem>> speakerGroup = new List<List<SessionContentItem>>();
                         List<SessionContentItem> newGroup = GroupSpeakerSimilarArticles(groupedItems, out speakerGroup);
+                        List<SessionContentItem> contentItemGrp = new List<SessionContentItem>();
                         //foreach (SessionContentItem sessionItem in groupedItems)
                         int j = 0;
                         int k = 0;
                         foreach (SessionContentItem sessionItem in newGroup)
                         {
                             //a check should be done of files, meshmesh
-                            if (lastIteminPrevList != null && lastIteminPrevList.AttendantID == sessionItem.AttendantID &&
-                                lastIteminPrevList.AgendaItemID == sessionItem.AgendaItemID &&
-                                lastIteminPrevList.AgendaSubItemID == sessionItem.AgendaSubItemID)
+                            if (lastIteminPrevList != null && lastIteminPrevList.AttendantID == sessionItem.AttendantID)
                             {
                                 sessionItem.MergedWithPrevious = true;
                             }
@@ -220,6 +219,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             {
                                 if (!doc.IsOpen)
                                     doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open);
+
                                 pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                                 AgendaItem updatedAgenda = contentItem.AgendaItem;
                                 if (updatedAgenda.Name != "غير معرف")
@@ -246,12 +246,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         Attendant att = sessionItem.Attendant;
                                         if (att.Type != (int)Model.AttendantType.UnAssigned)
                                         {
-                                            /*   if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
-                                                   doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ": " + "(" + sessionItem.CommentOnAttendant + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                               else
-                                                   doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                               */
-                                            WriteAttendantInWord(sessionItem, att, doc);
+                                           // WriteAttendantInWord(sessionItem, att, doc);
 
                                             if (att.Type == (int)Model.AttendantType.FromTheCouncilMembers)
                                             {
@@ -265,15 +260,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     }
                                 }
 
-                                if (!string.IsNullOrEmpty(contentItem.PageFooter))
-                                {
-                                    doc.AddFootnote(contentItem.PageFooter);
-                                }
-
-
-                                // text += " " + TextHelper.StripHTML(contentItem.Text.ToLower()).Trim();
                                 text += " " + contentItem.Text.ToLower().Trim();
                                 contentItemAsText = text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!");
+                                contentItemGrp.Add(contentItem);
                                 k++;
                                 if (contentItem.AttachementID != null)
                                 {
@@ -289,35 +278,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         pdf2ImageConvert.convertPdfFile(pdfFilePath);
                                         string wordAttFilePath = SessionWorkingDir + attachName.ToLower().Replace(".pdf", ".pdf.docx");
                                         string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, "")).OrderBy(p => new FileInfo(p).CreationTime).ToArray(); ;
-
-                                        // doc.AddParagraph(contentItemAsText.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
-                                        //contentItemAsText = "";
-                                        /*string[] sep = new string[1] { "#!#!#!" };
-                                        string[] paragraphs = contentItemAsText.Split(sep, StringSplitOptions.RemoveEmptyEntries);
-                                        string parag = "";
-                                        foreach (string strP in paragraphs)
-                                        {
-                                            if (strP.IndexOf("procedure-id") != -1)
-                                            {
-                                                parag = TextHelper.StripHTML(strP.ToLower()).Trim();
-                                                if (parag != "")
-                                                {
-                                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                    doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Center, false, "");
-                                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                parag = TextHelper.StripHTML(strP.ToLower()).Trim();
-                                                if (parag != "")
-                                                    doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
-                                            }
-                                        }*/
-
-                                        WriteParagraphInWord(sessionItem, contentItemAsText, doc);
+                                                                          
+                                        WriteParagraphInWord(sessionItem, contentItemAsText, doc,contentItemGrp);
                                         text = "";
                                         contentItemAsText = "";
+                                        contentItemGrp.Clear();
                                         foreach (string f in files)
                                         {
                                             ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);
@@ -327,7 +292,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                                 if (speakerGroup[j].Count == k)
                                 {
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc);
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp);
+                                    contentItemGrp.Clear();
                                 }
                             }
                             k = 0;
@@ -352,11 +318,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                       { "Massachusetts", "4" } });*/
                             }
                             j++;
-
-
-                            /*if (!sessionItem.MergedWithPrevious.Value)
-                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");*/
-
 
                             if (!string.IsNullOrEmpty(sessionItem.CommentOnText))
                             {
@@ -395,9 +356,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
 
                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-
                     doc.AddParagraph("الرئيس", ParagraphStyle.ParagraphTitle, ParagrapJustification.LTR, false, "");
-
                     doc.AddParagraph("الأمين العام", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                     doc.Save();
@@ -452,40 +411,120 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
         }
 
-        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc)
+        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc,List<SessionContentItem> grp,bool ttt)
         {
-            contentItemAsText = contentItemAsText.Replace("#!#!#!", " ");
-
             string[] p = new string[] { };
             string[] paragraphs = GetParagraphsArr(contentItemAsText, out p);
+            string[] procedureArr = new string[] { };
             string parag = "";
+            List<string> myCollection = new List<string>();
+            List<string> myCollection2 = new List<string>();
             for (int pp = 0; pp < paragraphs.Length; pp++)
             {
-                parag = TextHelper.StripHTML(paragraphs[pp].ToLower()).Trim();
+                parag = TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim();
                 if (parag != "")
                 {
+                    myCollection.Add(parag.Replace("&nbsp;", " "));
+                    myCollection2.Add(sessionItem.PageFooter);
                     if (pp != 0)
                         WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
-                    doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    if(sessionItem.PageFooter != "")
+                        doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
+                    else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                 }
-                // else doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+               
 
                 if (pp < p.Length)
                 {
                     parag = TextHelper.StripHTML(p[pp].ToString()).Trim();
                     if (parag != "")
                     {
+                        string[] sep = new string[1] { "#!#!#!" };
+                        procedureArr = parag.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                        ParagrapJustification align = ParagrapJustification.RTL;
                         if (p[pp].ToString().IndexOf("center") > 0)
-                            doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
-                        else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                            align = ParagrapJustification.Center;
+
+                        for (int x = 0; x < procedureArr.Length; x++)
+                        {
+                            doc.AddParagraph(procedureArr[x].Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, align, false, "");
+                        }
 
                         doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-
-                        //   if (pp < paragraphs.Length)
-                        //   WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
                     }
                 }
+            }
+        }
+
+        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc, List<SessionContentItem> grp)
+        {
+            try
+            {
+                List<string> myCollection = new List<string>();
+                List<string> myCollection2 = new List<string>();
+                string fullparag = "";
+                for (int i = 0; i < grp.Count; i++)
+                {
+                    fullparag = TextHelper.StripHTML(grp[i].Text.Replace("#!#!#!", " ").ToLower()).Trim();
+                    string[] p = new string[] { };
+                    string[] paragraphs = GetParagraphsArr(grp[i].Text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!"), out p);
+                    string[] procedureArr = new string[] { };
+
+                    if (fullparag != "")
+                    {
+                        myCollection2.Add(grp[i].PageFooter);
+                        string parag = "";
+                        for (int pp = 0; pp < paragraphs.Length; pp++)
+                        {
+                            parag = TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim();
+                            if (parag != "")
+                            {
+                                myCollection.Add(parag.Replace("&nbsp;", " "));
+                                if (paragraphs.Length != 1 && pp < p.Length)
+                                {
+                                    WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
+                                    doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
+                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                    myCollection.Clear();
+                                    myCollection2.Clear();
+                                }
+                            }
+
+
+                            if (pp < p.Length)
+                            {
+                                parag = TextHelper.StripHTML(p[pp].ToString()).Trim();
+                                if (parag != "")
+                                {
+                                    string[] sep = new string[1] { "#!#!#!" };
+                                    procedureArr = parag.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                                    ParagrapJustification align = ParagrapJustification.RTL;
+                                    if (p[pp].ToString().IndexOf("center") > 0)
+                                        align = ParagrapJustification.Center;
+
+                                    for (int x = 0; x < procedureArr.Length; x++)
+                                    {
+                                        doc.AddParagraph(procedureArr[x].Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, align, false, "");
+                                    }
+
+                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                }
+                            }
+                        }
+                    }
+                }
+                if (myCollection.Count > 0)
+                {
+                    WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
+                    doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
+                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    myCollection.Clear();
+                    myCollection2.Clear();
+                }
+            }
+            catch (Exception e)
+            {
             }
         }
 

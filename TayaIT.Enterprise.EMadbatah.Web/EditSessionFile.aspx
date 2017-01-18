@@ -45,7 +45,8 @@
     <input type="hidden" name="agendaItemId" id="agendaItemId" value="" runat="server" class="agendaItemId" />
     <input type="hidden" name="attachId" id="attachId" value="0" runat="server" class="attachId" />
     <input type="hidden" name="voteId" id="voteId" value="0" runat="server" class="voteId" />
-     <input type="hidden" name="unAssignedSpeakerId" id="unAssignedSpeakerId" value="0" runat="server" class="unAssignedSpeakerId" />
+    <input type="hidden" name="unAssignedSpeakerId" id="unAssignedSpeakerId" value="0" runat="server" class="unAssignedSpeakerId" />
+    <input type="hidden" name="unAssignedAgendaId" id="unAssignedAgendaId" value="0" runat="server" class="unAssignedAgendaId" />
     <div id="editSessionFile" class="container_24">
         <div class="row">
             <div class="grid_3">
@@ -53,7 +54,7 @@
                     <input name="" runat="server" disabled="disabled" id="btnNext" type="button" class="btn inputBlock mb-5 next btn_editsession" value="التالى" />
                     <input name="" runat="server" disabled="disabled" id="btnPrev" type="button" class="btn inputBlock mb-5 prev btn_editsession" value="السابق" />
                     <input name="" runat="server" disabled="disabled" id="btnFinish" type="button" class="btn inputBlock mb-5 finish btn_editsession" value="انهاء" />
-                    <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn inputBlock mb-5 addingNewAgendaItem btn_editsession" value="اضافة فهرس" />
+                    <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn inputBlock mb-5 addingNewAgendaItem btn_editsession" value="اضافة /  تعديل فهرس" />
                     <input name="" runat="server" id="btnAddProcuder" type="button" class="btn inputBlock mb-5 btnAddProcuder btn_editsession" value="اضافة اجراء" />
                     <input name="" runat="server" id="btnAssignAttachToContentItem" type="button" class="btn inputBlock mb-5 btnAssignAttachToContentItem btn_editsession" value="اضافة مرفق" />
                     <input name="" runat="server" id="btnAddNewVote" type="button" class="btn inputBlock mb-5 btnAddNewVote btn_editsession" value="اضافة تصويت" />
@@ -83,6 +84,10 @@
                     <p class="agendaItemTxt">
                         <%= agendaItemTxt%>
                     </p>
+
+                     <span class="agendaItemIsIndexed" style="display:none">
+                        <%= agendaItemIsIndexed%>
+                    </span>
                 </div>
                 <!--<div class="row">
             <div class="grid_3">
@@ -358,7 +363,7 @@
         </div>
         <div class="poppbtnscont fl">
             <div class="fl">
-                <input type="button" id="Button3" class="approve3 btn " value="أضف" />
+                <input type="button" id="Button3" class="approve3 btn " value="حفظ" />
                 <div class="clear">
                 </div>
             </div>

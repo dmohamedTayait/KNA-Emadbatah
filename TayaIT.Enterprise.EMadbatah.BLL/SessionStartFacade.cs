@@ -161,11 +161,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             //Session Started on Time
             if (details.SessionStartFlag == (int)SessionOpenStatus.OnTime)
             {
-                body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + presidentStr + "</div>";
+                body += "<div style='font-size:14pt;line-height:150%;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + presidentStr + "</div>";
                 if (details.Date.DayOfWeek == DayOfWeek.Tuesday)
-                    body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingBold'>" + SessionStartFacade.madbatahTuesdayIntro + "</div>";
+                    body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + SessionStartFacade.madbatahTuesdayIntro + "</div>";
                 else
-                    body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingBold'>" + SessionStartFacade.madbatahWednesdayIntro + "</div>";
+                    body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + SessionStartFacade.madbatahWednesdayIntro + "</div>";
 
                 body += "<br/>";
                 body += "<br/>";
@@ -190,22 +190,22 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 if (allAttendants.Count > 0)
                     body += writeAttendantNFile(sessionAttendantTitle, allAttendants[0]);
 
-                body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + presidentStr + "</div>";
-                body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingBold'>" + "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، نتيجة لعدم اكتمال النصاب تأخر الجلسة لمدة نصف ساعة." + "</div>";
+                body += "<div style='font-size:14pt;line-height:150%;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + presidentStr + "</div>";
+                body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، نتيجة لعدم اكتمال النصاب تأخر الجلسة لمدة نصف ساعة." + "</div>";
                 body += "<br/>";
                 body += "<br/>";
 
                 string docStartNotOnTime = SessionStartFacade.madbatahStartNotOnTime.Replace("%sessionNum%", sessionNum).Replace("%GeorgianDate%", gDate).Replace("%sessionTime%", timeInHour).Replace("%hijriDate%", hijriDate).Replace("%President%", president).Replace("%PresidentTitle%", presidentTitle);
-                body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + docStartNotOnTime + "</div>";
+                body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + docStartNotOnTime + "</div>";
                 body += "<br/>";
                 body += "<br/>";
 
-                body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingBold'>" + presidentStr + "</div>";
+                body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingBold'>" + presidentStr + "</div>";
                 
                 if (details.Date.DayOfWeek == DayOfWeek.Tuesday)
-                    body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + SessionStartFacade.madbatahTuesdayIntro + "</div>";
+                    body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + SessionStartFacade.madbatahTuesdayIntro + "</div>";
                 else
-                    body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + SessionStartFacade.madbatahWednesdayIntro + "</div>";
+                    body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + SessionStartFacade.madbatahWednesdayIntro + "</div>";
 
                 body += "<br/>";
                 body += "<br/>";
@@ -236,11 +236,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 {
                     if (!isCommittee)
                     {
-                        body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingBold'>" + "* أسماء السادة الأعضاء الغائبين بعذر أو من دون عذر عن حضور اجتماعات المجلس:" + "</div>";
+                        body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingBold'>" + "* أسماء السادة الأعضاء الغائبين بعذر أو من دون عذر عن حضور اجتماعات المجلس:" + "</div>";
                         isCommittee = true;
                     }
                     body+="<br/>";
-                    body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingBold'>" + comm.CommitteeName + "</div>";
+                    body += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingBold'>" + comm.CommitteeName + "</div>";
                     body += "<br/>";
                     body += writeAttendantNFile(abologizeAttendantTitle, allAtt[1], allAtt[2]);
                     body += writeAttendantNFile(absentAttendantTitle, allAtt[0]);
@@ -250,24 +250,24 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             string madbatahStart = "<html style=\"direction: rtl; font-family: AdvertisingBold; font-size: 14pt; line-height: 150%;\">";
             madbatahStart += "<body dir=\"rtl\">";
             madbatahStart += sessionStart + body +"<br/>";
-            madbatahStart += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + madbatahStartsection2 + "</div><br/>";
-            madbatahStart += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + madbatahStartsection3 + "</div><br/>";
+            madbatahStart += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + madbatahStartsection2 + "</div><br/>";
+            madbatahStart += "<div style='font-size:14pt;line-height:150%;direction:rtl; text-align: justify;font-family:AdvertisingBold'>" + madbatahStartsection3 + "</div><br/>";
             madbatahStart += "</body></html>";
             return madbatahStart;
         }
 
         public static string writeAttendantNFile(string head, List<Attendant> attendants)
         {
-            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingBold;font-size:14pt;line-height:150%; text-align: right;clear:both;\">";
+            string body = "<div style=\"direction:rtl;font-family:AdvertisingBold;font-size:14pt;line-height:150%; text-align: right;clear:both;\">";
             if (attendants.Count > 0)
             {
-                body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
+                body += "<div style='font-size:14pt;line-height:150%;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
                 body += "<table style='width:58%;'>";
                 foreach (Attendant att in attendants)
                 {
                     if (att.Name != "غير معرف")
                     {
-                        body += "<tr><td style='font-size:14pt;line-height:150%;text-align:right;direction:rtl;font-family:AdvertisingBold; text-justify:justify;'>" + "   - " + att.Name.Trim() + "</td></tr>";
+                        body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl;font-family:AdvertisingBold; text-justify:justify;'>" + "   - " + att.Name.Trim() + "</td></tr>";
                         if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
                             body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: center;font-family:AdvertisingBold;padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
                     }
@@ -280,20 +280,20 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
         public static string writeAttendantNFile(string head, List<DefaultAttendant> attendants)
         {
-            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingBold;font-size:14pt;line-height:150%; text-align: right;clear:both;\">";
+            string body = "<div style=\"direction:rtl;font-family:AdvertisingBold;font-size:14pt;line-height:150%; text-align: right;clear:both;\">";
             string attStr = "";
             if (attendants.Count > 0)
             {
-                body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
+                body += "<div style='font-size:14pt;line-height:150%;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
                 body += "<table style='width:58%'>";
                 foreach (DefaultAttendant att in attendants)
                 {
                     if (att.Name != "غير معرف")
                     {
                         attStr = "   - " + att.Name.Trim();
-                        body += "<tr><td style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
+                        body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
                         if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
-                            body += "<tr><td style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: center;font-family:AdvertisingBold;padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
+                            body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: center;font-family:AdvertisingBold;padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
                     }
                 }
                 body += "</table>";
@@ -304,14 +304,14 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
         public static string writeAttendantNFile(string head, List<DefaultAttendant> attendants1, List<DefaultAttendant> attendants2)
         {
-            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingBold; text-align: right;font-size:14pt;line-height:150%;clear:both;\">";
+            string body = "<div style=\"direction:rtl;font-family:AdvertisingBold; text-align: right;font-size:14pt;line-height:150%;clear:both;\">";
             string attStr = "";
             string width = "58";
             if (attendants1.Count > 0 || attendants2.Count > 0)
             {
                 if (attendants2.Count > 0)
                     width = "80";
-                body += "<div style='font-size:14pt;line-height:150%;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
+                body += "<div style='font-size:14pt;line-height:150%;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
                 body += "<table style='width:"+width+"%;' >";
                 foreach (DefaultAttendant att in attendants2)
                 {
@@ -319,9 +319,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     {
                         attStr = "   - " + att.Name.Trim();
                         attStr += " (مهمة رسمية ) ";
-                        body += "<tr><td style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
+                        body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
                         if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
-                            body += "<tr><td style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: center;font-family:AdvertisingBold; padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
+                            body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: center;font-family:AdvertisingBold; padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
                     }
                 }
                 foreach (DefaultAttendant att in attendants1)
@@ -329,9 +329,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (att.Name != "غير معرف")
                     {
                         attStr = "   - " + att.Name.Trim();
-                        body += "<tr><td style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
+                        body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
                         if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
-                            body += "<tr><td style='font-size:14pt;line-height:150%;text-align:right;direction:rtl; text-align: center;font-family:AdvertisingBold; padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
+                            body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: center;font-family:AdvertisingBold; padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
                     }
                 }
                 body += "</table>";

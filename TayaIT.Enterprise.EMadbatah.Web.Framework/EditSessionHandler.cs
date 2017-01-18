@@ -115,8 +115,17 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 // collect sessionContentItem attributes/values
                                 //loadSessionValues();
                                 int agendaItemIsIndexed = int.Parse(WebHelper.GetQSValue(Constants.QSKeyNames.AGENDA_IS_INDEXED, _context));
-                                long id = EditorFacade.AddNewAgendaItem(HttpUtility.HtmlDecode(AgendaItemText),agendaItemIsIndexed, long.Parse(SessionID));
-                                jsonStringOut = SerializeObjectInJSON(id);
+                                string agendaitemID = WebHelper.GetQSValue(Constants.QSKeyNames.AGENDA_ID, _context);
+                                if (string.IsNullOrEmpty(agendaitemID))
+                                {
+                                    long id = EditorFacade.AddNewAgendaItem(HttpUtility.HtmlDecode(AgendaItemText), agendaItemIsIndexed, long.Parse(SessionID));
+                                    jsonStringOut = SerializeObjectInJSON(id);
+                                }
+                                else
+                                {
+                                    EditorFacade.UpdateAgendaItem(int.Parse(agendaitemID), HttpUtility.HtmlDecode(AgendaItemText), agendaItemIsIndexed);
+                                    jsonStringOut = SerializeObjectInJSON(AgendaID);
+                                }
                                 break;
                             }
                             else
@@ -188,6 +197,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         if (selectedAgendaItem == null)
                                             selectedAgendaItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", currentSession.ID);
                                         result["AgendaItemText"] = selectedAgendaItem != null ? selectedAgendaItem.Name : "";
+                                        result["AgendaItemIsIndexed"] = selectedAgendaItem != null ? selectedAgendaItem.IsIndexed.ToString() : "0";
                                         result["AgendaItemID"] = selectedAgendaItem != null ? selectedAgendaItem.ID.ToString() : "";
 
                                         //For Attachment
@@ -349,6 +359,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                       if (selectedAgendaItem == null)
                                           selectedAgendaItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", currentSession.ID);
                                       result["AgendaItemText"] = selectedAgendaItem != null ? selectedAgendaItem.Name : "";
+                                      result["AgendaItemIsIndexed"] = selectedAgendaItem != null ? selectedAgendaItem.IsIndexed.ToString() : "0";
                                       result["AgendaItemID"] = selectedAgendaItem != null ? selectedAgendaItem.ID.ToString() : "";
 
                                       if (retItem.AttachementID != null && retItem.AttachementID != 0)
@@ -709,6 +720,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
 
                     if (SpeakerID == -1)
                     {
+                        SpeakerName = SpeakerName.Trim();
                         Attendant newAtt = new Attendant();
                         newAtt.Name = SpeakerName;
                         newAtt.JobTitle = SpeakerJob;
@@ -804,7 +816,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             status = (int)Model.SessionContentItemStatus.Rejected;
 
 
-                        SessionContentItemFacade.AddNewSessionContentItem(Session_File_ID, (long)Session_ID, Text, (int)SpeakerID, AgendaItemID, agendaSubItemInt, CurrentUser.ID, status, Comments, SpeakerJob, Footer, SameAsPrevSpeaker, FragOrder, (float)soriginaltime, (float)etime, (float)duration, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident, (float)stime);
+                        SessionContentItemFacade.AddNewSessionContentItem(Session_File_ID, (long)Session_ID, Text, (int)SpeakerID, AgendaItemID, agendaSubItemInt, CurrentUser.ID, status, Comments, SpeakerJob, Footer, SameAsPrevSpeaker, FragOrder, (float)stime, (float)etime, (float)duration, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident, (float)soriginaltime);
                     }
 
                     if (session.SessionStatusID == (int)Model.SessionStatus.Approved)

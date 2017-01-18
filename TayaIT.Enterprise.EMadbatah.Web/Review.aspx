@@ -233,7 +233,7 @@
                                         height: 200,
                                         theme_advanced_source_editor_wrap: true,
                                         // Theme options
-                                        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright,|,undo,redo",
+                                        theme_advanced_buttons1: "justifycenter,justifyright,|,undo,redo",
                                         theme_advanced_buttons2: "",
                                         theme_advanced_buttons3: "",
                                         theme_advanced_buttons4: "",

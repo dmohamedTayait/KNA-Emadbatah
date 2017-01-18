@@ -231,13 +231,10 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     {
                         //update the agenda attributes
                         updated_agenda.Name = itemName == null ? updated_agenda.Name : itemName;
-                        //updated_agenda.ParentID = parent_id == null ? updated_agenda.ParentID : parent_id;
-                        //updated_agenda.EParliamentID = eparliamentID == null ? updated_agenda.EParliamentID : eparliamentID;
                     }
                     int res = context.SaveChanges();
                     return res;
                 }
-                //return updated_agenda;
             }
             catch (Exception ex)
             {
@@ -246,6 +243,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static int UpdateAgendaItem(long agendaItemID, string itemName, int itemIndexed)
+        {
+            try
+            {
+                AgendaItem updated_agenda = null;
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    updated_agenda = context.AgendaItems.FirstOrDefault(c => c.ID == agendaItemID);
+                    if (updated_agenda != null)
+                    {
+                        //update the agenda attributes
+                        updated_agenda.Name = itemName == null ? updated_agenda.Name : itemName;
+                        updated_agenda.IsIndexed = itemIndexed;
+                    }
+                    int res = context.SaveChanges();
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.UpdateAgendaItem(" + agendaItemID + "," + itemName + ")");
+                return -1;
+            }
+        }
 
 
         public static int MarkSubAgendaItemsAsGrouped(long agendaItemID, bool isGrouped)

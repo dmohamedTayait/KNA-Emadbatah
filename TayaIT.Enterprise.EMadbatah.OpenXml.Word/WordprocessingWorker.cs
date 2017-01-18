@@ -692,8 +692,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             paragraph.ParagraphProperties.SpacingBetweenLines = new SpacingBetweenLines() { After = "1", Line = "360", LineRule = LineSpacingRuleValues.Auto };
             Run run = new Run(new Text(paragraphText) { Space = SpaceProcessingModeValues.Preserve });
-
-
+           
 
             switch (paragraphType)
             {
@@ -716,10 +715,10 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     break;
             }
 
-            paragraph.Append(run);
-            
 
-            if (appendFootNote)//if (paragraphType == ParagraphStyle.FootnoteText)
+
+
+            if (appendFootNote)//(appendFootNote)//if (paragraphType == ParagraphStyle.FootnoteText)
             {
                 //SeparatorMark separatorMark2 = new SeparatorMark();
                 //paragraph.Append(new Run(separatorMark2));
@@ -736,15 +735,110 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 //n.GenerateEndnotesPart1Content(_endnotesPart);
                 //n.GenerateFootnotesPart1Content(_footnotesPart, "عباس الهنداوي");
 
+                FootnoteEndnoteReferenceType reference;
+                reference = new FootnoteReference() { Id = AddFootnoteReference(footNoteText) };
 
+                List<OpenXmlElement> elements = new List<OpenXmlElement>();
+                elements.Add(
+                new Run(
+                    new RunProperties(new FootnotePosition() { Val = FootnotePositionValues.BeneathText },
+                        new RunStyle() { Val = "NormalArabic" }),
+                    reference)
+                );
+
+
+
+
+                paragraph.Append(elements);
+                paragraph.Append(run);
+              
+                _docMainPart.Document.Body.Append(paragraph);
 
             }
             else
+            {
+                paragraph.Append(run);
                 _docMainPart.Document.Body.Append(paragraph);
+            }
 
             Save();
         }
 
+        public void AddParagraph(List<string> paragraphTextArr, ParagraphStyle paragraphType, ParagrapJustification textDirection, bool appendFootNote, List<string> footNoteTextArr)
+        {
+            if (_docMainPart == null)
+                _docMainPart = _currentDoc.AddMainDocumentPart();
+            if (_docMainPart.Document == null)
+                _docMainPart.Document = MakeEmpyDocument();
+
+            Paragraph paragraph = new Paragraph();
+            ParagraphProperties paragraphProp = new ParagraphProperties();
+            BiDi biDi1 = new BiDi();
+            Justification justification = new Justification();
+
+            switch (textDirection)
+            {
+                case ParagrapJustification.RTL:
+                    justification.Val = JustificationValues.LowKashida;
+                    paragraphProp.Append(biDi1);
+                    break;
+                case ParagrapJustification.LTR:
+                    justification.Val = JustificationValues.Left;
+                    break;
+                case ParagrapJustification.Center:
+                    justification.Val = JustificationValues.Center;
+                    break;
+                case ParagrapJustification.Both:
+                    justification.Val = JustificationValues.Both;
+                    paragraphProp.Append(biDi1);
+                    break;
+                default:
+                    break;
+            }
+
+
+            paragraphProp.Append(justification);
+            paragraphProp.ParagraphStyleId = new ParagraphStyleId() { Val = paragraphType.ToString() }; // we set the style
+            paragraph.Append(paragraphProp);    //HeadingArabic
+
+            paragraph.ParagraphProperties.SpacingBetweenLines = new SpacingBetweenLines() { After = "1", Line = "360", LineRule = LineSpacingRuleValues.Auto };
+
+            int i =0;
+            foreach (string paragraphTxt in paragraphTextArr)
+            {
+                string paragraphText = System.Web.HttpUtility.HtmlDecode(paragraphTxt).Replace(";psbn&", " ").Replace("&nbsp;", " ");
+                Run run = new Run(new Text(paragraphText+" ") { Space = SpaceProcessingModeValues.Preserve });
+
+
+                if (i<footNoteTextArr.Count && !String.IsNullOrEmpty(footNoteTextArr[i]))
+                {
+                    string footNoteText = footNoteTextArr[i];
+                    FootnoteEndnoteReferenceType reference = new FootnoteReference() { Id = AddFootnoteReference(footNoteText) };
+
+                    List<OpenXmlElement> elements = new List<OpenXmlElement>();
+                    elements.Add(
+                    new Run(
+                        new RunProperties(new FootnotePosition() { Val = FootnotePositionValues.BeneathText },
+                            new VerticalTextAlignment() { Val = VerticalPositionValues.Superscript },
+                            new FontSizeComplexScript() { Val = "24" },
+                            new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" },
+                            new RunStyle() { Val = "FootNote" }),
+                        reference)
+                    );
+
+
+                    paragraph.Append(elements);
+                    paragraph.Append(run);
+                }
+                else
+                {
+                    paragraph.Append(run);
+                }
+                i++;
+            }
+            _docMainPart.Document.Body.Append(paragraph);
+            Save();
+        }
 
         //public void GenerateAllFootNoteWork()
         //{
@@ -1064,6 +1158,28 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             styleParagraphTitleItalic.Append(new BasedOn() { Val = "Normal" });
             styleParagraphTitleItalic.Append(new NextParagraphStyle() { Val = "Normal" });
             styleParagraphTitleItalic.Append(runParagraphItalicTextProp);
+
+
+
+
+            RunProperties runFootNoteTextProp = new RunProperties();
+            RunFonts runFootNoteTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
+            FontSize fontFootNoteTextSize = new FontSize() { Val = "20" };
+            FontSizeComplexScript fontFootNoteComplexScriptSize = new FontSizeComplexScript() { Val = "24" };
+           
+            RightToLeftText rtlTextFootNote = new RightToLeftText();
+            runFootNoteTextProp.Append(runFootNoteTextFonts);
+            runFootNoteTextProp.Append(fontFootNoteTextSize);
+            runFootNoteTextProp.Append(fontFootNoteComplexScriptSize);
+            runFootNoteTextProp.Append(rtlTextFootNote);
+            Style styleFootNoteTitle = new Style();
+            styleFootNoteTitle.StyleId = "FootNote";
+            styleFootNoteTitle.Append(new Name() { Val = "Taya Madbatah FootNote Text" });
+            styleFootNoteTitle.Append(new BasedOn() { Val = "Normal" });
+            styleFootNoteTitle.Append(new NextParagraphStyle() { Val = "Normal" });
+            styleFootNoteTitle.Append(runFootNoteTextProp);
+
+
 
 
             // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };

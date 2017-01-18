@@ -418,6 +418,8 @@ $(document).ready(function () {
         $.fancybox.close()
         $(".popupoverlay").hide();
         $(".reviewpopup_cont").hide();
+        var AudioPlayer = $("#jquery_jplayer_1");
+        AudioPlayer.jPlayer('pause');
     })
 
 
@@ -482,6 +484,8 @@ $(document).ready(function () {
         $.fancybox.close()
         $(".popupoverlay").hide();
         $(".reviewpopup_cont").hide();
+        var AudioPlayer = $("#jquery_jplayer_1");
+        AudioPlayer.jPlayer('pause');
     });
 
     function htmlEncode(value) {
@@ -535,6 +539,8 @@ $(document).ready(function () {
         $.fancybox.close()
         $(".popupoverlay").hide();
         $(".reviewpopup_cont").hide();
+        var AudioPlayer = $("#jquery_jplayer_1");
+        AudioPlayer.jPlayer('pause');
     });
 
     $('#saveForDataEntry').click(function () {
@@ -585,6 +591,8 @@ $(document).ready(function () {
         $.fancybox.close()
         $(".popupoverlay").hide();
         $(".reviewpopup_cont").hide();
+        var AudioPlayer = $("#jquery_jplayer_1");
+        AudioPlayer.jPlayer('pause');
     });
     function getParameterByName(name) {
         var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
@@ -658,6 +666,7 @@ $(document).ready(function () {
         $.fancybox.close()
         $(".popupoverlay").hide();
         $(".reviewpopup_cont").hide();
+
     })
     $('.btnFinalApproveSession').click(function () {
         $('.absLoad.loading').show();

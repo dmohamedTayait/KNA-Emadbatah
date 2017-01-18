@@ -57,8 +57,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         var freeFiles = from sfa in sd.SessionFiles
                                         where (sfa.FileReviewrID == null && sfa.IsActive == 1)
                                         select sfa;
-                         if ((freeFiles == null || freeFiles.Count<SessionAudioFile>() == 0) && filesWithUser != null && filesWithUser.Count<SessionAudioFile>() == 0)
-                        //if (freeFiles == null || freeFiles.Count<SessionAudioFile>() == 0)
+                        if ((freeFiles == null || freeFiles.Count<SessionAudioFile>() == 0) && filesWithUser != null && filesWithUser.Count<SessionAudioFile>() == 0)
                         {
                             ShowWarn(GetLocalizedString("strNoFreeFilesFound"));
                             disableEditforNotReviewrAdmin = true;
@@ -79,19 +78,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                              s.ReviewerID != CurrentUser.ID)
                     {
                         ShowWarn(GetLocalizedString("strWrongReviewer"));
-                        //spnMsg.InnerText = GetLocalizedString("strWrongReviewer");
                         disableEditforNotReviewrAdmin = true;
-                        //pnlContent.Visible = false;
-                        // return;
-
                     }
                     else if (CurrentUser.Role != UserRole.Admin && s.ReviewerID != CurrentUser.ID && !(CurrentUser.Role == UserRole.FileReviewer || CurrentUser.Role == UserRole.ReviewrDataEntry)) // in case of reviewer or dataEntryReviewer
-                        {
-                            //ShowWarn(GetLocalizedString("strWrongReviewer"));
-                            //disableEditforNotReviewrAdmin = true;
-                            Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.Unauthorized);
-
-                        }
+                    {
+                        Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.Unauthorized);
+                    }
 
                     //handle sessionstart
 
@@ -99,8 +91,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
 
                     var NewSessionFiles = from sf2 in sd.SessionFiles
-                                                   where (sf2.Status == Model.SessionFileStatus.New && sf2.IsActive == 1)
-                                                   select sf2;
+                                          where (sf2.Status == Model.SessionFileStatus.New && sf2.IsActive == 1)
+                                          select sf2;
 
                     List<List<SessionContentItem>> allItems = SessionContentItemHelper.GetItemsBySessionIDGrouped(sessionId);
 
@@ -160,16 +152,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     }
                     catch (Exception ex)
                     {
-                        LogHelper.LogException(ex , "SessionID: "+ sessionId);
+                        LogHelper.LogException(ex, "SessionID: " + sessionId);
 
                     }
 
 
                     sessionDate.InnerText = s.Date.ToString();
-                    //EMadbatahFacade.GetSessionName(s.Season,order ????
-                    sessionSerial.InnerText = "( " +  s.EParliamentID + " / " + s.Type + " )";
+                    sessionSerial.InnerText = "( " + s.EParliamentID + " / " + s.Type + " )";
 
-                    //List<SessionContentItem> items = ReviewerFacade.GetSessionContentItems(sessionId);
 
 
                     List<long> WrittenAgendaItemWithGroupedSubItems = new List<long>();
@@ -179,8 +169,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     long lastSFID = 0;
                     foreach (List<SessionContentItem> groupedItems in allItems)
                     {
-                        AgendaItem curAgendaItem = groupedItems[0].AgendaItem;
-                       
+                       foreach (SessionContentItem item in groupedItems)
+                        {
+                            AgendaItem curAgendaItem = item.AgendaItem;
                             string originalName = curAgendaItem.Name;
                             writtenAgendaItems.Add(curAgendaItem.Name);
                             string updatedAgendaName = "";
@@ -190,11 +181,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                 string agendaItem = Application[Constants.HTMLTemplateFileNames.ReviewItemAgendaItem].ToString()
                                                         .Replace("<%itemText%>", "* " + updatedAgendaName + ":");
                                 sb.Append(agendaItem);
-
                             }
-                      
-                        foreach (SessionContentItem item in groupedItems)
-                        {
+
                             if (lastSFID == 0)
                                 lastSFID = item.SessionFileID.Value;
 
@@ -206,42 +194,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                 sb.Append("<hr id=\"file_" + lastSFID + "\" />");
                             }
 
-
-                            //sb.Append("<div class=\"popupoverlay\"></div>");
-                            /*
-                            foreach (SessionContentItem item in items)
-                            {*/
-
-                            if (!item.MergedWithPrevious.Value )//|| item.Attendant.Name == "غير معرف")
+                            if (!item.MergedWithPrevious.Value)
                             {
                                 Attendant att = item.Attendant;
-                              /*  if (att.Type != (int)Model.AttendantType.UnAssigned)
-                                {
-                                    string attName = MabatahCreatorFacade.GetAttendantTitle(att, sessionId);
-                                    if (string.IsNullOrEmpty(attName))
-                                        attName = "غير معرف: ";
-                                    string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
-                                                        .Replace("<%itemText%>", attName + ":")
-                                                        .Replace("<%speakerJob%>", "")
-                                                        .Replace("<%speakerJob2%>", "");
-                                    sb.Append(speaker);
-                                }*/
 
-
-
-                                //
                                 if (att.Type != (int)Model.AttendantType.UnAssigned)
                                 {
-                                    /*   if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
-                                           doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ": " + "(" + sessionItem.CommentOnAttendant + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                       else
-                                           doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                       */
-
                                     string attFullPresentationName = "";
                                     string name = "";
                                     string job = "";
-                                     string job2 = "";
+                                    string job2 = "";
                                     if ((Model.AttendantType)att.Type == Model.AttendantType.President)
                                     {
                                         string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
@@ -260,22 +222,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                                 attFullPresentationName = "السيد " + att.Name.Trim();
                                             else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
                                             attFullPresentationName = "( " + attFullPresentationName;
-                                           // if (string.IsNullOrEmpty(item.CommentOnAttendant))
-                                           // {
-                                                if (att.Type != 3)
-                                                    attFullPresentationName = attFullPresentationName + ")";
-                                                if (att.Type == 3)
-                                                    job2 = "    " + att.JobTitle + ")";
-                                           /* }
-                                            else
-                                            {
-                                                job2 = "    " + item.CommentOnAttendant + ")";
-                                            }
-                                            */
+                                            if (att.Type != 3)
+                                                attFullPresentationName = attFullPresentationName + ")";
+                                            if (att.Type == 3)
+                                                job2 = "    " + att.JobTitle + ")";
                                             string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
-                                                      .Replace("<%itemText%>", name)
-                                                      .Replace("<%speakerJob%>", attFullPresentationName)
-                                                      .Replace("<%speakerJob2%>", job2);
+                                                            .Replace("<%itemText%>", name)
+                                                            .Replace("<%speakerJob%>", attFullPresentationName)
+                                                            .Replace("<%speakerJob2%>", job2);
                                             sb.Append(speaker);
                                         }
                                         else
@@ -321,14 +275,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                     .Replace("<%title%>", "");
 
 
-                            reviewItem = reviewItem.Replace("<%FileRevName%>",item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
+                            reviewItem = reviewItem.Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
                                 .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
-                                .Replace("<%UserName%>", item.User == null? "لا يوجد" : item.User.FName)
+                                .Replace("<%UserName%>", item.User == null ? "لا يوجد" : item.User.FName)
                                 .Replace("<%RevName%>", sd.ReviewerName);
 
 
 
-                            if(item.SessionFile.FileReviewerID != null)
+                            if (item.SessionFile.FileReviewerID != null)
                                 reviewItem = reviewItem.Replace("<%FileRevID%>", item.SessionFile.FileReviewer.ID.ToString());
                             else
                                 reviewItem = reviewItem.Replace("<%FileRevID%>", "");
@@ -338,9 +292,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             string mp3FilePath = string.Format("{0}://{1}:{2}/", Request.Url.Scheme, Request.Url.Host, Request.Url.Port) + item.SessionFile.Name.Substring(1).Replace(@"\", "/");
                             reviewItem = reviewItem.Replace("<%MP3FilePath%>", mp3FilePath);
                             reviewItem = reviewItem.Replace("<%MP3FileStartTime%>", item.StartTime.ToString());
-                            reviewItem = reviewItem.Replace("<%MP3FileEndTime%>", item.EndTime.ToString());                            
+                            reviewItem = reviewItem.Replace("<%MP3FileEndTime%>", item.EndTime.ToString());
                             reviewItem = reviewItem.Replace("<%IsSessionStart%>", "0");
-                            
+
                             switch ((Model.SessionContentItemStatus)item.StatusID)
                             {
                                 case Model.SessionContentItemStatus.Approved: //approved
@@ -369,7 +323,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                        .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
                                         .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
                                         .Replace("<%UserName%>", item.User.FName)
-                                        .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تعليق"); 
+                                        .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تعليق");
                                 sb.Append(reviewItemComment);
                             }
                             //for footnote
@@ -391,9 +345,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     }
                     madbatahContents.InnerHtml += sb.ToString();
 
-                    //isSessionStartDone//
-                    //is
-
                     if (CurrentUser.Role == UserRole.ReviewrDataEntry)
                         disableEditforNotReviewrAdmin = true;
 
@@ -405,28 +356,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         string message = "لا يمكن ظهور الموافقة على الجلسة أو التصديق عليها في وجود أي مقطع لمتحدث غير معرف";
                         message += "، لتعديلها يرجى فحص المقاطع التالية: ";
                         List<SessionContentItem> undefAttContItems = SessionContentItemHelper.GetSessionContentItemsOfUndefinedAttendants(sessionId);
-                        int ctr=1;
-                        foreach(SessionContentItem item in undefAttContItems)
-                        {
-                            string toolTip = "الملف: " + new FileInfo(item.SessionFile.Name).Name+"<br/>";
-                            if (item.User != null)
-                                toolTip += "مدخل البيانات: " + item.User.FName;
-                            else
-                                toolTip += "مدخل البيانات: ";
-                            //toolTip += "مراجع الملف: " + item.FileReviewer.FName;
-
-                            message += "<a title=\"" + toolTip + "\" class=\"info\" href=\"EditSessionFile.aspx?scid=" + item.ID + "&sfid=" + item.SessionFileID + "&editmode=3&sid=" + sessionId + "\">" + ctr + "</a> , ";
-                            ctr++;
-                        }
-                        ShowWarn(message);
-                    }
-
-                   /* bool IsSessionContainUndefinedAgendaItem = SessionContentItemHelper.DoesSessionContainsUndefinedAgendaItem(sessionId);
-                    if (IsSessionContainUndefinedAgendaItem)
-                    {
-                        string message = "لا يمكن ظهور الموافقة على الجلسة أو التصديق عليها في وجود أي مقطع لبند غير معرف";
-                        message += "، لتعديلها يرجى فحص المقاطع التالية: ";
-                        List<SessionContentItem> undefAttContItems = SessionContentItemHelper.GetSessionContentItemsOfUndefinedAgendaItem(sessionId);
                         int ctr = 1;
                         foreach (SessionContentItem item in undefAttContItems)
                         {
@@ -440,12 +369,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             message += "<a title=\"" + toolTip + "\" class=\"info\" href=\"EditSessionFile.aspx?scid=" + item.ID + "&sfid=" + item.SessionFileID + "&editmode=3&sid=" + sessionId + "\">" + ctr + "</a> , ";
                             ctr++;
                         }
-
                         ShowWarn(message);
-                    }*/
+                    }
 
-                    Model.SessionStatus sessionStatus = (Model.SessionStatus) s.SessionStatusID;
-                    if(sessionStatus == Model.SessionStatus.New || 
+
+                    Model.SessionStatus sessionStatus = (Model.SessionStatus)s.SessionStatusID;
+                    if (sessionStatus == Model.SessionStatus.New ||
                         sessionStatus == Model.SessionStatus.InProgress ||
                         sessionStatus == Model.SessionStatus.FinalApproved ||
                         SessionContentItemHelper.GetSessionContentItemsBySessionIDAndNotStatusID(sessionId, (int)Model.SessionContentItemStatus.Approved).Count != 0 ||
@@ -454,7 +383,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         btnApproveSession.Style.Add("display", "none");
                         btnFinalApproveSession.Style.Add("display", "none");
                     }
-                    else if(sessionStatus == Model.SessionStatus.Completed)
+                    else if (sessionStatus == Model.SessionStatus.Completed)
                     {
                         btnApproveSession.Style.Add("display", "inline");
                         btnFinalApproveSession.Style.Add("display", "none");
@@ -467,47 +396,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 }
                 else
                 {
-                    ShowMainError(GetLocalizedString("strNoQueryStr"));      
+                    ShowMainError(GetLocalizedString("strNoQueryStr"));
                 }
 
                 if (disableEditforNotReviewrAdmin)
                 {
-                    //divSessionActionButtons.Visible = false;
                     btnApproveSession.Style.Add("display", "none");
                     btnFinalApproveSession.Style.Add("display", "none");
-                    //btnApproveSession.Visible = false;
-                    //btnFinalApproveSession.Visible = false;
                 }
-
-               
             }
-
-            
-
         }
-
-        //protected void approveBtn_Click(Object sender,
-        //                   EventArgs e)
-        //{
-        //    long sessionId;
-        //    if (SessionID != null && long.TryParse(SessionID, out sessionId))
-        //    {
-        //        ReviewerFacade.ApproveSession(sessionId);
-        //    }
-        //}
-
-        //protected void finalApproveBtn_Click(Object sender,
-        //                   EventArgs e)
-        //{
-        //    long sessionId;
-        //    if (SessionID != null && long.TryParse(SessionID, out sessionId))
-        //    {
-        //        ReviewerFacade.FinalApproveSession(sessionId);
-        //    }
-        //}
-
-
-        
-
-}
+    }
 }
