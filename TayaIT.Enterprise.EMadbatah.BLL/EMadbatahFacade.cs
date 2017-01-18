@@ -215,9 +215,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             //users = Membership.GetAllUsers();
 
             WindowsIdentity id = (WindowsIdentity)HttpContext.Current.User.Identity;
-
-
-            WinActiveDirectory ad = new WinActiveDirectory(ConfigManager.GetConnectionString("ADConnectionString"), currentUser.DomainUserName.Split('\\')[1].ToLower());
+            WinActiveDirectory ad;
+            if (AppConfig.GetInstance().LiveServer == "0")
+                ad = new WinActiveDirectory(ConfigManager.GetConnectionString("ADConnectionString"), currentUser.DomainUserName.Split('\\')[1].ToLower());
+            else
+                ad = new WinActiveDirectory(ConfigManager.GetConnectionString("ADConnectionString"), AppConfig.GetInstance().ValidADDomainName, AppConfig.GetInstance().ValidADUserName, AppConfig.GetInstance().ValidADUserPassword);
             List<WinActiveDirectory.LDAPUser> users = ad.GetAllUsers();
 
 
@@ -229,7 +231,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 {
                     string name = "";
 
-                    if(!string.IsNullOrEmpty(user.Description))
+                    if (!string.IsNullOrEmpty(user.Description))
                         name = user.Description;
                     else if (string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(user.DisplayName))
                         name = user.DisplayName;
@@ -238,7 +240,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     else if (string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(user.AccountName))
                         name = user.AccountName;
 
-                    usersToReturn.Add(new EMadbatahUser(0, UserRole.DataEntry,name, domainName + "\\" + user.AccountName, user.Email, true));
+                    usersToReturn.Add(new EMadbatahUser(0, UserRole.DataEntry, name, domainName + "\\" + user.AccountName, user.Email, true));
                 }
             }
 
@@ -893,6 +895,130 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return SessionFileHelper.LockSessionFileReviewer(sessionFileID, userID, isAdmin);
         }
 
+
+        public static void CreateMadbatahFiles(SessionDetails details, EMadbatahUser threadUser, HttpContext threadContext, FileVersion fileVersion)
+        {
+
+            long sessionID = details.SessionID;
+            string folderPath = threadContext.Server.MapPath("~") + @"\Files\" + sessionID + @"\";
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
+
+            //TayaIT.Enterprise.EMadbatah.Model.SessionDetails details = SessionStartFacade.GetSessionDetails(sessionID);
+            if (details.Status == Model.SessionStatus.Approved ||
+                details.Status == Model.SessionStatus.FinalApproved
+                )
+            {
+                DAL.SessionFile start = SessionStartFacade.GetSessionStartBySessionID(sessionID);
+                try
+                {
+                    if (start != null)
+                    {
+                        DAL.SessionHelper.UpdateSessionMadabathFilesStatus(details.SessionID, (int)Model.MadbatahFilesStatus.InProgress);
+
+                        if (MabatahCreatorFacade.CreateMadbatah(sessionID, folderPath, threadContext.Server.MapPath("~")))
+                        {
+                           // Thread.Sleep(5000);
+                            string wordFilePath = folderPath + sessionID + ".docx";
+                            byte[] wordDoc = File.ReadAllBytes(wordFilePath);
+                            bool pdfSuccess = WordCom.ConvertDocument(wordFilePath, wordFilePath.Replace(".docx", ".pdf"), TargetFormat.Pdf);
+                            //bool pdfSuccess = PdfMaker.ConvertDocxToPdf(folderPath,threadContext.Server.MapPath("~"),  wordFilePath, wordFilePath.Replace(".docx", ".docx.pdf"));
+                            //Correct: PdfMaker.ConvertDocxToPdf(SessionWorkingDir, ServerMapPath, SessionWorkingDir + sessionID + ".docx", SessionWorkingDir + sessionID + ".pdf");
+                            if (!pdfSuccess)
+                            {
+                                LogHelper.LogMessage("PDF creation failed", "ReviewerHandler", System.Diagnostics.TraceEventType.Error);
+                                HandleMadbatahCreationError(details, fileVersion, threadUser, threadContext);
+
+                            }
+                            byte[] pdfDoc = File.ReadAllBytes(wordFilePath.Replace(".docx", ".pdf"));// new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
+                            Hashtable emailData = new Hashtable();
+                            int ret = -1;
+                            switch (fileVersion)
+                            {
+                                case FileVersion.draft:
+                                    ret = SessionHelper.UpdateSessionWordAndPdfFiles(sessionID, wordDoc, pdfDoc);
+                                    break;
+                                case FileVersion.final:
+                                    ret = DAL.SessionHelper.UpdateSessionWordAndPdfFiles(sessionID, wordDoc, pdfDoc, true);
+                                    break;
+                            }
+
+                            if (ret > 0)
+                            {
+                                if (Directory.Exists(folderPath))
+                                    Directory.Delete(folderPath, true);
+                                string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
+
+                                emailData.Add("<%SessionName%>", sessionName);
+                                emailData.Add("<%SessionDate%>", details.Date.ToShortDateString());
+                                emailData.Add("<%RevName%>", threadUser.Name);
+                                switch (fileVersion)
+                                {
+                                    case FileVersion.draft:
+                                        DAL.SessionHelper.UpdateSessionMadabathFilesStatus(details.SessionID, (int)Model.MadbatahFilesStatus.DraftCreated);
+                                        MailManager.SendMail(new Email(new Emailreceptionist(threadUser.Email, threadUser.Name)), SystemMailType.MadbatahFileCreated, emailData, threadContext);
+                                        break;
+                                    case FileVersion.final:
+                                        int result = DAL.SessionHelper.UpdateSessionMadabathFilesStatus(details.SessionID, (int)Model.MadbatahFilesStatus.FinalCreated);
+                                        Eparliment ep = new Eparliment();
+                                        // bool result = ep.IngestContentsForFinalApprove(sessionID);
+                                        if (result != -1)
+                                            MailManager.SendMail(new Email(new Emailreceptionist(threadUser.Email, threadUser.Name)), SystemMailType.FinalApproveSession, emailData, threadContext);
+                                        else
+                                        {
+                                            SessionHelper.UpdateSessionStatus(sessionID, (int)Model.SessionStatus.Approved);
+                                            MailManager.SendMail(new Email(new Emailreceptionist(threadUser.Email, threadUser.Name)), SystemMailType.FinalApproveSessionFail, emailData, threadContext);
+                                        }
+                                        break;
+                                }
+
+                            }
+                            else
+                            {
+                                // show error happend while adding madbatah word and pdf to database
+                                //log error
+                                LogHelper.LogMessage("error happend while adding madbatah word and pdf to database", "ReviewerHandler", System.Diagnostics.TraceEventType.Error);
+                                HandleMadbatahCreationError(details, fileVersion, threadUser, threadContext);
+                                //if (Directory.Exists(folderPath))
+                                //    Directory.Delete(folderPath, true);
+                            }
+                        }
+                        else
+                        {
+                            //show error something went wrong when creating the Madbatah Word/pdf
+                            //log error
+                            LogHelper.LogMessage("show error something went wrong when creating the Madbatah Word/pdf", "ReviewerHandler", System.Diagnostics.TraceEventType.Error);
+                            HandleMadbatahCreationError(details, fileVersion, threadUser, threadContext);
+                            if (Directory.Exists(folderPath))
+                                Directory.Delete(folderPath, true);
+                        }
+
+                    }
+                    else
+                    {
+                        //show warning session start not completed yet
+                        //log error
+                        LogHelper.LogMessage("Session Start not completed yet", "ReviewerHandler", System.Diagnostics.TraceEventType.Error);
+                        if (Directory.Exists(folderPath))
+                            Directory.Delete(folderPath, true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.LogException(ex, "SessionID: ");
+
+                }
+            }
+            else
+            {
+                //show warninig session start not approved yet
+                //log error
+                LogHelper.LogMessage("session start not approved yet", "ReviewerHandler", System.Diagnostics.TraceEventType.Information);
+                if (Directory.Exists(folderPath))
+                    Directory.Delete(folderPath, true);
+            }
+        }
+
         public static void CreateMadbatahFiles(object threadParams)
         {
 
@@ -940,7 +1066,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 HandleMadbatahCreationError(details, fileVersion, threadUser, threadContext);
 
                             }
-                            byte[] pdfDoc = File.ReadAllBytes(wordFilePath.Replace(".docx", ".pdf"));
+                            byte[] pdfDoc = File.ReadAllBytes(wordFilePath.Replace(".docx", ".pdf"));// new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
                             Hashtable emailData = new Hashtable();
                             int ret = -1;
                             switch (fileVersion)

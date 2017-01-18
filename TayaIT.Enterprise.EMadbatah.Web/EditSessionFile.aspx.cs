@@ -235,10 +235,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     divAttach.InnerHtml = "";
                 }
 
-               
-
                 ddlSpeakers.SelectedValue = lastContentItem.AttendantID.ToString();
-                txtSpeakerJob.Value = lastContentItem.CommentOnAttendant;//usama for job title
+                txtSpeakerJob.InnerText = lastContentItem.CommentOnAttendant;//usama for job title
                 txtComments.InnerText = lastContentItem.CommentOnText;
                 txtFooter.InnerText = lastContentItem.PageFooter;
 
@@ -292,7 +290,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
 
             // bind labels
-            lblSessionName.Text = current_session.Serial.ToString() + "/" + current_session.Stage.ToString() + "/" + current_session.Season.ToString();
+            lblSessionName.Text = current_session.EParliamentID.ToString() + " / " + current_session.Type.ToString();
             lblSessionDate.Text = current_session.Date.ToShortDateString();
             lblMP3FileName.Text = System.IO.Path.GetFileName(file.Name);
 

@@ -167,7 +167,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                     sessionDate.InnerText = s.Date.ToString();
                     //EMadbatahFacade.GetSessionName(s.Season,order ????
-                    sessionSerial.InnerText = s.Serial + "/" + s.Season + "/" + s.StageType;
+                    sessionSerial.InnerText = "( " +  s.EParliamentID + " / " + s.Type + " )";
 
                     //List<SessionContentItem> items = ReviewerFacade.GetSessionContentItems(sessionId);
 

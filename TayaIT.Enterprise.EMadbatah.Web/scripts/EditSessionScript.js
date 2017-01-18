@@ -133,7 +133,7 @@ $(document).ready(function() {
 
             $("#MainContent_ddlAgendaSubItems").val(prevAgendaSubItemIndex);
             $("#MainContent_ddlSpeakers").val(prevSpeakerIndex);
-            $("#MainContent_txtSpeakerJob").val(prevSpeakerTitle);
+            $("#MainContent_txtSpeakerJob").html(prevSpeakerTitle);
             allInputs.attr('disabled', 'disabled');
             // remove all errors
             $('label.error').remove()
@@ -237,7 +237,7 @@ $(document).ready(function() {
                 dataType: 'json',
                 success: function(data) {
                     if (data != 'error') {
-                        $('#MainContent_txtSpeakerJob').val(data);
+                        $('#MainContent_txtSpeakerJob').html(data);
                     }
                 }
 
@@ -258,7 +258,7 @@ $(document).ready(function() {
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
-            var SpeakerJob = $("#MainContent_txtSpeakerJob").val();
+            var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
             // editor value
             var clone = $('<div>').append($("#MainContent_elm1").attr("value"))
             clone.find('span').removeClass('highlight editable hover')
@@ -394,7 +394,7 @@ $(document).ready(function() {
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
-            var SpeakerJob = $("#MainContent_txtSpeakerJob").val();
+            var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
             // editor value
             var clone = $('<div>').append($("#MainContent_elm1").attr("value"))
             clone.find('span').removeClass('highlight editable hover')
@@ -482,7 +482,7 @@ $(document).ready(function() {
             $("#MainContent_CurrentItemID").val(response.FragOrderInXml);
             $("#MainContent_txtComments").val(response.Item.CommentOnText);
             $("#MainContent_txtFooter").val(response.Item.PageFooter);
-            $("#MainContent_txtSpeakerJob").val(response.Item.CommentOnAttendant);
+            $("#MainContent_txtSpeakerJob").html(response.Item.CommentOnAttendant);
             // bind drop down lists
             var AgendaItem_SelectedID = $("#MainContent_ddlAgendaItems > option:selected").attr("value");
             var AgendaSubItem_SelectedID = $("#MainContent_ddlAgendaSubItems > option:selected").attr("value");
@@ -634,7 +634,7 @@ $(document).ready(function() {
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
-            var SpeakerJob = $("#MainContent_txtSpeakerJob").val();
+            var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
             var Text = encodeURI($("#MainContent_elm1").attr("value"));
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
@@ -709,7 +709,7 @@ $(document).ready(function() {
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
-            var SpeakerJob = $("#MainContent_txtSpeakerJob").val();
+            var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
             var Text = encodeURI($("#MainContent_elm1").attr("value"));
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
@@ -1167,6 +1167,7 @@ $(document).ready(function() {
         if(checkedRadio.length > 0){
             $(".attachId").val(checkedRadio.val());
             $('.divAttach').html(checkedRadio.next().text());
+            $('.divAttach').show(); 
         }
         // close the popup
         $(".popupoverlay").hide();

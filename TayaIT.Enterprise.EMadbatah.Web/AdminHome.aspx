@@ -11,8 +11,6 @@
             <div class="adminhomebutton user_icon"><a href="AdminSecurity.aspx">إدارة المستخدمين</a></div>
             <div class="adminhomebutton session_icon"><a href="AdminSessions.aspx">إدارة الجلسات</a></div>
              <div class="clear"></div>
-             <div class="adminhomebutton user_icon"><a href="SpeakersAttendance.aspx">إدارة الأعضاء</a></div>
-              <div class="adminhomebutton user_icon"><a href="CommitteeAttendance.aspx">إدارة اللجان</a></div>
         </div>
     </div>
     <div class="clear">

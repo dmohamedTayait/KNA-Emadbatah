@@ -1,0 +1,574 @@
+----------------------------------------
+Timestamp: 5/18/2016 3:50:08 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(141)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 3:50:40 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 3:55:10 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:00:49 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(141)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:12:51 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:12:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:12:52 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:12:54 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:17:31 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:17:31 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:17:31 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:17:32 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:19:24 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:19:24 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:19:24 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:19:29 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:21:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:21:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:21:52 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:21:57 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:32:34 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:32:34 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:33:29 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:33:31 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:34:46 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:34:46 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:34:58 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:35:01 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:36:15 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:36:31 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:36:31 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:36:34 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:38:27 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:38:27 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:38:27 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:38:28 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:40:12 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:40:13 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:40:13 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:40:15 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:42:32 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\141\)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 233
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 36</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:42:33 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 4:42:33 PM
+
+Category: SessionID:   - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.HandleMadbatahCreationError(SessionDetails details, FileVersion fileVersion, EMadbatahUser threadUser, HttpContext threadContext) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1060
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1001</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 5:08:12 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(141,/test/141/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 741
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 727
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 234</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 5:08:31 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(141,/test/141/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/18/2016 5:34:21 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/19/2016 10:26:59 AM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/19/2016 10:31:36 AM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/19/2016 2:24:37 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------

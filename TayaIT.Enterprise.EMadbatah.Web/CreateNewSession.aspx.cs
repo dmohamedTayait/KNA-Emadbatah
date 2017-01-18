@@ -50,7 +50,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                 attendant.DefaultAttendantID = DefaultAttendants[i].ID;
                                 attendant.SessionAttendantType = sessionObj.SessionStartFlag;
                                 attendant.EparlimentID = sessionObj.EParliamentID;
-                                attendant.Type = 1;
+                                attendant.Type = DefaultAttendants[i].Type;
+                                attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
                                 attendant.State = 1;
                                 bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
                             }
@@ -72,6 +73,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         attendant.SessionAttendantType = (int)SessionOpenStatus.OnTime;//1
                         attendant.EparlimentID = sessionObj.EParliamentID;
                         attendant.Type = DefaultAttendants[i].Type;
+                        attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
                         attendant.State = 1;
                         bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
 
@@ -82,6 +84,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         attendant.SessionAttendantType = (int)SessionOpenStatus.NotOnTime;//0
                         attendant.EparlimentID = sessionObj.EParliamentID;
                         attendant.Type = DefaultAttendants[i].Type;
+                        attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
                         attendant.State = 1;
                         res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
                     }

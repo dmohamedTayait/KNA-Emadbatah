@@ -57,7 +57,7 @@
                     <asp:Label ID="lblSessionDate" runat="server"></asp:Label></strong>
             </div>
             <div class="fl">
-                الجلسة: <strong>[<asp:Label ID="lblSessionName" runat="server"></asp:Label>]</strong>
+                الجلسة: <strong>( <asp:Label ID="lblSessionName" runat="server"></asp:Label> )</strong>
             </div>
             <div class="clear">
             </div>
@@ -69,7 +69,7 @@
                    <h2>البند: </h2> <p class="agendaItemTxt"><%= agendaItemTxt%></p>
                     <br />
                     </div>
-                    <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn addingNewAgendaItem" value="اضافة بند جديد" />
+                    <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn addingNewAgendaItem" value="اضافة فهرس" />
                 </div>
                 <div class="clear"></div>
             </div>
@@ -120,7 +120,7 @@
                 </div>
             </div>-->
             <div class="row">
-                <div class="grid_3">
+                <div class="grid_2">
                     <span class="red">*</span> المتحدث:
                 </div>
                 <div class="grid_7">
@@ -135,14 +135,17 @@
                             نفس المتحدث السابق</label>
                     </div>
                 </div>
-                <div class="grid_3 prefix_1">
+                <div class="grid_2 ">
                     وظيفة المتحدث:</div>
                 <div class="grid_7">
                     <div id="newjobtitle" class="edit">
                         <div class="editmode">
-                            <%--<input id="addnewjobbutton" name="" type="button" class="smallbtn" value="إضافة">--%>
+                            <%--<input id="addnewjobbutton" name="" type="button" class="smallbtn" value="إضافة">
                             <input name="addnewjobtext" id="txtSpeakerJob" runat="server" type="text" class="textfield"
-                                size="26">
+                                size="26">--%>
+                                <label name="addnewjobtext" id="txtSpeakerJob" runat="server" class="textfield" style="font-weight:bold;font-size:16px; border:0 !important;
+    box-shadow: 0 0 !important"
+                                size="26"></label>
                         </div>
                         <div class="donemode">
                             <strong></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="editnewjobbutton" href="#">[تعديل]</a>
@@ -340,7 +343,7 @@
             </div>
             <div class="poppbtnscont fl">
                 <div class="fl">
-                    <input type="button" id="Button3" class="approve3" value="اضافة بند جديد" />
+                    <input type="button" id="Button3" class="approve3" value="أضف" />
                     <div class="clear">
                     </div>
                 </div>

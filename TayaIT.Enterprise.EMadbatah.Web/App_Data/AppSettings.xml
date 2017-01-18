@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Emadbatah>
   <Conf>
-    <VecSysServerPath>E:\Share\emadbatah\SimulateVecsysServerFolder</VecSysServerPath>
-    <AudioServerPath>E:\Share\emadbatah\SimulateAudioServerFolder</AudioServerPath>
+    <VecSysServerPath>\\192.168.0.92\\Share\emadbatah\SimulateVecsysServerFolder</VecSysServerPath>
+    <AudioServerPath>\\192.168.0.92\Share\emadbatah\SimulateAudioServerFolder</AudioServerPath>
     <EParlimrntWebServiceURL>http://localhost:10001/EPService.svc</EParlimrntWebServiceURL>
     <OfflineDevMode>True</OfflineDevMode>
+    <ValidADDomainName>alommah.gov.kw</ValidADDomainName>
+    <ValidADUserName>dmohamed</ValidADUserName>
+    <ValidADUserPassword>A123456</ValidADUserPassword>
+    <LiveServer>0</LiveServer>
     <AllowedDomainName>develop</AllowedDomainName>
     <DefaultAdmin>
       <DomainUserName>DEVELOP\unada</DomainUserName>

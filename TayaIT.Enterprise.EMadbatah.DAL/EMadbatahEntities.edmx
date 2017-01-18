@@ -199,6 +199,7 @@
           <Property Name="DefaultAttendantID" Type="bigint" />
           <Property Name="AttendDate" Type="datetime" />
           <Property Name="SessionAttendantType" Type="int" />
+          <Property Name="AttendantTitle" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="AttendantState">
           <Key>
@@ -231,6 +232,7 @@
           <Property Name="DefaultAttendantID" Type="bigint" />
           <Property Name="SessionID" Type="bigint" />
           <Property Name="AttendantStatus" Type="int" />
+          <Property Name="CommitteeDate" Type="datetime" />
         </EntityType>
         <EntityType Name="DefaultAttendant">
           <Key>
@@ -240,6 +242,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="JobTitle" Type="nvarchar" MaxLength="500" />
           <Property Name="Type" Type="int" />
+          <Property Name="AttendantTitle" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="MadbatahFilesStatus">
           <Key>
@@ -974,6 +977,7 @@
           <Property Type="DateTime" Name="AttendDate" />
           <Property Type="Int32" Name="SessionAttendantType" />
           <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_Attendant_DefaultAttendant" FromRole="Attendant" ToRole="DefaultAttendant" />
+          <Property Type="String" Name="AttendantTitle" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AttendantState">
           <Key>
@@ -1474,6 +1478,7 @@
           <NavigationProperty Name="Committee" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="CommitteeAttendant" ToRole="Committee" />
           <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="CommitteeAttendant" ToRole="DefaultAttendant" />
           <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_CommitteeAttendant_Session" FromRole="CommitteeAttendant" ToRole="Session" />
+          <Property Type="DateTime" Name="CommitteeDate" />
         </EntityType>
         <EntityType Name="DefaultAttendant">
           <Key>
@@ -1485,6 +1490,7 @@
           <NavigationProperty Name="Attendants" Relationship="EMadbatahModel.FK_Attendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="Attendant" />
           <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="CommitteeAttendant" />
           <Property Type="Int32" Name="Type" />
+          <Property Type="String" Name="AttendantTitle" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Attendant_DefaultAttendant">
           <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
@@ -1579,7 +1585,8 @@
             <ScalarProperty Name="FileContent" ColumnName="FileContent" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Attendants"><EntityTypeMapping TypeName="EMadbatahModel.Attendant"><MappingFragment StoreEntitySet="Attendant">
-            <ScalarProperty Name="SessionAttendantType" ColumnName="SessionAttendantType" />
+            <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
+                <ScalarProperty Name="SessionAttendantType" ColumnName="SessionAttendantType" />
                 <ScalarProperty Name="AttendDate" ColumnName="AttendDate" />
                 <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
                 <ScalarProperty Name="SecondName" ColumnName="SecondName" />
@@ -1741,6 +1748,7 @@
           <EntitySetMapping Name="CommitteeAttendants">
             <EntityTypeMapping TypeName="EMadbatahModel.CommitteeAttendant">
               <MappingFragment StoreEntitySet="CommitteeAttendant">
+                <ScalarProperty Name="CommitteeDate" ColumnName="CommitteeDate" />
                 <ScalarProperty Name="AttendantStatus" ColumnName="AttendantStatus" />
                 <ScalarProperty Name="SessionID" ColumnName="SessionID" />
                 <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
@@ -1752,6 +1760,7 @@
           <EntitySetMapping Name="DefaultAttendants">
             <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
               <MappingFragment StoreEntitySet="DefaultAttendant">
+                <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

@@ -378,12 +378,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             WindowsIdentity id2 = (WindowsIdentity)this.Request.LogonUserIdentity;
 
 
-            string testUser = "Develop\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
+            string testUser = "DEVELOP\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
             CurrentUser = EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
 
             CurrentDomain = id.Name.Split('\\')[0].ToLower();
 
-                       if (CurrentUser == null && AppConfig.GetInstance().MainAdmin != null)
+            if (CurrentUser == null && AppConfig.GetInstance().MainAdmin != null)
             {
                 EMadbatahUser mainAdmin = AppConfig.GetInstance().MainAdmin;
                 if (!string.IsNullOrEmpty(mainAdmin.DomainUserName)
@@ -402,11 +402,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 if (CurrentUser == null || CurrentDomain == null)
                 {
                     int nullval = 0;
-                    if (CurrentUser == null) { 
-                        nullval = 1; }
+                    if (CurrentUser == null)
+                    {
+                        nullval = 1;
+                    }
                     else if (CurrentDomain == null)
                     {
-                        nullval = 2; }
+                        nullval = 2;
+                    }
                     Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.Unauthorized + "&nullis=" + nullval);
                 }
                 else if (CurrentDomain.ToLower() != AppConfig.GetInstance().AllowedDomainName.ToLower())

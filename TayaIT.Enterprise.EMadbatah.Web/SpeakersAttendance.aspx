@@ -2,6 +2,9 @@
     Inherits="TayaIT.Enterprise.EMadbatah.Web.SpeakersAttendance" MasterPageFile="~/Site.master"
     Title="المضبطة الإلكترونية - حضور و غياب الأعضاء" %>
 
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+   
+</asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <script src="Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
     <script src="Scripts/jquery.dynDateTime.min.js" type="text/javascript"></script>
@@ -13,7 +16,8 @@
     <style>
          select
         {
-            width: 50%;
+            width: 100%;
+            font-size:15px;
         }
     table.radio_list td label
     {
@@ -29,11 +33,12 @@
     }
     .radio_list
     {
-            width: 300px;
+            width: 330px;
     }
     .table th
     {
         text-align:right;
+          height:35px;
     }
     .sessionopenintime td input
     {
@@ -43,7 +48,7 @@
     {
         margin:0 2px;
         display:inline-block;
-        width:60px;
+        width:75px;
     }
     </style>
     <script type="text/javascript">
@@ -112,7 +117,7 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <div class="grid_22">
+                <div class="grid_24">
                     <div class="xxlargerow">
                         <div class="Ntitle">
                             حضور و غياب الأعضاء:</div>
@@ -120,7 +125,7 @@
                     <div class="clear">
                     </div>
                     <div class="largerow">
-                        <div class="grid_2 h3">
+                        <div class="grid_2 h2">
                             <asp:Label ID="Label1" runat="server" Text="رقم الجلسة:"></asp:Label>
                         </div>
                         <div class="grid_8">
@@ -164,7 +169,7 @@
                         </div>
                     </div>
                     <br />
-                    <asp:GridView ID="GVAttendants" runat="server" CssClass="table h3" BorderWidth="0" CellPadding="0"
+                    <asp:GridView ID="GVAttendants" runat="server" CssClass="table h2" BorderWidth="0" CellPadding="0"
                         AutoGenerateColumns="false" GridLines="None" OnRowDataBound="GVAttendants_RowDataBound"
                         OnRowCreated="testHide">
                         <Columns>
@@ -175,15 +180,15 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="اسم العضو">
                                 <ItemTemplate>
-                                    <asp:Label runat="server" ID="lblFName" Text='<%# Bind("Name") %>'></asp:Label></ItemTemplate>
+                                    <asp:Label runat="server" ID="lblFName" Text='<%# string.Format("{0} {1}", Eval("AttendantTitle ") ,Eval("Name"))%>'></asp:Label></ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="<span class='space-st1'>حاضر</span><span class='space-st1'>غائب</span><span class='space-st1'>غائب بعذر</span><span class='space-st1'>مهمة</span><span class='space-st1'>حاضر أثناء الجلسة</span>">
+                            <asp:TemplateField HeaderText="<span class='space-st1' style='color:blue'>حاضر</span><span class='space-st1' style='color:red'>غائب</span><span class='space-st1' style='color:green'>غائب بعذر</span><span class='space-st1' style='width:120px !important'>حاضر أثناء الجلسة</span>">
                                 <ItemTemplate>
                                     <asp:RadioButtonList ID="RBLAttendantStates" runat="server" RepeatDirection="Horizontal"
                                         DataSourceID="AttendantStateDS" DataTextField="ArName" DataValueField="ID" CssClass="radio_list">
                                     </asp:RadioButtonList>
                                     <asp:SqlDataSource ID="AttendantStateDS" runat="server" ConnectionString="<%$ ConnectionStrings:EMadbatahConn %>"
-                                        SelectCommand="SELECT * FROM [AttendantState]"></asp:SqlDataSource>
+                                        SelectCommand="SELECT * FROM [AttendantState] where id <> 4"></asp:SqlDataSource>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

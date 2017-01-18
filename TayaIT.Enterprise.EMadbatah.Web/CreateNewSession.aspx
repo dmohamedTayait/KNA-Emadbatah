@@ -31,6 +31,14 @@
         {
             direction: rtl;
         }
+        select
+        {
+            font-size:15px;
+        }
+        .chk label
+        {
+            padding:12px;
+        }
     </style>
   
   <form id="form1" runat="server">
@@ -41,7 +49,7 @@
     <div class="clear"></div>
     <div class="grid_22">
       <div class="largerow">
-        <div class="grid_5 h3">
+        <div class="grid_5 h2">
           <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtDate" ErrorMessage="*" ForeColor="Red" ValidationGroup="VGSession"></asp:RequiredFieldValidator>
           <asp:Label ID="lblDate" runat="server" Text="الميعاد المقرر لبدء الجلسة"></asp:Label>
         </div>
@@ -51,7 +59,7 @@
         <div class="clear"> </div>
       </div>
       <div class="largerow">
-        <div class="grid_5 h3">
+        <div class="grid_5 h2">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtStartTime" ErrorMessage="*" ForeColor="Red" ValidationGroup="VGSession"></asp:RequiredFieldValidator>
           <asp:Label ID="lblStartTime" runat="server" Text="الميعاد الفعلى لبدء الجلسة"></asp:Label>
         </div>
@@ -61,7 +69,7 @@
         <div class="clear"> </div>
       </div>
       <div class="largerow">
-        <div class="grid_5 h3">
+        <div class="grid_5 h2">
           <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="txtEParliamentID" ValidationGroup="VGSession"></asp:RequiredFieldValidator>
           <asp:Label ID="lblEParliamentID" runat="server" Text="رقم الجلسة منذ بدء الحياة النيابية"></asp:Label>
         </div>
@@ -88,7 +96,7 @@
         <div class="clear"></div>
       </div>
       <div class="largerow">
-        <div class="grid_5 h3">
+        <div class="grid_5 h2">
           <asp:RequiredFieldValidator ID="rfv1" runat="server" ControlToValidate="ddlSeason" InitialValue="0" ErrorMessage="*" ValidationGroup="VGSession" ForeColor="Red" />
           <asp:Label ID="lblSeason" runat="server" Text="الفصل التشريعى"></asp:Label>
         </div>
@@ -107,7 +115,7 @@
         <div class="clear"> </div>
       </div>
       <div class="largerow">
-        <div class="grid_5 h3">
+        <div class="grid_5 h2">
           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlStage" InitialValue="0" ErrorMessage="*" ValidationGroup="VGSession" ForeColor="Red" />
           <asp:Label ID="lblStage" runat="server" Text="دور الانعقاد"></asp:Label>
         </div>
@@ -132,7 +140,7 @@
         <div class="clear"> </div>
       </div>
       <div class="largerow">
-        <div class="grid_5 h3">
+        <div class="grid_5 h2">
         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="*" ControlToValidate="txtSubject" ValidationGroup="VGSession" ForeColor="Red"></asp:RequiredFieldValidator>
           <asp:Label ID="lblSubject" runat="server" Text="الجلسة"></asp:Label>
         </div>
@@ -143,11 +151,11 @@
        <div class="clear"> </div>
       </div>
        <div class="largerow">
-       <div class="grid_5 h3">
+       <div class="grid_5 h2">
        &nbsp;
        </div>
          <div class="grid_8">
-          <asp:CheckBox ID="CBSessionStart" runat="server" Text="اكتمال النصاب القانونى فى الموعد الأول" Checked />
+          <asp:CheckBox ID="CBSessionStart" runat="server" Text="اكتمال النصاب القانونى فى الموعد الأول" Checked style="font-size:15px;" class="chk"/>
         </div>
         <div class="clear"> </div>
       </div>

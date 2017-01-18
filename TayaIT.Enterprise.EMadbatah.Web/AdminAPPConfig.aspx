@@ -9,18 +9,18 @@
           <div class="clear"></div>
           <div class="grid_19 prefix_5">
           	<div class="largerow">
-            	<div class="grid_5 h3">مسار خادم تحويل الصوت لنص:</div>
+            	<div class="grid_5 h2">مسار خادم تحويل الصوت لنص:</div>
                 <div class="grid_8">
                 <input name="vecsysPath" id="vecsysPath" type="text" runat="server" class="textfield tex_en" size="45"/></div>
                 <div class="clear"></div>
             </div>
             <div class="largerow">
-            	<div class="grid_5 h3">مسار خادم ملفات الصوت:</div>
+            	<div class="grid_5 h2">مسار خادم ملفات الصوت:</div>
                 <div class="grid_8">
                 <input name="audioPath" id="audioPath" type="text" runat="server" class="textfield tex_en" size="45"/></div>
                 <div class="clear"></div>
             </div>
-            <div class="largerow">
+            <div class="largerow displaynone">
             	<div class="grid_5 h3">البرلمان الالكترونى:</div>
                 <div class="grid_8"><input name="EparliamantUrl" id="EparliamantUrl" type="text" runat="server" class="textfield tex_en" size="45"/></div>
                 <div class="clear"></div>

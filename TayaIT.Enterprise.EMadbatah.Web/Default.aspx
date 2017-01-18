@@ -17,7 +17,7 @@
     <input type="hidden" runat="server" id="UserRuleHidden" />
     <div id="mainContent" runat="server">
         <div id="maintable1"  class="MainhomeWrapper">
-            <table class="table deftable" border="0" cellspacing="0" cellpadding="0">
+            <table class="table deftable h2" border="0" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
                         <th class="options">
@@ -170,10 +170,10 @@
                                             <td></td><td></td><td></td> <td></td> 
                                             </tr>
 
-                                            <%if (session.Status == SessionStatus.Completed)
+                                            <%/*if (session.Status == SessionStatus.Completed)
                                               { %>
                                             <tr><td><a href="EditIndexItems.aspx?sid=<%=session.SessionID%>">تعديل فهرس المضبطة</a> </td> <td></td><td></td><td></td><td></td>  </tr>
-                                            <%} %>
+                                            <%} */%>
                                             
                                                 <%
                                                     //session files
@@ -381,7 +381,7 @@
                                                                             && !(session.Status == SessionStatus.FinalApproved))
                                                                         {
                                                 %>
-                                                                <div><a href="Review.aspx?sid=<%=session.SessionID%>">[صفحة المراجعة]</a></div>
+                                                                <div style="padding-top: 5px;"><a href="Review.aspx?sid=<%=session.SessionID%>">[صفحة المراجعة]</a></div>
                                                 <%   
                                                                         }
                                                                         if (nRejected > 0)
@@ -392,7 +392,7 @@
                                                                            CurrentUser.Role == UserRole.Admin)
                                                                        {
                                                 %>
-                                                                <div> <a href="ReviewNotes.aspx?sid=<%=session.SessionID%>">[جميع الملاحظات]</a></div>
+                                                                <div style="padding-top: 5px;"> <a href="ReviewNotes.aspx?sid=<%=session.SessionID%>">[جميع الملاحظات]</a></div>
                                                 <%} %>
                                                 <%
                                                     }
@@ -400,7 +400,7 @@
                                                                         if (CurrentUser.Role != UserRole.DataEntry)
                                                                         {
                                                                             %> 
-                                                                            <div>
+                                                                            <div style="padding-top: 5px;padding-bottom: 5px;">
                                                                             <a href="statistics.aspx?sid=<%=session.SessionID%>">[إحصائيات]</a></div>
                                                                             <%
                                                                         } 

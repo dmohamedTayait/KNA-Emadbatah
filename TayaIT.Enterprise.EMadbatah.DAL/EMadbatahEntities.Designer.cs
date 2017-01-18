@@ -1707,6 +1707,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int32> _SessionAttendantType;
         partial void OnSessionAttendantTypeChanging(Nullable<global::System.Int32> value);
         partial void OnSessionAttendantTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AttendantTitle
+        {
+            get
+            {
+                return _AttendantTitle;
+            }
+            set
+            {
+                OnAttendantTitleChanging(value);
+                ReportPropertyChanging("AttendantTitle");
+                _AttendantTitle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AttendantTitle");
+                OnAttendantTitleChanged();
+            }
+        }
+        private global::System.String _AttendantTitle;
+        partial void OnAttendantTitleChanging(global::System.String value);
+        partial void OnAttendantTitleChanged();
 
         #endregion
     
@@ -2359,6 +2383,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int32> _AttendantStatus;
         partial void OnAttendantStatusChanging(Nullable<global::System.Int32> value);
         partial void OnAttendantStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CommitteeDate
+        {
+            get
+            {
+                return _CommitteeDate;
+            }
+            set
+            {
+                OnCommitteeDateChanging(value);
+                ReportPropertyChanging("CommitteeDate");
+                _CommitteeDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CommitteeDate");
+                OnCommitteeDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CommitteeDate;
+        partial void OnCommitteeDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnCommitteeDateChanged();
 
         #endregion
     
@@ -2603,6 +2651,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int32> _Type;
         partial void OnTypeChanging(Nullable<global::System.Int32> value);
         partial void OnTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AttendantTitle
+        {
+            get
+            {
+                return _AttendantTitle;
+            }
+            set
+            {
+                OnAttendantTitleChanging(value);
+                ReportPropertyChanging("AttendantTitle");
+                _AttendantTitle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AttendantTitle");
+                OnAttendantTitleChanged();
+            }
+        }
+        private global::System.String _AttendantTitle;
+        partial void OnAttendantTitleChanging(global::System.String value);
+        partial void OnAttendantTitleChanged();
 
         #endregion
     

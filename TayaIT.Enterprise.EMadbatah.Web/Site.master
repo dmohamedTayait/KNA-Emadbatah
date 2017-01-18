@@ -35,7 +35,7 @@
       <nav id="mainnavigation" class="container_24">
         <div class="logo"></div>
         <ul id="mainnavigationlist">
-          <li class="currentuser fr"><%=CurrentUser != null?CurrentUser.Name:""%></li>
+          <li class="currentuser fr">مرحبا : <%=CurrentUser != null?CurrentUser.Name:""%></li>
           <li class="fr"></li>
           <li class="clear"></li>
         </ul>
@@ -53,7 +53,7 @@
                                       if (CurrentUser.Role == UserRole.Admin)
                                       {
                     %><li> <a class="settings" href="AdminHome.aspx">ادارة النظام</a></li><%
-                                      }
+                                                                                              }
                                   }
                
            %>
@@ -70,27 +70,17 @@
                                                  !Request.AppRelativeCurrentExecutionFilePath.ToLower().EndsWith(Constants.PageNames.SIGN_OUT.ToLower())
                                          )
                                              {
-                            
-                         
-                     
-                       %>           
-                 <li>
-                    <a href="#" runat="server" id="refreshSessionInfo" class="refreshSessionInfo">تحديث بيانات الجلسة</a>
+                                             }
+                                         }%>
+                         <li>
+                    <a href="SpeakersAttendance.aspx" runat="server" id="A1" >حضور الأعضاء</a>
                     </li>
-                    <%}
-                     }%>
-                    
-                    
-                    <li>
+                     <li>
+                    <a href="CommitteeAttendance.aspx" runat="server" id="A2" >إدارة اللجان</a>
+                    </li>
+                   <li>
                     <a href="SignOut.aspx?signouttype=2" runat="server" id="hrefSignOut" class="hrefSignOut">خروج</a>
                     </li>
-                                        <li>
-                    <a href="SignOut.aspx?signouttype=1" runat="server" id="hrefLoginAsAnotherUser" class="hrefLoginAsAnotherUser">الدخول بحساب مختلف</a>
-                    </li>
-                
-
-
-                     
                 </ul>    	
             </div>
             <div class="clear"></div>
@@ -99,9 +89,7 @@
         <section id="content">
     <article id="main_cont" class="container_24">
       <div class="content">
-       
-
-        <asp:Label runat="server" id="lblErrorMsg" Visible="false" CssClass="ErrorMsg"></asp:Label>     
+          <asp:Label runat="server" id="lblErrorMsg" Visible="false" CssClass="ErrorMsg"></asp:Label>     
 
           
 

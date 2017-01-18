@@ -26,7 +26,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
 
-        public static int UpdateCommitteeAttendant(int CommitteeID, int DefaultAttendant, int SessionID, int AttendantStatus)
+        public static int UpdateCommitteeAttendant(int CommitteeID, int DefaultAttendant, int SessionID, int AttendantStatus,DateTime CommitteeDate)
         {
             try
             {
@@ -45,6 +45,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         CommitteeAttendantForUpdate.DefaultAttendantID = DefaultAttendant;
                         CommitteeAttendantForUpdate.SessionID = SessionID;
                         CommitteeAttendantForUpdate.AttendantStatus = AttendantStatus;
+                        CommitteeAttendantForUpdate.CommitteeDate = CommitteeDate;
                         context.CommitteeAttendants.AddObject(CommitteeAttendantForUpdate);
 
                     }
@@ -82,6 +83,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         public static List<List<DefaultAttendant>> GetSessionCommiteeAttendance(long CommitteeID, long SessionID)
         {
             List<DefaultAttendant> attAbologyLst = new List<DefaultAttendant>();
+            List<DefaultAttendant> attMissionLst = new List<DefaultAttendant>();
             List<DefaultAttendant> attAbsentLst = new List<DefaultAttendant>();
             List<List<DefaultAttendant>> attLst = new List<List<DefaultAttendant>>();
             DefaultAttendant att = new DefaultAttendant();
@@ -103,10 +105,16 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                             att = DefaultAttendantHelper.GetAttendantById((long)commAtt.DefaultAttendantID);
                             attAbologyLst.Add(att);
                         }
+                        else if (commAtt.AttendantStatus == 4)
+                        {
+                            att = DefaultAttendantHelper.GetAttendantById((long)commAtt.DefaultAttendantID);
+                            attMissionLst.Add(att);
+                        }
                     }
 
                     attLst.Add(attAbsentLst);
                     attLst.Add(attAbologyLst);
+                    attLst.Add(attMissionLst);
                     return attLst;
                 }
             }

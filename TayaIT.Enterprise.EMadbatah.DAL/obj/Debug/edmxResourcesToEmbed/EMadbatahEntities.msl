@@ -42,6 +42,7 @@
     <EntitySetMapping Name="Attendants">
       <EntityTypeMapping TypeName="EMadbatahModel.Attendant">
         <MappingFragment StoreEntitySet="Attendant">
+          <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
           <ScalarProperty Name="SessionAttendantType" ColumnName="SessionAttendantType" />
           <ScalarProperty Name="AttendDate" ColumnName="AttendDate" />
           <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
@@ -246,6 +247,7 @@
     <EntitySetMapping Name="CommitteeAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.CommitteeAttendant">
         <MappingFragment StoreEntitySet="CommitteeAttendant">
+          <ScalarProperty Name="CommitteeDate" ColumnName="CommitteeDate" />
           <ScalarProperty Name="AttendantStatus" ColumnName="AttendantStatus" />
           <ScalarProperty Name="SessionID" ColumnName="SessionID" />
           <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
@@ -257,6 +259,7 @@
     <EntitySetMapping Name="DefaultAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
         <MappingFragment StoreEntitySet="DefaultAttendant">
+          <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
           <ScalarProperty Name="Name" ColumnName="Name" />

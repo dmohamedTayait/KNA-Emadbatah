@@ -22,15 +22,16 @@ namespace TayaIT.Enterprise.EMadbatah.Util
             _currentDirEntry = new DirectoryEntry();
             _currentDirEntry.Path = connectionString;
             _currentDirEntry.AuthenticationType = AuthenticationTypes.Secure;
-            
-
             _currentDomainPrincipalContext = new PrincipalContext(ContextType.Domain);
-           // _currentDomainPrincipalContext.ValidateCredentials(userName, password, ContextOptions.Negotiate | ContextOptions.SecureSocketLayer);
-            _currentDomainPrincipalContext = new PrincipalContext(ContextType.Domain);//, domain, null, ContextOptions.Negotiate | ContextOptions.SecureSocketLayer);
-
-
-
         }
+
+        public WinActiveDirectory(string connectionString, string domainName, string userName, string userPassword)
+        {
+            _currentUser = userName;
+            _currentDirEntry = new DirectoryEntry(connectionString, userName, userPassword, AuthenticationTypes.Secure);
+            _currentDomainPrincipalContext = new PrincipalContext(ContextType.Domain, domainName, userName, userPassword);
+        }
+
 
         private IEnumerable<Domain> GetDomains()
         {

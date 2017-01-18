@@ -171,10 +171,10 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                             <td></td><td></td><td></td> <td></td> 
                                             </tr>
 
-                                            <%if (session.Status == SessionStatus.Completed)
+                                            <% /*if (session.Status == SessionStatus.Completed)
                                               { %>
                                             <tr><td><a href="EditIndexItems.aspx?sid=<%=session.SessionID%>">تعديل فهرس المضبطة</a> </td> <td></td><td></td><td></td><td></td>  </tr>
-                                            <%} %>
+                                            <%}*/ %>
                                             
                                                 <%
                                                     //session files
@@ -401,7 +401,7 @@ CodeFile="FinalApprovedSessions.aspx.cs" Inherits="FinalApprovedSessions" %>
                                                                         if (CurrentUser.Role != UserRole.DataEntry)
                                                                         {
                                                                             %> 
-                                                                            <div>
+                                                                            <div style="padding-top:5px;padding-bottom:5px">
                                                                             <a href="statistics.aspx?sid=<%=session.SessionID%>">[إحصائيات]</a></div>
                                                                             <%
                                                                         } 

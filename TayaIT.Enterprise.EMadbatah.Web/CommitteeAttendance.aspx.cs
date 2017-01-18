@@ -34,7 +34,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 ddlCommittee.Items.Insert(0, liNewCommittee);
                 foreach (Committee committeeObj in Committees)
                 {
-                    liNewCommittee = new ListItem("( " + committeeObj.CommitteeName.ToString(), committeeObj.ID.ToString());
+                    liNewCommittee = new ListItem("( " + committeeObj.CommitteeName.ToString() + ")", committeeObj.ID.ToString());
                     ddlCommittee.Items.Add(liNewCommittee);
                 }
 
@@ -70,6 +70,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 RadioButtonList rb = (RadioButtonList)e.Row.FindControl("RBLAttendantStates");
                 if (CommitteeAttendantt.Count != 0)
                 {
+                    txtDate.Text = CommitteeAttendantt[0].CommitteeDate.ToString();
                     if (rb.Items.FindByValue(CommitteeAttendantt[0].AttendantStatus.ToString()) != null)
                     {
                         rb.Items.FindByValue(CommitteeAttendantt[0].AttendantStatus.ToString()).Selected = true;
@@ -83,7 +84,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void btnSave_Click(object sender, EventArgs e)
         {
             int SessionId = int.Parse(ddlSessions.SelectedValue);
-
+            DateTime committeeDate = DateTime.Parse(txtDate.Text);
             foreach (GridViewRow item in GVDefaultAttendants.Rows)
             {
                 int CommitteeSelected = int.Parse(ddlCommittee.SelectedValue);
@@ -99,7 +100,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     AttendantStatus = int.Parse(rdlist.SelectedValue);
                 }
 
-                int result = CommitteeHelper.UpdateCommitteeAttendant(CommitteeSelected, DefaultAttendantId, SessionId, AttendantStatus);
+                int result = CommitteeHelper.UpdateCommitteeAttendant(CommitteeSelected, DefaultAttendantId, SessionId, AttendantStatus, committeeDate);
 
             }
         }

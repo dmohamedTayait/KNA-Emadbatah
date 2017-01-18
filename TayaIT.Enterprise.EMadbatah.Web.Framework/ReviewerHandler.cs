@@ -80,21 +80,22 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         emailData.Add("<%SessionDate%>", sessionDateStr);
                                         emailData.Add("<%UserName%>", sd.ReviewerName);//reviewr name
 
-                                        MailManager.SendMail(new Email(new Emailreceptionist(toEmail, toUserName)), SystemMailType.ApproveSession, emailData);
-
+                                        LogHelper.LogMessage("b4 send mail","approve session",System.Diagnostics.TraceEventType.Information);
+                                       // MailManager.SendMail(new Email(new Emailreceptionist(toEmail, toUserName)), SystemMailType.ApproveSession, emailData);
+                                        LogHelper.LogMessage("after send mail", "approve session", System.Diagnostics.TraceEventType.Information);
                                         //CREATE MADBATAH PDF
                                         //RUN IN A NEW THREAD
                                         //Thread t = new Thread(new ThreadStart(CreateMadbatahFiles));
                                         
                                         Thread t2 = new Thread(new ParameterizedThreadStart(EMadbatahFacade.CreateMadbatahFiles));
-                                        
+                                        LogHelper.LogMessage("thread1", "approve session", System.Diagnostics.TraceEventType.Information);
                                         object[] threadParams = new object[4];
                                         threadParams[0] = sd;
                                         threadParams[1] = CurrentUser;
                                         threadParams[2] = _context;
                                         threadParams[3] = FileVersion.draft;
                                         t2.Start(threadParams);
-
+                                        LogHelper.LogMessage("start thread", "approve session", System.Diagnostics.TraceEventType.Information);
                                     }
                                 }
                                 
@@ -190,6 +191,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         threadParams[2] = _context;
                                         threadParams[3] = FileVersion.final;
                                         t2.Start(threadParams);
+
+                                        //  EMadbatahFacade.CreateMadbatahFiles(sd, CurrentUser, _context, FileVersion.final);
 
                                     }
                                 }                                

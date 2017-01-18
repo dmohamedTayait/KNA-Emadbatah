@@ -107,7 +107,7 @@ select.fitAll, textarea.fitAll {
 	margin: 10px 0px;
 }
 .largerow {
-	margin-bottom:20px
+	margin-bottom:23px
 }
 .xlargerow {
 	margin-bottom:30px
@@ -241,6 +241,12 @@ select {
 header#header a.currentuser {
 	background-image:none;
 }
+.currentuser 
+{
+     color: #dc1826;
+     font-size: 18px;
+     font-weight:bold;
+}
 #mainnavigation
 {
     position:relative;
@@ -253,8 +259,8 @@ header#header a.currentuser {
     top:0;
     left:0;
     width:195px;
-    height:128px;
-	background-image:url(../images/03_voicetochat.png);
+    height:135px;
+	background-image:url(../images/eMadbatah_Logo_01.jpg);
 	background-repeat:no-repeat;
 	z-index:12;
 }
@@ -265,7 +271,7 @@ header#header a.currentuser {
 	background-position:100% bottom;
 	background-color:#fff;
 	position:relative;
-	height:135px;
+	height:130px;
 }
 #mainnavigationlist li {
 	padding:15px 160px 0px 30px;
@@ -301,7 +307,7 @@ header#header a.currentuser {
 	width: 100%;
 	background-image:url(../images/top_nav_bg.jpg);
 	border: 1px solid #cccccc;
-	height: 25px;
+	height: 30px;
 	line-height: 25px;
 	font-family: Geneva,Verdana, sans-serif;
 }
@@ -323,9 +329,9 @@ header#header a.currentuser {
 #top-nav ul li a{
 	color: #000000;
 	text-decoration: none;
-	font-size: 15px;
+	font-size: 18px;
 	font-weight: normal;
-	line-height: 25px;
+	line-height: 30px;
 	height: 25px;
 	padding: 3px 34px 4px 35px;
 	text-transform: uppercase;
@@ -362,10 +368,13 @@ header#header a.currentuser {
 	filter: dropshadow(color=#ffffff, offx=0, offy=1);
 	text-align:center;
 	border-left:1px solid #bcbcbc;
+	 font-size: 17px;
+    font-weight: bold;
 }
 .datacont1 tbody td {
 	padding:15px;
 	border-left:1px solid #C1C1C1;
+	font-size:15px
 }
 .datacont1 tbody tr {
 	background: #fff;
@@ -603,15 +612,19 @@ header#header a.currentuser {
 {
     background:url("../images/create_ico.png") no-repeat;
     background-position:right 0;
+    font-size:15px;
 }
 .adminhomebutton.setting_icon a {
 	background-position:right -79px;
+	 font-size:15px;
 }
 .adminhomebutton.user_icon a {
 	background-position:right -160px;
+	 font-size:15px;
 }
 .adminhomebutton.session_icon a {
 	background-position:right 0;
+	 font-size:15px;
 }
 /* popup rules(fancybox) */
 .actions_btns .smallbtn {
@@ -621,12 +634,12 @@ header#header a.currentuser {
 /* default table */
 .table th {
 	padding-top:1px;
-	line-height:25px;
+	line-height:35px;
 	background:url("../images/top_nav_bg.jpg") repeat-x 0 0;
 	text-shadow: 0px 1px 0px #ffffff;
 	filter: dropshadow(color=#ffffff, offx=0, offy=1);
 	text-align:center;
-	font-weight:normal;
+	font-weight:bold;
 	word-wrap:break-word;
 }
 .table tbody tr.color1 {
@@ -898,6 +911,8 @@ span.revFilelock {
 }
 .footertxt {
 	padding: 16px 0 0 160px;
+	font-weight:bold;
+	font-size:15px;
 }
 /*
 *
@@ -1310,6 +1325,8 @@ span.revFilelock {
 }
 .anchor {
 	color: #333333;
+	font-size:15px;
+	 font-weight: bold;
 }
 .arrowanchor {
 	background: url("../images/arrow.gif") no-repeat scroll center center #fff;
@@ -1330,6 +1347,11 @@ span.revFilelock {
 .addnewusercont .actionbtnsmenu:hover {
 	border:0 none;
 	outline:0 none;
+}
+.deftable
+{
+    font-size:15px;
+    font-weight:bold;
 }
 .deftable tr.tbrow {
 	border-bottom: 1px solid #DEDEDE;
@@ -1354,15 +1376,17 @@ span.revFilelock {
 	border-bottom: 0 none;
 	border-top: 1px solid #DEDEDE;
 }
-.currentuser, .errorpagecontainer .Anchorhome a {
+.errorpagecontainer .Anchorhome a {
 	color:#000;
 	font-weight:bold;
+	 font-size: 15px;
 }
 .Ntitle {
 	border-bottom: 1px dotted #AAAAAA;
 	color: #333333;
-	font-size: 15px;
+	font-size: 18px;
 	padding: 8px 0;
+	font-weight:bold;
 }
 .poppbtnscont .actionbtnsmenu {
 	margin-right:10px;
@@ -1373,15 +1397,17 @@ span.revFilelock {
 }
 .addnewusercont .cnfsave {
 	display: block;
-	font-size: 110%;
+	font-size: 130%;
 	text-align: center;
 	width: 63px;
+	font-weight: bold;
 }
 .addnewusercont a.AddNewUserWin {
 	display: block;
-	font-size: 110%;
+	font-size: 130%;
 	text-align: center;
-	width: 110px;
+	width: 140px;
+	font-weight:bold;
 }
 .errorpagecontainer .Anchorhome a {
 	font-weight: normal;
@@ -1561,3 +1587,8 @@ color:#b0b0af
 {
     background:#cc0000;
  }
+ 
+   .sessionopenintime td label
+    {
+       font-size:15px;
+    }

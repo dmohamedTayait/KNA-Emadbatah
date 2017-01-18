@@ -104,12 +104,32 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             bool isErrorLoggingEnabled = false;
             XmlNode isErrorLoggingEnabledNode = _confDoc.SelectSingleNode("/Emadbatah/Conf/Logging/ErrorLoggingEnabled");
             if (isErrorLoggingEnabledNode != null && !string.IsNullOrEmpty(isErrorLoggingEnabledNode.InnerText.Trim()) && bool.TryParse(isErrorLoggingEnabledNode.InnerText.Trim(), out isErrorLoggingEnabled))
-                IsErrorLoggingEnabled = isErrorLoggingEnabled;           
- 
+                IsErrorLoggingEnabled = isErrorLoggingEnabled;
+
+
+            XmlNode validADDomainNamePathNode = _confDoc.SelectSingleNode("/Emadbatah/Conf/ValidADDomainName");
+            if (validADDomainNamePathNode != null && !string.IsNullOrEmpty(validADDomainNamePathNode.InnerText.Trim()))
+                ValidADDomainName = validADDomainNamePathNode.InnerText.Trim();
+
+            XmlNode validADUserNamePathNode = _confDoc.SelectSingleNode("/Emadbatah/Conf/ValidADUserName");
+            if (validADUserNamePathNode != null && !string.IsNullOrEmpty(validADUserNamePathNode.InnerText.Trim()))
+                ValidADUserName = validADUserNamePathNode.InnerText.Trim();
+
+            XmlNode validADUserPasswordPathNode = _confDoc.SelectSingleNode("/Emadbatah/Conf/ValidADUserPassword");
+            if (validADUserPasswordPathNode != null && !string.IsNullOrEmpty(validADUserPasswordPathNode.InnerText.Trim()))
+                ValidADUserPassword = validADUserPasswordPathNode.InnerText.Trim();
+     
+            XmlNode liveServerPathNode = _confDoc.SelectSingleNode("/Emadbatah/Conf/LiveServer");
+            if (liveServerPathNode != null && !string.IsNullOrEmpty(liveServerPathNode.InnerText.Trim()))
+                LiveServer = liveServerPathNode.InnerText.Trim();
 
         }
 
         public string AllowedDomainName { get; set; }
+        public string LiveServer { get; set; }
+        public string ValidADDomainName { get; set; }
+        public string ValidADUserName { get; set; }
+        public string ValidADUserPassword { get; set; }
         public string VecSysServerPath { get; set; }
         public string AudioServerPath { get; set; }
         public string EPrlimentServerURL { get; set; }

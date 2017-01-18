@@ -194,6 +194,7 @@
     <Property Name="DefaultAttendantID" Type="bigint" />
     <Property Name="AttendDate" Type="datetime" />
     <Property Name="SessionAttendantType" Type="int" />
+    <Property Name="AttendantTitle" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -226,6 +227,7 @@
     <Property Name="DefaultAttendantID" Type="bigint" />
     <Property Name="SessionID" Type="bigint" />
     <Property Name="AttendantStatus" Type="int" />
+    <Property Name="CommitteeDate" Type="datetime" />
   </EntityType>
   <EntityType Name="DefaultAttendant">
     <Key>
@@ -235,6 +237,7 @@
     <Property Name="Name" Type="nvarchar" MaxLength="500" />
     <Property Name="JobTitle" Type="nvarchar" MaxLength="500" />
     <Property Name="Type" Type="int" />
+    <Property Name="AttendantTitle" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="MadbatahFilesStatus">
     <Key>
