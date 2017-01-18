@@ -16,7 +16,6 @@
           <EntitySet Name="CommitteeAttendant" EntityType="EMadbatahModel.Store.CommitteeAttendant" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DefaultAttendant" EntityType="EMadbatahModel.Store.DefaultAttendant" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MadbatahFilesStatus" EntityType="EMadbatahModel.Store.MadbatahFilesStatus" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="MembersVote" EntityType="EMadbatahModel.Store.MembersVote" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Procedure" EntityType="EMadbatahModel.Store.Procedure" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProcedureType" EntityType="EMadbatahModel.Store.ProcedureType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Role" EntityType="EMadbatahModel.Store.Role" store:Type="Tables" Schema="dbo" />
@@ -27,9 +26,6 @@
           <EntitySet Name="SessionFile" EntityType="EMadbatahModel.Store.SessionFile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SessionFileStatus" EntityType="EMadbatahModel.Store.SessionFileStatus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SessionStatus" EntityType="EMadbatahModel.Store.SessionStatus" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TBLMeeting" EntityType="EMadbatahModel.Store.TBLMeeting" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TBLNonSecretVoteSubject" EntityType="EMadbatahModel.Store.TBLNonSecretVoteSubject" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TBLPerson" EntityType="EMadbatahModel.Store.TBLPerson" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="User" EntityType="EMadbatahModel.Store.User" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_AgendaItem_Session" Association="EMadbatahModel.Store.FK_AgendaItem_Session">
             <End Role="Session" EntitySet="Session" />
@@ -66,10 +62,6 @@
           <AssociationSet Name="FK_CommitteeAttendant_Session" Association="EMadbatahModel.Store.FK_CommitteeAttendant_Session">
             <End Role="Session" EntitySet="Session" />
             <End Role="CommitteeAttendant" EntitySet="CommitteeAttendant" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MembersVote_TBLNonSecretVoteSubject" Association="EMadbatahModel.Store.FK_MembersVote_TBLNonSecretVoteSubject">
-            <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubject" />
-            <End Role="MembersVote" EntitySet="MembersVote" />
           </AssociationSet>
           <AssociationSet Name="FK_Procedure_ProcedureType" Association="EMadbatahModel.Store.FK_Procedure_ProcedureType">
             <End Role="ProcedureType" EntitySet="ProcedureType" />
@@ -127,10 +119,6 @@
             <End Role="SessionFile" EntitySet="SessionFile" />
             <End Role="SessionContentItem" EntitySet="SessionContentItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_SessionContentItem_TBLNonSecretVoteSubject" Association="EMadbatahModel.Store.FK_SessionContentItem_TBLNonSecretVoteSubject">
-            <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubject" />
-            <End Role="SessionContentItem" EntitySet="SessionContentItem" />
-          </AssociationSet>
           <AssociationSet Name="FK_SessionContentItem_User" Association="EMadbatahModel.Store.FK_SessionContentItem_User">
             <End Role="User" EntitySet="User" />
             <End Role="SessionContentItem" EntitySet="SessionContentItem" />
@@ -154,10 +142,6 @@
           <AssociationSet Name="FK_SessionFile_User" Association="EMadbatahModel.Store.FK_SessionFile_User">
             <End Role="User" EntitySet="User" />
             <End Role="SessionFile" EntitySet="SessionFile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBLNonSecretVoteSubject_TBLMeeting" Association="EMadbatahModel.Store.FK_TBLNonSecretVoteSubject_TBLMeeting">
-            <End Role="TBLMeeting" EntitySet="TBLMeeting" />
-            <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubject" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="EMadbatahModel.Store.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
@@ -218,6 +202,8 @@
           <Property Name="AttendantTitle" Type="nvarchar" MaxLength="500" />
           <Property Name="OrderByAttendantType" Type="int" />
           <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LongName" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="AttendantState">
           <Key>
@@ -263,6 +249,8 @@
           <Property Name="AttendantTitle" Type="nvarchar" MaxLength="500" />
           <Property Name="OrderByAttendantType" Type="int" />
           <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
+          <Property Name="LongName" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="MadbatahFilesStatus">
           <Key>
@@ -270,16 +258,6 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="MembersVote">
-          <Key>
-            <PropertyRef Name="AutoID" />
-          </Key>
-          <Property Name="AutoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="NonSecretVoteSubjectID" Type="int" Nullable="false" />
-          <Property Name="PersonID" Type="int" Nullable="false" />
-          <Property Name="MemberVoteID" Type="int" />
-          <Property Name="MemberFullName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Procedure">
           <Key>
@@ -416,39 +394,6 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="500" />
         </EntityType>
-        <EntityType Name="TBLMeeting">
-          <Key>
-            <PropertyRef Name="MeetingID" />
-          </Key>
-          <Property Name="MeetingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="MeetingSN" Type="nvarchar" MaxLength="50" />
-          <Property Name="MeetingNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="MeetingDate" Type="datetime" />
-          <Property Name="MeetingTitle" Type="nvarchar" MaxLength="1000" />
-        </EntityType>
-        <EntityType Name="TBLNonSecretVoteSubject">
-          <Key>
-            <PropertyRef Name="NonSecretVoteSubjectID" />
-          </Key>
-          <Property Name="NonSecretVoteSubjectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="MeetingID" Type="int" />
-          <Property Name="NonSecretVoteSubjectNumber" Type="int" Nullable="false" />
-          <Property Name="NonSecretVoteSubject" Type="nvarchar" />
-          <Property Name="NonSecretVoteSubjectDate" Type="datetime" />
-          <Property Name="NonSecreatVoteSubjectIsClosed" Type="bit" />
-          <Property Name="NofAgree" Type="int" />
-          <Property Name="NofDisagree" Type="int" />
-          <Property Name="NofNoVote" Type="int" />
-          <Property Name="NofAttendance" Type="int" />
-        </EntityType>
-        <EntityType Name="TBLPerson">
-          <Key>
-            <PropertyRef Name="PersonID" />
-          </Key>
-          <Property Name="PersonID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="PersonShortName" Type="nvarchar" MaxLength="100" />
-          <Property Name="PersonFullName" Type="nvarchar" MaxLength="200" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="ID" />
@@ -572,18 +517,6 @@
             </Principal>
             <Dependent Role="CommitteeAttendant">
               <PropertyRef Name="SessionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MembersVote_TBLNonSecretVoteSubject">
-          <End Role="TBLNonSecretVoteSubject" Type="EMadbatahModel.Store.TBLNonSecretVoteSubject" Multiplicity="1" />
-          <End Role="MembersVote" Type="EMadbatahModel.Store.MembersVote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBLNonSecretVoteSubject">
-              <PropertyRef Name="NonSecretVoteSubjectID" />
-            </Principal>
-            <Dependent Role="MembersVote">
-              <PropertyRef Name="NonSecretVoteSubjectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -763,18 +696,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SessionContentItem_TBLNonSecretVoteSubject">
-          <End Role="TBLNonSecretVoteSubject" Type="EMadbatahModel.Store.TBLNonSecretVoteSubject" Multiplicity="0..1" />
-          <End Role="SessionContentItem" Type="EMadbatahModel.Store.SessionContentItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBLNonSecretVoteSubject">
-              <PropertyRef Name="NonSecretVoteSubjectID" />
-            </Principal>
-            <Dependent Role="SessionContentItem">
-              <PropertyRef Name="VotingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SessionContentItem_User">
           <End Role="User" Type="EMadbatahModel.Store.User" Multiplicity="0..1" />
           <End Role="SessionContentItem" Type="EMadbatahModel.Store.SessionContentItem" Multiplicity="*" />
@@ -846,18 +767,6 @@
             </Principal>
             <Dependent Role="SessionFile">
               <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBLNonSecretVoteSubject_TBLMeeting">
-          <End Role="TBLMeeting" Type="EMadbatahModel.Store.TBLMeeting" Multiplicity="0..1" />
-          <End Role="TBLNonSecretVoteSubject" Type="EMadbatahModel.Store.TBLNonSecretVoteSubject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBLMeeting">
-              <PropertyRef Name="MeetingID" />
-            </Principal>
-            <Dependent Role="TBLNonSecretVoteSubject">
-              <PropertyRef Name="MeetingID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1014,22 +923,6 @@
             <End Role="Attachement" EntitySet="Attachements" />
             <End Role="SessionContentItem" EntitySet="SessionContentItems" />
           </AssociationSet>
-          <EntitySet Name="MembersVotes" EntityType="EMadbatahModel.MembersVote" />
-          <EntitySet Name="TBLMeetings" EntityType="EMadbatahModel.TBLMeeting" />
-          <EntitySet Name="TBLNonSecretVoteSubjects" EntityType="EMadbatahModel.TBLNonSecretVoteSubject" />
-          <AssociationSet Name="FK_MembersVote_TBLNonSecretVoteSubject" Association="EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject">
-            <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubjects" />
-            <End Role="MembersVote" EntitySet="MembersVotes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TBLNonSecretVoteSubject_TBLMeeting" Association="EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting">
-            <End Role="TBLMeeting" EntitySet="TBLMeetings" />
-            <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubjects" />
-          </AssociationSet>
-          <EntitySet Name="TBLPersons" EntityType="EMadbatahModel.TBLPerson" />
-          <AssociationSet Name="FK_SessionContentItem_TBLNonSecretVoteSubject" Association="EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject">
-            <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubjects" />
-            <End Role="SessionContentItem" EntitySet="SessionContentItems" />
-          </AssociationSet>
           </EntityContainer>
         <EntityType Name="AgendaItem">
           <Key>
@@ -1097,6 +990,8 @@
           <Property Type="String" Name="AttendantTitle" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="OrderByAttendantType" />
           <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AttendantState">
           <Key>
@@ -1200,7 +1095,6 @@
           <Property Type="Int64" Name="AttachementID" />
           <NavigationProperty Name="Attachement" Relationship="EMadbatahModel.FK_SessionContentItem_Attachement" FromRole="SessionContentItem" ToRole="Attachement" />
           <Property Type="Int32" Name="VotingID" />
-          <NavigationProperty Name="TBLNonSecretVoteSubject" Relationship="EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject" FromRole="SessionContentItem" ToRole="TBLNonSecretVoteSubject" />
           <Property Type="Int32" Name="IsSessionPresident" />
         </EntityType>
         <EntityType Name="SessionContentItemStatus">
@@ -1615,6 +1509,8 @@
           <Property Type="String" Name="AttendantTitle" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="OrderByAttendantType" />
           <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Attendant_DefaultAttendant">
           <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
@@ -1676,90 +1572,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="MembersVote">
-          <Key>
-            <PropertyRef Name="AutoID" />
-          </Key>
-          <Property Type="Int32" Name="AutoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="NonSecretVoteSubjectID" Nullable="false" />
-          <Property Type="Int32" Name="PersonID" Nullable="false" />
-          <Property Type="Int32" Name="MemberVoteID" />
-          <Property Type="String" Name="MemberFullName" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TBLNonSecretVoteSubject" Relationship="EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject" FromRole="MembersVote" ToRole="TBLNonSecretVoteSubject" />
-        </EntityType>
-        <EntityType Name="TBLMeeting">
-          <Key>
-            <PropertyRef Name="MeetingID" />
-          </Key>
-          <Property Type="Int32" Name="MeetingID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="MeetingSN" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="MeetingNo" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="MeetingDate" />
-          <Property Type="String" Name="MeetingTitle" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TBLNonSecretVoteSubjects" Relationship="EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting" FromRole="TBLMeeting" ToRole="TBLNonSecretVoteSubject" />
-        </EntityType>
-        <EntityType Name="TBLNonSecretVoteSubject">
-          <Key>
-            <PropertyRef Name="NonSecretVoteSubjectID" />
-          </Key>
-          <Property Type="Int32" Name="NonSecretVoteSubjectID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="MeetingID" />
-          <Property Type="Int32" Name="NonSecretVoteSubjectNumber" Nullable="false" />
-          <Property Type="String" Name="NonSecretVoteSubject" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="NonSecretVoteSubjectDate" />
-          <Property Type="Boolean" Name="NonSecreatVoteSubjectIsClosed" />
-          <Property Type="Int32" Name="NofAgree" />
-          <Property Type="Int32" Name="NofDisagree" />
-          <Property Type="Int32" Name="NofNoVote" />
-          <Property Type="Int32" Name="NofAttendance" />
-          <NavigationProperty Name="MembersVotes" Relationship="EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject" FromRole="TBLNonSecretVoteSubject" ToRole="MembersVote" />
-          <NavigationProperty Name="TBLMeeting" Relationship="EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting" FromRole="TBLNonSecretVoteSubject" ToRole="TBLMeeting" />
-          <NavigationProperty Name="SessionContentItems" Relationship="EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject" FromRole="TBLNonSecretVoteSubject" ToRole="SessionContentItem" />
-        </EntityType>
-        <Association Name="FK_MembersVote_TBLNonSecretVoteSubject">
-          <End Type="EMadbatahModel.TBLNonSecretVoteSubject" Role="TBLNonSecretVoteSubject" Multiplicity="1" />
-          <End Type="EMadbatahModel.MembersVote" Role="MembersVote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBLNonSecretVoteSubject">
-              <PropertyRef Name="NonSecretVoteSubjectID" />
-            </Principal>
-            <Dependent Role="MembersVote">
-              <PropertyRef Name="NonSecretVoteSubjectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TBLNonSecretVoteSubject_TBLMeeting">
-          <End Type="EMadbatahModel.TBLMeeting" Role="TBLMeeting" Multiplicity="0..1" />
-          <End Type="EMadbatahModel.TBLNonSecretVoteSubject" Role="TBLNonSecretVoteSubject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBLMeeting">
-              <PropertyRef Name="MeetingID" />
-            </Principal>
-            <Dependent Role="TBLNonSecretVoteSubject">
-              <PropertyRef Name="MeetingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TBLPerson">
-          <Key>
-            <PropertyRef Name="PersonID" />
-          </Key>
-          <Property Type="Int32" Name="PersonID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="PersonShortName" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="PersonFullName" MaxLength="200" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_SessionContentItem_TBLNonSecretVoteSubject">
-          <End Type="EMadbatahModel.TBLNonSecretVoteSubject" Role="TBLNonSecretVoteSubject" Multiplicity="0..1" />
-          <End Type="EMadbatahModel.SessionContentItem" Role="SessionContentItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TBLNonSecretVoteSubject">
-              <PropertyRef Name="NonSecretVoteSubjectID" />
-            </Principal>
-            <Dependent Role="SessionContentItem">
-              <PropertyRef Name="VotingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1793,6 +1605,8 @@
             <ScalarProperty Name="FileContent" ColumnName="FileContent" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Attendants"><EntityTypeMapping TypeName="EMadbatahModel.Attendant"><MappingFragment StoreEntitySet="Attendant">
+                <ScalarProperty Name="LongName" ColumnName="LongName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
                 <ScalarProperty Name="OrderByAttendantType" ColumnName="OrderByAttendantType" />
                 <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
@@ -1972,6 +1786,8 @@
           <EntitySetMapping Name="DefaultAttendants">
             <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
               <MappingFragment StoreEntitySet="DefaultAttendant">
+                <ScalarProperty Name="LongName" ColumnName="LongName" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
                 <ScalarProperty Name="OrderByAttendantType" ColumnName="OrderByAttendantType" />
                 <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
@@ -1979,53 +1795,6 @@
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MembersVotes">
-            <EntityTypeMapping TypeName="EMadbatahModel.MembersVote">
-              <MappingFragment StoreEntitySet="MembersVote">
-                <ScalarProperty Name="MemberFullName" ColumnName="MemberFullName" />
-                <ScalarProperty Name="MemberVoteID" ColumnName="MemberVoteID" />
-                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
-                <ScalarProperty Name="NonSecretVoteSubjectID" ColumnName="NonSecretVoteSubjectID" />
-                <ScalarProperty Name="AutoID" ColumnName="AutoID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBLMeetings">
-            <EntityTypeMapping TypeName="EMadbatahModel.TBLMeeting">
-              <MappingFragment StoreEntitySet="TBLMeeting">
-                <ScalarProperty Name="MeetingTitle" ColumnName="MeetingTitle" />
-                <ScalarProperty Name="MeetingDate" ColumnName="MeetingDate" />
-                <ScalarProperty Name="MeetingNo" ColumnName="MeetingNo" />
-                <ScalarProperty Name="MeetingSN" ColumnName="MeetingSN" />
-                <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBLNonSecretVoteSubjects">
-            <EntityTypeMapping TypeName="EMadbatahModel.TBLNonSecretVoteSubject">
-              <MappingFragment StoreEntitySet="TBLNonSecretVoteSubject">
-                <ScalarProperty Name="NofAttendance" ColumnName="NofAttendance" />
-                <ScalarProperty Name="NofNoVote" ColumnName="NofNoVote" />
-                <ScalarProperty Name="NofDisagree" ColumnName="NofDisagree" />
-                <ScalarProperty Name="NofAgree" ColumnName="NofAgree" />
-                <ScalarProperty Name="NonSecreatVoteSubjectIsClosed" ColumnName="NonSecreatVoteSubjectIsClosed" />
-                <ScalarProperty Name="NonSecretVoteSubjectDate" ColumnName="NonSecretVoteSubjectDate" />
-                <ScalarProperty Name="NonSecretVoteSubject" ColumnName="NonSecretVoteSubject" />
-                <ScalarProperty Name="NonSecretVoteSubjectNumber" ColumnName="NonSecretVoteSubjectNumber" />
-                <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
-                <ScalarProperty Name="NonSecretVoteSubjectID" ColumnName="NonSecretVoteSubjectID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TBLPersons">
-            <EntityTypeMapping TypeName="EMadbatahModel.TBLPerson">
-              <MappingFragment StoreEntitySet="TBLPerson">
-                <ScalarProperty Name="PersonFullName" ColumnName="PersonFullName" />
-                <ScalarProperty Name="PersonShortName" ColumnName="PersonShortName" />
-                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2075,14 +1844,14 @@
           <ConnectorPoint PointX="9.75" PointY="5.468493593749999" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_AgendaItem" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.25" PointY="7.0667936197916656" />
-          <ConnectorPoint PointX="8.25" PointY="8.125" />
+          <ConnectorPoint PointX="8.2818289230769224" PointY="7.0667936197916656" />
+          <ConnectorPoint PointX="8.2818289230769224" PointY="8.125" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_AgendaSubItem" ManuallyRouted="false">
           <ConnectorPoint PointX="9.75" PointY="6.8744921875" />
           <ConnectorPoint PointX="9.375" PointY="7.2494921875" />
-          <ConnectorPoint PointX="9.375" PointY="10.7216466956053" />
-          <ConnectorPoint PointX="9" PointY="10.7216466956053" />
+          <ConnectorPoint PointX="9.375" PointY="10.369434017511768" />
+          <ConnectorPoint PointX="9" PointY="10.369434017511768" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_Attachement_Session" ManuallyRouted="false">
           <ConnectorPoint PointX="6.7500000000000018" PointY="15.297425130208334" />
@@ -2125,10 +1894,10 @@
           <ConnectorPoint PointX="5.25" PointY="8.422841796875" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_Session" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="10.601836803977072" />
-          <ConnectorPoint PointX="7.104166666666667" PointY="10.601836803977072" />
-          <ConnectorPoint PointX="7.270833333333333" PointY="10.601836803977072" />
-          <ConnectorPoint PointX="7.5" PointY="10.601836803977072" />
+          <ConnectorPoint PointX="6.75" PointY="9.934283234974858" />
+          <ConnectorPoint PointX="7.104166666666667" PointY="9.934283234974858" />
+          <ConnectorPoint PointX="7.270833333333333" PointY="9.934283234974858" />
+          <ConnectorPoint PointX="7.5" PointY="9.934283234974858" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionFile_Session" ManuallyRouted="false">
           <ConnectorPoint PointX="6" PointY="8.125" />
@@ -2142,30 +1911,32 @@
           <ConnectorPoint PointX="9.2916666666666661" PointY="7.8749999999999991" />
           <ConnectorPoint PointX="9.4583333333333339" PointY="7.875" />
           <ConnectorPoint PointX="10.125" PointY="7.875" />
-          <ConnectorPoint PointX="10.125" PointY="10.94887005566407" />
-          <ConnectorPoint PointX="10.5" PointY="10.94887005566407" />
+          <ConnectorPoint PointX="10.125" PointY="10.936523558166511" />
+          <ConnectorPoint PointX="10.5" PointY="10.936523558166511" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_Reviewer" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.625" PointY="15.639230375688879" />
-          <ConnectorPoint PointX="7.5" PointY="15.639230375688879" />
+          <ConnectorPoint PointX="6.625" PointY="15.545972660594138" />
+          <ConnectorPoint PointX="6.9152141970524736" PointY="15.545972660594138" />
+          <ConnectorPoint PointX="7.08188086371914" PointY="15.545972660594138" />
+          <ConnectorPoint PointX="7.5" PointY="15.545972660594138" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_SessionContentItemStatus" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="6.7833749014423068" />
           <ConnectorPoint PointX="7.0660744349011217" PointY="7.0994493363434277" />
           <ConnectorPoint PointX="7.1839255650988791" PointY="7.217300466541186" />
           <ConnectorPoint PointX="7.1875" PointY="7.2208749014423068" />
-          <ConnectorPoint PointX="7.1875" PointY="13.120533589832975" />
-          <ConnectorPoint PointX="7.5" PointY="13.120533589832975" />
+          <ConnectorPoint PointX="7.1875" PointY="13.582416877002107" />
+          <ConnectorPoint PointX="7.5" PointY="13.582416877002107" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_SessionFile" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.5" PointY="12.690489715332035" />
-          <ConnectorPoint PointX="9" PointY="12.690489715332035" />
+          <ConnectorPoint PointX="10.5" PointY="12.685551116333011" />
+          <ConnectorPoint PointX="9" PointY="12.685551116333011" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_User" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.625" PointY="16.302347237668044" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="16.302347237668044" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="16.302347237668044" />
-          <ConnectorPoint PointX="7.5" PointY="16.302347237668044" />
+          <ConnectorPoint PointX="6.625" PointY="15.829455733510805" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="15.829455733510805" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="15.829455733510805" />
+          <ConnectorPoint PointX="7.5" PointY="15.829455733510805" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionFile_SessionFileStatus" ManuallyRouted="false">
           <ConnectorPoint PointX="9.75" PointY="18.922841796875" />
@@ -2203,10 +1974,10 @@
           <ConnectorPoint PointX="11.7656275" PointY="14.307109375" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_FileReviewer" >
-          <ConnectorPoint PointX="6.625" PointY="15.970788806678462" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="15.970788806678462" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="15.970788806678462" />
-          <ConnectorPoint PointX="7.5" PointY="15.970788806678462" />
+          <ConnectorPoint PointX="6.625" PointY="16.075444012588736" />
+          <ConnectorPoint PointX="7.041666666666667" PointY="16.075444012588736" />
+          <ConnectorPoint PointX="7.208333333333333" PointY="16.075444012588736" />
+          <ConnectorPoint PointX="7.5" PointY="16.075444012588736" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionFile_FileReviewer" >
           <ConnectorPoint PointX="6.625" PointY="17.558515566406257" />
@@ -2259,40 +2030,19 @@
           <ConnectorPoint PointX="12.5" PointY="16.302362080403654" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_CommitteeAttendant_Session" >
-          <ConnectorPoint PointX="6.75" PointY="11.892437696905017" />
-          <ConnectorPoint PointX="7.104166666666667" PointY="11.892437696905017" />
-          <ConnectorPoint PointX="7.270833333333333" PointY="11.892437696905017" />
-          <ConnectorPoint PointX="7.4375" PointY="11.892437696905017" />
-          <ConnectorPoint PointX="7.4375" PointY="16.513733723958335" />
-          <ConnectorPoint PointX="9.3125" PointY="16.513733723958335" />
+          <ConnectorPoint PointX="6.75" PointY="11.804908623795882" />
+          <ConnectorPoint PointX="7.104166666666667" PointY="11.804908623795882" />
+          <ConnectorPoint PointX="7.270833333333333" PointY="11.804908623795882" />
+          <ConnectorPoint PointX="7.4375" PointY="11.804908623795882" />
+          <ConnectorPoint PointX="7.4375" PointY="16.321432291666667" />
+          <ConnectorPoint PointX="9.3125" PointY="16.321432291666667" />
           <ConnectorPoint PointX="9.3125" PointY="14.369609375" />
           <ConnectorPoint PointX="13.25" PointY="14.369609375" />
           <ConnectorPoint PointX="13.25" PointY="15.25" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_Attachement" >
-          <ConnectorPoint PointX="9.375" PointY="15.475616861979168" />
-          <ConnectorPoint PointX="9" PointY="15.475616861979168" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="EMadbatahModel.MembersVote" Width="1.5" PointX="16.875" PointY="1.625" Height="2.1725878906250031" />
-        <EntityTypeShape EntityType="EMadbatahModel.TBLMeeting" Width="1.5" PointX="12.375" PointY="1.625" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="EMadbatahModel.TBLNonSecretVoteSubject" Width="1.5" PointX="14.625" PointY="1" Height="3.3263964843750102" />
-        <AssociationConnector Association="EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject" >
-          <ConnectorPoint PointX="16.125" PointY="2.7112939453125016" />
-          <ConnectorPoint PointX="16.875" PointY="2.7112939453125016" />
-        </AssociationConnector>
-        <AssociationConnector Association="EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting" >
-          <ConnectorPoint PointX="13.875" PointY="2.711293945312498" />
-          <ConnectorPoint PointX="14.625" PointY="2.711293945312498" />
-        </AssociationConnector>
-        <EntityTypeShape EntityType="EMadbatahModel.TBLPerson" Width="1.5" PointX="19.5" PointY="1.125" Height="1.5956835937500102" />
-        <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject" >
-          <ConnectorPoint PointX="15.375" PointY="4.5186979166666656" />
-          <ConnectorPoint PointX="15.375" PointY="8.65625" />
-          <ConnectorPoint PointX="10.208333333333334" PointY="8.65625" />
-          <ConnectorPoint PointX="10.041666666666666" PointY="8.65625" />
-          <ConnectorPoint PointX="9.4583333333333339" PointY="8.65625" />
-          <ConnectorPoint PointX="9.2916666666666661" PointY="8.65625" />
-          <ConnectorPoint PointX="9" PointY="8.65625" />
+          <ConnectorPoint PointX="9.375" PointY="15.348216145833334" />
+          <ConnectorPoint PointX="9" PointY="15.348216145833334" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

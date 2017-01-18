@@ -242,51 +242,51 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     if (!sessionItem.MergedWithPrevious.Value)
                                     {
                                         Attendant att = sessionItem.Attendant;
-                                        if(att.Type != (int)Model.AttendantType.UnAssigned)
+                                        if (att.Type != (int)Model.AttendantType.UnAssigned)
                                         {
-                                     /*   if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
-                                            doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ": " + "(" + sessionItem.CommentOnAttendant + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                        else
-                                            doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                        */
+                                            /*   if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
+                                                   doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ": " + "(" + sessionItem.CommentOnAttendant + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                               else
+                                                   doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                               */
 
-                                        string attFullPresentationName = "";
-                                        if ((Model.AttendantType)att.Type == Model.AttendantType.President)
-                                        {
-                                            doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                                        }
-                                        else
-                                        {
-                                            if (contentItem.IsSessionPresident == 1)
+                                            string attFullPresentationName = "";
+                                            if ((Model.AttendantType)att.Type == Model.AttendantType.President)
                                             {
-                                                doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                if (att.AttendantTitle == null)
-                                                    attFullPresentationName = "السيد " + att.Name.Trim();
-                                                else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
-                                                attFullPresentationName = "( " + attFullPresentationName;
-                                                if (att.Type != 3)
-                                                    attFullPresentationName = attFullPresentationName + ")";
-                                                doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                if (att.Type == 3)
-                                                    doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                                             }
                                             else
                                             {
-                                                if (att.AttendantTitle == null)
-                                                    attFullPresentationName = "السيد " + att.Name.Trim();
-                                                else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
-                                                doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                if (att.Type == 3)
-                                                    doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                if (contentItem.IsSessionPresident == 1)
+                                                {
+                                                    doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                    if (att.AttendantTitle == null)
+                                                        attFullPresentationName = "السيد " + att.Name.Trim();
+                                                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                                    attFullPresentationName = "( " + attFullPresentationName;
+                                                    if (att.Type != 3)
+                                                        attFullPresentationName = attFullPresentationName + ")";
+                                                    doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                    if (att.Type == 3)
+                                                        doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                }
+                                                else
+                                                {
+                                                    if (att.AttendantTitle == null)
+                                                        attFullPresentationName = "السيد " + att.Name.Trim();
+                                                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                                    doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                    if (att.Type == 3)
+                                                        doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                }
                                             }
-                                        }
 
-                                        int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString(), att.Type));
-                                        if (itemIndex == -1)
-                                            speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString() + ",", att.Type));
-                                        else
-                                            speakersIndex[itemIndex].PageNum += pageNum + ", ";
-                                    }
+                                            int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString(), att.Type));
+                                            if (itemIndex == -1)
+                                                speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString() + ",", att.Type));
+                                            else
+                                                speakersIndex[itemIndex].PageNum += pageNum + ", ";
+                                        }
                                     }
                                 }
 
@@ -314,7 +314,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                                         // doc.AddParagraph(contentItemAsText.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
                                         //contentItemAsText = "";
-                                        string[] sep = new string[1] { "#!#!#!" };
+                                        /*string[] sep = new string[1] { "#!#!#!" };
                                         string[] paragraphs = contentItemAsText.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                                         string parag = "";
                                         foreach (string strP in paragraphs)
@@ -335,8 +335,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                                 if (parag != "")
                                                     doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
                                             }
-                                        }
+                                        }*/
 
+                                        WriteParagraphInWord(contentItemAsText, doc);
                                         text = "";
                                         foreach (string f in files)
                                         {
@@ -347,28 +348,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                                 if (speakerGroup[j].Count == k)
                                 {
-                                    string[] sep = new string[1] { "#!#!#!" };
-                                    string[] paragraphs = contentItemAsText.Split(sep, StringSplitOptions.RemoveEmptyEntries);
-                                    string parag = "";
-                                    foreach (string strP in paragraphs)
-                                    {
-                                        if (strP.IndexOf("procedure-id") != -1)
-                                        {
-                                            parag = TextHelper.StripHTML(strP.ToLower()).Trim();
-                                            if (parag != "")
-                                            {
-                                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Center, false, "");
-                                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                            }
-                                        }
-                                        else
-                                        {
-                                            parag = TextHelper.StripHTML(strP.ToLower()).Trim();
-                                            if (parag != "")
-                                                doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
-                                        }
-                                    }
+                                    WriteParagraphInWord(contentItemAsText, doc);
                                 }
                             }
                             k = 0;
@@ -454,6 +434,63 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
         }
 
+        public static void WriteParagraphInWord(string contentItemAsText,WordprocessingWorker doc)
+        {
+            contentItemAsText = contentItemAsText.Replace("#!#!#!", " ");
+           
+            string[] p = new string[] { };
+            string[] paragraphs = GetParagraphsArr(contentItemAsText, out p);
+            string parag = "";
+            for (int pp = 0; pp < paragraphs.Length; pp++)
+            {
+                parag = TextHelper.StripHTML(paragraphs[pp].ToLower()).Trim();
+                if (parag != "")
+                {
+                    doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                }
+               // else doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+
+                if (pp < p.Length)
+                {
+                    parag = TextHelper.StripHTML(p[pp].ToString()).Trim();
+                    if (parag != "")
+                    {
+                        if (p[pp].ToString().IndexOf("center") > 0)
+                            doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Center, false, "");
+                        else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    }
+                }
+            }
+        }
+
+        public static string[] GetParagraphsArr(string parag, out string [] p)
+        {
+            MatchCollection matches1, matches2;
+            string pattern1 = @"<p (.*?) procedure-id[^>]*?>(.*?)</p>";
+            matches1 = Regex.Matches(parag, pattern1);
+            string pattern2 = @"<p procedure-id[^>]*?>(.*?)</p>";
+            matches2 = Regex.Matches(parag, pattern2);
+
+            p = new string[matches1.Count + matches2.Count];
+
+            for (int i = 0; i < matches1.Count; i++)
+            {
+                parag = parag.Replace(matches1[i].ToString(), "<%#####%>");
+                p[i] = matches1[i].ToString();
+            }
+
+            for (int i = 0; i < matches2.Count; i++)
+            {
+                parag = parag.Replace(matches2[i].ToString(), "<%#####%>");
+                p[i + matches1.Count] = matches2[i].ToString();
+            }
+           
+            string[] sep = new string[1] { "<%#####%>" };
+            return parag.Split(sep, StringSplitOptions.None);
+
+        }
 
         public static int CreateMadbatahIndex(List<MadbatahIndexItem> index,string folderPath, int indexSize, int bodySize, string outIndexPath, string ServerMapPath,Model.SessionDetails details)
         {

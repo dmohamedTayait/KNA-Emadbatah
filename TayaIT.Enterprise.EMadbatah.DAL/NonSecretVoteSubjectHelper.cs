@@ -18,7 +18,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         {
             try
             {
-                using (EMadbatahEntities context = new EMadbatahEntities())
+                using (EmadbatahVotingEntities context = new EmadbatahVotingEntities())
                 {
                     TBLNonSecretVoteSubject vote = new TBLNonSecretVoteSubject();
                     if (context.TBLNonSecretVoteSubjects.Count<TBLNonSecretVoteSubject>() > 0)
@@ -39,14 +39,15 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         {
             try
             {
-                using (EMadbatahEntities context = new EMadbatahEntities())
+                using (EmadbatahVotingEntities context = new EmadbatahVotingEntities())
                 {
                     TBLMeeting meeting = new TBLMeeting();
                     if (context.TBLMeetings.Count<TBLMeeting>() > 0)
                     {
                         string xx = eparID.ToString();
-                        meeting = context.TBLMeetings.Where(s => s.MeetingNo == xx).First();
-                        meeting.TBLNonSecretVoteSubjects.Load();
+                        meeting = context.TBLMeetings.Where(s => s.MeetingNo == xx).FirstOrDefault();
+                        if (meeting != null)
+                            meeting.TBLNonSecretVoteSubjects.Load();
                     }
                     return meeting;
                 }

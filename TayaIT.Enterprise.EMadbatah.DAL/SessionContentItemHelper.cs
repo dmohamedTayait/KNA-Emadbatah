@@ -141,6 +141,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static int GetFileSessionContentItemsStatusNotByStatusID(long sessionFileID,int statusID)
+        {
+            try
+            {
+                SessionFile sessionFile = null;
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+
+                    sessionFile = context.SessionFiles.FirstOrDefault(c => c.ID == sessionFileID);
+                    var sessionContentItems =
+                               from sci in sessionFile.SessionContentItems
+                               where sci.StatusID != 1
+                               select sci;
+                    List<SessionContentItem> allItems = sessionContentItems.ToList<SessionContentItem>();
+                    return allItems.Count;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AprroveFileSessionContentItems(" + sessionFileID + ")");
+                return -1;
+            }
+        }
+
         //for getting prev sci on page load
         public static SessionContentItem GetPrevSessionContentItem(long sessionFileID, int fragmentOrderInXML)
         {

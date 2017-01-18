@@ -140,18 +140,18 @@ $(document).ready(function () {
     <input id="SessionIDHidden" type="hidden" runat="server" />
     <input id="SessionFileIDHidden" type="hidden" runat="server" />
     <div class="grid_22 prefix_1 suffix_1">
-        <h5 class="largerow">
+        <h5 class="largerow h2">
             بداية المضبطة:</h5>
         <div class="graybg">
-            <div class="info_cont largerow">
+            <div class="info_cont largerow h2">
                 <div class="fr">
                                                                 <%
                                                                     string sessionName = "";
                                                                     string sessionDate = null;
                                                                     if (currentSessionId != -1)
                                                                   {
-                                                                      SessionDetails sd = EMadbatahFacade.GetSessionBySessionID(currentSessionId);    
-                                                                      sessionName = EMadbatahFacade.GetSessionName(sd.Season, sd.Stage, sd.Serial);
+                                                                      SessionDetails sd = EMadbatahFacade.GetSessionBySessionID(currentSessionId);
+                                                                      sessionName = sd.EparlimentID.ToString() + " / " + sd.Type;//EMadbatahFacade.GetSessionName(sd.Season, sd.Stage, sd.Serial);
                                                                       sessionDate = sd.Date.Date.ToShortDateString();
                        
                                                                   }%>

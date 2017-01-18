@@ -17,11 +17,11 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     List<DefaultAttendant> DefaultAttendants = new List<DefaultAttendant>();
                     if (unassigned)
                     {
-                        DefaultAttendants = context.DefaultAttendants.Select(c => c).ToList();
+                        DefaultAttendants = context.DefaultAttendants.Select(c => c).OrderBy(s => s.LongName).ToList();
                     }
                     else
                     {
-                        DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8).ToList();
+                        DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8).OrderBy(s => s.LongName).ToList();
                     }
                    
                     return DefaultAttendants;

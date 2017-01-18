@@ -6,6 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">
     <form id="statsPageForm" action="" runat="server">
     <div class="MainContent_statistics">
+    <div class="displaynone">
         <h3>
             <asp:Label Text="أظهر وقت التحدث للأعضاء" runat="server" ID="lblShowTime" />
         </h3>
@@ -27,6 +28,7 @@
             </div>
             <div class="clear">
             </div>
+        </div>
         </div>
         <h3>
             <asp:Label Text="حالة الحضور" runat="server" ID="Label1" />
@@ -206,9 +208,10 @@
                 dataType: 'json',
                 success: function (data) {
                     var html = "";
+                    var jobTitle = "";
                     $.each(data, function () {
-
-                        html += "<tr><td>" + this['Name'] + "</td><td>" + this['JobTitle'] + "</td><td>" + (parseFloat(this['TotalSpeakTime']) / 60).toFixed(2) + "</td></tr>";
+                        jobTitle = this['JobTitle'] == null ? "" : this['JobTitle'];
+                        html += "<tr><td>" + this['Name'] + "</td><td>" + jobTitle + "</td><td>" + (parseFloat(this['TotalSpeakTime']) / 60).toFixed(2) + "</td></tr>";
 
 
                     });

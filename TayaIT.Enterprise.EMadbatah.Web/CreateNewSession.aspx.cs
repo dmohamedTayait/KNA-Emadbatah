@@ -50,20 +50,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     {
                         try
                         {
-                            {
-                                Attendant attendant = new Attendant();
-                                attendant.Name = DefaultAttendants[i].Name;
-                                attendant.JobTitle = DefaultAttendants[i].JobTitle;
-                                attendant.DefaultAttendantID = DefaultAttendants[i].ID;
-                                attendant.SessionAttendantType = sessionObj.SessionStartFlag;
-                                attendant.EparlimentID = sessionObj.EParliamentID;
-                                attendant.Type = DefaultAttendants[i].Type;
-                                attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
-                                attendant.OrderByAttendantType = DefaultAttendants[i].OrderByAttendantType;
-                                attendant.AttendantAvatar = DefaultAttendants[i].AttendantAvatar;
-                                attendant.State = 1;
+                                Attendant attendant = fillAttendant(DefaultAttendants[i], (int) sessionObj.SessionStartFlag, sessionObj);
                                 bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
-                            }
                         }
                         catch (Exception exx)
                         {
@@ -75,30 +63,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 {
                     for (int i = 0; i < DefaultAttendants.Count; i++)
                     {
-                        Attendant attendant = new Attendant();
-                        attendant.Name = DefaultAttendants[i].Name;
-                        attendant.JobTitle = DefaultAttendants[i].JobTitle;
-                        attendant.DefaultAttendantID = DefaultAttendants[i].ID;
-                        attendant.SessionAttendantType = (int)SessionOpenStatus.OnTime;//1
-                        attendant.EparlimentID = sessionObj.EParliamentID;
-                        attendant.Type = DefaultAttendants[i].Type;
-                        attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
-                        attendant.OrderByAttendantType = DefaultAttendants[i].OrderByAttendantType;
-                        attendant.AttendantAvatar = DefaultAttendants[i].AttendantAvatar;
-                        attendant.State = 1;
+                        Attendant attendant = fillAttendant(DefaultAttendants[i], (int)SessionOpenStatus.OnTime, sessionObj);
                         bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
 
-                        attendant = new Attendant();
-                        attendant.Name = DefaultAttendants[i].Name;
-                        attendant.JobTitle = DefaultAttendants[i].JobTitle;
-                        attendant.DefaultAttendantID = DefaultAttendants[i].ID;
-                        attendant.SessionAttendantType = (int)SessionOpenStatus.NotOnTime;//0
-                        attendant.EparlimentID = sessionObj.EParliamentID;
-                        attendant.Type = DefaultAttendants[i].Type;
-                        attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
-                        attendant.OrderByAttendantType = DefaultAttendants[i].OrderByAttendantType;
-                        attendant.AttendantAvatar = DefaultAttendants[i].AttendantAvatar;
-                        attendant.State = 1;
+                        attendant = fillAttendant(DefaultAttendants[i], (int)SessionOpenStatus.NotOnTime, sessionObj);
                         res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
                     }
                 }
@@ -110,7 +78,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         {
             DateTime plannedStartDate = Convert.ToDateTime(txtDate.Text + " " + txtTime.Text);
             DateTime ActualStartTime = Convert.ToDateTime(txtStartDate.Text + " " + txtStartTime.Text);
-            string president = "مرزوق على الغانم";//txtPresident.Text;
+            string president = ddlPresident.SelectedItem.Text;//"مرزوق على الغانم";//txtPresident.Text;
             string place = "الكويت";
             int EParliamentID = int.Parse(txtEParliamentID.Text);
             string type = ddlType.SelectedValue;
@@ -141,6 +109,24 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             sessionObj.SessionStartFlag = SessionStartFlag;
             sessionObj.PresidentID = PresidentID;
             return sessionObj;
+        }
+
+        public Attendant fillAttendant(DefaultAttendant defAtt, int sessionOpenStatus, Session sessionObj)
+        {
+            Attendant attendant = new Attendant();
+            attendant.Name = defAtt.Name;
+            attendant.JobTitle = defAtt.JobTitle;
+            attendant.DefaultAttendantID = defAtt.ID;
+            attendant.SessionAttendantType = sessionOpenStatus;//0
+            attendant.EparlimentID = sessionObj.EParliamentID;
+            attendant.Type = defAtt.Type;
+            attendant.AttendantTitle = defAtt.AttendantTitle;
+            attendant.OrderByAttendantType = defAtt.OrderByAttendantType;
+            attendant.AttendantAvatar = defAtt.AttendantAvatar;
+            attendant.State = 1;
+            attendant.ShortName = defAtt.ShortName;
+            attendant.LongName = defAtt.LongName;
+            return attendant;
         }
     }
 }

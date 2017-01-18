@@ -22,7 +22,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-            TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(158, "/test/158/", "");
+           TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(159, "/test/159/", "");
              //string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(155);
 
             string htmlText = "<span>test span</span> <span>test span2</span> test betweeen line<p procedure-id>test div</p>test between line2<p procedure-id>test div2</p>";
@@ -33,7 +33,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             // replace all html tags (and consequtive whitespaces) by spaces
             // trim the first and last space
 
-            string[] resultText = regex.Split(htmlText);
+            string[] resultText = create(htmlText);//regex.Split(htmlText);
 
             string s = "s";
         }
@@ -43,7 +43,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             string pattern = @"<p procedure-id[^>]*?>(.*?)</p>";
             MatchCollection matches = Regex.Matches(str, pattern);
 
-            return new string [] {};
+            for (int i = 0; i < matches.Count; i++)
+            {
+                str = str.Replace(matches[i].ToString(), "<%#####%>");
+            }
+
+            string[] sep = new string[1] { "<%#####%>" };
+            return str.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+
         }
     }
 }

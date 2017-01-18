@@ -101,6 +101,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string Ignored { get { return "Ignored"; } }
             public string PrevContentID { get { return "PrevContentID"; } }
             public string SpeakerJob { get { return "SpeakerJob"; } }
+            public string SpeakerName { get { return "SpeakerName"; } }
             public string Text { get { return "Text"; } }
             public string Comments { get { return "Comments"; } }
             public string Footer { get { return "Footer"; } }

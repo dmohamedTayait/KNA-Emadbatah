@@ -625,6 +625,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             bool IsGroupSubAgendaItems = bool.Parse(WebHelper.GetQSValue(Constants.QSKeyNames.IsGroupSubAgendaItems, _context));
             bool Ignored = bool.Parse(WebHelper.GetQSValue(Constants.QSKeyNames.Ignored, _context));
             string SpeakerJob = WebHelper.GetQSValue(Constants.QSKeyNames.SpeakerJob, _context);
+            string SpeakerName = WebHelper.GetQSValue(Constants.QSKeyNames.SpeakerName, _context);
             string Text = HttpUtility.UrlDecode(WebHelper.GetQSValue(Constants.QSKeyNames.Text, _context));
             string Comments = WebHelper.GetQSValue(Constants.QSKeyNames.Comments, _context);
             string Footer = WebHelper.GetQSValue(Constants.QSKeyNames.Footer, _context);
@@ -646,7 +647,26 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                     result["Message"] = "success";
 
                     session = SessionHelper.GetSessionDetailsByID(Session_ID);
-                     
+
+                    if (SpeakerID == -1)
+                    {
+                        Attendant newAtt = new Attendant();
+                        newAtt.Name = SpeakerName;
+                        newAtt.JobTitle = SpeakerJob;
+                        newAtt.SessionAttendantType = session.SessionStartFlag;
+                        newAtt.EparlimentID = session.EParliamentID;
+                        newAtt.Type = (int)Model.AttendantType.FromOutsideTheCouncil;
+                        newAtt.AttendantTitle = "السيد";
+                        newAtt.OrderByAttendantType = 6;
+                        newAtt.AttendantAvatar = "unknown.jpg";
+                        newAtt.State = (int)Model.AttendantState.Attended;
+                        newAtt.ShortName = SpeakerName;
+                        newAtt.LongName = SpeakerName;
+
+                        AttendantHelper.AddNewSessionAttendant(newAtt, session.ID, out SpeakerID);
+                    }
+
+                    result["SpeakerID"] = SpeakerID.ToString();
                     // save item to DB
                     SessionContentItem currContentItem = null;
                     if (editPageMode == EditorPageMode.Edit)
@@ -686,6 +706,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         }
 
                         long unknownAgendaItemID = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", Session_ID).ID;
+
 
                         if ((int)SpeakerID == (int)Model.AttendantType.UnKnown)
                         {

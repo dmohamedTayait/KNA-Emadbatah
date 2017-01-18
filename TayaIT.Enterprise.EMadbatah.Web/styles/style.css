@@ -599,11 +599,11 @@ header#header a.currentuser {
     direction: ltr;
 }
 /* Session Start page */
-.info_cont .title {
-    font-size: 86%;
-    color: #717171;
-    text-shadow: -1px 0 0 #b7b7b7;
-}
+
+
+
+
+
 .actions_container .btn {
     margin-left: 20px;
 }
@@ -959,11 +959,12 @@ span.revFilelock {
 *
 */
 /*Madbtah gray content*/
+
 .info_cont .Bold_title {
     padding-right: 10px;
 }
 .info_cont .title {
-    font-size: 86%;
+    font-size: 15px;
     color: #717171;
     text-shadow: -1px 0 0 #b7b7b7;
 }
@@ -1008,10 +1009,14 @@ span.revFilelock {
     padding-left: 15px;
     text-shadow: 1px 0 0 #a0a0a0;
     color: #333333;
-    font-size: 93%;
     direction: rtl;
 }
 /*review main content*/
+.reviewmaincontent .basic_info .info_cont .title:first-child
+{
+    padding-right: 40px;
+    font-weight:bold;
+}
 .basic_info {
     background: url("../images/top_nav_bg.jpg") repeat-x scroll 0 0 transparent;
     padding: 8px 0;
@@ -1033,7 +1038,7 @@ span.revFilelock {
 }
 .reviewcontainer {
     margin: 0 auto;
-    position: relative;
+    /*position: relative;*/
     width: 1200px;
 }
 .reviewcontainer .graybg {
@@ -1054,6 +1059,7 @@ span.revFilelock {
     top: 100px;
     width: 165px;
     display: none;
+    z-index:55;
 }
 .lockeditem {
     margin: 10px 0 0 0;
@@ -1062,7 +1068,8 @@ span.revFilelock {
 .lockeditem .item {
     border-right: 4px solid #c1cbe0;
     padding: 4px 10px 4px 0;
-    width: 765px;
+    width: calc(100% - 35px);
+    font-size:18px;
 }
 .item_lock {
     background: url("../images/lock.png") no-repeat scroll right top transparent;
@@ -1111,7 +1118,9 @@ span.revFilelock {
     margin: 0 10px 0 0;
 }
 .Edititem {
-    width: 850px;
+    /*width: 850px;*/
+    font-size:16pt;
+    font-family: AdvertisingMedium;
 }
 .Edititem:hover,
 .blueitem .item:hover,
@@ -1566,13 +1575,14 @@ span.revFilelock {
     font-size: 11px;
 }
 .def_btn {
-    background: url("../images/arrow_orange.gif") no-repeat scroll 9px 8px #C0AC77;
+    background: url("../images/arrow_orange.gif") no-repeat scroll 10px 12px #C0AC77;
     border: 0 none;
     color: #FFFFFF;
     cursor: pointer;
     font-family: arial;
-    font-size: 86%;
-    padding: 4px 20px 5px;
+    font-size: 16px;
+    padding: 6px 25px;
+    font-weight: bold;
 }
 .def_publish_btn {
     background: url("../images/arrow_orange.gif") no-repeat scroll 9px 8px #C0AC77;
@@ -1709,4 +1719,15 @@ span.revFilelock {
 .mb-5
 {
     margin-bottom:5px;
+}
+.btn_editsession
+{
+    font-size: 13pt;
+    width: 107%;
+}
+.user-image
+{
+    overflow:hidden;
+    height: 208px;
+    text-align:center;
 }

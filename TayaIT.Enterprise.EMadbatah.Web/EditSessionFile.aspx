@@ -4,8 +4,10 @@
     <script type="text/javascript" src="scripts/jquery.hotkeys.js"></script>
     <script type="text/javascript" src="scripts/tiny_mce/jquery.tinymce.js"></script>
     <script type="text/javascript" src="scripts/jPlayer/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="scripts/select2.full.min.js"></script>
     <script type="text/javascript" src="scripts/EditSessionScript.js"></script>
     <link href="styles/jplayer.blue.monday.css" rel="stylesheet" type="text/css" />
+    <link href="styles/select2.min.css" rel="stylesheet" type="text/css" />
     <script language="javascript" type="text/javascript">
       // <![CDATA[
       function Button1_onclick() {
@@ -42,21 +44,22 @@
     <input type="hidden" name="agendaItemId" id="agendaItemId" value="" runat="server" class="agendaItemId" />
     <input type="hidden" name="attachId" id="attachId" value="0" runat="server" class="attachId" />
     <input type="hidden" name="voteId" id="voteId" value="0" runat="server" class="voteId" />
+     <input type="hidden" name="unAssignedSpeakerId" id="unAssignedSpeakerId" value="0" runat="server" class="unAssignedSpeakerId" />
     <div id="editSessionFile" class="container_24">
         <div class="row">
             <div class="grid_3">
                 <div class="nav">
-                    <input name="" runat="server" disabled="disabled" id="btnNext" type="button" class="btn inputBlock mb-5 next" value="التالى" />
-                    <input name="" runat="server" disabled="disabled" id="btnPrev" type="button" class="btn inputBlock mb-5 prev" value="السابق" />
-                    <input name="" runat="server" disabled="disabled" id="btnFinish" type="button" class="btn inputBlock mb-5 finish" value="انهاء" />
-                    <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn inputBlock mb-5 addingNewAgendaItem" value="اضافة فهرس" />
-                    <input name="" runat="server" id="btnAddProcuder" type="button" class="btn inputBlock mb-5 btnAddProcuder" value="اضافة اجراء" />
-                    <input name="" runat="server" id="btnAssignAttachToContentItem" type="button" class="btn inputBlock mb-5 btnAssignAttachToContentItem" value="اضافة مرفق" />
-                    <input name="" runat="server" id="btnAddNewVote" type="button" class="btn inputBlock mb-5 btnAddNewVote" value="اضافة تصويت" />
-                    <input name="" id="btnSplit" runat="server" type="button" class="btn inputBlock mb-5 split" value="اقطع" data-clipboard-action="cut" data-clipboard-target="#MainContent_txtFooter" />
-                    <input name="" type="button" id="btnSaveAndExit" class="btn inputBlock mb-5 btnSaveAndExit" value="حفظ و خروج" />
-                    <input name="" type="button" id="various1" data-div="#inline1" class="btn inputBlock mb-5" value="عودة للنص الأصلى" />
-                    <input id="Button1" class="btn inputBlock mb-5" type="button" value="خطأ" onclick="return Button1_onclick()" />
+                    <input name="" runat="server" disabled="disabled" id="btnNext" type="button" class="btn inputBlock mb-5 next btn_editsession" value="التالى" />
+                    <input name="" runat="server" disabled="disabled" id="btnPrev" type="button" class="btn inputBlock mb-5 prev btn_editsession" value="السابق" />
+                    <input name="" runat="server" disabled="disabled" id="btnFinish" type="button" class="btn inputBlock mb-5 finish btn_editsession" value="انهاء" />
+                    <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn inputBlock mb-5 addingNewAgendaItem btn_editsession" value="اضافة فهرس" />
+                    <input name="" runat="server" id="btnAddProcuder" type="button" class="btn inputBlock mb-5 btnAddProcuder btn_editsession" value="اضافة اجراء" />
+                    <input name="" runat="server" id="btnAssignAttachToContentItem" type="button" class="btn inputBlock mb-5 btnAssignAttachToContentItem btn_editsession" value="اضافة مرفق" />
+                    <input name="" runat="server" id="btnAddNewVote" type="button" class="btn inputBlock mb-5 btnAddNewVote btn_editsession" value="اضافة تصويت" />
+                    <input name="" id="btnSplit" runat="server" type="button" class="btn inputBlock mb-5 split btn_editsession" value="اقطع" data-clipboard-action="cut" data-clipboard-target="#MainContent_txtFooter" />
+                    <input name="" type="button" id="btnSaveAndExit" class="btn inputBlock mb-5 btnSaveAndExit btn_editsession" value="حفظ و خروج" />
+                    <input name="" type="button" id="various1" data-div="#inline1" class="btn inputBlock mb-5 btn_editsession" value="عودة للنص الأصلى" />
+                   <%-- <input id="Button1" class="btn inputBlock mb-5" type="button" value="خطأ" onclick="return Button1_onclick()" />--%>
                 </div>
             </div>
             <div class="grid_21">
@@ -128,13 +131,12 @@
                                 <span class="red">*</span> المتحدث:
                             </div>
                             <div class="grid_11">
-                                <asp:DropDownList ID="ddlSpeakers" AutoPostBack="false" runat="server" CssClass="inputBlock">
+                                <asp:DropDownList ID="ddlSpeakers" AutoPostBack="false" runat="server" CssClass="inputBlock" data-live-search="true">
                                 </asp:DropDownList>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="grid_2 h2">&nbsp;</div>
-                            <div class="grid_11">
+                            <div class="grid_11" style="margin-right:110px">
                                 <div id="newjobtitle" class="edit">
                                     <div class="editmode">
                                         <label name="addnewjobtext" id="txtSpeakerJob" runat="server" class="textfield inputBlock" style="font-weight: bold; font-size: 16px; border: 0 !important; box-shadow: 0 0 !important" size="26">
@@ -143,6 +145,13 @@
                                     <div class="donemode">
                                         <a id="editnewjobbutton" href="#">[تعديل]</a>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                          <div class="row displaynone" id="divNewSpeaker" name="divNewSpeaker">
+                            <div class="grid_11" style="margin-right:110px">
+                                <div>
+                                <input type="text" name="txtNewSpeaker" id="txtNewSpeaker" runat="server" class="textfield inputBlock txtNewSpeaker" style="font-weight: bold; font-size: 16px;" size="26" />
                                 </div>
                             </div>
                         </div>
@@ -165,8 +174,7 @@
                             </div>
                         </div>
                         <div class="row  divddlCommittee">
-                            <div class="grid_2 h2">&nbsp;</div>
-                            <div class="grid_11">
+                            <div class="grid_11" style="margin-right:110px">
                                 <asp:DropDownList ID="ddlCommittee" AutoPostBack="false" runat="server" CssClass="inputBlock ddlCommittee" style="display:none !important">
                                 </asp:DropDownList>
                             </div>
@@ -188,7 +196,9 @@
                         </div>
                     </div>
                     <div class="grid_5">
+                     <div class="user-image">
                         <img style="width: 200px" src="/images/unknown.jpg" id="imgSpeakerAvatar" name="imgSpeakerAvatar" runat="server" alt="" />
+                         </div>
                     </div>
                 </div>
                 <div class="player_conatiner mb-20">

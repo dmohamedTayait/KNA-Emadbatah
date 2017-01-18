@@ -8,12 +8,14 @@ body{
 }
 /* span */
 .highlight{
-	background-color:#dfe6f9;
+	background-color:#1484ff;
 	cursor:pointer;
+	color:#fff;
 }
 .hover{
-	background-color:#b6cef2;
+	background-color:#1630ff;
 	cursor:pointer;
+	color:#fff;
 }
 .editable{
 	background-color:#437ec4 !important;

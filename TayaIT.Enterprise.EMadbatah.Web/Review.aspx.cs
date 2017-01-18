@@ -33,7 +33,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             if (!Page.IsPostBack)
             {
                 //now the dataentry-reviewr role is using filereviewer privilages instead od session reviewer
-                isCurrentUserFileRev.Value = (CurrentUser.Role == UserRole.FileReviewer || CurrentUser.Role == UserRole.ReviewrDataEntry).ToString().ToLower();
+                isCurrentUserFileRev.Value = (CurrentUser.Role == UserRole.FileReviewer || CurrentUser.Role == UserRole.ReviewrDataEntry || CurrentUser.Role == UserRole.Reviewer).ToString().ToLower();
                 currentUserID.Value = CurrentUser.ID.ToString();
                 long sessionId;
                 StringBuilder sb = new StringBuilder();
@@ -215,12 +215,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             if (!item.MergedWithPrevious.Value )//|| item.Attendant.Name == "غير معرف")
                             {
                                 Attendant att = item.Attendant;
-                                string attName = MabatahCreatorFacade.GetAttendantTitle(att,sessionId);
-                                if (string.IsNullOrEmpty(attName))
-                                    attName = "غير معرف: ";
-                                string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
-                                                    .Replace("<%itemText%>", attName +":");
-                                sb.Append(speaker);
+                                if (att.Type != (int)Model.AttendantType.UnAssigned)
+                                {
+                                    string attName = MabatahCreatorFacade.GetAttendantTitle(att, sessionId);
+                                    if (string.IsNullOrEmpty(attName))
+                                        attName = "غير معرف: ";
+                                    string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
+                                                        .Replace("<%itemText%>", attName + ":");
+                                    sb.Append(speaker);
+                                }
                             }
 
                             string reviewItem = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()

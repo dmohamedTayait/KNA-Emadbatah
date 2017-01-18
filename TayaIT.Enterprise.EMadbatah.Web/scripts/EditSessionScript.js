@@ -19,6 +19,9 @@ var prevSpeakerImgUrl;
 
 
 $(document).ready(function() {
+ // select tag
+    var $MainContent_ddlSpeakers = $('#MainContent_ddlSpeakers').select2().trigger("change");
+    // vars
     var startTime = $('.hdstartTime');
     var endTime = $('.hdendTime');
     var currentOrder = $('.hdcurrentOrder');
@@ -26,13 +29,19 @@ $(document).ready(function() {
     var allInputs = $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerOtherJob,#specialBranch,#MainContent_ddlOtherTitles,#MainContent_ddlCommittee")
         // validate form onsubmit
     var formvalidation = $("#editSessionFileForm").validate({
+        onclick: false,
         errorPlacement: function(error, element) {
             if (element.attr('id') == 'txtAgendaItem') {
                 element.next().next('.errorCont').html(error)
-            } else {
-                element.after(error)
+            } else if (element.attr('id') == 'MainContent_ddlSpeakers') {
+               // element.after(error);
+                alert(error.html());
+            }
+            else{
+                element.after(error);
             }
         },
+	      
         rules: {
             addnewjobtext: "required",
             ctl00$MainContent$ddlAgendaItems: {
@@ -52,6 +61,7 @@ $(document).ready(function() {
             ctl00$MainContent$ddlAgendaItems: "من فضلك اختر البند",
             ctl00$MainContent$ddlSpeakers: "من فضلك اختر المتحدث",
             txtAgendaItem: "ادخل اسم البند الأستثنائى"
+
         }
     });
     // remove checkbox selection
@@ -99,6 +109,7 @@ $(document).ready(function() {
                         $("#MainContent_CurrentItemID").val(response.FragOrderInXml);
                     } else {
                         alert("عفواً . غير مسموح لك بالتعديل في هذه الصفحة");
+
                     }
                 }
             },
@@ -132,7 +143,7 @@ $(document).ready(function() {
             $("#MainContent_ddlAgendaItems").val(prevAgendaItemIndex);
             $('#MainContent_ddlAgendaItems').trigger('change');
             $("#MainContent_ddlAgendaSubItems").val(prevAgendaSubItemIndex);
-            $("#MainContent_ddlSpeakers").val(prevSpeakerIndex);
+            $("#MainContent_ddlSpeakers").val(prevSpeakerIndex).trigger("change");
             $("#MainContent_txtSpeakerOtherJob").val(prevSpeakerTitle);
             $("#MainContent_imgSpeakerAvatar").attr("src",prevSpeakerImgUrl);
             $("#MainContent_txtSpeakerJob").html(prevSpeakerJob);
@@ -148,7 +159,8 @@ $(document).ready(function() {
             } else {
                 $("#MainContent_ddlAgendaSubItems").removeAttr('disabled', 'disabled');
             }
-            $("#MainContent_ddlSpeakers").val(0);
+            $("#MainContent_ddlSpeakers").val(0).trigger("change");
+            $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
             $("#MainContent_ddlOtherTitles").val(0);
             $("#MainContent_ddlCommittee").val(0).hide();
             $("#MainContent_txtSpeakerOtherJob").val("");
@@ -226,8 +238,10 @@ $(document).ready(function() {
 
 
     $("#MainContent_ddlSpeakers").change(function() {
-        var attendantID = $("#MainContent_ddlSpeakers > option:selected").attr("value");
-        if (attendantID != 0) {
+        $('#divNewSpeaker').hide("");
+        var attendantID = $("#MainContent_ddlSpeakers").val();
+        $("#MainContent_ddlSpeakers").removeClass("error");
+        if (attendantID != 0 && attendantID != "1.5") {
             // $('select#MainContent_ddlAgendaSubItems').attr('disabled', 'disabled')
             jQuery.ajax({
                 cache: false,
@@ -264,6 +278,13 @@ $(document).ready(function() {
           $('#MainContent_ddlOtherTitles').val(0).removeAttr('disabled', 'disabled');
           $('#MainContent_ddlCommittee').val(0).hide().removeAttr('disabled', 'disabled');
           $('#MainContent_txtSpeakerOtherJob').val("").removeAttr('disabled', 'disabled');
+          if(attendantID == "1.5")
+          {
+             $('#divNewSpeaker').show("");
+          }
+          else{
+             $('#divNewSpeaker').hide("");
+          }
         }
     });
 
@@ -277,7 +298,9 @@ $(document).ready(function() {
             var AgendaItemID = $('.agendaItemId').val();
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
-            var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
+            var SpeakerID = $("#MainContent_ddlSpeakers").val();
+            SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
+            var SpeakerName = $(".txtNewSpeaker").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -302,11 +325,13 @@ $(document).ready(function() {
                 if (SameAsPrevSpeaker == false &&
                     prevSpeakerIndex == SpeakerID) {
                     if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
+
                         $(".sameAsPrevSpeaker").attr('checked', 'checked');
                         allInputs.attr('disabled', 'disabled');
                         SameAsPrevSpeaker = true;
                     } else {
-                        $("#MainContent_ddlSpeakers").val(0);
+                        $("#MainContent_ddlSpeakers").val(0).trigger("change");
+                        $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
                         allInputs.removeAttr('disabled');
                         ed.setProgressState(0);
                         $(".next").removeAttr("disabled");
@@ -325,6 +350,7 @@ $(document).ready(function() {
                         AttachID: AttachID,
                         VoteID: VoteID,
                         SpeakerID: SpeakerID,
+                        SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsSessionPresident: IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -352,6 +378,7 @@ $(document).ready(function() {
                     },
                     error: function() {
                         alert("لقد حدث خطأ");
+
                         $(".next").removeAttr("disabled");
                         ed.setProgressState(0);
                         allInputs.removeAttr('disabled');
@@ -367,6 +394,7 @@ $(document).ready(function() {
     $(".split").click(function() {
         var ed = $('#MainContent_elm1').tinymce();
         var selectedContent = ed.selection.getContent();
+        var ContentLength = $(ed.getContent()).not('#text').length;
         var filterTheHtml = $('<div/>').text(selectedContent).filter('*[:empty]').remove().text().replace('&nbsp;','');
         if(filterTheHtml != ''){
             // get the selection and split
@@ -386,24 +414,31 @@ $(document).ready(function() {
             // if block element select it
             if(isBlock || nextSiblings.length == 0){
                 ed.selection.select(rangeStart);
-            }else{
-                // check if there is any siblings
-                if(nextSiblings.length){
-                    var lastElement = $(rangeStart).nextUntil(':not('+rangeStart.nodeName.toLowerCase()+')').last();
-                    if(lastElement){
-                        range.setStart(rangeStart,0);
-                        range.setEnd(lastElement[0],1);
-                        ed.selection.setRng(range);
-                    }else{
-                        console.log('lastElement',lastElement)
-                    }
+            }else if((nextSiblings.length+1) == ContentLength){
+                alert('You selected the whole text')
+            }else if(nextSiblings.length){// check if there is any siblings
+
+
+
+                var lastElement = $(rangeStart).nextUntil(':not('+rangeStart.nodeName.toLowerCase()+')').last();
+                if(lastElement){
+                    range.setStart(rangeStart,0);
+                    range.setEnd(lastElement[0],1);
+                    ed.selection.setRng(range);
                 }else{
-                    console.log('nextSiblings.length',nextSiblings.length)
+                    console.log('lastElement',lastElement)
                 }
+
+
+
             }
             // get the selection and split
             var selectedContent = ed.selection.getContent();
-            splitAction(selectedContent);
+            if(selectedContent){
+                splitAction(selectedContent);
+            }else{
+                console.log('No content selected');
+            }
         }
     });
 
@@ -416,6 +451,7 @@ $(document).ready(function() {
     $(".approve1").click(function() {
         if ($("textarea.splittinymce", '.reviewpopup_cont1').val() == '') {
             alert("لا يمكن القطع إلا بوجود نص");
+
             $(".popupoverlay").hide();
             $(".reviewpopup_cont1").hide();
             return;
@@ -451,6 +487,7 @@ $(document).ready(function() {
     // split function
     function splitAction(selectedHtml){
       //  if (confirm("هل أنت متأكد من أنك تريد قطع النص الحالي؟ .. هذه الخطوة لا يمكن الرجوع فيها")) {
+
             // cut
             tinyMCE.execCommand('mceReplaceContent',false,'');
             // vars
@@ -474,6 +511,7 @@ $(document).ready(function() {
                 },
                 error: function() {
                     alert("لقد حدث خطأ");
+
                     ed.setProgressState(0);
                     $(".prev").removeAttr("disabled");
                 }
@@ -485,7 +523,7 @@ $(document).ready(function() {
 
     // previous button onclick
     $(".prev").click(function() {
-        if ($("#editSessionFileForm").valid()) {
+        //if ($("#editSessionFileForm").valid()) {
             $(".prev").attr("disabled", "disabled");
             var PrevContentID = $("#MainContent_CurrentItemID").val() != "0" ? $("#MainContent_CurrentItemID").val() : "";
             // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
@@ -493,7 +531,10 @@ $(document).ready(function() {
             var AgendaItemID = $('.agendaItemId').val();
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
-            var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
+            var SpeakerID = $("#MainContent_ddlSpeakers").val();
+            SpeakerID = SpeakerID == 0 ?  $("#MainContent_ddlSpeakers option:contains(" + "غير محدد" + ")").attr('selected', 'selected').val() : SpeakerID;
+            SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
+            var SpeakerName = $("#txtNewSpeaker").val();
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -526,6 +567,7 @@ $(document).ready(function() {
                     VoteID: VoteID,
                     // AgendaSubItemID: AgendaSubItemID,
                     SpeakerID: SpeakerID,
+                    SpeakerName: SpeakerName,
                     SameAsPrevSpeaker: SameAsPrevSpeaker,
                     IsSessionPresident: IsSessionPresident,
                     IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -554,11 +596,12 @@ $(document).ready(function() {
                 },
                 error: function() {
                     alert("لقد حدث خطأ");
+
                     ed.setProgressState(0);
                     $(".prev").removeAttr("disabled");
                 }
             });
-        }
+      //  }
     });
 
     function nextAndprev(o) {
@@ -572,7 +615,7 @@ $(document).ready(function() {
         AudioPlayer.jPlayer("stop").jPlayer("play")
         AudioPlayer.jPlayer("pause", Math.floor(startTime.val()));
         // remove the class to let the user seek the time
-        AudioPlayer.removeClass('playerStoppedBefore')
+       // AudioPlayer.removeClass('playerStoppedBefore')
     }
     // bind data to controls
     function BindData(response) {
@@ -598,7 +641,17 @@ $(document).ready(function() {
             var AgendaItem_SelectedID = $("#MainContent_ddlAgendaItems > option:selected").attr("value");
             var AgendaSubItem_SelectedID = $("#MainContent_ddlAgendaSubItems > option:selected").attr("value");
             var AgendaSubItem_html = $("#MainContent_ddlAgendaSubItems").html();
-            var Speakers_SelectedID = $("#MainContent_ddlSpeakers > option:selected").attr("value");
+            var Speakers_SelectedID = $("#MainContent_ddlSpeakers").val();
+            if(Speakers_SelectedID == 1.5)
+            {
+             //Add New Option
+             $('#MainContent_ddlSpeakers').append($('<option>', {
+                    value: response.SpeakerID,
+                    text: $('.txtNewSpeaker').val()
+                 })); 
+            }
+            $('#MainContent_txtNewSpeaker').val('');
+            $('#divNewSpeaker').hide();
             $('.agendaItemId').val(response.AgendaItemID);
             $('.attachId').val(response.AttachID);
             $('.voteId').val(response.VoteID);
@@ -659,13 +712,17 @@ $(document).ready(function() {
                 $("#MainContent_ddlAgendaSubItems > option[value=" + AgendaSubItem_SelectedID + "]").attr('selected', 'selected');
             }
             // speaker DDL
+            try{
             if (response.Item.AttendantID != null && response.Item.AttendantID != 0) {
                 $("#MainContent_ddlSpeakers > option:selected").removeAttr("selected");
                 $("#MainContent_ddlSpeakers > option[value=" + response.Item.AttendantID + "]").attr('selected', 'selected');
+                $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
             } else {
                 $("#MainContent_ddlSpeakers > option[value=" + Speakers_SelectedID + "]").attr('selected', 'selected');
+                $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
             }
-           
+           }catch(err){
+}
             	if($("#MainContent_ddlSpeakers > option:selected").text() == "غير محدد"){
                     $('#MainContent_ddlOtherTitles').val(0).attr('disabled', 'disabled');
                     $('#MainContent_ddlCommittee').val(0).hide().attr('disabled', 'disabled');
@@ -721,7 +778,8 @@ $(document).ready(function() {
                 $('.isSessionPresident').attr('checked', 'checked');
             }
             if (response.Item.AttendantID == 0) { //if data is from xml, so initialized the speaker
-                $("#MainContent_ddlSpeakers").val(0);
+                $("#MainContent_ddlSpeakers").val(0).trigger("change");
+                $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
                 allInputs.removeAttr('disabled');
 
                 //usama march
@@ -739,6 +797,7 @@ $(document).ready(function() {
                 $("#MainContent_ddlAgendaSubItems").attr('disabled', 'disabled');
         } else {
             //alert("عفواً . غير مسموح لك بالتعديل في هذه الصفحة");
+
             $(".prev,.next").removeAttr("disabled");
         }
     }
@@ -761,6 +820,8 @@ $(document).ready(function() {
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
+            SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
+            var SpeakerName = $("#txtNewSpeaker").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -773,11 +834,13 @@ $(document).ready(function() {
             if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID &&
                 prevSpeakerIndex == SpeakerID) {
                 if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
+
                     $(".sameAsPrevSpeaker").attr('checked', 'checked');
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
                     SameAsPrevSpeaker = true;
                 } else {
-                    $("#MainContent_ddlSpeakers").val(0);
+                    $("#MainContent_ddlSpeakers").val(0).trigger("change");
+                    $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
                     ed.setProgressState(0);
                     return;
                 }
@@ -794,6 +857,7 @@ $(document).ready(function() {
                         AttachID: AttachID,
                         VoteID: VoteID,
                         SpeakerID: SpeakerID,
+                        SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsSessionPresident: IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -819,11 +883,13 @@ $(document).ready(function() {
                                 window.location = "default.aspx";
                         } else {
                             alert("لقد حدث خطأ");
+
                             allInputs.removeAttr('disabled');
                         }
                     },
                     error: function() {
                         alert("لقد حدث خطأ");
+
                         allInputs.removeAttr('disabled');
                     }
                 });
@@ -840,6 +906,8 @@ $(document).ready(function() {
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
+            SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
+            var SpeakerName = $("#txtNewSpeaker").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -853,11 +921,13 @@ $(document).ready(function() {
             if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID &&
                 prevSpeakerIndex == SpeakerID) {
                 if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
+
                     $(".sameAsPrevSpeaker").attr('checked', 'checked');
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
                     SameAsPrevSpeaker = true;
                 } else {
-                    $("#MainContent_ddlSpeakers").val(0);
+                    $("#MainContent_ddlSpeakers").val(0).trigger("change");
+                    $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
                     ed.setProgressState(0);
                     return;
                 }
@@ -874,6 +944,7 @@ $(document).ready(function() {
                         AttachID: AttachID,
                         VoteID: VoteID,
                         SpeakerID: SpeakerID,
+                        SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsSessionPresident:IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -890,11 +961,13 @@ $(document).ready(function() {
                             window.location = "default.aspx";
                         } else {
                             alert("لقد حدث خطأ");
+
                             allInputs.removeAttr('disabled');
                         }
                     },
                     error: function() {
                         alert("لقد حدث خطأ");
+
                         allInputs.removeAttr('disabled');
                     }
                 });
@@ -924,6 +997,7 @@ $(document).ready(function() {
                 if (jQuery.trim(this.text) == jQuery.trim(itemText)) {
                     isDuplicate = true;
                     alert("هذا البند الفرعي موجود .. لا يمكنك إضافة بندين بنفس الإسم");
+
                     return false;
                 }
             });
@@ -951,6 +1025,7 @@ $(document).ready(function() {
                             //$('select#MainContent_ddlAgendaSubItems').html("").attr('disabled', 'disabled');
                         } else {
                             alert("عفواً ... هذا البند تم تسجيله من قبل ")
+
                         }
                     },
                     error: function() {
@@ -1031,6 +1106,29 @@ $(document).ready(function() {
             ed.onMouseUp.add(function(ed, e) {
                 editableSpan(ed, e.target)
             });
+            // check if the user writes on no where
+            ed.onKeyDown.add(function(ed, l) {
+                var dom = ed.dom;
+                var currentNode = ed.selection.getNode();
+                var keycode = l.keyCode;
+                var valid = 
+                    (keycode > 47 && keycode < 58)   || // number keys
+                    keycode == 32 || keycode == 13   || // spacebar & return key(s) (if you want to allow carriage returns)
+                    (keycode > 64 && keycode < 91)   || // letter keys
+                    (keycode > 95 && keycode < 112)  || // numpad keys
+                    (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+                    (keycode > 218 && keycode < 227);   // [\]' (in order)
+                if(currentNode.nodeName == 'BODY' && valid){
+                    // select the nearest tag
+                    var nextElement = ed.selection.getRng().startContainer.nextSibling;
+                    if(nextElement){
+                        var mark = $('<i>.</i>');
+                        $(nextElement).prepend(mark);
+                        ed.selection.select(mark[0]);
+                        ed.execCommand('mceCleanup');
+                    }
+                }
+            });
             // oninit
             ed.onInit.add(function(ed) {
                 var AudioPlayer = $("#jquery_jplayer_1");
@@ -1070,12 +1168,18 @@ $(document).ready(function() {
                             mp3: $(".MP3FilePath").val() // mp3 file path
                         }).jPlayer("play", firstTime);
                         // next x seconds button
-                        $('.jp-audio .next-jp-xseconds').click(function(e) {
-                                AudioPlayer.jPlayer("play", playertime + 5)
-                            })
+                        $('.jp-audio .next-jp-xseconds').click(function(e){
+                            var lastTime = Math.floor($('span.segment:last', ed.contentDocument).attr('data-stime'));
+                            if(!((playertime+5) >= lastTime)){
+                                AudioPlayer.jPlayer("play", playertime + 5);
+                            }
+                        })
                             // prev x seconds button
                         $('.jp-audio .prev-jp-xseconds').click(function(e) {
-                            AudioPlayer.jPlayer("play", playertime - 5)
+                            var firstTime = Math.floor($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                            if(!((playertime-5) <= firstTime)){
+                                AudioPlayer.jPlayer("play", playertime - 5);
+                            }
                         })
                     },
                     timeupdate: function(event) {
@@ -1088,10 +1192,10 @@ $(document).ready(function() {
                             all_spans_segments.removeClass('highlight editable');
                             // highlight the word by time
                             playertime = event.jPlayer.status.currentTime;
-                            if (Math.round(playertime) > lastTime && !AudioPlayer.hasClass('playerStoppedBefore')) {
-                                AudioPlayer.addClass('playerStoppedBefore').jPlayer('pause', firstTime);
+                            if (Math.round(playertime) > lastTime) {
+                                AudioPlayer.jPlayer('pause', firstTime);
                             } else if (Math.floor(playertime) < firstTime) {
-                                //$(this).jPlayer('play',Math.round(startTime.val()));
+                                $(this).jPlayer('play',Math.round(startTime.val()));
                             } else {
                                 //
                                 var playerfixedTime = playertime.toFixed(2);
@@ -1134,35 +1238,31 @@ $(document).ready(function() {
                     if (k == 116) {
                         window.location.href = window.location.href;
                     }
-                }).bind('keydown', 'alt+g', function() {
+                }).bind('keydown', 'alt+t', function() {
                     // add agenda item
                     $(".addingNewAgendaItem").trigger('click')
-                }).bind('keydown', 'alt+p', function() {
+                }).bind('keydown', 'alt+v', function() {
                     // add procedure
                     $(".btnAddProcuder").trigger('click')
-                }).bind('keydown', 'alt+m', function() {
+                }).bind('keydown', 'alt+l', function() {
                     // add attach
                     $(".btnAssignAttachToContentItem").trigger('click')
-                }).bind('keydown', 'alt+v', function() {
+                }).bind('keydown', 'alt+w', function() {
                     // add vote
                     $(".btnAddNewVote").trigger('click')
-                }).bind('keydown', 'alt+z', function() {
+                }).bind('keydown', 'alt+s', function() {
                     // previous page
                     $(".btn.prev").trigger('click')
-                }).bind('keydown', 'alt+c', function() {
+                }).bind('keydown', "alt+r", function() {
                     // previous page
                     $(".btn.split").trigger('click')
-                }).bind('keydown', 'alt+r', function() {
+                }).bind('keydown', "alt+p", function() {
                     // previous page
                     $(".btn.btnSaveAndExit").trigger('click')
-                }).bind('keydown', 'alt+y', function() {
+                }).bind('keydown', 'alt+k', function() {
                     // previous page
                     $(".btn.finish").trigger('click')
-                })
-                .bind('keydown', 'alt+y', function() {
-                    // previous page
-                    $(".btn.finish").trigger('click')
-                }).bind('keydown', 'alt+w', function() {
+                }).bind('keydown', 'alt+a', function() {
                     // play & pause player
                     if (AudioPlayer.data("jPlayer").status.paused) {
                         AudioPlayer.jPlayer("play");
@@ -1172,7 +1272,7 @@ $(document).ready(function() {
                 }).bind('keydown', 'alt+q', function() {
                     // stop player
                     AudioPlayer.jPlayer("stop");
-                }).bind('keydown', 'alt+x', function() {
+                }).bind('keydown', 'alt+j', function() {
                     // next page
                     $(".btn.next").trigger('click')
                 }).bind('keydown', 'alt+5', function() {
@@ -1181,9 +1281,6 @@ $(document).ready(function() {
                 }).bind('keydown', 'alt+4', function() {
                     // prev x seconds
                     $('.jp-audio .prev-jp-xseconds').trigger('click')
-                }).bind('keydown', 'ctrl+x', function() {
-                    // split key
-                    $(".split").trigger('click')
                 })
             });
         }
@@ -1289,7 +1386,7 @@ $(document).ready(function() {
                     var cloneHTML = clone.parent().html();
                     tinymce.execCommand('mceFocus',false,'MainContent_Textarea2');
                     // add to the undo manager
-                    ed.undoManager.add();
+                 /*   ed.undoManager.add();
                     if((nodeName == 'SPAN' || nodeName == 'P' || nodeName == 'BODY') && tintMceActive.getRng().startOffset <= 1){
                         // if the node is the body
                         if(nodeName == 'BODY'){
@@ -1301,7 +1398,20 @@ $(document).ready(function() {
                         $(tinyMCE.activeEditor.selection.getNode()).after(cloneHTML);
                     }else{
                         tinymce.activeEditor.execCommand('mceInsertContent', false, cloneHTML);
+                    }*/
+                      if ((nodeName == 'SPAN' || nodeName == 'P') && tintMceActive.getRng().startOffset == 0) {
+                        $(tinyMCE.activeEditor.selection.getNode()).before(cloneHTML);
+
+                    } else if (nodeName == 'SPAN' || nodeName == 'P') {
+                        $(tinyMCE.activeEditor.selection.getNode()).after(cloneHTML);
+                    } else {
+                        tinymce.activeEditor.execCommand('mceInsertContent', false, cloneHTML);
                     }
+
+                    // add to the undo manager
+                    ed.undoManager.add();
+                    // clean up
+                    ed.execCommand('mceCleanup');
                 });
             }
         },
@@ -1330,6 +1440,8 @@ $(document).ready(function() {
     $(".approve2").click(function(e) {
         // bind the new value
         $('#MainContent_elm1').val($("textarea.splittinymce", '.reviewpopup_cont2').val());
+         // add to the undo manager
+        $('#MainContent_elm1').tinymce().undoManager.add();
         // close the popup
         $(".popupoverlay").hide();
         $(".reviewpopup_cont2").hide();

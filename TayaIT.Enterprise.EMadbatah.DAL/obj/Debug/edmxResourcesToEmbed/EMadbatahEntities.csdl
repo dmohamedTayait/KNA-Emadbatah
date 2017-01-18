@@ -137,22 +137,6 @@
       <End Role="Attachement" EntitySet="Attachements" />
       <End Role="SessionContentItem" EntitySet="SessionContentItems" />
     </AssociationSet>
-    <EntitySet Name="MembersVotes" EntityType="EMadbatahModel.MembersVote" />
-    <EntitySet Name="TBLMeetings" EntityType="EMadbatahModel.TBLMeeting" />
-    <EntitySet Name="TBLNonSecretVoteSubjects" EntityType="EMadbatahModel.TBLNonSecretVoteSubject" />
-    <AssociationSet Name="FK_MembersVote_TBLNonSecretVoteSubject" Association="EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject">
-      <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubjects" />
-      <End Role="MembersVote" EntitySet="MembersVotes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TBLNonSecretVoteSubject_TBLMeeting" Association="EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting">
-      <End Role="TBLMeeting" EntitySet="TBLMeetings" />
-      <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubjects" />
-    </AssociationSet>
-    <EntitySet Name="TBLPersons" EntityType="EMadbatahModel.TBLPerson" />
-    <AssociationSet Name="FK_SessionContentItem_TBLNonSecretVoteSubject" Association="EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject">
-      <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubjects" />
-      <End Role="SessionContentItem" EntitySet="SessionContentItems" />
-    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AgendaItem">
     <Key>
@@ -220,6 +204,8 @@
     <Property Type="String" Name="AttendantTitle" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="OrderByAttendantType" />
     <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -323,7 +309,6 @@
     <Property Type="Int64" Name="AttachementID" />
     <NavigationProperty Name="Attachement" Relationship="EMadbatahModel.FK_SessionContentItem_Attachement" FromRole="SessionContentItem" ToRole="Attachement" />
     <Property Type="Int32" Name="VotingID" />
-    <NavigationProperty Name="TBLNonSecretVoteSubject" Relationship="EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject" FromRole="SessionContentItem" ToRole="TBLNonSecretVoteSubject" />
     <Property Type="Int32" Name="IsSessionPresident" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
@@ -738,6 +723,8 @@
     <Property Type="String" Name="AttendantTitle" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="OrderByAttendantType" />
     <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_Attendant_DefaultAttendant">
     <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
@@ -796,90 +783,6 @@
       </Principal>
       <Dependent Role="SessionContentItem">
         <PropertyRef Name="AttachementID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="MembersVote">
-    <Key>
-      <PropertyRef Name="AutoID" />
-    </Key>
-    <Property Type="Int32" Name="AutoID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int32" Name="NonSecretVoteSubjectID" Nullable="false" />
-    <Property Type="Int32" Name="PersonID" Nullable="false" />
-    <Property Type="Int32" Name="MemberVoteID" />
-    <Property Type="String" Name="MemberFullName" MaxLength="250" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="TBLNonSecretVoteSubject" Relationship="EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject" FromRole="MembersVote" ToRole="TBLNonSecretVoteSubject" />
-  </EntityType>
-  <EntityType Name="TBLMeeting">
-    <Key>
-      <PropertyRef Name="MeetingID" />
-    </Key>
-    <Property Type="Int32" Name="MeetingID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="MeetingSN" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="MeetingNo" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Type="DateTime" Name="MeetingDate" />
-    <Property Type="String" Name="MeetingTitle" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="TBLNonSecretVoteSubjects" Relationship="EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting" FromRole="TBLMeeting" ToRole="TBLNonSecretVoteSubject" />
-  </EntityType>
-  <EntityType Name="TBLNonSecretVoteSubject">
-    <Key>
-      <PropertyRef Name="NonSecretVoteSubjectID" />
-    </Key>
-    <Property Type="Int32" Name="NonSecretVoteSubjectID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int32" Name="MeetingID" />
-    <Property Type="Int32" Name="NonSecretVoteSubjectNumber" Nullable="false" />
-    <Property Type="String" Name="NonSecretVoteSubject" MaxLength="4000" FixedLength="false" Unicode="true" />
-    <Property Type="DateTime" Name="NonSecretVoteSubjectDate" />
-    <Property Type="Boolean" Name="NonSecreatVoteSubjectIsClosed" />
-    <Property Type="Int32" Name="NofAgree" />
-    <Property Type="Int32" Name="NofDisagree" />
-    <Property Type="Int32" Name="NofNoVote" />
-    <Property Type="Int32" Name="NofAttendance" />
-    <NavigationProperty Name="MembersVotes" Relationship="EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject" FromRole="TBLNonSecretVoteSubject" ToRole="MembersVote" />
-    <NavigationProperty Name="TBLMeeting" Relationship="EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting" FromRole="TBLNonSecretVoteSubject" ToRole="TBLMeeting" />
-    <NavigationProperty Name="SessionContentItems" Relationship="EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject" FromRole="TBLNonSecretVoteSubject" ToRole="SessionContentItem" />
-  </EntityType>
-  <Association Name="FK_MembersVote_TBLNonSecretVoteSubject">
-    <End Type="EMadbatahModel.TBLNonSecretVoteSubject" Role="TBLNonSecretVoteSubject" Multiplicity="1" />
-    <End Type="EMadbatahModel.MembersVote" Role="MembersVote" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TBLNonSecretVoteSubject">
-        <PropertyRef Name="NonSecretVoteSubjectID" />
-      </Principal>
-      <Dependent Role="MembersVote">
-        <PropertyRef Name="NonSecretVoteSubjectID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_TBLNonSecretVoteSubject_TBLMeeting">
-    <End Type="EMadbatahModel.TBLMeeting" Role="TBLMeeting" Multiplicity="0..1" />
-    <End Type="EMadbatahModel.TBLNonSecretVoteSubject" Role="TBLNonSecretVoteSubject" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TBLMeeting">
-        <PropertyRef Name="MeetingID" />
-      </Principal>
-      <Dependent Role="TBLNonSecretVoteSubject">
-        <PropertyRef Name="MeetingID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="TBLPerson">
-    <Key>
-      <PropertyRef Name="PersonID" />
-    </Key>
-    <Property Type="Int32" Name="PersonID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="String" Name="PersonShortName" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="PersonFullName" MaxLength="200" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <Association Name="FK_SessionContentItem_TBLNonSecretVoteSubject">
-    <End Type="EMadbatahModel.TBLNonSecretVoteSubject" Role="TBLNonSecretVoteSubject" Multiplicity="0..1" />
-    <End Type="EMadbatahModel.SessionContentItem" Role="SessionContentItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TBLNonSecretVoteSubject">
-        <PropertyRef Name="NonSecretVoteSubjectID" />
-      </Principal>
-      <Dependent Role="SessionContentItem">
-        <PropertyRef Name="VotingID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

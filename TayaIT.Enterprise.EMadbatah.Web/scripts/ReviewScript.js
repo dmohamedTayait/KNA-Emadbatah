@@ -1,5 +1,6 @@
-﻿function changeButtonsForSessionStatus() 
-{
+﻿function changeButtonsForSessionStatus() {
+
+
 
     var hdisCurrentUserFileRev = $('.isCurrentUserFileRev');
     if (hdisCurrentUserFileRev && hdisCurrentUserFileRev.val() != null) {
@@ -21,8 +22,9 @@
         success: function (response) {
             if (response == "-1") {
                 return -1;
-            }
-            else {
+            } else {
+
+
                 //new = 1
                 //InProg = 2
                 //completed = 3
@@ -33,8 +35,9 @@
                 if (sessionStatus == 1 || sessionStatus == 2 || sessionStatus == 5) {
                     $('.btnApproveSession').css("display", "none");
                     $('.btnFinalApproveSession').css("display", "none");
-                }
-                else if (sessionStatus == 3) {
+                } else if (sessionStatus == 3) {
+
+
                     $('.btnApproveSession').css("display", "inline");
                     $('.btnFinalApproveSession').css("display", "none");
                 } else if (sessionStatus == 4) {
@@ -52,18 +55,23 @@
 
 $(document).ready(function () {
     //
-    $('.Edititem').hoverIntent(function () {
+    $('.Edititem').hoverIntent(function (e) {
+        var $this = $(this);
 
-        $('#spnToolTipFileName').html($(this).attr('data-filename'));
-        $('#spnToolTipUserName').html($(this).attr('data-username'));
-        $('#spnToolTipFileRevName').html($(this).attr('data-filerevname'));
-        $('#spnToolTipRevName').html($(this).attr('data-revname'));
+        $('#spnToolTipFileName').html($this.attr('data-filename'));
+        $('#spnToolTipUserName').html($this.attr('data-username'));
+        $('#spnToolTipFileRevName').html($this.attr('data-filerevname'));
+        $('#spnToolTipRevName').html($this.attr('data-revname'));
 
-        $('#divToolTip').fadeIn();
-    },
-     function () {
-         $('#divToolTip').fadeOut();
-     });
+        $('#divToolTip').css({
+            top: e.pageY - 50,
+            left: $this.parent().offset().left + 10
+        }).fadeIn();
+    }, function () {
+
+
+        $('#divToolTip').fadeOut();
+    });
 
 
 
@@ -98,11 +106,13 @@ $(document).ready(function () {
                     // alert(response)
                     if (response == "true") {
                         //alert("yes locked");
-                    }
-                    else {
-                        //alert("no");
+                    } else {
 
+
+                        //alert("no");
                         var approve = confirm("لم يتم تخصيص الملف الخاص بهذا المقطع لمراجع ملف ... هل ترغب بأن تكون مراجع هذا الملف؟");
+
+
                         if (approve) {
                             //alert('sfid ' + sessionFileID + ' currentuserid ' + currentUserID);
 
@@ -121,11 +131,13 @@ $(document).ready(function () {
                                     if (response == "true") {
                                         //alert("yes assigned");
                                         // location.reload();
-                                    }
-                                    else {
-                                        //alert("no not assigned");
+                                    } else {
 
+
+                                        //alert("no not assigned");
                                         //                                         var approve = confirm("لم يتم تخصيص الملف الخاص بهذا المقطع لمراجع ملف ... هل ترغب بأن تكون مراجع هذا الملف؟");
+
+
                                         //                                         if (approve) {
 
                                         return false;
@@ -139,10 +151,11 @@ $(document).ready(function () {
                                     //return -1;
                                 }
                             });
+                        } else {
 
 
-                        }
-                        else {
+
+
                             return false;
                         }
                     }
@@ -223,15 +236,17 @@ $(document).ready(function () {
 
             if (lastEditedDiv.hasClass('reditem') || lastEditedDiv.hasClass('blueitem') || lastEditedDiv.hasClass('greenitem')) {
                 $('#approve').show();
-            }
-            else {
+            } else {
+
+
                 $('#approve').hide();
             }
 
             if (lastEditedDiv.hasClass('reditem')) {
                 $('#reject').hide();
-            }
-            else {
+            } else {
+
+
                 $('#reject').show();
             }
 
@@ -261,7 +276,10 @@ $(document).ready(function () {
     });
 
     $(".divcontent").scroll(function () {
-        $(".popupoverlay").css({ top: $(this).scrollTop() })
+        $(".popupoverlay").css({
+            top: $(this).scrollTop()
+        })
+
     });
 
     $(".close_btn").click(function () {
@@ -300,13 +318,17 @@ $(document).ready(function () {
 
                 if (response == '-2') {
                     alert('لا يجوز الموافقة علي نص مدرج تحت متحدث او بند غير معرف');
+
                     $('.absLoad.loading').hide();
-                }
-                else
+                } else
+
+
                     if (response != '1') {
                         alert('لقد حدث خطأ');
-                    }
-                    else {
+                    } else {
+
+
+
 
                         $('#note').val("");
 
@@ -322,8 +344,8 @@ $(document).ready(function () {
                         }
 
                         if ((parseInt($('#spnRejectCount').text()) == 0) &&
-                       (parseInt($('#spnFixCount').text()) == 0) &&
-                       (parseInt($('#spnModAfterApprove').text()) == 0)) {
+                        (parseInt($('#spnFixCount').text()) == 0) &&
+                        (parseInt($('#spnModAfterApprove').text()) == 0)) {
 
                             changeButtonsForSessionStatus();
 
@@ -354,8 +376,6 @@ $(document).ready(function () {
         var currFile = $(this);
         var fileID = currFile.attr('data-fileid');
         var fileName = currFile.text();
-
-
         if (confirm("هل انت متأكد انك ترغب في الموافقة على جميع المقاطع الخاصة بالملف" + fileName)) {
             $('.absLoad.loading').show();
             jQuery.ajax({
@@ -369,8 +389,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response != '1') {
                         alert('لقد حدث خطأ');
-                    }
-                    else {
+                    } else {
                         alert('لقد تمت الموافقه على جميع مقاطع الملف ' + fileName);
                         $('.absLoad.loading').hide();
                         location.reload();
@@ -419,6 +438,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response != '1') {
                     alert('لقد حدث خطأ');
+
                     //ed.setProgressState(0); // Hide progress
                     //ed.setContent(html);
 
@@ -427,8 +447,9 @@ $(document).ready(function () {
                     $('.btnFinalApproveSession').css("display", "none");
                     changeButtonsForSessionStatus();
                     $('.absLoad.loading').hide();
-                }
-                else {
+                } else {
+
+
                     $('#note').val("");
                     lastEditedDiv.removeClass("greenitem");
                     lastEditedDiv.removeClass("blueitem");
@@ -480,11 +501,12 @@ $(document).ready(function () {
                 sid: $('#MainContent_SessionIDHidden').val(), //used ofr start
                 sfid: $('#SessionContentItemIDHidden').val(), //used ofr start
                 contentitemtext: htmlEncode($("textarea.tinymce").val()), //used ofr start and item
-                reviewernote: $('#note').val()//used ofr start and item
+                reviewernote: $('#note').val() //used ofr start and item
             },
             success: function (response) {
                 if (response != '1') {
                     alert('لقد حدث خطأ');
+
                     //ed.setProgressState(0); // Hide progress
                     //ed.setContent(html);
                 } else {
@@ -516,19 +538,22 @@ $(document).ready(function () {
             url: 'ReviewerHandler.ashx',
             data: {
                 funcname: 'ApproveSession',
-                sid: $('#MainContent_SessionIDHidden').val()//,
+                sid: $('#MainContent_SessionIDHidden').val() //,
                 //reviewernote: $('#note').val()
             },
             success: function (response) {
 
                 if (response != 'true') {
                     alert('لقد حدث خطأ');
+
                     // Hide progress
                     //ed.setContent(html);
-                }
-                else {
+                } else {
+
+
                     changeButtonsForSessionStatus();
                     alert('يتم الآن تجهيز ملفات المضبطة.. هذه العملية تستغرق عدة دقائق .. سيقوم التطبيق بإرسال رسالة بريد إلكتروني إليكم بمجرد الإنتهاء من تجهيزها')
+
                     $('.btnFinalApproveSession').css("display", "none");
 
                 }
@@ -562,12 +587,15 @@ $(document).ready(function () {
 
                 if (response != 'true') {
                     alert('لقد حدث خطأ');
+
                     //ed.setProgressState(0); // Hide progress
                     //ed.setContent(html);
-                }
-                else {
+                } else {
+
+
                     changeButtonsForSessionStatus();
                     alert('يتم الآن تجهيز الملفات النهائيه للمضبطة وارسالها الي البرلمان الالكتروني .. هذه العملية تستغرق عدة دقائق .. سيقوم التطبيق بإرسال رسالة بريد إلكتروني إليكم بمجرد الإنتهاء من تجهيزها')
+
                 }
                 $('.absLoad.loading').hide();
             },
@@ -578,7 +606,7 @@ $(document).ready(function () {
     })
 
     // onchange event for SameSpeaker checkbox
-    
+
 
     $('.gotofile').click(function (e) {
         var tlink = $(this)

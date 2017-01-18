@@ -335,14 +335,20 @@ div.jp-duration {
 	text-align: right;
 }
 div.jp-audio div.jp-type-single div.jp-current-time{
-	top:15px;
-	left:10px;
-	width:45px;
+	left:6px;
+    color: #1484ff;
+    font-size: 14px;
+    font-weight: bold;
+    top: 10px;
+    width: 55px;
 }
 div.jp-audio div.jp-type-single div.jp-duration {
-	top:15px;
-	left:540px;
-	width:45px;
+    color: #1484ff;
+    font-size: 14px;
+    font-weight: bold;
+    left: 545px;
+    top: 10px;
+    width: 55px;
 }
 div.jp-audio div.jp-type-single div.next-jp-xseconds
 {

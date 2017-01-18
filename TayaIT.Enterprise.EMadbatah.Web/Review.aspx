@@ -42,7 +42,7 @@
                                 </script>
     <div class="reviewcontainer" id="maintable1">
      <div class="row">
-     <div class="grid_3 h2"> :اذهب إلى ملف </div>
+     <div class="grid_4 h2">للذهاب / الموافقة على الملف:</div>
     
      <table class="table deftable h2" border="0" cellspacing="0" cellpadding="0" >
                 <thead>
@@ -53,22 +53,120 @@
                         <th class="column column5">
                             الحالة
                         </th>
-                        <th></th>
+                        <th class="column column5">حالة المراجعة</th>
+
+                        <th class="column column4">
+                        اسم الملف
+                        </th>
+                        <th class="column column5">
+                            الحالة
+                        </th>
+                        <th class="column column5">حالة المراجعة</th>
+
+                        <th class="column column4">
+                        اسم الملف
+                        </th>
+                        <th class="column column5">
+                            الحالة
+                        </th>
+                        <th class="column column5">حالة المراجعة</th>
                         </tr>
                          </thead>
                 <tbody>
                  <% int loop = 0;
-                     foreach (SessionAudioFile s in sd.SessionFiles)
-               {
-                   if (!s.IsSessionStart)
-                   {  %>
-                   <tr class="tbrow tbrowNew tbrowID1">
+                    int filesLen = sd.SessionFiles.Where(c => c.IsSessionStart != true).Count();
+                    int div = filesLen / 3;
+                    int assumedFilesLen = 3 * div;
+                    int rem = filesLen % 3;
+                    List<SessionAudioFile> firstArr = sd.SessionFiles.Where(c => c.IsSessionStart != true).ToList();
+                    for (int i = 0; i < filesLen - rem; i = i + 3)
+                    //     foreach (SessionAudioFile s in sd.SessionFiles)
+                    {%>
+                 <tr class="tbrow tbrowNew tbrowID1">
+                  <% SessionAudioFile s = firstArr[i];%>
+
                    <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
-                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString()) %></td>
+                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%></td>
+                    <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
+                       {
+                           if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
+                           {   %>
+                                 <td  class="column column5"><a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
+                          <% }
+                           else
+                           {%>
+                                   <td  class="column column5"> <span style="color:Green"> موافق عليه</span><br /></td>
+                     <%}
+                       }
+                       else
+                       {%>
+                      <td  class="column column5"> </td>
+                      <%} %>
+                    <% s = firstArr[i + 1];%>
+                     <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
+                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%></td>
+                     <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
+                        {
+                            if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
+                            {   %>
                    <td  class="column column5">   <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
+                   <% }
+                            else
+                            {%>
+                                   <td  class="column column5"> <span style="color:Green"> موافق عليه</span><br /></td>
+                     <%}
+                        }
+                        else
+                        {%>
+                      <td  class="column column5"> </td>
+                      <%} %>
+                    <% s = firstArr[i + 2];%>
+                     <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
+                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%></td>
+                   <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
+                      {
+                          if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
+                          {   %>
+                   <td  class="column column5">   <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
+                    <% }
+                          else
+                          {%>
+                                   <td  class="column column5"> <span style="color:Green"> موافق عليه</span><br /></td>
+                     <%}
+                      }
+                      else
+                      {%>
+                      <td  class="column column5"> </td>
+                      <%} %>
                 </tr>
-            <%}
-               }%>
+                <% }%>
+
+               <% if(rem > 0) {%>
+                <tr class="tbrow tbrowNew tbrowID1">
+                 <% for (int i = 0; i < filesLen - assumedFilesLen; i++)
+                    {
+                        SessionAudioFile s = firstArr[assumedFilesLen + i];%>
+                  <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
+                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%></td>
+                   <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
+                      {
+                          if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
+                          {   %>
+                   <td  class="column column5">   <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
+                   <% }
+                          else
+                          {%>
+                                   <td  class="column column5"><span style="color:Green"> موافق عليه</span><br /></td>
+                     <%}
+                      }
+                      else
+                      {%>
+                      <td  class="column column5"> </td>
+                      <%} %>
+                 </tr>
+                 <% }%>
+                <% }%>
+
                   </tbody>
             </table>
         </div>
@@ -135,7 +233,7 @@
                                         height: 200,
                                         theme_advanced_source_editor_wrap: true,
                                         // Theme options
-                                        theme_advanced_buttons1: "bold,italic,|,outdent,indent,blockquote",
+                                        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright,|,undo,redo",
                                         theme_advanced_buttons2: "",
                                         theme_advanced_buttons3: "",
                                         theme_advanced_buttons4: "",
@@ -145,9 +243,13 @@
                                         theme_advanced_resizing: false,
                                         // Example content CSS (should be your site CSS)
                                         content_css: "styles/tinymce_content.css",
+                                        // invalid elements
+                                        invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,head,,html,iframe,img,input,link,meta,object,option,param,script,select,style,table,tbody,tr,td,th,tbody,textarea,xmp",
+                                        // valid elements
+                                        valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br",
                                         force_br_newlines: true,
                                         force_p_newlines: false,
-                                        forced_root_block: '',
+                                        forced_root_block: false,
                                         setup: function (ed) {
                                             // function to make the span editable
                                             function editableSpan(ed, e) {
@@ -169,6 +271,29 @@
                                             ed.onMouseUp.add(function (ed, e) {
                                                 editableSpan(ed, e.target)
                                             });
+                                            // check if the user writes on no where
+                                            ed.onKeyDown.add(function (ed, l) {
+                                                var dom = ed.dom;
+                                                var currentNode = ed.selection.getNode();
+                                                var keycode = l.keyCode;
+                                                var valid =
+                    (keycode > 47 && keycode < 58) || // number keys
+                    keycode == 32 || keycode == 13 || // spacebar & return key(s) (if you want to allow carriage returns)
+                    (keycode > 64 && keycode < 91) || // letter keys
+                    (keycode > 95 && keycode < 112) || // numpad keys
+                    (keycode > 185 && keycode < 193) || // ;=,-./` (in order)
+                    (keycode > 218 && keycode < 227);   // [\]' (in order)
+                                                if (currentNode.nodeName == 'BODY' && valid) {
+                                                    // select the nearest tag
+                                                    var nextElement = ed.selection.getRng().startContainer.nextSibling;
+                                                    if (nextElement) {
+                                                        var mark = $('<i>.</i>');
+                                                        $(nextElement).prepend(mark);
+                                                        ed.selection.select(mark[0]);
+                                                        ed.execCommand('mceCleanup');
+                                                    }
+                                                }
+                                            });
                                             // oninit
                                             ed.onInit.add(function (ed) {
                                                 var AudioPlayer = $("#jquery_jplayer_1");
@@ -184,7 +309,7 @@
                                                         $(this).removeClass('hover');
                                                     }
                                                 });
-                                                
+
                                                 // jplayer shorcuts
                                                 $(document).add(ed.dom.doc.body).bind('keydown', function (e) {
                                                     var k = e.keyCode;

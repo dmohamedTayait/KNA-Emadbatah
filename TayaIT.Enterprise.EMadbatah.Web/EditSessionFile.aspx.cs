@@ -176,15 +176,21 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             //bind Speakers Drop Down List
             ListItem li;
-       
-            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag))
+            long unAssignedId = 0;
+            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag).OrderBy(s => s.LongName))
             {
-                ListItem liAttendant = new ListItem(BLL.MabatahCreatorFacade.GetAttendantTitle(item, current_session.ID), item.ID.ToString());
+                ListItem liAttendant = new ListItem(item.LongName, item.ID.ToString());
                 ddlSpeakers.Items.Add(liAttendant);
+                if (item.LongName == "غير محدد")
+                    unAssignedId = item.ID;
             }
+            unAssignedSpeakerId.Value = unAssignedId.ToString();
 
             li = new ListItem("-------- اختر المتحدث --------", "0");
             ddlSpeakers.Items.Insert(0, li);
+
+            li = new ListItem("أخرى", "1.5");
+            ddlSpeakers.Items.Add(li);
 
            //Bind Available Attachments
             string attachName = "";

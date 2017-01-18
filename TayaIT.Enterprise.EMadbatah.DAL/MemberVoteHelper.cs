@@ -18,7 +18,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         {
             try
             {
-                using (EMadbatahEntities context = new EMadbatahEntities())
+                using (EmadbatahVotingEntities context = new EmadbatahVotingEntities())
                 {
                     List<MembersVote> members = new List<MembersVote>();
                     if (context.MembersVotes.Count<MembersVote>() > 0)
