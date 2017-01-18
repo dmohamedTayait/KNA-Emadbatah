@@ -46,7 +46,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             GetSessionAgendaItemsIndex,
             UpdateSessionAgendaItemValue,
             UpdateSessionInfo,
-            UpdateAttendantSessionTitle
+            UpdateAttendantSessionTitle,
+            RemoveSessionFile
         }
 
         public enum ReviewFunctions

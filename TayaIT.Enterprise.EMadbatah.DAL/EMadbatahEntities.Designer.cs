@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -419,6 +420,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private ObjectSet<DefaultAttendant> _DefaultAttendants;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -582,11 +584,11 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -613,6 +615,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -787,6 +790,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnIsIndexedChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -873,6 +877,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -901,6 +906,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1075,6 +1081,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnIsCustomChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1139,6 +1146,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1173,6 +1181,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1323,6 +1332,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnFileContentChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1387,6 +1397,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1415,6 +1426,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1829,6 +1841,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnLongNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1991,6 +2004,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2017,6 +2031,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2069,32 +2084,9 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String ArName
-        {
-            get
-            {
-                return _ArName;
-            }
-            set
-            {
-                OnArNameChanging(value);
-                ReportPropertyChanging("ArName");
-                _ArName = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("ArName");
-                OnArNameChanged();
-            }
-        }
-        private global::System.String _ArName;
-        partial void OnArNameChanging(global::System.String value);
-        partial void OnArNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2121,6 +2113,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2147,6 +2140,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2201,6 +2195,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2227,6 +2222,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2251,6 +2247,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2305,6 +2302,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnCommitteeNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2331,6 +2329,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2355,6 +2354,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2505,6 +2505,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnCommitteeDateChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2623,6 +2624,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2647,6 +2649,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2869,6 +2872,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnLongNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2917,6 +2921,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2943,6 +2948,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2997,6 +3003,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3023,6 +3030,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3047,6 +3055,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3125,6 +3134,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnProcedureTypeIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3167,6 +3177,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3191,6 +3202,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3269,6 +3281,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnProcedureTypeOrderChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3295,6 +3308,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3321,6 +3335,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3375,6 +3390,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3401,6 +3417,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3439,6 +3456,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4021,6 +4039,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnPresidentIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4233,6 +4252,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -4275,6 +4295,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4927,8 +4948,33 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int32> _IsSessionPresident;
         partial void OnIsSessionPresidentChanging(Nullable<global::System.Int32> value);
         partial void OnIsSessionPresidentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> IsAdmin
+        {
+            get
+            {
+                return _IsAdmin;
+            }
+            set
+            {
+                OnIsAdminChanging(value);
+                ReportPropertyChanging("IsAdmin");
+                _IsAdmin = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsAdmin");
+                OnIsAdminChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _IsAdmin;
+        partial void OnIsAdminChanging(Nullable<global::System.Int32> value);
+        partial void OnIsAdminChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5313,6 +5359,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5339,6 +5386,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5393,6 +5441,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5419,6 +5468,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5457,6 +5507,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5821,8 +5872,33 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int32> _FileError;
         partial void OnFileErrorChanging(Nullable<global::System.Int32> value);
         partial void OnFileErrorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _IsActive;
+        partial void OnIsActiveChanging(Nullable<global::System.Int32> value);
+        partial void OnIsActiveChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6039,6 +6115,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6065,6 +6142,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6119,6 +6197,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6145,6 +6224,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6171,6 +6251,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6225,6 +6306,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6251,6 +6333,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6285,6 +6368,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6459,6 +6543,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnDeletedChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6633,8 +6718,10 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

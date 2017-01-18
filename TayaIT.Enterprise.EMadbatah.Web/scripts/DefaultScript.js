@@ -131,15 +131,51 @@ $(document).ready(function () {
     })
     $(".ulist li .upordown .up,.ulist li .upordown .down").live('click', function () {
         var pos = move(this, 'li')
-        var sessionID = $(pos.tr1).attr('data-sessionid'); 
-        reorderAttachment(sessionID,$(pos.tr1).attr('data-id'), pos.after, $(pos.tr2).attr('data-id'), pos.before); //attachement
+        var sessionID = $(pos.tr1).attr('data-sessionid');
+        reorderAttachment(sessionID, $(pos.tr1).attr('data-id'), pos.after, $(pos.tr2).attr('data-id'), pos.before); //attachement
     });
     $(".smalltable .upordown .up,.smalltable .upordown .down").live('click', function () {
         var pos = move(this, 'tr')
-        var sessionID = $(pos.tr1).attr('data-sessionid'); 
-        reorder(sessionID,$(pos.tr1).attr('data-id'), pos.after, $(pos.tr2).attr('data-id'), pos.before);
+        var sessionID = $(pos.tr1).attr('data-sessionid');
+        reorder(sessionID, $(pos.tr1).attr('data-id'), pos.after, $(pos.tr2).attr('data-id'), pos.before);
     });
-    function reorder(sessionid,id1, neworder1, id2, neworder2) {
+    $(".smalltable .removeFile").live('click', function () {
+        //alert('');
+        var sessionID = $(this).parents("tr").attr('data-sessionid');
+        var sessionFileID = $(this).parents("tr").attr('data-id');
+        //  alert(sessionID);
+        // alert(sessionFileID);
+        $.ajax({
+            cache: false,
+            type: 'post',
+            url: 'SessionHandler.ashx',
+            data: {
+                funcname: 'RemoveSessionFile',
+                sfid: sessionFileID
+            },
+            success: function (response) {
+                if (response == 'true') {
+                    $("tr [data-id=" + sessionFileID + "]").animate({
+    opacity: 0.25,
+    left: "+=50",
+    height: "toggle"
+}, 2000, function() {
+    $(this).remove();
+});
+
+
+                  
+                    alert("تم الحذف بنجاح");
+                   
+                }
+            },
+            error: function () {
+                alert("لقد حدث خطأ");
+            }
+        });
+
+    });
+    function reorder(sessionid, id1, neworder1, id2, neworder2) {
         $.ajax({
             cache: false,
             type: 'post',
@@ -150,7 +186,7 @@ $(document).ready(function () {
                 order1: neworder1,
                 rid2: id2,
                 order2: neworder2,
-                sid:sessionid
+                sid: sessionid
             },
             success: function (response) {
                 if (response != '') {
@@ -162,7 +198,7 @@ $(document).ready(function () {
             }
         });
     }
-    function reorderAttachment(sessionID,id1, neworder1, id2, neworder2) {
+    function reorderAttachment(sessionID, id1, neworder1, id2, neworder2) {
         $.ajax({
             cache: false,
             type: 'post',

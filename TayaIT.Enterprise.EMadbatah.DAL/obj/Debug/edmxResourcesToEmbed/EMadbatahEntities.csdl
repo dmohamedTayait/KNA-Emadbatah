@@ -214,7 +214,6 @@
     <Property Name="ID" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="Attendants" Relationship="EMadbatahModel.FK_Attendant_AttendantState" FromRole="AttendantState" ToRole="Attendant" />
-    <Property Type="String" Name="ArName" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AttendantType">
     <Key>
@@ -310,6 +309,7 @@
     <NavigationProperty Name="Attachement" Relationship="EMadbatahModel.FK_SessionContentItem_Attachement" FromRole="SessionContentItem" ToRole="Attachement" />
     <Property Type="Int32" Name="VotingID" />
     <Property Type="Int32" Name="IsSessionPresident" />
+    <Property Type="Int32" Name="IsAdmin" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>
@@ -344,6 +344,7 @@
     <Property Type="Int64" Name="FileReviewerID" />
     <NavigationProperty Name="FileReviewer" Relationship="EMadbatahModel.FK_SessionFile_FileReviewer" FromRole="SessionFile" ToRole="User" />
     <Property Type="Int32" Name="FileError" />
+    <Property Type="Int32" Name="IsActive" />
   </EntityType>
   <EntityType Name="SessionFileStatus">
     <Key>

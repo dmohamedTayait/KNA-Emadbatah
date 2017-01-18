@@ -818,7 +818,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             }
 
                             var notCompletedSessionFiles = from sf in session.SessionFiles
-                                                           where (sf.Status != (int)Model.SessionFileStatus.Completed)
+                                                           where (sf.Status != (int)Model.SessionFileStatus.Completed && sf.IsActive == 1)
                                                            select sf;
 
                             if (notCompletedSessionFiles.ToList<SessionFile>().Count == 0

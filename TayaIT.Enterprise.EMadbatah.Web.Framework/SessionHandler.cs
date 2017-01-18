@@ -377,6 +377,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         break;
                     case WebFunctions.SessionsFunctions.GetReviewNotesSummaryForReviewer:
                         break;
+                    case WebFunctions.SessionsFunctions.RemoveSessionFile:
+                        DAL.SessionFileHelper.DeleteSessionFile(long.Parse(SessionFileID), 0);
+                        jsonStringOut = "true";
+                        break;
                     case WebFunctions.SessionsFunctions.UpdateAttendantSessionTitle:
                         string x = "x";
                         int status = EMadbatahFacade.update_session_attendant_title(Convert.ToInt64(SessionID), Convert.ToInt64(AttendantID), Convert.ToInt64(SessionAttendantTitleID));

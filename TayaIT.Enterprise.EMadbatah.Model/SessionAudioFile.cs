@@ -7,7 +7,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
 {
     public class SessionAudioFile
     {
-        public SessionAudioFile(long id, long? userID, long sessionID, string name, int lastInsertedFragNumInXml, int order, long durationInSec, SessionFileStatus status, string ownerUserName, DateTime? lastModefied, string ownerEmail, bool isSessionStart, string sessionStartText, long? fileReviewrID, string fileReviewerUserName, string fileReviewerEmail)
+        public SessionAudioFile(long id, long? userID, long sessionID, string name, int lastInsertedFragNumInXml, int order, long durationInSec, SessionFileStatus status, string ownerUserName, DateTime? lastModefied, string ownerEmail, bool isSessionStart, string sessionStartText, long? fileReviewrID, string fileReviewerUserName, string fileReviewerEmail,int isActive)
         {           
             ID = id;
             UserID = userID;
@@ -25,6 +25,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             FileReviewrID = fileReviewrID;
             FileReviewerUserName = fileReviewerUserName;
             FileReviewerEmail = fileReviewerEmail;
+            IsActive = isActive;
         }
 
         public SessionAudioFile(long sessionID, string name, int order, long durationInSec, SessionFileStatus status)
@@ -57,5 +58,6 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         public bool IsSessionStart { get; set; }
         public string SessionStartText { get; set; }
 
+        public int IsActive { get; set; }
     }
 }

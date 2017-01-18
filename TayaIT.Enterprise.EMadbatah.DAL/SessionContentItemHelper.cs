@@ -243,7 +243,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     var sessionFiles =
                         from sf in context.SessionFiles
                         orderby sf.Order
-                        where sf.SessionID == sessionID
+                        where sf.SessionID == sessionID && sf.IsActive == 1
                         select sf;
 
                     foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
@@ -287,7 +287,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     var sessionFiles =
                         from sf in context.SessionFiles
                         orderby sf.Order
-                        where sf.SessionID == sessionID
+                        where sf.SessionID == sessionID && sf.IsActive == 1
                         select sf;
 
                     foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
@@ -445,7 +445,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     var sessionFiles =
                         from sf in context.SessionFiles
                         orderby sf.Order
-                        where sf.SessionID == sessionID
+                        where sf.SessionID == sessionID && sf.IsActive == 1
                         select sf;
 
                     foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
@@ -565,7 +565,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     var sessionFiles =
                         from sf in context.SessionFiles
                         orderby sf.Order
-                        where sf.SessionID == sessionID
+                        where sf.SessionID == sessionID && sf.IsActive == 1
                         select sf;
 
                     foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
@@ -610,7 +610,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     var sessionFiles =
                         from sf in context.SessionFiles
                         orderby sf.Order
-                        where sf.SessionID == sessionID
+                        where sf.SessionID == sessionID && sf.IsActive == 1
                         select sf;
 
                     foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
@@ -757,7 +757,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     var sessionFiles =
                         from sf in context.SessionFiles
                         orderby sf.Order
-                        where sf.SessionID == sessionID
+                        where sf.SessionID == sessionID && sf.IsActive == 1
                         select sf;
 
                     foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
@@ -795,7 +795,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     var sessionFiles =
                         from sf in context.SessionFiles
                         orderby sf.Order
-                        where sf.SessionID == sessionID
+                        where sf.SessionID == sessionID && sf.IsActive == 1
                         select sf;
 
                     foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
@@ -998,7 +998,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     var sessionFiles =
                         from sf in context.SessionFiles
                         orderby sf.Order
-                        where sf.SessionID == sessionID
+                        where sf.SessionID == sessionID && sf.IsActive == 1
                         select sf;
 
                     foreach (SessionFile file in sessionFiles.ToList<SessionFile>())

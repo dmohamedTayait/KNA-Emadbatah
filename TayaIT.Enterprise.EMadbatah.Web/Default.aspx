@@ -183,7 +183,7 @@
                                                 <%} */%>
                                                 <%
                                                     //session files
-                                                    foreach (SessionAudioFile saf in session.SessionFiles)
+                                                    foreach (SessionAudioFile saf in session.SessionFiles.Where(c => c.IsActive ==1))
                                                     {
                                                         string sessionFileCompleteName = saf.Name;
                                                         string sessionFileName = System.IO.Path.GetFileName(saf.Name);
@@ -221,7 +221,7 @@
                                                                             {
 
                                                                                 var notCompletedSessionFiles = from sf in session.SessionFiles
-                                                                                                               where (sf.Status != SessionFileStatus.Completed && !sf.IsSessionStart)
+                                                                                                               where (sf.Status != SessionFileStatus.Completed && !sf.IsSessionStart && sf.IsActive == 1)
                                                                                                                select sf;
 
                                                                                 if (notCompletedSessionFiles.ToList<SessionAudioFile>().Count == 0)
@@ -285,6 +285,9 @@
                                                             <div class="down">
                                                             </div>
                                                         </div>
+                                                        <%} %>
+                                                        <% if(!saf.IsSessionStart)   {   %>
+                                                            <div class="removeFile" style="cursor:pointer;color:Red;font-weight:bold">حذف الملف</div>
                                                         <%} %>
                                                     </td>
                                                 </tr>

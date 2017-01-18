@@ -249,37 +249,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                                else
                                                    doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                                                */
-
-                                            string attFullPresentationName = "";
-                                            if ((Model.AttendantType)att.Type == Model.AttendantType.President)
-                                            {
-                                                doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                                            }
-                                            else
-                                            {
-                                                if (contentItem.IsSessionPresident == 1)
-                                                {
-                                                    doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                    if (att.AttendantTitle == null)
-                                                        attFullPresentationName = "السيد " + att.ShortName.Trim();
-                                                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
-                                                    attFullPresentationName = "( " + attFullPresentationName;
-                                                    if (att.Type != 3)
-                                                        attFullPresentationName = attFullPresentationName + ")";
-                                                    doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                    if (att.Type == 3)
-                                                        doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                }
-                                                else
-                                                {
-                                                    if (att.AttendantTitle == null)
-                                                        attFullPresentationName = "السيد " + att.ShortName.Trim();
-                                                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
-                                                    doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                    if (att.Type == 3)
-                                                        doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                                }
-                                            }
+                                            WriteAttendantInWord(sessionItem, att, doc);
 
                                             if (att.Type == (int)Model.AttendantType.FromTheCouncilMembers)
                                             {
@@ -340,7 +310,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                             }
                                         }*/
 
-                                        WriteParagraphInWord(contentItemAsText, doc);
+                                        WriteParagraphInWord(sessionItem, contentItemAsText, doc);
                                         text = "";
                                         foreach (string f in files)
                                         {
@@ -351,7 +321,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                                 if (speakerGroup[j].Count == k)
                                 {
-                                    WriteParagraphInWord(contentItemAsText, doc);
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc);
                                 }
                             }
                             k = 0;
@@ -378,8 +348,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             j++;
 
 
-                            if (!sessionItem.MergedWithPrevious.Value)
-                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                           /* if (!sessionItem.MergedWithPrevious.Value)
+                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");*/
 
                            
                             if (!string.IsNullOrEmpty(sessionItem.CommentOnText))
@@ -417,10 +387,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         }
                     }
 
+                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+
                     doc.AddParagraph("الرئيس", ParagraphStyle.ParagraphTitle, ParagrapJustification.LTR, false, "");
 
-                    doc.AddParagraph("الأمين العام"
-                           , ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("الأمين العام", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                     doc.Save();
                     int num = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
@@ -437,7 +409,42 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
         }
 
-        public static void WriteParagraphInWord(string contentItemAsText,WordprocessingWorker doc)
+        public static void WriteAttendantInWord(SessionContentItem contentItem,Attendant att,WordprocessingWorker doc)
+        {
+
+            string attFullPresentationName = "";
+            if ((Model.AttendantType)att.Type == Model.AttendantType.President)
+            {
+                doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+            }
+            else
+            {
+                if (contentItem.IsSessionPresident == 1)
+                {
+                    doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                    if (att.AttendantTitle == null)
+                        attFullPresentationName = "السيد " + att.ShortName.Trim();
+                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
+                    attFullPresentationName = "( " + attFullPresentationName;
+                    if (att.Type != 3)
+                        attFullPresentationName = attFullPresentationName + ")";
+                    doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    if (att.Type == 3)
+                        doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                }
+                else
+                {
+                    if (att.AttendantTitle == null)
+                        attFullPresentationName = "السيد " + att.ShortName.Trim();
+                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
+                    doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                    if (att.Type == 3)
+                        doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                }
+            }
+        }
+
+        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc)
         {
             contentItemAsText = contentItemAsText.Replace("#!#!#!", " ");
            
@@ -462,7 +469,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         if (p[pp].ToString().IndexOf("center") > 0)
                             doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
                         else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+
                         doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+
+                        if (pp < paragraphs.Length)
+                            WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
                     }
                 }
             }

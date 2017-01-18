@@ -51,11 +51,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         || CurrentUser.Role == UserRole.ReviewrDataEntry)
                     {
                         var filesWithUser = from sfa in sd.SessionFiles
-                                            where (sfa.FileReviewrID == CurrentUser.ID)
+                                            where (sfa.FileReviewrID == CurrentUser.ID && sfa.IsActive == 1)
                                             select sfa;
 
                         var freeFiles = from sfa in sd.SessionFiles
-                                        where (sfa.FileReviewrID == null)
+                                        where (sfa.FileReviewrID == null && sfa.IsActive == 1)
                                         select sfa;
                          if ((freeFiles == null || freeFiles.Count<SessionAudioFile>() == 0) && filesWithUser != null && filesWithUser.Count<SessionAudioFile>() == 0)
                         //if (freeFiles == null || freeFiles.Count<SessionAudioFile>() == 0)
@@ -99,12 +99,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
 
                     var NewSessionFiles = from sf2 in sd.SessionFiles
-                                                   where (sf2.Status == Model.SessionFileStatus.New)
+                                                   where (sf2.Status == Model.SessionFileStatus.New && sf2.IsActive == 1)
                                                    select sf2;
 
                     List<List<SessionContentItem>> allItems = SessionContentItemHelper.GetItemsBySessionIDGrouped(sessionId);
 
-                    if (NewSessionFiles.ToList<SessionAudioFile>().Count == sd.SessionFiles.Count &&
+                    if (NewSessionFiles.ToList<SessionAudioFile>().Count == sd.SessionFiles.Where(c => c.IsActive == 1).ToList().Count &&
                         ((Model.SessionFileStatus)start.Status) == Model.SessionFileStatus.New || allItems.Count == 0)
                     {
                         ShowWarn(GetLocalizedString("strSessionStillWithNoWork"));

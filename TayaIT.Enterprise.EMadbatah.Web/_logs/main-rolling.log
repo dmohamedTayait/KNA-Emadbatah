@@ -1,135 +1,86 @@
 ----------------------------------------
-Timestamp: 9/8/2016 1:38:00 PM
+Timestamp: 15/09/2016 08:34:13 م
 
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137,/test/137/)  - Priority: -1 - Title:Could not find file '\docs\templates\MadbatahStartCover.docx'.
 
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 1:38:43 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 98
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 31</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 9/8/2016 1:38:44 PM
+Timestamp: 15/09/2016 08:34:55 م
 
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137,/test/137/)  - Priority: -1 - Title:Could not find file '\docs\templates\MadbatahStartCover.docx'.
 
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 1:39:07 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 98
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 31</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 9/8/2016 1:40:08 PM
+Timestamp: 15/09/2016 08:35:21 م
 
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137,/test/137/)  - Priority: -1 - Title:Could not find file '\docs\templates\MadbatahStartCover.docx'.
 
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 1:40:09 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 98
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 31</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 9/8/2016 2:00:27 PM
+Timestamp: 15/09/2016 08:36:56 م
 
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137,/test/137/)  - Priority: -1 - Title:Could not find file '\docs\templates\MadbatahStartCover.docx'.
 
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 2:00:37 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 98
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 31</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 9/8/2016 2:00:40 PM
+Timestamp: 15/09/2016 08:51:37 م
 
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+Category: TayaIT.Enterprise.EMadbatah.DAL.NonSecretVoteSubjectHelper.NonSecretVotesByEparID()  - Priority: -1 - Title:The underlying provider failed on Open.
 
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 3:05:18 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 3:05:19 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 3:40:11 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 3:40:12 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 4:49:06 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 9/8/2016 4:49:07 PM
-
-Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
-
-Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   at System.Data.EntityClient.EntityConnection.Open()
+   at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<>c__11`1.<GetElementFunction>b__11_3(IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   at TayaIT.Enterprise.EMadbatah.DAL.NonSecretVoteSubjectHelper.GetNonSecretVotesByEparID(Int64 eparID) in E:\Dina\10-9\Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\NonSecretVoteSubjectHelper.cs:line 45</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>Cannot open database "EmadbatahVoting" requested by the login. The login failed.
+Login failed for user 'test_account'.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, DbConnectionPool pool, String accessToken, Boolean applyTransientFaultHandling)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpenInner(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
 
 
 ----------------------------------------

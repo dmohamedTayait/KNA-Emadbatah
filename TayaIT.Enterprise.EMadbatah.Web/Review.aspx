@@ -74,11 +74,11 @@
                          </thead>
                 <tbody>
                  <% int loop = 0;
-                    int filesLen = sd.SessionFiles.Where(c => c.IsSessionStart != true).Count();
+                    int filesLen = sd.SessionFiles.Where(c => c.IsSessionStart != true  && c.IsActive == 1).Count();
                     int div = filesLen / 3;
                     int assumedFilesLen = 3 * div;
                     int rem = filesLen % 3;
-                    List<SessionAudioFile> firstArr = sd.SessionFiles.Where(c => c.IsSessionStart != true).ToList();
+                    List<SessionAudioFile> firstArr = sd.SessionFiles.Where(c => c.IsSessionStart != true && c.IsActive == 1).ToList();
                     for (int i = 0; i < filesLen - rem; i = i + 3)
                     //     foreach (SessionAudioFile s in sd.SessionFiles)
                     {%>

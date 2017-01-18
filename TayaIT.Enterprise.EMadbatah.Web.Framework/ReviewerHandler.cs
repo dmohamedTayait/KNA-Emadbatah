@@ -138,7 +138,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         }
 
                                 var notCompletedSessionFiles = from sf in sd.SessionFiles
-                                                               where (sf.Status != Model.SessionFileStatus.Completed)
+                                                               where (sf.Status != Model.SessionFileStatus.Completed && sf.IsActive==1)
                                                                select sf;
 
                                 if (notCompletedSessionFiles.ToList<SessionAudioFile>().Count == 0 

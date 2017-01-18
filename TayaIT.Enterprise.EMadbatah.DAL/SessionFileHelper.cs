@@ -75,7 +75,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
                     var files = from f in context.SessionFiles
-                                where f.SessionID == sessionID
+                                where f.SessionID == sessionID && f.IsActive == 1
                                 select f;
 
                     
@@ -288,7 +288,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
                     var results = from sf in context.SessionFiles
-                                  where sf.SessionID == sessionID
+                                  where sf.SessionID == sessionID && sf.IsActive == 1
                                   select sf;
 
                     return results.ToList<SessionFile>();
@@ -447,6 +447,29 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static int DeleteSessionFile(long sessionFileID, int isActive)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    SessionFile updatedSessionFile = context.SessionFiles.FirstOrDefault(c => c.ID == sessionFileID);
+                    if (updatedSessionFile != null)
+                    {
+                        updatedSessionFile.IsActive = isActive;
+                        int res = context.SaveChanges();
+                        return res;
+                    }
+                    else
+                        return -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.DeleteSessionFile(" + sessionFileID + ")");
+                return -1; ;
+            }
+        }
         //public void AddSessionFile() { }//from code generator
     }
 }

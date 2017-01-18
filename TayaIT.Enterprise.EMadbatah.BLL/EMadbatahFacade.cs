@@ -333,9 +333,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 	            }
 
                 foreach (SessionFile sf in sessionFiles)
-	            {
-                    sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.FileReviewer.FName, (DateTime)sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null));
-	            }
+                {
+                    if (sf.IsActive == 1)
+                        sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.FileReviewer.FName, (DateTime)sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,(int)sf.IsActive));
+                }
 
                 SessionDetails detail = GetSessionDetailsFromSessionObj(session);
 
@@ -775,22 +776,26 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             {
                 foreach (SessionFile sf in session.SessionFiles.OrderBy(x => x.Order))
                 {
-                    sessionFiles.Add(new SessionAudioFile(sf.ID,
-                        sf.UserID,
-                        sf.SessionID,
-                        sf.Name,
-                        sf.LastInsertedFragNumInXml,
-                        sf.Order,
-                        sf.DurationSecs,
-                        (Model.SessionFileStatus)sf.Status,
-                        (sf.User != null) ? sf.User.FName : null,
-                        sf.LastModefied,
-                        (sf.User != null) ? sf.User.Email : null, 
-                        sf.IsSessionStart, 
-                        sf.SessionStartText,
-                        sf.FileReviewerID, 
-                        (sf.FileReviewer != null) ? sf.FileReviewer.FName : null,
-                        (sf.FileReviewer != null) ? sf.FileReviewer.Email : null));
+                    if (sf.IsActive == 1)
+                    {
+                        sessionFiles.Add(new SessionAudioFile(sf.ID,
+                            sf.UserID,
+                            sf.SessionID,
+                            sf.Name,
+                            sf.LastInsertedFragNumInXml,
+                            sf.Order,
+                            sf.DurationSecs,
+                            (Model.SessionFileStatus)sf.Status,
+                            (sf.User != null) ? sf.User.FName : null,
+                            sf.LastModefied,
+                            (sf.User != null) ? sf.User.Email : null,
+                            sf.IsSessionStart,
+                            sf.SessionStartText,
+                            sf.FileReviewerID,
+                            (sf.FileReviewer != null) ? sf.FileReviewer.FName : null,
+                            (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,
+                            (int)sf.IsActive));
+                    }
                 }
             }
 
