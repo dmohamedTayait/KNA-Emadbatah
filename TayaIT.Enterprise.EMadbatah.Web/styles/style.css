@@ -1069,7 +1069,8 @@ span.revFilelock {
     border-right: 4px solid #c1cbe0;
     padding: 4px 10px 4px 0;
     width: calc(100% - 35px);
-    font-size:18px;
+    font-size: 14pt;
+    font-family: advertisingbold;
 }
 .item_lock {
     background: url("../images/lock.png") no-repeat scroll right top transparent;
@@ -1118,9 +1119,12 @@ span.revFilelock {
     margin: 0 10px 0 0;
 }
 .Edititem {
-    /*width: 850px;*/
+    /*width: 850px;
     font-size:16pt;
-    font-family: AdvertisingMedium;
+    font-family: AdvertisingMedium;*/
+    font-family: AdvertisingBold;
+    font-size:14pt;
+    line-height: 35px;
 }
 .Edititem:hover,
 .blueitem .item:hover,

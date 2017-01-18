@@ -530,11 +530,11 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             {
                 case ParagraphStyle.ParagraphTitle:
                     RunProperties runParagraphTitleTextProp = new RunProperties();
-                    RunFonts runParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+                    RunFonts runParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
                     Bold bold = new Bold();
                     BoldComplexScript boldComplexScript = new BoldComplexScript();
-                    FontSize fontParagraphTitleTextSize = new FontSize() { Val = "32" };
-                    FontSizeComplexScript fontParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "32" };
+                    FontSize fontParagraphTitleTextSize = new FontSize() { Val = "28" };
+                    FontSizeComplexScript fontParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
                     RightToLeftText rtlTextParagraphTitle = new RightToLeftText();
                     runParagraphTitleTextProp.Append(runParagraphTitleTextFonts);
                     runParagraphTitleTextProp.Append(bold);
@@ -559,12 +559,12 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     break;
                 case ParagraphStyle.UnderLineParagraphTitle:
                     RunProperties runUnderlineParagraphTitleTextProp = new RunProperties();
-                    RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+                    RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
                     Bold Underlinebold = new Bold();
                     Underline underline = new Underline() { Val = DocumentFormat.OpenXml.Wordprocessing.UnderlineValues.Single };
                     BoldComplexScript boldUnderlineComplexScript = new BoldComplexScript();
-                    FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "32" };
-                    FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "32" };
+                    FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "28" };
+                    FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
                     RightToLeftText rtlUnderlineTextParagraphTitle = new RightToLeftText();
                     runUnderlineParagraphTitleTextProp.Append(runUnderlineParagraphTitleTextFonts);
                     runUnderlineParagraphTitleTextProp.Append(Underlinebold);
@@ -577,9 +577,9 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     break;
                 case ParagraphStyle.NormalArabic:
                     RunProperties runNormalTextProp = new RunProperties();
-                    RunFonts runNormalTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
-                    FontSize fontNormalTextSize = new FontSize() { Val = "32" };
-                    FontSizeComplexScript fontComplexNormalTextSize = new FontSizeComplexScript() { Val = "32" };
+                    RunFonts runNormalTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
+                    FontSize fontNormalTextSize = new FontSize() { Val = "28" };
+                    FontSizeComplexScript fontComplexNormalTextSize = new FontSizeComplexScript() { Val = "28" };
                     RightToLeftText rightToLeftText = new RightToLeftText();
                     //BiDi biDi1 = new BiDi();
                     //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
@@ -592,12 +592,12 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     break;
                 case ParagraphStyle.ParagraphItalic:
                     RunProperties runParagraphItalicTextProp = new RunProperties();
-                    RunFonts runParagraphItalicTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+                    RunFonts runParagraphItalicTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
                     Italic italic = new Italic();
                     BoldComplexScript boldComplexScriptItalic = new BoldComplexScript();
                     ItalicComplexScript italicComplexScript = new ItalicComplexScript();
-                    FontSize fontParagraphItalicTextSize = new FontSize() { Val = "32" };
-                    FontSizeComplexScript fontParagraphItalicComplexScriptSize = new FontSizeComplexScript() { Val = "32" };
+                    FontSize fontParagraphItalicTextSize = new FontSize() { Val = "28" };
+                    FontSizeComplexScript fontParagraphItalicComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
                     RightToLeftText rtlTextParagraphItalic = new RightToLeftText();
                     runParagraphItalicTextProp.Append(runParagraphItalicTextFonts);
                     runParagraphItalicTextProp.Append(italic);
@@ -609,13 +609,13 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     break;
                 case ParagraphStyle.ParagraphBoldItalic:
                     RunProperties runParagraphBoldItalicTextProp = new RunProperties();
-                    RunFonts runParagraphBoldItalicTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+                    RunFonts runParagraphBoldItalicTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
                     Italic italicBoldItalic = new Italic();
                     Bold boldBoldItalic = new Bold();
                     BoldComplexScript boldComplexScriptBoldItalic = new BoldComplexScript();
                     ItalicComplexScript italicComplexScriptBoldItalic = new ItalicComplexScript();
-                    FontSize fontParagraphBoldItalicTextSize = new FontSize() { Val = "32" };
-                    FontSizeComplexScript fontParagraphBoldItalicComplexScriptSize = new FontSizeComplexScript() { Val = "32" };
+                    FontSize fontParagraphBoldItalicTextSize = new FontSize() { Val = "28" };
+                    FontSizeComplexScript fontParagraphBoldItalicComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
                     RightToLeftText rtlTextParagraphBoldItalic = new RightToLeftText();
                     runParagraphBoldItalicTextProp.Append(runParagraphBoldItalicTextFonts);
                     runParagraphBoldItalicTextProp.Append(italicBoldItalic);
@@ -690,7 +690,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             paragraphProp.ParagraphStyleId = new ParagraphStyleId() { Val = paragraphType.ToString() }; // we set the style
             paragraph.Append(paragraphProp);    //HeadingArabic
 
-            paragraph.ParagraphProperties.SpacingBetweenLines = new SpacingBetweenLines() { After = "1", Line = "276", LineRule = LineSpacingRuleValues.Auto };
+            paragraph.ParagraphProperties.SpacingBetweenLines = new SpacingBetweenLines() { After = "1", Line = "360", LineRule = LineSpacingRuleValues.Auto };
             Run run = new Run(new Text(paragraphText) { Space = SpaceProcessingModeValues.Preserve });
 
 
@@ -968,9 +968,9 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             //Run runNormalText = new Run() { RsidRunProperties = "007A6E3F" };
             RunProperties runNormalTextProp = new RunProperties();
-            RunFonts runNormalTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
-            FontSize fontNormalTextSize = new FontSize() { Val = "32" };
-            FontSizeComplexScript fontComplexNormalTextSize = new FontSizeComplexScript() { Val = "32" };
+            RunFonts runNormalTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
+            FontSize fontNormalTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontComplexNormalTextSize = new FontSizeComplexScript() { Val = "28" };
             RightToLeftText rightToLeftText = new RightToLeftText();
             //BiDi biDi1 = new BiDi();
             //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
@@ -992,11 +992,11 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
             RunProperties runParagraphTitleTextProp = new RunProperties();
-            RunFonts runParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+            RunFonts runParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
             Bold bold = new Bold();
             BoldComplexScript boldComplexScript = new BoldComplexScript();
-            FontSize fontParagraphTitleTextSize = new FontSize() { Val = "32" };
-            FontSizeComplexScript fontParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "32" };
+            FontSize fontParagraphTitleTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
             RightToLeftText rtlTextParagraphTitle = new RightToLeftText();
             runParagraphTitleTextProp.Append(runParagraphTitleTextFonts);
             runParagraphTitleTextProp.Append(bold);
@@ -1018,12 +1018,12 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
             RunProperties runUnderlineParagraphTitleTextProp = new RunProperties();
-            RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+            RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
             Bold Underlinebold = new Bold();
             Underline underline = new Underline() { Val = DocumentFormat.OpenXml.Wordprocessing.UnderlineValues.Single };
             BoldComplexScript UnderlineboldComplexScript = new BoldComplexScript();
-            FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "32" };
-            FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "32" };
+            FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
             RightToLeftText UnderlinertlTextParagraphTitle = new RightToLeftText();
             runUnderlineParagraphTitleTextProp.Append(runUnderlineParagraphTitleTextFonts);
             runUnderlineParagraphTitleTextProp.Append(Underlinebold);
@@ -1045,11 +1045,11 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
             RunProperties runParagraphItalicTextProp = new RunProperties();
-            RunFonts runParagraphItalicTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+            RunFonts runParagraphItalicTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
             Italic italic = new Italic();
             BoldComplexScript boldComplexScriptItalic = new BoldComplexScript();
-            FontSize fontParagraphItalicTextSize = new FontSize() { Val = "32" };
-            FontSizeComplexScript fontParagraphItalicComplexScriptSize = new FontSizeComplexScript() { Val = "32" };
+            FontSize fontParagraphItalicTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontParagraphItalicComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
             RightToLeftText rtlTextParagraphItalic = new RightToLeftText();
             runParagraphItalicTextProp.Append(runParagraphItalicTextFonts);
             runParagraphItalicTextProp.Append(italic);
@@ -1068,12 +1068,12 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
             RunProperties runParagraphBoldItalicTextProp = new RunProperties();
-            RunFonts runParagraphBoldItalicTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+            RunFonts runParagraphBoldItalicTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
             Italic italicBoldItalic = new Italic();
             Bold boldBoldItalic = new Bold();
             BoldComplexScript boldComplexScriptBoldItalic = new BoldComplexScript();
-            FontSize fontParagraphBoldItalicTextSize = new FontSize() { Val = "32" };
-            FontSizeComplexScript fontParagraphBoldItalicComplexScriptSize = new FontSizeComplexScript() { Val = "32" };
+            FontSize fontParagraphBoldItalicTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontParagraphBoldItalicComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
             RightToLeftText rtlTextParagraphBoldItalic = new RightToLeftText();
             runParagraphBoldItalicTextProp.Append(runParagraphBoldItalicTextFonts);
             runParagraphBoldItalicTextProp.Append(italicBoldItalic);
@@ -1099,7 +1099,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
 
             RunProperties runTableParagraphTitleTextProp = new RunProperties();
-            RunFonts runTableParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+            RunFonts runTableParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
             Bold Tablebold = new Bold();
             BoldComplexScript TableBoldComplexScript = new BoldComplexScript();
             FontSize fontTableParagraphTitleTextSize = new FontSize() { Val = "28" };

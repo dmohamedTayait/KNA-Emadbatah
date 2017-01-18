@@ -8,3 +8,7 @@ E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaI
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\ResolveAssemblyReference.cache
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb

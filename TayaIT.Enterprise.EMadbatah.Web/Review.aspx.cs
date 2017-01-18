@@ -281,16 +281,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                         else
                                         {
                                             if (att.AttendantTitle == null)
-                                                attFullPresentationName = "السيد " + att.Name.Trim();
-                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                                attFullPresentationName = "السيد " + att.Name.Trim() + " : ";
+                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim() + " : ";
                                             if (string.IsNullOrEmpty(item.CommentOnAttendant))
                                             {
                                                 if (att.Type == 3)
-                                                    job = att.JobTitle;
+                                                    job = "( " + att.JobTitle + " )";
                                             }
                                             else
                                             {
-                                                job = "    " + item.CommentOnAttendant;
+                                                job = "   ( " + item.CommentOnAttendant + " )";
                                             }
 
                                             string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()

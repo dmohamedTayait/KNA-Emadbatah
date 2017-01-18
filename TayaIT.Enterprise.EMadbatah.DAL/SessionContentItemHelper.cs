@@ -1204,6 +1204,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static int UpdateSessionContentItemEndTime(long sessionFileID, long currentOrder, double endTime)//,float startTime,float endTime,float duration)
+        {
+            try
+            {
+                SessionContentItem updated_session_content_item = null;
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    updated_session_content_item = context.SessionContentItems.FirstOrDefault(c => c.SessionFileID == sessionFileID && c.FragOrderInXml == currentOrder);
+                    if (updated_session_content_item != null)
+                    {
+                        updated_session_content_item.EndTime = endTime;
+               
+                    }
+                    int res = context.SaveChanges();
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.UpdateSessionContentItemLastTime(" + sessionFileID + "," + currentOrder + "," + endTime + ")");
+                return -1;
+            }
+        }
+
         public static int UpdateSessionContentItemStatus(long sessionContentItemID, int statusID, string note, long revID, bool isUserFileRev)
         {
             try

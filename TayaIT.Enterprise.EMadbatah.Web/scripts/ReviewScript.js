@@ -82,6 +82,10 @@ $(document).ready(function () {
         lastEditedDiv = $(this);
 
 
+        if ($(this).attr('data-isSessionStart') == "1") {
+            document.location = '/SessionStart.aspx?sid=' + getParameterByName('sid') + '&reviewmode=1';
+            return;
+        }
         var id = $(this).attr('data-scid');
         var currentUserID = $('.currentUserID').val();
         var sessionFileID = $(this).attr('data-sfid');

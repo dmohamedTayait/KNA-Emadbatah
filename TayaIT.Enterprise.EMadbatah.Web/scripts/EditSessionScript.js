@@ -782,7 +782,7 @@ $(document).ready(function() {
                 $(".next").attr("disabled", "disabled");
             } else {
                 $(".next,.prev").removeAttr("disabled");
-                // $(".sameAsPrevSpeaker").removeAttr("disabled"); //kill same as
+                $(".sameAsPrevSpeaker").removeAttr("disabled"); //kill same as
             }
 
             if (response.Ignored) {
@@ -1402,14 +1402,16 @@ $(document).ready(function() {
                     warningAlerts: false,
                     ready: function () {
                         // get start and end time in hidden fields
-                        var firstTime = parseFloat($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                        var firstTime = Math.floor(startTime.val());//parseFloat($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                       // alert(Math.floor(startTime.val()));
+                       // alert(Math.floor($('span.segment:first', ed.contentDocument).attr('data-stime')));
                         // play the jplayer
                         $(this).jPlayer("setMedia", {
                             mp3: $(".MP3FilePath").val() // mp3 file path
                         }).jPlayer("play", firstTime);
                         // next x seconds button
                         $('.jp-audio .next-jp-xseconds').click(function (e) {
-                            var lastTime = parseFloat($('span.segment:last', ed.contentDocument).attr('data-stime'));
+                            var lastTime = Math.ceil(endTime.val());//parseFloat($('span.segment:last', ed.contentDocument).attr('data-stime'));
                             if(!((playertime+5) >= lastTime)){
                                 AudioPlayer.jPlayer("play", playertime + 5);
                             }
@@ -1425,8 +1427,9 @@ $(document).ready(function() {
                         if (!$(this).data("jPlayer").status.paused) {
                             // all span segments
                             var all_spans_segments = $('span.segment', ed.contentDocument);
-                            var firstTime = parseFloat($('span.segment:first', ed.contentDocument).attr('data-stime'));
-                            var lastTime = Math.ceil($('span.segment:last', ed.contentDocument).attr('data-stime'));
+                            var firstTime = Math.floor(startTime.val());
+                            //var firstTime = parseFloat($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                            var lastTime =  Math.ceil(endTime.val());//Math.ceil($('span.segment:last', ed.contentDocument).attr('data-stime'));//endTime.val() from hidden field
                             // remove all classes
                             all_spans_segments.removeClass('highlight editable');
                             // highlight the word by time
@@ -1452,7 +1455,7 @@ $(document).ready(function() {
                                     if (playerfragment >= spanfragment) {
                                         return true;
                                     }
-                                });
+                                }).filter(':last');
                             }
                             // highlight
                             highlight.addClass('highlight')

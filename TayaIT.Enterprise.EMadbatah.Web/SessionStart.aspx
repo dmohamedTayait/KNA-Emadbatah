@@ -14,126 +14,130 @@
         function htmlDecode(value) {
             return $('<div/>').html(value).text();
         }
-       
-
-$(document).ready(function () {
-    // for the popup window
-    $("#various1").fancybox({
-        'titlePosition': 'inside',
-        'transitionIn': 'none',
-        'transitionOut': 'none',
-        autoDimensions: false,
-        padding: 20,
-        width: 600,
-        height: 120
-    });
 
 
-    $('#btnSave').click(function () {
-        var ed = $('#MainContent_elm1').tinymce()
-        var sessionFileID = $('#MainContent_SessionFileIDHidden').val();
-
-        // Do you ajax call here, window.setTimeout fakes ajax call
-        ed.setProgressState(1); // Show progress
-        jQuery.ajax({
-            cache: false,
-            type: 'post',
-            url: 'SessionStartHandler.ashx',
-            data: {
-                funcname: 'SaveSessionStart',
-                sid: $('#MainContent_SessionIDHidden').val(),
-                sfid: sessionFileID,
-                contentitemtext: htmlEncode($('#MainContent_elm1').val())
+        $(document).ready(function () {
+            // for the popup window
+            $("#various1").fancybox({
+                'titlePosition': 'inside',
+                'transitionIn': 'none',
+                'transitionOut': 'none',
+                autoDimensions: false,
+                padding: 20,
+                width: 600,
+                height: 120
+            });
 
 
-            },
-            success: function (response) {
-                if (response == '1') {
-                    ed.setProgressState(0); // Hide progress
-                    var qs = getParameterByName('editmode');
-                    if (qs && qs == '2')
-                        document.location = "ReviewNotes.aspx?sid=" + sessionFileID;
-                    else
-                        document.location = "Default.aspx";
-                }
-                else {
-                    alert('لقد حدث خطأ');
-                }
-            },
-            error: function () {
+            $('#btnSave').click(function () {
+                var ed = $('#MainContent_elm1').tinymce()
+                var sessionFileID = $('#MainContent_SessionFileIDHidden').val();
 
-            }
+                // Do you ajax call here, window.setTimeout fakes ajax call
+                ed.setProgressState(1); // Show progress
+                jQuery.ajax({
+                    cache: false,
+                    type: 'post',
+                    url: 'SessionStartHandler.ashx',
+                    data: {
+                        funcname: 'SaveSessionStart',
+                        sid: $('#MainContent_SessionIDHidden').val(),
+                        sfid: sessionFileID,
+                        contentitemtext: htmlEncode($('#MainContent_elm1').val())
+
+
+                    },
+                    success: function (response) {
+                        if (response == '1') {
+                            ed.setProgressState(0); // Hide progress
+                            var qs = getParameterByName('editmode');
+                            if (qs && qs == '2')
+                                document.location = "ReviewNotes.aspx?sid=" + sessionFileID;
+                            else {
+                                if (getParameterByName('reviewmode') == 1)
+                                    document.location = "Review.aspx?sid=" + $('#MainContent_SessionIDHidden').val();
+                                else
+                                    document.location = "Default.aspx";
+                            }
+                        }
+                        else {
+                            alert('لقد حدث خطأ');
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
+                // close popup
+                $.fancybox.close()
+            })
+
+
+            // popup buttons actions
+            $('#yes').click(function () {
+                var ed = $('#MainContent_elm1').tinymce()
+                // Do you ajax call here, window.setTimeout fakes ajax call
+                ed.setProgressState(1); // Show progress
+                jQuery.ajax({
+                    cache: false,
+                    type: 'get',
+                    url: 'SessionStartHandler.ashx',
+                    data: {
+                        funcname: 'ReloadAutomaticSessionStart',
+                        sid: $('#MainContent_SessionIDHidden').val()
+                    },
+                    success: function (html) {
+                        if (html != '') {
+                            ed.setProgressState(0); // Hide progress
+                            ed.setContent(html);
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
+                // close popup
+                $.fancybox.close()
+            })
+            $('#no').click(function () {
+                $.fancybox.close()
+            })
+            // to init the editor
+            $('textarea.tinymce').tinymce({
+                // Location of TinyMCE script
+                script_url: 'scripts/tiny_mce/tiny_mce.js',
+                // General options
+                theme: "advanced",
+                plugins: "pagebreak,directionality,noneditable",
+                language: "ar",
+                // direction
+                directionality: "rtl",
+                // clean up
+                cleanup: true,
+                cleanup_on_startup: true,
+                width: '100%',
+                height: 380,
+                theme_advanced_source_editor_wrap: true,
+                // Theme options
+                theme_advanced_buttons1: "bold,italic",
+                theme_advanced_buttons2: "",
+                theme_advanced_buttons3: "",
+                theme_advanced_buttons4: "",
+                theme_advanced_path: false,
+                theme_advanced_toolbar_location: "top",
+                theme_advanced_toolbar_align: "right",
+                theme_advanced_resizing: false,
+                // Example content CSS (should be your site CSS)
+                content_css: "styles/sessionstart_tinymce_content.css",
+                // invalid elements
+                invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,,head,,html,iframe,img,input,link,meta,object,option,param,script,select,textarea,xmp",
+                // valid elements
+                //valid_elements: "@[class],span[*],strong,em,br,table",
+                force_br_newlines: true,
+                force_p_newlines: false,
+                forced_root_block: ''
+            });
         });
-        // close popup
-        $.fancybox.close()
-    })
-
-
-    // popup buttons actions
-    $('#yes').click(function () {
-        var ed = $('#MainContent_elm1').tinymce()
-        // Do you ajax call here, window.setTimeout fakes ajax call
-        ed.setProgressState(1); // Show progress
-        jQuery.ajax({
-            cache: false,
-            type: 'get',
-            url: 'SessionStartHandler.ashx',
-            data: {
-                funcname: 'ReloadAutomaticSessionStart',
-                sid: $('#MainContent_SessionIDHidden').val()
-            },
-            success: function (html) {
-                if (html != '') {
-                    ed.setProgressState(0); // Hide progress
-                    ed.setContent(html);
-                }
-            },
-            error: function () {
-
-            }
-        });
-        // close popup
-        $.fancybox.close()
-    })
-    $('#no').click(function () {
-        $.fancybox.close()
-    })
-    // to init the editor
-    $('textarea.tinymce').tinymce({
-        // Location of TinyMCE script
-        script_url: 'scripts/tiny_mce/tiny_mce.js',
-        // General options
-        theme: "advanced",
-        plugins: "pagebreak,directionality,noneditable",
-        language: "ar",
-        // direction
-        directionality: "rtl",
-        // clean up
-        cleanup: true,
-        cleanup_on_startup: true,
-        width: '100%',
-        height: 380,
-        theme_advanced_source_editor_wrap: true,
-        // Theme options
-        theme_advanced_buttons1: "bold,italic",
-        theme_advanced_buttons2: "",
-        theme_advanced_buttons3: "",
-        theme_advanced_buttons4: "",
-        theme_advanced_path: false,
-        theme_advanced_toolbar_location: "top",
-        theme_advanced_toolbar_align: "right",
-        theme_advanced_resizing: false,
-        // Example content CSS (should be your site CSS)
-        content_css: "styles/sessionstart_tinymce_content.css",
-        // invalid elements
-        invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,,head,,html,iframe,img,input,link,meta,object,option,param,script,select,textarea,xmp",
-        // valid elements
-        //valid_elements: "@[class],span[*],strong,em,br,table",
-        force_br_newlines: true,
-        force_p_newlines: false,
-        forced_root_block: ''
-    });
-});
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="Server">

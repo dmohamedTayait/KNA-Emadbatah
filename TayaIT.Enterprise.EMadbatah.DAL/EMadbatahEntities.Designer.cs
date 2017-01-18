@@ -1827,6 +1827,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _LongName;
         partial void OnLongNameChanging(global::System.String value);
         partial void OnLongNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NameInWord
+        {
+            get
+            {
+                return _NameInWord;
+            }
+            set
+            {
+                OnNameInWordChanging(value);
+                ReportPropertyChanging("NameInWord");
+                _NameInWord = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NameInWord");
+                OnNameInWordChanged();
+            }
+        }
+        private global::System.String _NameInWord;
+        partial void OnNameInWordChanging(global::System.String value);
+        partial void OnNameInWordChanged();
 
         #endregion
     
@@ -2867,6 +2891,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _LongName;
         partial void OnLongNameChanging(global::System.String value);
         partial void OnLongNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NameInWord
+        {
+            get
+            {
+                return _NameInWord;
+            }
+            set
+            {
+                OnNameInWordChanging(value);
+                ReportPropertyChanging("NameInWord");
+                _NameInWord = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NameInWord");
+                OnNameInWordChanged();
+            }
+        }
+        private global::System.String _NameInWord;
+        partial void OnNameInWordChanging(global::System.String value);
+        partial void OnNameInWordChanged();
 
         #endregion
     

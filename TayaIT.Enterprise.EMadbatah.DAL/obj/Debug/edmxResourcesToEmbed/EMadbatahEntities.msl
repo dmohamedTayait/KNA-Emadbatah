@@ -42,6 +42,7 @@
     <EntitySetMapping Name="Attendants">
       <EntityTypeMapping TypeName="EMadbatahModel.Attendant">
         <MappingFragment StoreEntitySet="Attendant">
+          <ScalarProperty Name="NameInWord" ColumnName="NameInWord" />
           <ScalarProperty Name="LongName" ColumnName="LongName" />
           <ScalarProperty Name="ShortName" ColumnName="ShortName" />
           <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
@@ -267,6 +268,7 @@
     <EntitySetMapping Name="DefaultAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
         <MappingFragment StoreEntitySet="DefaultAttendant">
+          <ScalarProperty Name="NameInWord" ColumnName="NameInWord" />
           <ScalarProperty Name="LongName" ColumnName="LongName" />
           <ScalarProperty Name="ShortName" ColumnName="ShortName" />
           <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />

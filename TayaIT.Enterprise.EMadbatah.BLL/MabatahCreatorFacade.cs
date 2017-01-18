@@ -436,8 +436,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     else
                     {
                         if (att.AttendantTitle == null)
-                            attFullPresentationName = "السيد " + att.ShortName.Trim();
-                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
+                            attFullPresentationName = "السيد " + att.ShortName.Trim() + " : ";
+                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim() + " : ";
                         doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (att.Type == 3)
                             doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
@@ -458,6 +458,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 parag = TextHelper.StripHTML(paragraphs[pp].ToLower()).Trim();
                 if (parag != "")
                 {
+                    if (pp != 0)
+                        WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
                     doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                 }
@@ -474,8 +476,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                         doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
-                        if (pp < paragraphs.Length)
-                            WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
+                     //   if (pp < paragraphs.Length)
+                         //   WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
                     }
                 }
             }
@@ -550,15 +552,16 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 int i = 1, j = 1;
                 string indx = "";
-                string emptyRowBold = "<tr style=\"font-family: AdvertisingBold;font-size: 14pt;\"><td style='border:2px solid #000;width:50px'>ItemNum</td><td style='text-align:right;border:2px solid #000'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
+                string emptyRowBold = "<tr style=\"font-family: UsedFont;font-size: 14pt;\"><td style='border:2px solid #000;width:50px'>ItemNum</td><td style='text-align:right;border:2px solid #000'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
-                string toBeReplaced = emptyRowBold.Replace("ItemNum", "1").Replace("ItemName", "<strong> - أسماء السادة الأعضاء</strong>").Replace("PageNum", "1");
+                string toBeReplaced = emptyRowBold.Replace("ItemNum", "1").Replace("ItemName", "<strong> - أسماء السادة الأعضاء</strong>").Replace("PageNum", "1").Replace("UsedFont", "AdvertisingBold");
                 sb.Append(toBeReplaced);
 
                 foreach (MadbatahIndexItem item in index)
                 {
+                    string font = "AdvertisingBold";
                     string name = "";
                     string pageNum = "";
                     i++;
@@ -574,8 +577,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     else
                     {
                         indx = "";
+                        font = "AdvertisingMedium";
                     }
-                    toBeReplaced = emptyRowBold.Replace("ItemNum", indx).Replace("ItemName", name).Replace("PageNum", pageNum);
+                    toBeReplaced = emptyRowBold.Replace("ItemNum", indx).Replace("ItemName", name).Replace("PageNum", pageNum).Replace("UsedFont", font);
                     sb.Append(toBeReplaced);
                 }
 
@@ -607,7 +611,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         {
             try
             {
-                string indexHeader = @"<p style='text-align:center;text-decoration:underline; font-family: AdvertisingBold; font-size: 12pt; '>فهـــــرس المتحــــــدثــين</p>
+                string indexHeader = @"<p style='text-align:center;text-decoration:underline; font-family: AdvertisingBold; font-size: 14pt; '>فهـــــرس المتحــــــدثــين</p>
                     <p style='text-align:center; font-family: AdvertisingBold; font-size: 12pt; f'>(السادة الاعضاء المتحدثون على الموضوعات التى تم مناقشتها أثناء انعقاد الجلسة)</p>
                     <br><br>
                     <table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingBold; font-size: 14pt;' align='center' cellpadding='3' cellspacing='0'>

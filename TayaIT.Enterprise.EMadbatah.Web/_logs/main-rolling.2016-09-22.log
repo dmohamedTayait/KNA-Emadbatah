@@ -1,0 +1,18 @@
+----------------------------------------
+Timestamp: 9/21/2016 1:46:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.GetSessionFileBySessionFileID(0)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.GetSessionFileByID(Int64 sessionFileID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionFileHelper.cs:line 266</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/21/2016 1:49:15 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.GetSessionFileBySessionFileID(0)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.GetSessionFileByID(Int64 sessionFileID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionFileHelper.cs:line 266</STACKTRACE>
+
+
+----------------------------------------

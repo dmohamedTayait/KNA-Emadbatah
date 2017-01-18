@@ -126,6 +126,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             attendant.State = 1;
             attendant.ShortName = defAtt.ShortName;
             attendant.LongName = defAtt.LongName;
+            attendant.NameInWord = defAtt.NameInWord;
             return attendant;
         }
     }

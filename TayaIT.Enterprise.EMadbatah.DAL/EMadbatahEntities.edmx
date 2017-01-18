@@ -204,6 +204,7 @@
           <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
           <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
           <Property Name="LongName" Type="nvarchar" MaxLength="500" />
+          <Property Name="NameInWord" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="AttendantState">
           <Key>
@@ -251,6 +252,7 @@
           <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
           <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
           <Property Name="LongName" Type="nvarchar" MaxLength="500" />
+          <Property Name="NameInWord" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="MadbatahFilesStatus">
           <Key>
@@ -994,6 +996,7 @@
           <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NameInWord" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AttendantState">
           <Key>
@@ -1515,6 +1518,7 @@
           <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NameInWord" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Attendant_DefaultAttendant">
           <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
@@ -1609,6 +1613,7 @@
             <ScalarProperty Name="FileContent" ColumnName="FileContent" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Attendants"><EntityTypeMapping TypeName="EMadbatahModel.Attendant"><MappingFragment StoreEntitySet="Attendant">
+                <ScalarProperty Name="NameInWord" ColumnName="NameInWord" />
                 <ScalarProperty Name="LongName" ColumnName="LongName" />
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
@@ -1792,6 +1797,7 @@
           <EntitySetMapping Name="DefaultAttendants">
             <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
               <MappingFragment StoreEntitySet="DefaultAttendant">
+                <ScalarProperty Name="NameInWord" ColumnName="NameInWord" />
                 <ScalarProperty Name="LongName" ColumnName="LongName" />
                 <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />

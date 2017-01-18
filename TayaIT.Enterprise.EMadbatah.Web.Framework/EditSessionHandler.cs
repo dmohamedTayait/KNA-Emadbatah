@@ -638,6 +638,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                     doc.Save(XmlFilePath);
 
                                     SessionContentItemHelper.UpdateSessionContentItemOrders(Session_File_ID, currentFragOrder);
+                                    SessionContentItemHelper.UpdateSessionContentItemEndTime(Session_File_ID, currentFragOrder,double.Parse(spanNodes[0].Attributes["data-stime"].Value));
 
                                     current_session_info = (Hashtable)_context.Session["current_session_info"];
                                     current_session_info["PargraphEndTime"] = double.Parse(spanNodes[0].Attributes["data-stime"].Value);
@@ -720,7 +721,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         newAtt.State = (int)Model.AttendantState.Attended;
                         newAtt.ShortName = SpeakerName;
                         newAtt.LongName = SpeakerName;
-
+                        newAtt.NameInWord = SpeakerName;
                         AttendantHelper.AddNewSessionAttendant(newAtt, session.ID, out SpeakerID);
                     }
 
