@@ -29,7 +29,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             bool ignored,
             long? attachID,
             int? voteID,
-            int isSessionPresident)
+            int isSessionPresident, float originalStartTime)
         {
 
 
@@ -59,7 +59,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         CreatedDate = DateTime.Now,
                         UpdateDate = DateTime.Now,
                         Ignored = ignored,
-                        IsSessionPresident = isSessionPresident
+                        IsSessionPresident = isSessionPresident,
+                        OriginalStartTime = originalStartTime
                     };
 
                     if (attachID != 0 && attachID != null)

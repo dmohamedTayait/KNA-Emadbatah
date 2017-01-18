@@ -347,6 +347,7 @@
     <Property Name="AttachementID" Type="bigint" />
     <Property Name="IsSessionPresident" Type="int" />
     <Property Name="VotingID" Type="int" />
+    <Property Name="OriginalStartTime" Type="float" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>

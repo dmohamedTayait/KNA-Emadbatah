@@ -52,7 +52,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
         int FragOrder ;
         //bool firstFrag = false;
         //bool lastFrag = false;
-        double stime,etime,duration;
+        double stime, soriginaltime, etime, duration;
         long Session_ID ,Session_File_ID;
         Hashtable current_session_info;
         protected override void HandleRequest()
@@ -721,7 +721,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         newAtt.State = (int)Model.AttendantState.Attended;
                         newAtt.ShortName = SpeakerName;
                         newAtt.LongName = SpeakerName;
-                       // newAtt.NameInWord = SpeakerName;
+                      //  newAtt.NameInWord = SpeakerName;
                         AttendantHelper.AddNewSessionAttendant(newAtt, session.ID, out SpeakerID);
                     }
 
@@ -792,10 +792,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                     }
                     else // create new
                     {
-                        if (SameAsPrevSpeaker)
-                        {
-                            SessionContentItem prevContentItem = SessionContentItemFacade.GetSessionContentItemByIdAndFragmentOrder(Session_File_ID, FragOrder - 1);
-                        }
                         int? agendaSubItemInt;
                         int temp;
                         if(int.TryParse(AgendaSubItemID.ToString(), out temp))
@@ -808,7 +804,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             status = (int)Model.SessionContentItemStatus.Rejected;
 
 
-                        SessionContentItemFacade.AddNewSessionContentItem(Session_File_ID, (long)Session_ID, Text, (int)SpeakerID, AgendaItemID, agendaSubItemInt, CurrentUser.ID, status, Comments, SpeakerJob, Footer, SameAsPrevSpeaker, FragOrder, (float)stime, (float)etime, (float)duration, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident);
+                        SessionContentItemFacade.AddNewSessionContentItem(Session_File_ID, (long)Session_ID, Text, (int)SpeakerID, AgendaItemID, agendaSubItemInt, CurrentUser.ID, status, Comments, SpeakerJob, Footer, SameAsPrevSpeaker, FragOrder, (float)soriginaltime, (float)etime, (float)duration, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident, (float)stime);
                     }
 
                     if (session.SessionStatusID == (int)Model.SessionStatus.Approved)
@@ -876,6 +872,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             FragOrder = (int)current_session_info["FragOrderInXml"];
             stime = (double)current_session_info["PargraphStartTime"];
             etime = (double)current_session_info["PargraphEndTime"];
+            soriginaltime = (double)current_session_info["PargraphOriginalStartTime"];
             duration = Math.Round(etime - stime, 2);
             Session_ID = (long)current_session_info["SessionID"];
             Session_File_ID = (long)current_session_info["SessionFileID"];
@@ -927,7 +924,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             {
                 current_session_info["ItemOrderFlag"] = ItemOrderFlag;
                 current_session_info["PargraphStartTime"] = p[ItemFragOrderInXML].speechSegmentsList[0].stime;
+                current_session_info["PargraphOriginalStartTime"] = p[ItemFragOrderInXML].speechSegmentsList[0].stime;
                 current_session_info["PargraphEndTime"] = p[ItemFragOrderInXML].speechSegmentsList[p[ItemFragOrderInXML].speechSegmentsList.Count - 1].etime;
+                if (FragOrder != 0)
+                {
+                    SessionContentItem prevContentItemTemp = SessionContentItemFacade.GetSessionContentItemByIdAndFragmentOrder(Session_File_ID, FragOrder);
+                    current_session_info["PargraphStartTime"] = (double)prevContentItemTemp.EndTime;
+                }
             }
             //current_session_info["PargraphStartTime"] = p[FragOrder].speechSegmentsList[0].stime;
             //current_session_info["PargraphEndTime"] = p[FragOrder].speechSegmentsList[p[FragOrder].speechSegmentsList.Count - 1].etime;

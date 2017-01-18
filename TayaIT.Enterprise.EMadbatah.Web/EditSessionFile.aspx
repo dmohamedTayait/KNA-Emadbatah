@@ -39,6 +39,7 @@
     <input type="hidden" id="hdPageMode" runat="server" value="1" class="hdPageMode" />
     <input type="hidden" id="hdSessionContentItemID" runat="server" value="1" class="hdSessionContentItemID" />
     <input type="hidden" id="startTime" runat="server" value="" class="hdstartTime" />
+    <input type="hidden" id="originalStartTime" runat="server" value="" class="hdoriginalStartTime" />
     <input type="hidden" id="endTime" runat="server" value="" class="hdendTime" />
     <input type="hidden" id="currentOrder" runat="server" value="" class="hdcurrentOrder" />
     <input type="hidden" name="agendaItemId" id="agendaItemId" value="" runat="server" class="agendaItemId" />

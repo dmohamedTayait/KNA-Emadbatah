@@ -148,18 +148,29 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 //// compose HTML spans from speech segments and set editor value
                 html = getHTML(p[FragOrder]);
                 current_session_info["PargraphStartTime"] = p[FragOrder].speechSegmentsList[0].stime;
+                current_session_info["PargraphOriginalStartTime"] = p[FragOrder].speechSegmentsList[0].stime;
                 current_session_info["PargraphEndTime"] = p[FragOrder].speechSegmentsList[p[FragOrder].speechSegmentsList.Count - 1].etime;
                 startTime.Value = p[FragOrder].speechSegmentsList[0].stime.ToString();
+                originalStartTime.Value = p[FragOrder].speechSegmentsList[0].stime.ToString();
                 endTime.Value = p[FragOrder].speechSegmentsList[p[FragOrder].speechSegmentsList.Count - 1].etime.ToString();
+
+                if (FragOrder != 0)
+                {
+                    SessionContentItem prevContentItem = SessionContentItemFacade.GetSessionContentItemByIdAndFragmentOrder(session_file_id, FragOrder - 1);
+                    current_session_info["PargraphStartTime"] = prevContentItem.EndTime;
+                    startTime.Value = prevContentItem.EndTime.ToString();
+                }
             }
             else // load from DB
             {
                 html = lastContentItem.Text;
                 current_session_info["PargraphStartTime"] = lastContentItem.StartTime;
                 current_session_info["PargraphEndTime"] = lastContentItem.EndTime;
+                current_session_info["PargraphOriginalStartTime"] = lastContentItem.OriginalStartTime;
                 hdSessionContentItemID.Value = lastContentItem.ID.ToString();//tmpSessionContentItemID.ToString(); ;
                 startTime.Value = lastContentItem.StartTime.ToString();
                 endTime.Value = lastContentItem.EndTime.ToString();
+                originalStartTime.Value = lastContentItem.OriginalStartTime.ToString();
             }
             // set editor text
             elm1.Value = html;

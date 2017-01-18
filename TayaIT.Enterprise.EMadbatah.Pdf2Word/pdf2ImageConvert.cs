@@ -41,7 +41,7 @@ namespace TayaIT.Enterprise.EMadbatah.Pdf2Word
 
             for(int i=0;i<pageNo;i++)
             {
-                convertPage(input, directoryString, i);
+                convertPage(input, directoryString, i+1);
             }
 
         }

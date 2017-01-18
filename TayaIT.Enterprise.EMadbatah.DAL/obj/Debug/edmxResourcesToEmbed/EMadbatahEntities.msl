@@ -120,6 +120,7 @@
     <EntitySetMapping Name="SessionContentItems">
       <EntityTypeMapping TypeName="EMadbatahModel.SessionContentItem">
         <MappingFragment StoreEntitySet="SessionContentItem">
+          <ScalarProperty Name="OriginalStartTime" ColumnName="OriginalStartTime" />
           <ScalarProperty Name="IsSessionPresident" ColumnName="IsSessionPresident" />
           <ScalarProperty Name="VotingID" ColumnName="VotingID" />
           <ScalarProperty Name="AttachementID" ColumnName="AttachementID" />

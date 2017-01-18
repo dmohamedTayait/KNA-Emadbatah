@@ -310,6 +310,7 @@
     <NavigationProperty Name="Attachement" Relationship="EMadbatahModel.FK_SessionContentItem_Attachement" FromRole="SessionContentItem" ToRole="Attachement" />
     <Property Type="Int32" Name="VotingID" />
     <Property Type="Int32" Name="IsSessionPresident" />
+    <Property Type="Double" Name="OriginalStartTime" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>
