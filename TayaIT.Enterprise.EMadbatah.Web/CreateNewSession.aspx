@@ -47,7 +47,7 @@
             <div class="grid_6 h2">
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtDate"
                     ErrorMessage="*" ForeColor="Red" ValidationGroup="VGSession"></asp:RequiredFieldValidator>
-                <asp:Label ID="lblDate" runat="server" Text="الميعاد المقرر لبدء الجلسة ( التاريخ - الوقت )"></asp:Label>
+                <asp:Label ID="lblDate" runat="server" Text="الميعاد المقرر لبدء الجلسة ( التاريخ -الوقت )"></asp:Label>
             </div>
             <div class="grid_8">
                 <asp:TextBox ID="txtDate" runat="server" class="textfield inputBlock Calender" />
@@ -66,7 +66,7 @@
             <div class="grid_6 h2">
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtStartDate"
                     ErrorMessage="*" ForeColor="Red" ValidationGroup="VGSession"></asp:RequiredFieldValidator>
-                <asp:Label ID="lblStartTime" runat="server" Text="الميعاد الفعلى لبدء الجلسة ( التاريخ - الوقت )"></asp:Label>
+                <asp:Label ID="lblStartTime" runat="server" Text="الميعاد الفعلى لبدء الجلسة ( التاريخ -الوقت )"></asp:Label>
             </div>
             <div class="grid_8"> 
                 <asp:TextBox ID="txtStartDate" runat="server" class="textfield inputBlock Calender"></asp:TextBox>
@@ -192,7 +192,7 @@
             <div class="grid_6 h2">
                 &nbsp;
             </div>
-            <div class="grid_8">
+            <div class="grid_8 h2">
                 <asp:CheckBox ID="CBSessionStart" runat="server" Text="اكتمال النصاب القانونى فى الموعد الأول"
                     Checked Style="font-size: 15px;" class="chk" />
             </div>

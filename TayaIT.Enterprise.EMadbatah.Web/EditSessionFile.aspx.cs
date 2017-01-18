@@ -103,8 +103,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             string html; // editor rendered HTML text
             Hashtable current_session_info = new Hashtable(); // to store required values in user session
             //int FragOrder = Request.QueryString["action"] == "continue" ? (int)file.LastInsertedFragNumInXml : 0;
-            int FragOrder = (int)file.LastInsertedFragNumInXml;            
+            int FragOrder = (int)file.LastInsertedFragNumInXml;
 
+
+            if (currentPageMode == EditorPageMode.Review)
+            {
+                SessionContentItem currContItem = SessionContentItemHelper.GetSessionContentItemById(long.Parse(SessionContentItemID));
+                FragOrder = currContItem.FragOrderInXml;
+            }
             //ibrahim: need to know how many fargments are there in the file and this will be done once
             // set XML,MP3 file path
             string xmlFilePath = Context.Server.MapPath("~") + file.Name.ToLower().Replace(".mp3", ".trans.xml");
@@ -360,21 +366,21 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     btnNext.Attributes.Remove("disabled");
                     btnPrev.Attributes.Add("disabled", "disabled");
                     sameAsPrevSpeaker.Attributes.Add("disabled", "disabled");
-                    
+
                 }
                 else
-                    if (FragOrder > 0 && FragOrder <= p.Count - 1 )
+                    if (FragOrder > 0 && FragOrder <= p.Count - 1)
                     {
                         btnNext.Attributes.Remove("disabled");
                         btnPrev.Attributes.Remove("disabled");
                     }
                     else
                         if (FragOrder >= p.Count - 1)
-                            {
-                                btnNext.Attributes.Add("disabled", "disabled");
-                                btnPrev.Attributes.Remove("disabled");
+                        {
+                            btnNext.Attributes.Add("disabled", "disabled");
+                            btnPrev.Attributes.Remove("disabled");
 
-                            }
+                        }
 
 
                 if (FragOrder >= p.Count - 1)
@@ -392,11 +398,44 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
             else
             {
-                btnNext.Attributes.CssStyle.Add("display", "none");
+                /*btnNext.Attributes.CssStyle.Add("display", "none");
                 btnPrev.Attributes.CssStyle.Add("display", "none");
                 btnFinish.Attributes.CssStyle.Add("display", "none");
-                btnSplit.Attributes.CssStyle.Add("display", "none");
-                
+                btnSplit.Attributes.CssStyle.Add("display", "none");*/
+                btnNext.Attributes.Remove("disabled");
+                btnPrev.Attributes.Remove("disabled");
+                btnFinish.Attributes.Remove("disabled");
+                btnFinish.Attributes.CssStyle.Add("display", "inline");
+               
+                if (FragOrder == 0)//FragOrder == 0 || 
+                {
+                    btnNext.Attributes.Remove("disabled");
+                    btnPrev.Attributes.Add("disabled", "disabled");
+                    sameAsPrevSpeaker.Attributes.Add("disabled", "disabled");
+
+                }
+                else
+                    if (FragOrder > 0 && FragOrder <= p.Count - 1)
+                    {
+                        btnNext.Attributes.Remove("disabled");
+                        btnPrev.Attributes.Remove("disabled");
+                    }
+                    else
+                        if (FragOrder >= p.Count - 1)
+                        {
+                            btnNext.Attributes.Add("disabled", "disabled");
+                            btnPrev.Attributes.Remove("disabled");
+
+                        }
+
+
+                if (FragOrder >= p.Count - 1)
+                {
+                    btnFinish.Attributes.Remove("disabled");
+                    btnNext.Attributes.Add("disabled", "disabled");
+                    btnFinish.Attributes.CssStyle.Add("display", "inline");
+                }
+
             }
             if (current_session != null && (current_session.SessionStatusID == (int)Model.SessionStatus.Approved ||
                 current_session.SessionStatusID == (int)Model.SessionStatus.Completed))
@@ -421,8 +460,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 btnFinish.Attributes.CssStyle.Add("display", "inline");
             }
 
-            if (currentPageMode != EditorPageMode.Edit)
-                btnFinish.Attributes.CssStyle.Add("display", "none");
+            /*if (currentPageMode != EditorPageMode.Edit)
+                btnFinish.Attributes.CssStyle.Add("display", "none");*/
 
         }
 

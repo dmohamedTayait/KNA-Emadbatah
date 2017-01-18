@@ -88,7 +88,8 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         President = 5,
         NA = 6,
         UnKnown = 7,
-        UnAssigned = 8
+        UnAssigned = 8,
+        CountryPresidentFamily = 9
     }
 
     public enum AttendantTitle

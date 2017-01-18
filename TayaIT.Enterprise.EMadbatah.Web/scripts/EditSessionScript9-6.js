@@ -25,7 +25,6 @@ $(document).ready(function() {
     var startTime = $('.hdstartTime');
     var endTime = $('.hdendTime');
     var currentOrder = $('.hdcurrentOrder');
-    var currentSessionContID = $(".hdSessionContentItemID");
     //all choosable items
     var allInputs = $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerOtherJob,#specialBranch,#MainContent_ddlOtherTitles,#MainContent_ddlCommittee")
         // validate form onsubmit
@@ -87,7 +86,7 @@ $(document).ready(function() {
     // popup buttons actions
     $('#yes').click(function() {
         var ed = $('#MainContent_elm1').tinymce();
-        var sessionContentItemID = currentSessionContID.val();//getParameterByName("scid");
+        var sessionContentItemID = getParameterByName("scid");
         var sessionFileID = getParameterByName("sfid");
         // Do you ajax call here, window.setTimeout fakes ajax call
         ed.setProgressState(1); // Show progress
@@ -326,7 +325,7 @@ $(document).ready(function() {
             //
             if (currentOrder.val() - 0 > prevFragOrder - 0) {
                 if (SameAsPrevSpeaker == false &&
-                    prevSpeakerIndex == SpeakerID && !$(".chkIgnoredSegment").is(':checked')) {
+                    prevSpeakerIndex == SpeakerID) {
                     if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
 
                         $(".sameAsPrevSpeaker").attr('checked', 'checked');
@@ -375,10 +374,13 @@ $(document).ready(function() {
                         nextAndprev({
                             ed: ed,
                             response: response
-                        });
+                        })
+                        //
+
                     },
                     error: function () {
                         alert("لقد حدث خطأ");
+
                         $(".next").removeAttr("disabled");
                         ed.setProgressState(0);
                         allInputs.removeAttr('disabled');
@@ -391,87 +393,118 @@ $(document).ready(function() {
     function htmlEncode(value) {
         return $('<div/>').text(value).html();
     }
-
-    // SPLIT ACTION
+ 
     $(".split").click(function () {
         // VARS
         var ed = $('#MainContent_elm1').tinymce();
-        // get Cursor Position
-        getCursorPosition(ed,function(OB){
-            if(!ed.getContent().length){
-                alert('There is no text cut from');
-            }else if(OB.collapsed){
-                // select where the cursor is
-                var range = ed.selection.getRng();
-                // target element
-                var $rangeStart = OB.$target;
-                var rangeStart = $rangeStart[0];
-                // check if the start not the body
-                if (rangeStart.nodeName == 'BODY' || OB.startOffset == OB.$target.text().length) {
-                    if(OB.acNextSibling){
-                        $rangeStart = $(OB.acNextSibling);
-                        rangeStart = $rangeStart[0];
-                    }else{
-                        alert('There is no text cut from');
-                        return;
-                    }
-                }else if(rangeStart.nodeName == 'SPAN') {// IF tagename is SPAN
-                    // Check if there is more than one word
-                    var words = $rangeStart.html().split(' ').filter(function(n){ return n != ''});
-                    var wordsLength = words.length;
-                    // if there is more than word in this span
-                    if(wordsLength > 1){
-                        // CHECK THE SELECTION START
-                        var selectedWords = [];
-                        var selectedWordsLength = 0;
-                        for(var index=0; index < wordsLength; index++){
-                            // vars
-                            selectedWordsLength += words[index].length + 1;
-                            // check the selected words
-                            if(selectedWordsLength > OB.startOffset+1){
-                                selectedWords.push(words[index]);
-                            }
-                        }
-                        // remove the words
-                        $rangeStart.html($rangeStart.html().replace(selectedWords.join(' '),''));
-                        // add the new words in new span
-                        var newSpanContent = (selectedWords.length == 1) ? ' '+selectedWords.join(' ') : selectedWords.join(' ')+' ';
-                        var $newSpan = $rangeStart.clone(false).html(newSpanContent);
-                        $rangeStart.after($newSpan);
-                        // select the new start
-                        $rangeStart = $newSpan;
-                        rangeStart = $rangeStart[0];
-                    }
-                }
-                // select the html
+        // clean up
+        ed.execCommand('mceCleanup');
+        // check if the user selected the whole text
+        if (
+            ed.selection.getContent().length ||
+            (ed.contentDocument.body.firstChild == ed.contentDocument.body.lastChild) ||
+            (ed.contentDocument.body.firstChild == ed.selection.getStart() && ed.contentDocument.body.lastChild == ed.selection.getEnd())
+        ){
+            // alert the user
+            alert('You selected the whole text');
+            return;
+        }
+        // select where the cursor is
+        var range = ed.selection.getRng();
+        var rangeStart = ed.selection.getNode();
+        // check if the start not the body
+        if (rangeStart.nodeName == 'BODY') {
+            // insert mark where the mouse
+            ed.execCommand('mceInsertRawHTML', false,'<i id="mark"></i>');
+            // get the mark
+            var $mark = $(ed.getBody()).find('#mark');
+            // get the nearest
+	        rangeStart = $mark.next();
+	        // get the nearest
+	        if(!rangeStart.length){
+		        rangeStart = $mark.prev();
+	        }
+	        // get the dom
+	        if(rangeStart){
+		        rangeStart = rangeStart[0];
+	        }
+            // remove mark
+            $mark.remove();
+        }
+        var $rangeStart = $(rangeStart);
+        // remove classes
+        $rangeStart.removeClass('highlight editable hover');
+
+        // check if the element is block element or not
+        var isBlock = ed.dom.isBlock(rangeStart);
+        // if block element select it
+        if (isBlock) {
+            var lastElement = $rangeStart.nextAll().andSelf().last();
+            range.setStart(rangeStart, 0);
+            range.setEnd(lastElement[0], 1);
+            ed.selection.setRng(range);
+        }else if(rangeStart.nodeName == 'SPAN') {
+            // Check if there is more than one word
+            var words = $rangeStart.html().split(' ').filter(function(n){ return n != ''});
+            var wordsLength = words.length;
+            // check if he in the end of teh selection or not
+            if(range.startOffset == 1 && rangeStart.nextSibling.nodeName == '#text'){
+                rangeStart = rangeStart.nextSibling;
+                $rangeStart = $(rangeStart);
+            }
+            if(wordsLength == 1){
                 var lastElement = $rangeStart.nextAll().andSelf().last();
                 range.setStart(rangeStart, 0);
                 range.setEnd(lastElement[0], 1);
                 ed.selection.setRng(range);
-                // get the selection and split
-                var selectedContent = ed.selection.getContent();
-                // check if there is any tag
-                if(!$(selectedContent).length){
-                    var cloneRangeStart = $rangeStart.clone().html(selectedContent);
-                    selectedContent = cloneRangeStart[0].outerHTML;
-                }
-                // check if the user selected the whole text or not
-                if(($(selectedContent).length >= $(ed.getContent()).length) || ($(selectedContent).text().length >= $(ed.getContent()).text().length)){
-                    // alert the user
-                    alert('You selected the whole text');
-                    // deselect
-                    ed.selection.collapse(true);
-                    return;
-                }
-                // check if the form is valid
-                if ($("#editSessionFileForm").valid()) {
-                    // split action
-                    splitAction(selectedContent);
-                }
             }else{
-                alert('Without any selection please !!')
+                // CHECK THE SELECTION START
+                var selectedWords = [];
+                var selectedWordsLength = 0;
+                for(var index=0; index < wordsLength; index++){
+                    // vars
+                    selectedWordsLength += words[index].length + 1;
+                    // check teh selected words
+                    if(selectedWordsLength > range.startOffset+1){
+                        selectedWords.push(words[index]);
+                    }
+                }
+                // remove the words
+                $rangeStart.html($rangeStart.html().replace(selectedWords.join(' '),''));
+                // add the new words in new span
+                var newSpanContent = (selectedWords.length == 1) ? ' '+selectedWords.join(' ') : selectedWords.join(' ')+' ';
+                var $newSpan = $rangeStart.clone(false).html(newSpanContent);
+                $rangeStart.after($newSpan);
+                // select
+                var lastElement = $newSpan.nextAll().andSelf().last();
+                range.setStart($newSpan[0], 0);
+                range.setEnd(lastElement[0], 1);
+                ed.selection.setRng(range);
+                // check if there is no text
+                if($rangeStart.text().trim() == ''){
+                    $rangeStart.remove();
+                }
             }
-        });
+        }
+        // check if the user selected the whole text
+        if (
+            ed.contentDocument.body.firstChild == ed.selection.getStart() && ed.contentDocument.body.lastChild == ed.selection.getEnd()
+        ){
+            // alert the user
+            alert('You selected the whole text');
+            // deselect
+            ed.selection.collapse(true);
+            return;
+        }
+        // get the selection and split
+        var selectedContent = ed.selection.getContent();
+        // check if there is any tag
+        if(!$(selectedContent).length){
+            var cloneRangeStart = $rangeStart.clone().html(selectedContent);
+            selectedContent = cloneRangeStart[0].outerHTML;
+        }
+        // split action
+        splitAction(selectedContent);
     });
 
     $(".close_btn").click(function() {
@@ -618,13 +651,13 @@ $(document).ready(function() {
                     prevSpeakerImgUrl = response.AttendantAvatar;
                     prevSpeakerJob = response.AttendantJobTitle;
                     BindData(response,2);
-                    //prev clicked and no prev content item exist in db
+                        //prev clicked and no prev content item exist in db
                     if (response.prevAgendaItemID == null)
                         $('.sameAsPrevSpeaker').attr('disabled', 'disabled');
                     nextAndprev({
                         ed: ed,
                         response: response
-                    });
+                    })
                 },
                 error: function() {
                     alert("لقد حدث خطأ");
@@ -637,21 +670,19 @@ $(document).ready(function() {
     });
 
     function nextAndprev(o) {
+   
         // remove the loading
         o.ed.setProgressState(0)
-        // remove undo level
+            // remove undo level
         o.ed.undoManager.clear();
         o.ed.undoManager.add();
         var AudioPlayer = $("#jquery_jplayer_1");
         // pause player
         AudioPlayer.jPlayer("stop").jPlayer("play");
-        // reset the caret position
-        o.ed.selection.select(o.ed.selection.getStart());
-        o.ed.selection.collapse(true);
-        // $($('textarea.tinymce').html(),'span.segment').last().attr('data-stime')
-        // AudioPlayer.jPlayer("pause", $($('textarea.tinymce').html(),'span.segment').last().attr('data-stime'));
+       // $($('textarea.tinymce').html(),'span.segment').last().attr('data-stime')
+       // AudioPlayer.jPlayer("pause", $($('textarea.tinymce').html(),'span.segment').first().attr('data-stime'));
         // remove the class to let the user seek the time
-        // AudioPlayer.removeClass('playerStoppedBefore')
+       // AudioPlayer.removeClass('playerStoppedBefore')
     }
     // bind data to controls
     function BindData(response,prevOrNext) {
@@ -666,12 +697,6 @@ $(document).ready(function() {
         if (response.Message == "success") {
             $(".btnAddProcuder").removeAttr('disabled', 'disabled');
             // update text controls value
-             if (response.Item.ID != null && response.Item.ID != 0) {
-             currentSessionContID.val(response.Item.ID);
-            }
-            else{
-             currentSessionContID.val(-1);
-            }
             $("#MainContent_elm1").val(response.Item.Text);
             $("#MainContent_CurrentItemID").val(response.FragOrderInXml);
             $("#MainContent_txtComments").val(response.Item.CommentOnText);
@@ -731,7 +756,6 @@ $(document).ready(function() {
             endTime.val(response.PargraphEndTime);
 
             currentOrder.val(response.ItemFragOrder);
-           
             // agenda items DDL
             $("#MainContent_ddlAgendaItems").html("");
             $("#MainContent_ddlAgendaItems").append($("<option selected='selected'></option>").val("0").html("-------- اختر البند --------"));
@@ -741,7 +765,7 @@ $(document).ready(function() {
             });
             //select option
             // $("#MainContent_ddlAgendaItems").val(
-           
+
             if (response.Item.AgendaItemID != null && response.Item.AgendaItemID != 0) {
                 $("#MainContent_ddlAgendaItems > option[value=" + response.Item.AgendaItemID + "]").attr('selected', 'selected');
             } else {
@@ -841,15 +865,6 @@ $(document).ready(function() {
                 $('.sameAsPrevSpeaker').removeAttr('checked');
                 $('.isSessionPresident').removeAttr('checked');
                 $('.chkIgnoredSegment').removeAttr('checked');
-                mode = 1;
-                if ($(".hdPageMode").val().length == 0) {
-                    mode = "1";
-                } else {
-                    mode = $(".hdPageMode").val();
-                }
-
-                if(mode == 3)
-                  $('.finish').removeAttr('disabled');
             }
 
             if ($("#MainContent_chkGroupSubAgendaItems").is(':checked'))
@@ -872,7 +887,7 @@ $(document).ready(function() {
                 sessionContentItem = $(".hdSessionContentItemID").val();
             }
             var sessionID = $(".sessionID").val();
-           
+            $("#btnSaveAndExit").attr("disabled", "disabled");
             //  var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
             //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
             var AgendaItemID = $('.agendaItemId').val();
@@ -890,7 +905,7 @@ $(document).ready(function() {
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
 
-            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') &&
+            if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID &&
                 prevSpeakerIndex == SpeakerID) {
                 if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
 
@@ -904,7 +919,7 @@ $(document).ready(function() {
                     return;
                 }
             }
-             $("#btnSaveAndExit").attr("disabled", "disabled");
+
             if (AgendaItemID != 0) {
                 jQuery.ajax({
                     cache: false,
@@ -957,7 +972,7 @@ $(document).ready(function() {
     });
 
     // save and exit button onclick
-    $(".btnSaveOnly").click(function() {
+    $("#btnSaveOnly").click(function() {
        // if ($("#editSessionFileForm").valid()) {
             var mode = "1";
             var sessionContentItem;
@@ -968,7 +983,7 @@ $(document).ready(function() {
                 sessionContentItem = $(".hdSessionContentItemID").val();
             }
             var sessionID = $(".sessionID").val();
-          
+            $("#btnSaveOnly").attr("disabled", "disabled");
             //  var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
             //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
             var AgendaItemID = $('.agendaItemId').val();
@@ -992,7 +1007,7 @@ $(document).ready(function() {
             var Footer = $("#MainContent_txtFooter").val();
 
             //$("#MainContent_ddlSpeakers option:contains(" + "أخرى" + ")").val() != SpeakerID &&
-            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') &&
+            if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID && 
                 prevSpeakerIndex == SpeakerID) {
                 if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
 
@@ -1006,7 +1021,7 @@ $(document).ready(function() {
                     return;
                 }
             }
-              $(".btnSaveOnly").attr("disabled", "disabled");
+
             if (AgendaItemID != 0) {
                 jQuery.ajax({
                     cache: false,
@@ -1033,7 +1048,7 @@ $(document).ready(function() {
                     dataType: 'json',
                     success: function(response) {
                         if (response.Message == "success") {
-                            $(".btnSaveOnly").removeAttr("disabled");
+                            $("#btnSaveOnly").removeAttr("disabled");
                             var Speakers_SelectedID = $("#MainContent_ddlSpeakers").val();
                             //alert(Speakers_SelectedID);
                             if(Speakers_SelectedID == 1.5)
@@ -1070,13 +1085,11 @@ $(document).ready(function() {
                             alert("تم الحفظ بنجاح");
                         }else {
                             alert("لقد حدث خطأ");
-                            $(".btnSaveOnly").removeAttr("disabled");
                             allInputs.removeAttr('disabled');
                         }
                     },
                     error: function() {
                         alert("لقد حدث خطأ");
-                        $(".btnSaveOnly").removeAttr("disabled");
                         allInputs.removeAttr('disabled');
                     }
                 });
@@ -1087,7 +1100,7 @@ $(document).ready(function() {
     // finish: save and exit button onclick
     $(".finish").click(function() {
         if ($("#editSessionFileForm").valid()) {
-           
+            $(".finish").attr("disabled", "disabled");
             // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
             // var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
             var AgendaItemID = $('.agendaItemId').val();
@@ -1106,7 +1119,7 @@ $(document).ready(function() {
             var Footer = $("#MainContent_txtFooter").val();
             var sessionID = $(".sessionID").val();
 
-            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') &&
+            if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID &&
                 prevSpeakerIndex == SpeakerID) {
                 if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
 
@@ -1120,7 +1133,7 @@ $(document).ready(function() {
                     return;
                 }
             }
-             $(".finish").attr("disabled", "disabled");
+
             if (AgendaItemID != 0) {
                 jQuery.ajax({
                     cache: false,
@@ -1235,10 +1248,10 @@ $(document).ready(function() {
         e.preventDefault()
     })
     $('#editnewjobbutton').click(function(e) {
-        $('#newjobtitle').attr('class', 'edit')
-        e.preventDefault()
-    });
-    // tinymce
+            $('#newjobtitle').attr('class', 'edit')
+            e.preventDefault()
+        })
+        // tinymce
     $('textarea.tinymce').tinymce({
         custom_undo_redo: true,
         // Location of TinyMCE script
@@ -1286,7 +1299,7 @@ $(document).ready(function() {
                         // check the flag
                         if(!higlightonly){
                             // time from the span
-                            var time = parseFloat($(e).attr('data-stime'))
+                            var time = Math.floor($(e).attr('data-stime'))
                             // seek
                             $("#jquery_jplayer_1").jPlayer("pause", time);
                         }
@@ -1296,6 +1309,10 @@ $(document).ready(function() {
             // click on text tinyMCE editor
             ed.onMouseUp.add(function(ed, e) {
                 editableSpan(ed, e.target)
+            });
+            // click on text tinyMCE editor
+            ed.onKeyUp.add(function(ed, e) {
+                editableSpan(ed, ed.selection.getStart(),true)
             });
             // on keys
             editorEvents(ed);
@@ -1318,6 +1335,7 @@ $(document).ready(function() {
                 var playertime;
                 /*AudioPlayer.bind($.jPlayer.event.seeking, function(event) {
                     // Add a listener to report the time play began
+                    console.log('seeked')
                 });*/
                 AudioPlayer.jPlayer({
                     swfPath: "/scripts/jPlayer/",
@@ -1331,14 +1349,14 @@ $(document).ready(function() {
                     warningAlerts: false,
                     ready: function () {
                         // get start and end time in hidden fields
-                        var firstTime = parseFloat($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                        var firstTime = Math.floor($('span.segment:first', ed.contentDocument).attr('data-stime'));
                         // play the jplayer
                         $(this).jPlayer("setMedia", {
                             mp3: $(".MP3FilePath").val() // mp3 file path
                         }).jPlayer("play", firstTime);
                         // next x seconds button
                         $('.jp-audio .next-jp-xseconds').click(function (e) {
-                            var lastTime = parseFloat($('span.segment:last', ed.contentDocument).attr('data-stime'));
+                            var lastTime = Math.floor($('span.segment:last', ed.contentDocument).attr('data-stime'));
                             if(!((playertime+5) >= lastTime)){
                                 AudioPlayer.jPlayer("play", playertime + 5);
                             }
@@ -1354,39 +1372,41 @@ $(document).ready(function() {
                         if (!$(this).data("jPlayer").status.paused) {
                             // all span segments
                             var all_spans_segments = $('span.segment', ed.contentDocument);
-                            var firstTime = parseFloat($('span.segment:first', ed.contentDocument).attr('data-stime'));
-                            var lastTime = Math.ceil($('span.segment:last', ed.contentDocument).attr('data-stime'));
+                            //firstTime = Math.floor(startTime.val())
+                            var firstTime = Math.floor($('span.segment:first', ed.contentDocument).attr('data-stime'));
+                            var lastTime = Math.floor($('span.segment:last', ed.contentDocument).attr('data-stime'));
                             // remove all classes
                             all_spans_segments.removeClass('highlight editable');
                             // highlight the word by time
                             playertime = event.jPlayer.status.currentTime;
-                            if (Math.ceil(playertime) > (lastTime + 1)) {
+                            if (Math.round(playertime) > lastTime) {
                                 AudioPlayer.jPlayer('pause', firstTime);
-                            } else if (playertime < firstTime) {
-                                $(this).jPlayer('play',firstTime);
+                            } else if (Math.floor(playertime) < firstTime) {
+                                $(this).jPlayer('play',Math.round(startTime.val()));
+                            } else {
+                                //
+                                var playerfixedTime = playertime.toFixed(2);
+                                var playerfixedTimeString = playerfixedTime.toString();
+                                var playerfixedTimeToArray = playerfixedTimeString.split('.');
+                                // highlight the span
+                                var highlight = all_spans_segments.filter('span.segment[data-stime^=' + playerfixedTimeToArray[0] + '\\.]');
+                                if (highlight.length > 1) {
+                                    highlight = highlight.filter(function () {
+                                        // get the nearest span
+                                        var spanTime = $(this).attr('data-stime')
+                                        var spanTimeToArray = spanTime.split('.');
+                                        var spanfragment = spanTimeToArray[1];
+                                        var playerfragment = playerfixedTimeToArray[1];
+                                        if (playerfragment >= spanfragment) {
+                                            return $(this);
+                                        }
+                                    }).filter(':last')
+                                }
+                                // highlight
+                                highlight.addClass('highlight')
                             }
-                            // check the time
-                            var playerfixedTime = playertime.toFixed(2);
-                            var playerfixedTimeString = playerfixedTime.toString();
-                            var playerfixedTimeToArray = playerfixedTimeString.split('.');
-                            // highlight the span
-                            var highlight = all_spans_segments.filter('span.segment[data-stime^=' + playerfixedTimeToArray[0] + ']');
-                            if (highlight.length > 1) {
-                                highlight = highlight.filter(function () {
-                                    // get the nearest span
-                                    var spanTime = $(this).attr('data-stime')
-                                    var spanTimeToArray = spanTime.split('.');
-                                    var spanfragment = spanTimeToArray[1];
-                                    var playerfragment = playerfixedTimeToArray[1];
-                                    if (playerfragment >= spanfragment) {
-                                        return true;
-                                    }
-                                });
-                            }
-                            // highlight
-                            highlight.addClass('highlight')
                             if ($.browser.msie && $.browser.version == '9.0') {
-                                if (Math.ceil(playertime) > lastTime || Math.ceil(playertime) < firstTime) {
+                                if (Math.round(playertime) > lastTime || Math.floor(playertime) < firstTime) {
                                     AudioPlayer.jPlayer('stop')
                                 }
                             }
@@ -1442,10 +1462,10 @@ $(document).ready(function() {
                 }).bind('keydown', 'alt+j', function() {
                     // next page
                     $(".btn.next").trigger('click')
-                }).bind('keydown', 'alt+b', function() {
+                }).bind('keydown', 'alt+5', function() {
                     // next x seconds
                     $('.jp-audio .next-jp-xseconds').trigger('click')
-                }).bind('keydown', 'alt+o', function() {
+                }).bind('keydown', 'alt+4', function() {
                     // prev x seconds
                     $('.jp-audio .prev-jp-xseconds').trigger('click')
                 })
@@ -1496,42 +1516,38 @@ $(document).ready(function() {
 
     // get where the cursor position
     function getCursorPosition(ed,callBack){
-        // vars
-        var objects = {};
-        // get the current target
-        var target = ed.selection.getStart();
-        objects.$target = $(target);
-        // Stores a bookmark of the current selection
-        var bm = ed.selection.getBookmark();
+        // save the caret position
+        var bookmark = ed.selection.getBookmark();
         // get the mark
-        var $mark = $(ed.getBody()).find('#'+bm.id+'_start');
-        // check if the target is body
-        if(target.nodeName == 'BODY'){
-            // get next and prev sibling
-            objects.nextSibling = ($mark[0].nextElementSibling) ? $mark[0].nextElementSibling : false;
-            objects.previousSibling = ($mark[0].previousElementSibling) ? $mark[0].previousElementSibling : false;
-        }else{
-            // get next and prev sibling
-            objects.nextSibling = (target.nextElementSibling) ? target.nextElementSibling : false;
-            objects.previousSibling = (target.previousElementSibling) ? target.previousElementSibling : false;
+        var $mark = $(ed.getBody()).find('#'+bookmark.id+'_start');
+        // get the tags
+        var previousSibling = $mark[0].previousSibling;
+        var nextSibling = $mark[0].nextSibling;
+        // get the accurate tags
+        if(!(previousSibling) || (previousSibling && previousSibling.length == 0)){
+            previousSibling = ($mark.parent().length) ? $mark.parent()[0].previousSibling : false;
         }
-        // get accurate next and prev sibling
-        objects.acNextSibling = ($mark[0].nextSibling && $mark[0].nextSibling.data != '') ? $.clone($mark[0].nextSibling) : objects.nextSibling;
-        objects.acPreviousSibling = ($mark[0].previousSibling && $mark[0].previousSibling.data != '') ? $.clone($mark[0].previousSibling) : objects.previousSibling;
-        // Restore the selection bookmark
-        ed.selection.moveToBookmark(bm);
-        // add more info
-        objects.collapsed = ed.selection.getRng().collapsed;
-        objects.startOffset = ed.selection.getRng().startOffset;
-        objects.endOffset = ed.selection.getRng().endOffset;
-
+        // get the accurate tags
+        if(!(nextSibling) || (nextSibling && nextSibling.length == 0)){
+            nextSibling = ($mark.parent().length) ? $mark.parent()[0].nextSibling : false;
+        }
+        // collect the mark
+        var objects = {
+            $mark:$mark,
+            $parent:$mark.parent(),
+            nextSibling:nextSibling,
+            previousSibling:previousSibling
+        };
         // check callback
         if(callBack){
-            // call the function
             var callBackData = callBack(objects);
+            // move to the caret position
+            ed.selection.moveToBookmark(bookmark); 
             // return
             return callBackData;
         }
+        // move to the caret position
+        ed.selection.moveToBookmark(bookmark); 
         // return
         return objects;
     }
@@ -1550,30 +1566,32 @@ $(document).ready(function() {
                 // get where the cursor position
                 if(getCursorPosition(ed,function(OB){
                     if(backSpaceKey){
-                        if(OB.previousSibling && OB.$target){
-                            if(
-                                OB.$target[0].nodeName == 'P' && ((OB.acPreviousSibling.data == '' && OB.previousSibling.nodeName == 'SPAN') || (OB.acPreviousSibling.nodeName == 'SPAN')) ||
-                                OB.$target[0].nodeName == 'SPAN' && ((OB.acPreviousSibling.data == '' && OB.previousSibling.nodeName == 'P') || (OB.acPreviousSibling.nodeName == 'P'))
-                            ){
+                        if(
+                            (OB.previousSibling && OB.previousSibling.nodeName == 'P') ||
+                            (OB.$parent && OB.$parent[0].nodeName == 'P' && OB.previousSibling && OB.previousSibling.nodeName == 'SPAN')
+                        ){
+                            if(OB.$parent.text().trim() == ""){
+                                return false;
+                            }else{
                                 return true;
                             }
                         }
-                    }else{
-                        if(OB.nextSibling && OB.$target){
-                            if(
-                                OB.$target[0].nodeName == 'P' && ((OB.acNextSibling.data == '' && OB.nextSibling.nodeName == 'SPAN') || (OB.acNextSibling.nodeName == 'SPAN')) ||
-                                OB.$target[0].nodeName == 'SPAN' && ((OB.acNextSibling.data == '' && OB.nextSibling.nodeName == 'P') || (OB.acNextSibling.nodeName == 'P'))
-                            ){
+                    }else if(
+                        (OB.nextSibling && OB.nextSibling.nodeName == 'P') ||
+                        (OB.$parent && OB.$parent[0].nodeName == 'P' && OB.nextSibling && OB.nextSibling.nodeName == 'SPAN') ||
+                        (OB.nextSibling && OB.$parent.text() == '')
+                    ){
+                        if(OB.$parent.text().trim() == ""){
+                                return false;
+                            }else{
                                 return true;
                             }
-                        }
                     }
                 })){
                     e.preventDefault();
                 }
             }
         });
-
         // check if the user writes on no where
         ed.onKeyPress.add(function (ed, e) {
             var dom = ed.dom;
@@ -1589,12 +1607,10 @@ $(document).ready(function() {
                 }
             }
         });
-
         // click on text tinyMCE editor
         ed.onKeyUp.add(function(ed, e) {
             // check if the backspace
             if(e.keyCode == 8 || e.keyCode == 46){
-                // to merge the spans together
                 var selectedTag = ed.selection.getEnd();
                 if(selectedTag.nodeName == 'SPAN' && selectedTag.nextSibling && selectedTag.nextSibling.nodeName == 'SPAN'){
                     // VARS
@@ -1607,18 +1623,8 @@ $(document).ready(function() {
                     $nextSibling.remove();
                     // clean up
                     ed.execCommand('mceCleanup');
-                };
-                // convert all the spans in the p tags
-                var $allChildSpans = $(ed.getBody()).find('p span');
-                if($allChildSpans.length){
-                    $allChildSpans.each(function(){
-                        // VARS
-                        var $this = $(this);
-                        // REPLACE the spans with text only
-                        $this.replaceWith($this.html());
-                    });
                 }
-            };
+            }
         });
     }
     //
@@ -1674,31 +1680,24 @@ $(document).ready(function() {
                     var $this = $(this);
                     var addingParText = $this.text();
                     var clone = $('<p/>').append(addingParText).attr('procedure-id', $this.data('value'));
-                    var cloneHTML = clone[0].outerHTML;
                     var ed = $('#MainContent_Textarea2').tinymce();
-                    // get caret position
-                    getCursorPosition(ed,function(OB){
-                        if(OB.collapsed){
-                            // add to the undo manager
-                            ed.undoManager.add();
-                            // get current target
-                            var nodeName = OB.$target[0].nodeName;
-                            // check node name
-                            if (nodeName == 'BODY') {
-                                ed.execCommand('mceInsertContent', false, cloneHTML);
-                            }else{
-                                if(OB.endOffset >= (OB.$target.text().length/2)){
-                                    $(OB.$target).after(cloneHTML);
-                                }else{
-                                    $(OB.$target).before(cloneHTML);
-                                }
-                            }
-                            // clean up
-                            ed.execCommand('mceCleanup'); 
-                        }else{
-                            alert('Without any selection please !!')
-                        }
-                    });
+                    var tintMceActive = ed.selection;
+                    var nodeName = tintMceActive.getNode().nodeName;
+                    clone = clone.wrapAll('<div>');
+                    var cloneHTML = clone.parent().html();
+
+                    if (((nodeName == 'SPAN' || nodeName == 'P')) && (tintMceActive.getRng().startOffset != $(tintMceActive.getNode()).text().length)) {
+                        $(tintMceActive.getNode()).before(cloneHTML);
+                    } else if (nodeName == 'SPAN' || nodeName == 'P') {
+                        $(tintMceActive.getNode()).after(cloneHTML);
+                    } else {
+                        ed.execCommand('mceInsertContent', false, cloneHTML);
+                    }
+
+                    // add to the undo manager
+                    ed.undoManager.add();
+                    // clean up
+                    ed.execCommand('mceCleanup');
                 });
             }
         },

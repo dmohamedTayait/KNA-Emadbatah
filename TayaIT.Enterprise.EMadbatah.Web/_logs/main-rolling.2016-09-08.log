@@ -1,0 +1,322 @@
+----------------------------------------
+Timestamp: 9/7/2016 12:27:59 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_ateqpxur</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:28:17 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_ateqpxur</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:28:18 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_ateqpxur</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:41:06 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(DEVELOP\dmohamed)  - Priority: -1 - Title:The underlying provider failed on Open.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   at System.Data.EntityClient.EntityConnection.Open()
+   at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(String userDomainName) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 179</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:49:36 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:49:47 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:49:48 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:51:12 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:53:13 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:55:20 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:55:47 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:55:48 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 12:55:55 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:07:31 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:07:44 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:07:47 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:09:40 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:18:38 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:19:34 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:19:46 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:37:27 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:37:54 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 1:39:37 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 2:05:24 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 2:05:25 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 2:18:06 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_4tglqbyk</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 2:20:11 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 2:20:40 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 2:20:42 PM
+
+Category: SessionID: 185  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_s3pksv4v</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/7/2016 3:16:58 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(DEVELOP\dmohamed)  - Priority: -1 - Title:The underlying provider failed on Open.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   at System.Data.EntityClient.EntityConnection.Open()
+   at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
+   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(String userDomainName) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 179</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------

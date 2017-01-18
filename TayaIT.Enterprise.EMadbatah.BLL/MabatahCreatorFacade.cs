@@ -261,8 +261,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                                 {
                                                     doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                                                     if (att.AttendantTitle == null)
-                                                        attFullPresentationName = "السيد " + att.Name.Trim();
-                                                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                                        attFullPresentationName = "السيد " + att.ShortName.Trim();
+                                                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
                                                     attFullPresentationName = "( " + attFullPresentationName;
                                                     if (att.Type != 3)
                                                         attFullPresentationName = attFullPresentationName + ")";
@@ -273,19 +273,22 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                                 else
                                                 {
                                                     if (att.AttendantTitle == null)
-                                                        attFullPresentationName = "السيد " + att.Name.Trim();
-                                                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                                        attFullPresentationName = "السيد " + att.ShortName.Trim();
+                                                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
                                                     doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                                                     if (att.Type == 3)
                                                         doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                                                 }
                                             }
 
-                                            int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString(), att.Type));
-                                            if (itemIndex == -1)
-                                                speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString() + ",", att.Type));
-                                            else
-                                                speakersIndex[itemIndex].PageNum += pageNum + ", ";
+                                            if (att.Type == (int)Model.AttendantType.FromTheCouncilMembers)
+                                            {
+                                                int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString(), att.Type));
+                                                if (itemIndex == -1)
+                                                    speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString() + ",", att.Type));
+                                                else
+                                                    speakersIndex[itemIndex].PageNum += pageNum + ", ";
+                                            }
                                         }
                                     }
                                 }
@@ -414,10 +417,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         }
                     }
 
-                    doc.AddParagraph("الرئيس", ParagraphStyle.NormalArabic, ParagrapJustification.LTR, false, "");
+                    doc.AddParagraph("الرئيس", ParagraphStyle.ParagraphTitle, ParagrapJustification.LTR, false, "");
 
                     doc.AddParagraph("الأمين العام"
-                           , ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                           , ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                     doc.Save();
                     int num = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
@@ -446,7 +449,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 parag = TextHelper.StripHTML(paragraphs[pp].ToLower()).Trim();
                 if (parag != "")
                 {
-                    doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                 }
                // else doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
@@ -457,8 +460,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (parag != "")
                     {
                         if (p[pp].ToString().IndexOf("center") > 0)
-                            doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Center, false, "");
-                        else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
+                            doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+                        else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                 }
@@ -511,7 +514,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string gDate = " " + details.Date.Day + " من " + monthNameAr + " سنة " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
                 string sessionName = details.Subject + " رقم (" + details.Type + ")";
 
-                string indexHeader = @"<table width='100%' border='0' align='right' style='writing-mode: tb-rl; text-align:right; direction: rtl; font-family: AdvertisingMedium; font-size: 16pt;'>
+                string indexHeader = @"<table width='100%' border='0' align='right' style='writing-mode: tb-rl; text-align:right; direction: rtl; font-family: AdvertisingBold; font-size: 16pt;'>
                    <tr>
                     <p style='text-align:center; font-family: AdvertisingBold; font-size: 14pt;'>بسم الله الرحمن الرحيم</p>
                     <p style='text-align:center; font-family: AdvertisingBold; font-size: 14pt;'>مجلس الأمة</p>
@@ -524,7 +527,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                   + "<br/>"
                   + "<div style='text-align:center; font-family: AdvertisingBold; font-size: 14pt;'>فهرس الموضوعات</div>"
                   + "<br/>"
-                  + " </tr><tr><table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingMedium; font-size: 14pt;' align='center' cellpadding='5' cellspacing='0'>"
+                  + " </tr><tr><table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingBold; font-size: 14pt;' align='center' cellpadding='5' cellspacing='0'>"
                   + " <tr>"
                   + "   <th style='border:2px solid #000;width:50px'>م</th>"
                   + "   <th style='border:2px solid #000'>الموضوع</th>"
@@ -534,7 +537,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 int i = 1, j = 1;
                 string indx = "";
-                string emptyRowBold = "<tr style=\"font-family: AdvertisingMedium;font-size: 14pt;\"><td style='border:2px solid #000;width:50px'>ItemNum</td><td style='text-align:right;border:2px solid #000'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
+                string emptyRowBold = "<tr style=\"font-family: AdvertisingBold;font-size: 14pt;\"><td style='border:2px solid #000;width:50px'>ItemNum</td><td style='text-align:right;border:2px solid #000'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
@@ -1230,8 +1233,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
 
                 string indexHeader =
-                    "<p align=\"center\"><font size=\"14\" face=\"AdvertisingMedium\">"
-                    + "<table width=\"100%\" border=\"0\" align=\"right\" cellpadding=\"3\" cellspacing=\"3\" style=\"writing-mode: tb-rl; text-align:right; direction: rtl; font-family: AdvertisingMedium; font-size: 14pt;\">"
+                    "<p align=\"center\"><font size=\"14\" face=\"AdvertisingBold\">"
+                    + "<table width=\"100%\" border=\"0\" align=\"right\" cellpadding=\"3\" cellspacing=\"3\" style=\"writing-mode: tb-rl; text-align:right; direction: rtl; font-family: AdvertisingBold; font-size: 14pt;\">"
                     + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">بسم الله الرحمن الرحيم</th></tr>"
                     + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">مجلس الأمة</th></tr>"
                     + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">الأمانة العامة</th></tr>"
@@ -1243,18 +1246,18 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">فهرس الموضوعات</th></tr>"
                     + "<tr style=\";\"><th scope=\"col\">م</th><th scope=\"col\">الموضوع</th><th scope=\"col\">رقم الصفحة</th></tr>";
 
-                //doc.insertText("فهرس المحتويات", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                //doc.insertText("فهرس المحتويات", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                 //doc.insertBreakLine(1);
                 //doc.insertText("البند                     الموضوع                  رقم الصفحة"
-                //    , 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                //    , 14, format, FontColor.Black, TextFont.AdvertisingBold);
                 //doc.insertBreakLine(1);
                 //format.align = Alignment.Right;
                 int i = 1;
                 int coverSize = 1;
                 //int charsBold = 94;
                 //int charsNorm = 99;
-                string emptyRowBold = "<strong><tr align=\"right\" style=\"font-family: AdvertisingMedium;font-size: 14pt;\"><td>ItemNum</td><td>ItemName</td><td>PageNum</td></tr></strong>";
-                string emptyRow = "<tr align=\"right\" style=\"font-family: AdvertisingMedium;font-size: 14pt;\"><td>ItemNum</td><td>ItemName</td><td>PageNum</td></tr>";
+                string emptyRowBold = "<strong><tr align=\"right\" style=\"font-family: AdvertisingBold;font-size: 14pt;\"><td>ItemNum</td><td>ItemName</td><td>PageNum</td></tr></strong>";
+                string emptyRow = "<tr align=\"right\" style=\"font-family: AdvertisingBold;font-size: 14pt;\"><td>ItemNum</td><td>ItemName</td><td>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
@@ -1348,7 +1351,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             sb.Append(emptyRow.Replace("ItemNum", "").Replace("ItemName", "- " + name).Replace("PageNum", pageNum));
                         }
                     }
-                    //doc.insertText(str, 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                    //doc.insertText(str, 14, format, FontColor.Black, TextFont.AdvertisingBold);
                     //doc.insertBreakLine(1);
                 }
 
@@ -1544,7 +1547,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 Attendant att = sessionItem.Attendant;
                                 if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
                                 {
-                                    //doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                                    //doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                                     doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ": " + "(" + sessionItem.CommentOnAttendant + ")", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                                 }
                                 else
@@ -1713,18 +1716,18 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             Attendant att = sessionItem.Attendant;
                             format.textStyle = TextStyle.Bold;
                             format.align = Alignment.Right;
-                            doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                            doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingBold);
                             speakersIndex.Add(new SpeakersIndexItem(att.Name, pageNum));
                             if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
                             {
-                                doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                                doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                             }
 
                             doc.insertBreakLine(1);
                         }
                         format.textStyle = TextStyle.Normal;
                         format.align = Alignment.Right;
-                        doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                        doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingBold);
                         if (string.IsNullOrEmpty(sessionItem.PageFooter))
                             doc.AddFooteNote(sessionItem.PageFooter);
 
@@ -1736,7 +1739,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         {
                             format.align = Alignment.Center;
                             format.textStyle = TextStyle.Normal;
-                            doc.insertText("(" + sessionItem.CommentOnText + ")", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                            doc.insertText("(" + sessionItem.CommentOnText + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                             doc.insertBreakLine(1);
                         }
                         
@@ -1748,7 +1751,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 format.textStyle = TextStyle.Bold;
                 format.align = Alignment.Right;
                 pageNum = doc.GetCurrentPageNumber();
-                doc.insertText("* "+item.Text+":", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                doc.insertText("* "+item.Text+":", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                 index.Add(new MadbatahIndexItem("",item.Text,pageNum,true));
                 doc.insertBreakLine(1);
 
@@ -1768,18 +1771,18 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             Attendant att = sessionItem.Attendant;
                             format.textStyle = TextStyle.Bold;
                             format.align = Alignment.Right;
-                            doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                            doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingBold);
                             speakersIndex.Add(new SpeakersIndexItem(att.Name, pageNum));
                             if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
                             {
-                                doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                                doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                             }
 
                             doc.insertBreakLine(1);
                         }
                         format.textStyle = TextStyle.Normal;
                         format.align = Alignment.Right;
-                        doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                        doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingBold);
                         if (string.IsNullOrEmpty(sessionItem.PageFooter))
                             doc.AddFooteNote(sessionItem.PageFooter);
 
@@ -1803,7 +1806,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         format.textStyle = TextStyle.Normal;
                         format.align = Alignment.Right;
                         pageNum = doc.GetCurrentPageNumber();
-                        doc.insertText("- " + subItem.Text + ":", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                        doc.insertText("- " + subItem.Text + ":", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                         index.Add(new MadbatahIndexItem("",subItem.Text ,pageNum,false));
                         doc.insertBreakLine(1);
 
@@ -1820,18 +1823,18 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 Attendant att = sessionItem.Attendant;
                                 format.textStyle = TextStyle.Bold;
                                 format.align = Alignment.Right;
-                                doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                                doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingBold);
                                 speakersIndex.Add(new SpeakersIndexItem(att.Name, pageNum));
                                 if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
                                 {
-                                    doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                                    doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                                 }
 
                                 doc.insertBreakLine(1);
                             }
                             format.textStyle = TextStyle.Normal;
                             format.align = Alignment.Right;
-                            doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                            doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingBold);
                             if (string.IsNullOrEmpty(sessionItem.PageFooter))
                                 doc.AddFooteNote(sessionItem.PageFooter);
 
@@ -1843,7 +1846,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             {
                                 format.align = Alignment.Center;
                                 format.textStyle = TextStyle.Normal;
-                                doc.insertText("(" + sessionItem.CommentOnText + ")", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
+                                doc.insertText("(" + sessionItem.CommentOnText + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
                                 doc.insertBreakLine(1);
                             }
                         }

@@ -99,7 +99,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             allAttendants.Add(attendants); //بحضور السادة الاعضاء
             allAttendants.Add(attendantsWithinSession); // حضر أثناء الجلسة
             allAttendants.Add(abologyAttendants);//الغائبون بعذر
-            allAttendants.Add(abologyAttendants);// الغائبون بدون عذر
+            allAttendants.Add(absenceAttendants);// الغائبون بدون عذر
             allAttendants.Add(inMissionAttendants);//مهمة
 
 
