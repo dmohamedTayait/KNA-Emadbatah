@@ -430,7 +430,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             AgendaItem sessionIntroItem = new AgendaItem();
             sessionIntroItem.IsCustom = true;
             sessionIntroItem.Name = "افتتاحية الجلسة ، وكلمة معالي رئيس المجلس ";
-            sessionIntroItem.EParliamentID = null;
+            //sessionIntroItem.EParliamentID = null;
             sessionIntroItem.Order = 0;
             session.AgendaItems.Add(sessionIntroItem);
 
@@ -442,11 +442,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 AgendaItem item2Send = new AgendaItem();
                 item2Send.IsCustom = false;
                 item2Send.Name = item.Text;
-                item2Send.EParliamentID = item.EparlimentID;
-                if (item.EparlimentParentID < 0)
-                    item2Send.EParliamentParentID = null;
-                else
-                    item2Send.EParliamentParentID = item.EparlimentParentID;
+               // item2Send.EParliamentID = item.EparlimentID;
+               // if (item.EparlimentParentID < 0)
+               //     item2Send.EParliamentParentID = null;
+              //  else
+              //      item2Send.EParliamentParentID = item.EparlimentParentID;
                 item2Send.Order = item.Order;
 
                 if (item.SubAgendaItems.Count > 0)
@@ -455,8 +455,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     {
                         AgendaSubItem subitem2Send = new AgendaSubItem();
                         subitem2Send.Name = subItem.Text;
-                        subitem2Send.EParliamentID = subItem.EparlimentID;
-                        subitem2Send.EParliamentParentID = subItem.EparlimentParentID;
+                        //subitem2Send.EParliamentID = subItem.EparlimentID;
+                        //subitem2Send.EParliamentParentID = subItem.EparlimentParentID;
                         subitem2Send.Order = subItem.Order;
                         subitem2Send.QFrom = subItem.QuestionFrom;
                         subitem2Send.QTo = subItem.QuestionTo;
@@ -470,7 +470,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             AgendaItem sessionUnknownItem = new AgendaItem();
             sessionUnknownItem.IsCustom = true;
             sessionUnknownItem.Name = "غير معرف";
-            sessionUnknownItem.EParliamentID = null;
+            //sessionUnknownItem.EParliamentID = null;
             sessionUnknownItem.Order = null;
             session.AgendaItems.Add(sessionUnknownItem);
 
@@ -549,7 +549,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
 
         //new to update session data from EParliment (Attendance, and Agenda Items)
-        public static void UpdateSessionDetailsToDB(SessionDetails sd)
+        //Commented BY Dina
+        /*public static void UpdateSessionDetailsToDB(SessionDetails sd)
         {
             Session session = SessionHelper.GetSessionDetailsByEParlimentID(sd.EparlimentID);
 
@@ -559,45 +560,20 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             foreach (var att in sd.Attendance)
             {
                 var existingAtt = session.Attendants.FirstOrDefault(s => s.EparlimentID == att.EparlimentID);
-                //if existingAtt == null this is a new attendant
-                //if existingAtt has value then this val should be updated
-
+           
                 if (existingAtt == null)
                 {
-                    //Attendant newAttendant = new Attendant();
-                    //newAttendant.State = (int)att.State;
-                    //newAttendant.Type = (int)att.Type;
-                    //newAttendant.EparlimentID = att.EparlimentID;
-                    //newAttendant.JobTitle = att.JobTitle;
-                    //newAttendant.Name = att.Name;
-                    //attendants.Add(newAttendant);
-                    AttendantHelper.AddNewAttendant(att.Name, att.JobTitle, att.EparlimentID, (int)att.Type, (int)att.State, session.ID, att.FirstName, att.SecondName , att.TribeName);
+                   AttendantHelper.AddNewAttendant(att.Name, att.JobTitle, att.EparlimentID, (int)att.Type, (int)att.State, session.ID, att.FirstName, att.SecondName , att.TribeName);
                 }
                 else
                 {
-                    //existingAtt.JobTitle = att.JobTitle;
-                    //AttendantHelper.UpdateAttendant(existingAtt.ID, att.Name, existingAtt.JobTitle, (int)att.Type, (int)att.State);                    
+                  
                 }
                
 
             }
 
-            //delete not required
-            //foreach (var att in session.Attendants)
-            //{
-            //    var existingAtt = sd.Attendance.FirstOrDefault(s => s.EparlimentID == att.EparlimentID);
-            //    //if null delete
-            //    if (existingAtt == null)
-            //    {
-            //        //ignore
-            //        AttendantHelper.DeleteAttendantByEPID(existingAtt.EparlimentID);
-            //    }
-            //}
-
-            
-
-
-            foreach (SessionAgendaItem item in sd.AgendaItems.Values)
+           foreach (SessionAgendaItem item in sd.AgendaItems.Values)
             {
                 var existingItem = session.AgendaItems.FirstOrDefault(s => s.EParliamentID == item.EparlimentID);
                 //if existingAtt == null this is a new item
@@ -683,7 +659,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 //if null delete
                 if (!isFound)// existingItem == null)
                 {
-                    AgendaHelper.DeleteAgendaItemByEparliamentID((long)item.EParliamentID, session.ID);
+                  //  AgendaHelper.DeleteAgendaItemByEparliamentID((long)item.EParliamentID, session.ID);//commented BY Dina
                 }
                 //for checking the subitems
                 else
@@ -722,7 +698,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
            
 
         }
-
+        */
 
         public static Hashtable GetSessionStatistics(EMadbatahUser currentUser, long sessionID)
         {
@@ -778,13 +754,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             {
                 foreach (AgendaItem agendaItem in session.AgendaItems.ToList<AgendaItem>())
                 {
-                    SessionAgendaItem newSessionAgendaItem = new SessionAgendaItem(agendaItem.ID, agendaItem.EParliamentID, agendaItem.EParliamentParentID, agendaItem.Name, agendaItem.Order, agendaItem.IsCustom);
+                    SessionAgendaItem newSessionAgendaItem = new SessionAgendaItem(agendaItem.ID, 0, 0, agendaItem.Name, agendaItem.Order, agendaItem.IsCustom);
                     
                     if (!(bool)agendaItem.IsCustom && agendaItem.AgendaSubItems.Count > 0)
                     {
                         foreach (AgendaSubItem agendaSubItem in agendaItem.AgendaSubItems)
                         {
-                            newSessionAgendaItem.SubAgendaItems.Add(new SessionAgendaItem(agendaSubItem.ID, agendaSubItem.EParliamentID, agendaSubItem.EParliamentParentID, agendaSubItem.Name, agendaSubItem.Order, agendaSubItem.QFrom, agendaSubItem.QTo));
+                            newSessionAgendaItem.SubAgendaItems.Add(new SessionAgendaItem(agendaSubItem.ID, 0, 0, agendaSubItem.Name, agendaSubItem.Order, agendaSubItem.QFrom, agendaSubItem.QTo));
                             //agendaItems.Add(agendaItem.ID, new SessionAgendaItem(agendaSubItem.ID, (long)agendaSubItem.EParliamentID, (long)agendaSubItem.EParliamentID, agendaSubItem.Name));
                         }
                     }

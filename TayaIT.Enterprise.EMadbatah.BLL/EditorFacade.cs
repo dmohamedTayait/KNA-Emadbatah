@@ -19,16 +19,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             List<SessionAgendaItem> subItems = new List<SessionAgendaItem>();
             foreach (AgendaSubItem subItem in items)
                 // subItems.Add(new SessionAgendaItem(subItem.ID, subItem.EParliamentID.Value, subItem.EParliamentParentID.Value, subItem.Name, subItem.Order , ));
-                subItems.Add(new SessionAgendaItem(subItem.ID, subItem.EParliamentID, subItem.EParliamentParentID, subItem.Name, subItem.Order, subItem.QFrom, subItem.QTo));
+                subItems.Add(new SessionAgendaItem(subItem.ID, 0, 0, subItem.Name, subItem.Order, subItem.QFrom, subItem.QTo));
             return subItems;
         }
-        public static long AddNewAgendaItem(string itemText,long sessionID, long parentItemID)
+        public static long AddNewAgendaItem(string itemText, long sessionID)
         {
             AgendaItem item = AgendaHelper.GetAgendaItemByName(itemText);
             long itemID;
             if (item == null)
             {
-                itemID = AgendaHelper.AddCustomSubAgendaItem(itemText, parentItemID);
+                // itemID = AgendaHelper.AddCustomSubAgendaItem(itemText, parentItemID);
+                itemID = AgendaHelper.AddCustomAgendaItem(itemText, sessionID);
                 TayaIT.Enterprise.EMadbatah.DAL.SessionStartHelper.UpdateSessionStartStatus(sessionID, (int)Model.SessionFileStatus.New);
             }
             else

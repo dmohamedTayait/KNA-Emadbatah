@@ -73,8 +73,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
                     context.AgendaItems.AddObject(new AgendaItem()
                     {
-                        EParliamentID = null,
-                        EParliamentParentID = null,
+                        //EParliamentID = null,
+                       // EParliamentParentID = null,
                         Name = customAgendaItemName,
                         SessionID = result,
                         Order = 0

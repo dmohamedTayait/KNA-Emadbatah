@@ -18,8 +18,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     AgendaItem item = new AgendaItem
                     {
                         Name = text,
-                        EParliamentID = eParlimentID,
-                        EParliamentParentID = eParlimentParentID,
+                       // EParliamentID = eParlimentID,
+                      //  EParliamentParentID = eParlimentParentID,
                         SessionID = sessionID,
                         IsCustom = false
                     };
@@ -70,8 +70,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     AgendaSubItem item = new AgendaSubItem
                     {
                         Name = text,
-                        EParliamentID = eParlimentID,
-                        EParliamentParentID = eParlimentParentID,
+                       // EParliamentID = eParlimentID,
+                       // EParliamentParentID = eParlimentParentID,
                         AgendaItemID = agendaItemID,
 
                     };
@@ -89,31 +89,31 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
         }
 
-        //public static long AddCustomAgendaItem(string text, long sessionID)
-        //{
-        //    try
-        //    {
-        //        using (EMadbatahEntities context = new EMadbatahEntities())
-        //        {
-        //            AgendaItem item = new AgendaItem
-        //            {
-        //                Name = text,
-        //                SessionID = sessionID,
-        //                IsCustom = true
-        //            };
-        //            context.AgendaItems.AddObject(item);
-        //            context.SaveChanges();
-        //            //context.Refresh(System.Data.Objects.RefreshMode.StoreWins, item);
-        //            return item.ID;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem(" + sessionID + ")");
-        //        return 0;
-        //    }
+        public static long AddCustomAgendaItem(string text, long sessionID)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    AgendaItem item = new AgendaItem
+                    {
+                        Name = text,
+                        SessionID = sessionID,
+                       IsCustom = true
+                    };
+                   context.AgendaItems.AddObject(item);
+                    context.SaveChanges();
+                   //context.Refresh(System.Data.Objects.RefreshMode.StoreWins, item);
+                   return item.ID;
+               }
+            }
+           catch (Exception ex)
+           {
+               LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem(" + sessionID + ")");
+               return 0;
+           }
 
-        //}
+        }
 
 
         public static long AddCustomSubAgendaItem(string text, long parentAgendaItemID)
@@ -171,7 +171,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static int DeleteAgendaItemByEparliamentID(long agendaItemEparlID, long sessionID)
+      /*  public static int DeleteAgendaItemByEparliamentID(long agendaItemEparlID, long sessionID)
         {
             try
             {
@@ -181,7 +181,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     sessionUnknownItem = new AgendaItem();
                     sessionUnknownItem.IsCustom = true;
                     sessionUnknownItem.Name = "غير معرف";
-                    sessionUnknownItem.EParliamentID = null;
+                    //sessionUnknownItem.EParliamentID = null;
                     sessionUnknownItem.Order = null;
                     AgendaHelper.AddAgendaItem(sessionUnknownItem, sessionID);
 
@@ -189,7 +189,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                    AgendaItem agenda = context.AgendaItems.FirstOrDefault(c => c.EParliamentID == agendaItemEparlID && c.SessionID == sessionID);
+                    //AgendaItem agenda = context.AgendaItems.FirstOrDefault(c => c.EParliamentID == agendaItemEparlID && c.SessionID == sessionID);
+                    AgendaItem agenda = (AgendaItem)context.AgendaItems.FirstOrDefault(c => c.SessionID == sessionID);
                     List<SessionContentItem> allItems = SessionContentItemHelper.GetItemsByAgendaItemID(agenda.ID, (long)agenda.SessionID);
                     long unknownAgendaItemID = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف",(long)agenda.SessionID).ID;
                     foreach (SessionContentItem item in allItems)
@@ -217,7 +218,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1;
             }
         }
-
+        */
         public static int UpdateAgendaItem(long agendaItemID, string itemName)
         {
             try
@@ -375,7 +376,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
 
 
-        public static int DeleteSubAgendaItemByEparliamentID(long subAgendaItemEparlID, long subAgendaItemParentEparlID, long sessionID)
+    /*    public static int DeleteSubAgendaItemByEparliamentID(long subAgendaItemEparlID, long subAgendaItemParentEparlID, long sessionID)
         {
             try
             {
@@ -402,6 +403,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1;
             }
         }
-
+     * Commented BY Dina
+        */
     }
 }

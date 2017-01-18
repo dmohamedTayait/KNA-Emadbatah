@@ -31,7 +31,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
         {
             get
             {
-                return WebHelper.GetQSValue(Constants.QSKeyNames.AGENDA_ITEM_TEXT, _context);
+                return HttpUtility.UrlDecode(WebHelper.GetQSValue(Constants.QSKeyNames.AGENDA_ITEM_TEXT, _context));
             }
         }
         // variables to load stored session values in
@@ -81,12 +81,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         }
                     case WebFunctions.EditWizard.AddAgendaItem:
                         {
-                            long parentAgendaItemID = -1;
-                            if (AgendaItemText != null && AgendaItemID != null && long.TryParse(AgendaItemID,out parentAgendaItemID))
+                            if (AgendaItemText != null)
                             {
                                 // collect sessionContentItem attributes/values
-                                loadSessionValues();
-                                long id = EditorFacade.AddNewAgendaItem(AgendaItemText,Session_ID, parentAgendaItemID);
+                                //loadSessionValues();
+                                long id = EditorFacade.AddNewAgendaItem(HttpUtility.HtmlDecode(AgendaItemText), long.Parse(SessionID));
                                 jsonStringOut = SerializeObjectInJSON(id);
                                 break;
                             }
@@ -497,7 +496,7 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
                             sessionUnknownItem = new AgendaItem();
                             sessionUnknownItem.IsCustom = true;
                             sessionUnknownItem.Name = "غير معرف";
-                            sessionUnknownItem.EParliamentID = null;
+                            //sessionUnknownItem.EParliamentID = null;
                             sessionUnknownItem.Order = null;
                             AgendaHelper.AddAgendaItem(sessionUnknownItem, Session_ID);
 

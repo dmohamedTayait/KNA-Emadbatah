@@ -805,7 +805,7 @@ $(document).ready(function () {
                 data: {
                     funcname: 'AddAgendaItem',
                     agendaitemtext: itemText,
-                    agid: parentAgendaItemID
+                    sid: sessionID
                 },
                 dataType: 'json',
                 success: function (item_id) {

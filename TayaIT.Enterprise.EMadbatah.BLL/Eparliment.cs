@@ -88,7 +88,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 if (dsSessionDetails != null)
                 {
                     SessionDetails sd = SessionDetailsFromDataSet(session.EParliamentID, dsSessionDetails);
-                    EMadbatahFacade.UpdateSessionDetailsToDB(sd);
+                  //  EMadbatahFacade.UpdateSessionDetailsToDB(sd); commented BY Dina
                     return true;
                 }
                 else
