@@ -348,8 +348,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             j++;
 
 
-                           /* if (!sessionItem.MergedWithPrevious.Value)
-                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");*/
+                            if (!sessionItem.MergedWithPrevious.Value)
+                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                            
                             if (!string.IsNullOrEmpty(sessionItem.CommentOnText))
@@ -387,7 +387,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         }
                     }
 
-                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                   
                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                     doc.AddParagraph("الرئيس", ParagraphStyle.ParagraphTitle, ParagrapJustification.LTR, false, "");

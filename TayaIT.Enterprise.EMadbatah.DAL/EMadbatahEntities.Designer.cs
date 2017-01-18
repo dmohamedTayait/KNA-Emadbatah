@@ -2084,6 +2084,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ArName
+        {
+            get
+            {
+                return _ArName;
+            }
+            set
+            {
+                OnArNameChanging(value);
+                ReportPropertyChanging("ArName");
+                _ArName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ArName");
+                OnArNameChanged();
+            }
+        }
+        private global::System.String _ArName;
+        partial void OnArNameChanging(global::System.String value);
+        partial void OnArNameChanged();
 
         #endregion
 
@@ -4948,30 +4972,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int32> _IsSessionPresident;
         partial void OnIsSessionPresidentChanging(Nullable<global::System.Int32> value);
         partial void OnIsSessionPresidentChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> IsAdmin
-        {
-            get
-            {
-                return _IsAdmin;
-            }
-            set
-            {
-                OnIsAdminChanging(value);
-                ReportPropertyChanging("IsAdmin");
-                _IsAdmin = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IsAdmin");
-                OnIsAdminChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _IsAdmin;
-        partial void OnIsAdminChanging(Nullable<global::System.Int32> value);
-        partial void OnIsAdminChanged();
 
         #endregion
 

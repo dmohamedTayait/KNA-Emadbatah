@@ -56,7 +56,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     Name = file.Name,
                     Order = file.Order,
                     Status = (int)file.Status,
-                    SessionID = sessionID
+                    SessionID = sessionID,
+                    IsActive = 1
                 });
             }
             

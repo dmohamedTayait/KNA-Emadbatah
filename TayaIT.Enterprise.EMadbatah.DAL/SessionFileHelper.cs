@@ -20,6 +20,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         Name = name,
                         DurationSecs = durationSec,
                         Order = order,
+                        IsActive = 1
                         
                     };
                     context.SessionFiles.AddObject(file);
@@ -53,6 +54,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                                 Order = sf.Order,
                                 SessionID = sf.SessionID,
                                 Status = sf.Status,
+                                IsActive = 1
                             });
                         }
                     }

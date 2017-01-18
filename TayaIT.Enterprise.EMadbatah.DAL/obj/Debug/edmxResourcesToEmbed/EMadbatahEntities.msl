@@ -65,6 +65,7 @@
     <EntitySetMapping Name="AttendantStates">
       <EntityTypeMapping TypeName="EMadbatahModel.AttendantState">
         <MappingFragment StoreEntitySet="AttendantState">
+          <ScalarProperty Name="ArName" ColumnName="ArName" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
@@ -121,7 +122,6 @@
         <MappingFragment StoreEntitySet="SessionContentItem">
           <ScalarProperty Name="IsSessionPresident" ColumnName="IsSessionPresident" />
           <ScalarProperty Name="VotingID" ColumnName="VotingID" />
-          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
           <ScalarProperty Name="AttachementID" ColumnName="AttachementID" />
           <ScalarProperty Name="FileReviewerID" ColumnName="FileReviewerID" />
           <ScalarProperty Name="Ignored" ColumnName="Ignored" />

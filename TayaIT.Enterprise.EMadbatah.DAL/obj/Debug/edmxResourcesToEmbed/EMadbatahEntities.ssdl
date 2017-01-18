@@ -148,7 +148,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="nvarchar" MaxLength="3000" />
+    <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="IsCustom" Type="bit" />
     <Property Name="SessionID" Type="bigint" />
     <Property Name="Order" Type="int" />
@@ -206,6 +206,7 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="ArName" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="AttendantType">
     <Key>
@@ -225,7 +226,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="CommitteeID" Type="bigint" />
     <Property Name="DefaultAttendantID" Type="bigint" />
     <Property Name="SessionID" Type="bigint" />
@@ -344,9 +345,8 @@
     <Property Name="Ignored" Type="bit" />
     <Property Name="FileReviewerID" Type="bigint" />
     <Property Name="AttachementID" Type="bigint" />
-    <Property Name="IsAdmin" Type="int" />
-    <Property Name="VotingID" Type="int" />
     <Property Name="IsSessionPresident" Type="int" />
+    <Property Name="VotingID" Type="int" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>
