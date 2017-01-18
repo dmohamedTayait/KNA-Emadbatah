@@ -53,7 +53,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         ddlTimes.Items.Insert(0, new ListItem("النصاب الأول", "1"));
                         ddlTimes.Items[0].Selected = true;
                         ddlTimes.Style.Add("display", "block");
-                        List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), 1);
+                        List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), 1,true);
                         GVAttendants.DataSource = AttendantInTimes;
                         GVAttendants.DataBind();
                     }
@@ -66,14 +66,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         int selectedtime = int.Parse(ddlTimes.SelectedValue);
                         if (selectedtime == 1)
                         {
-                            List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), 1);
+                            List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), 1, true);
 
                             GVAttendants.DataSource = AttendantInTimes;
                             GVAttendants.DataBind();
                         }
                         else
                         {
-                            List<Attendant> AttendantAfterTimes = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), 0);
+                            List<Attendant> AttendantAfterTimes = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), 0, true);
                             GVAttendants.DataSource = AttendantAfterTimes;
                             GVAttendants.DataBind();
                         }
@@ -95,6 +95,19 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             int SessionID = int.Parse(ddlSessions.SelectedValue);
             Session SessionSelected = ee.Sessions.Where(aaaa => aaaa.ID == SessionID).Select(a => a).FirstOrDefault();
 
+            Session sessionObj = SessionHelper.GetSessionByID(SessionID);
+            MP3FolderPath.Value = sessionObj.EParliamentID.ToString();
+            DateTime time = (DateTime)sessionObj.StartTime;
+            MP3FilePath.Value = string.Format("{0}://{1}:{2}/", Request.Url.Scheme, Request.Url.Host, Request.Url.Port) + "SessionFiles/";
+            string day = time.Day.ToString();
+            string month = time.Month.ToString();
+            if (time.Day < 10)
+                day = "0" + day;
+            if (time.Month < 10)
+                month = "0" + month;
+            MP3FilePath.Value += MP3FolderPath.Value + "/speakers_" + day + "_" + month + "_" + time.Year + "_";
+
+
             ddlTimes.Items.Clear();
 
             //بدات في موعدها
@@ -103,9 +116,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 ddlTimes.Style.Add("display", "block");
                 ddlTimes.Items.Insert(0, new ListItem("النصاب الأول", "1"));
                 ddlTimes.Items[0].Selected = true;
-                List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1); //ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1, true); //ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
                 GVAttendants.DataSource = AttendantInTimes;
                 GVAttendants.DataBind();
+                MP3FilePath.Value += "01.mp3";
             }
             else
             {
@@ -116,15 +130,17 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 int selectedtime = int.Parse(ddlTimes.SelectedValue);
                 if (selectedtime == 1)
                 {
-                    List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1); // ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                    List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1, true); // ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
                     GVAttendants.DataSource = AttendantInTimes;
                     GVAttendants.DataBind();
+                    MP3FilePath.Value += "01.mp3";
                 }
                 else
                 {
-                    List<Attendant> AttendantAfterTimes = AttendantHelper.GetAttendantInSession(SessionID, 0);//ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 0 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                    List<Attendant> AttendantAfterTimes = AttendantHelper.GetAttendantInSession(SessionID, 0, true);//ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 0 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
                     GVAttendants.DataSource = AttendantAfterTimes;
                     GVAttendants.DataBind();
+                    MP3FilePath.Value += "02.mp3";
                 }
             }
             btnSave.Style.Add("display", "");
@@ -137,28 +153,41 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             EMadbatahEntities ee = new EMadbatahEntities();
             int SessionID = int.Parse(ddlSessions.SelectedValue);
             Session SessionSelected = ee.Sessions.Where(aaaa => aaaa.ID == SessionID).Select(a => a).FirstOrDefault();
+            DateTime time = (DateTime)SessionSelected.StartTime;
+            MP3FilePath.Value = string.Format("{0}://{1}:{2}/", Request.Url.Scheme, Request.Url.Host, Request.Url.Port) + "SessionFiles/";
+            string day = time.Day.ToString();
+            string month = time.Month.ToString();
+            if (time.Day < 10)
+                day = "0" + day;
+            if (time.Month < 10)
+                month = "0" + month;
+            MP3FilePath.Value += MP3FolderPath.Value + "/speakers_" + day + "_" + month + "_" + time.Year + "_";
+
 
             //بدات في موعدها
             if (SessionSelected.SessionStartFlag == 1)
             {
-                List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1);// ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1, true);// ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
                 GVAttendants.DataSource = AttendantInTimes;
                 GVAttendants.DataBind();
+                MP3FilePath.Value += "01.mp3";
             }
             else
             {
                 int selectedtime = int.Parse(ddlTimes.SelectedValue);
                 if (selectedtime == 1)
                 {
-                    List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1);// ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                    List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1, true);// ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
                     GVAttendants.DataSource = AttendantInTimes;
                     GVAttendants.DataBind();
+                    MP3FilePath.Value += "01.mp3";
                 }
                 else
                 {
-                    List<Attendant> AttendantAfterTimes = AttendantHelper.GetAttendantInSession(SessionID, 0);// ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 0 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                    List<Attendant> AttendantAfterTimes = AttendantHelper.GetAttendantInSession(SessionID, 0, true);// ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 0 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
                     GVAttendants.DataSource = AttendantAfterTimes;
                     GVAttendants.DataBind();
+                    MP3FilePath.Value += "02.mp3";
                 }
             }
             btnSave.Style.Add("display", "");

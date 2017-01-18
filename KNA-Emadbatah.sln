@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Config", "TayaIT.Enterprise.EMadbatah.Config\TayaIT.Enterprise.EMadbatah.Config.csproj", "{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.EParlimentService", "TayaIT.Enterprise.EMadbatah.EParlimentService\TayaIT.Enterprise.EMadbatah.EParlimentService.csproj", "{BBBF20C6-FAEE-4396-8769-A1829D3975C6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Localization", "TayaIT.Enterprise.EMadbatah.Localization\TayaIT.Enterprise.EMadbatah.Localization.csproj", "{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TayaIT.Enterprise.EMadbatah.Model", "TayaIT.Enterprise.EMadbatah.Model\TayaIT.Enterprise.EMadbatah.Model.csproj", "{FBC69697-B34A-4897-8F2A-D325C05EA455}"
@@ -64,10 +62,6 @@ Global
 		{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30DA8156-2BF3-43C9-86A9-FB0EFA1D92EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBBF20C6-FAEE-4396-8769-A1829D3975C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBBF20C6-FAEE-4396-8769-A1829D3975C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBBF20C6-FAEE-4396-8769-A1829D3975C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBBF20C6-FAEE-4396-8769-A1829D3975C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90DC80E1-81C7-4DFE-857C-C3E12EA3CA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU

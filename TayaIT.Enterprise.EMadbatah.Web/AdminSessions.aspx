@@ -368,9 +368,6 @@ counterRev++;
                             </tr>
                         </table>
                     </td>
-               
-                    <td class="options lftoptns">
-                    </td>
                 </tr>
                 <!-- new row end -->
                 <%

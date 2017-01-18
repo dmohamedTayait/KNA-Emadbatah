@@ -29,7 +29,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 ddlPresident.DataTextField = "Name";
                 ddlPresident.DataValueField = "ID";
                 ddlPresident.DataBind();
-
             }
         }
 
@@ -104,13 +103,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     }
                 }
             }
-            Response.Redirect("SpeakersAttendance.aspx?sid=" + SessionIDCreated.ToString());
+            Response.Redirect("Default.aspx");
         }
 
         public Session fillValues()
         {
-            DateTime plannedStartDate = Convert.ToDateTime(txtDate.Text);
-            DateTime ActualStartTime = Convert.ToDateTime(txtStartTime.Text);
+            DateTime plannedStartDate = Convert.ToDateTime(txtDate.Text + " " + txtTime.Text);
+            DateTime ActualStartTime = Convert.ToDateTime(txtStartDate.Text + " " + txtStartTime.Text);
             string president = "مرزوق على الغانم";//txtPresident.Text;
             string place = "الكويت";
             int EParliamentID = int.Parse(txtEParliamentID.Text);
@@ -123,7 +122,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             string StageType = ddlStagetype.SelectedValue;
 
             Session sessionObj = new DAL.Session();
-            sessionObj.Date = plannedStartDate;
+            sessionObj.Date = DateTime.Now;
             sessionObj.StartTime = plannedStartDate;
             sessionObj.EndTime = ActualStartTime;
             sessionObj.Type = type;

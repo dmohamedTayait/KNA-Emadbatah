@@ -243,6 +243,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                              result["AttendantAvatar"]  = "/images/unknown.jpg?t=" + DateTime.Now.ToString();
                                         }
 
+                                        if (attendObj != null && attendObj.JobTitle != null )
+                                        {
+                                            result["AttendantJobTitle"] = attendObj.JobTitle;
+                                        }
+                                        else
+                                        {
+                                            result["AttendantJobTitle"] = "";
+                                        }
+
                                         List<AgendaItem> AgendaItems = currentSession.AgendaItems.ToList<AgendaItem>();
                                         List<SessionAgendaItem> retAgendaItems = new List<SessionAgendaItem>();
                                         foreach (AgendaItem agendaItem in AgendaItems)
@@ -394,6 +403,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                           result["AttendantAvatar"] = "/images/unknown.jpg?t=" + DateTime.Now.ToString();
                                       }
 
+                                      if (attendObj != null && attendObj.JobTitle != null)
+                                      {
+                                          result["AttendantJobTitle"] = attendObj.JobTitle;
+                                      }
+                                      else
+                                      {
+                                          result["AttendantJobTitle"] = "";
+                                      }
                                       result["ItemFragOrder"] = prevItemOrderID.ToString();
                                       List<AgendaItem> AgendaItems = currentSession.AgendaItems.ToList<AgendaItem>();
                                       List<SessionAgendaItem> retAgendaItems = new List<SessionAgendaItem>();

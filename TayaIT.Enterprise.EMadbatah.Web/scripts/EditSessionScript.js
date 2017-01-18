@@ -264,12 +264,12 @@ $(document).ready(function() {
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
-            var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
+            var SpeakerJob = $("#MainContent_txtSpeakerOtherJob").val();
             // editor value
-            var clone = $('<div>').append($("#MainContent_elm1").attr("value"))
-            clone.find('span').removeClass('highlight editable hover')
+            var clone = $('<div>').append($("#MainContent_elm1").val());
+            clone.find('span').removeClass('highlight editable hover');
             var Text = encodeURI(clone.html())
-                // comments value
+            // comments value
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
             // Show progress
@@ -344,14 +344,20 @@ $(document).ready(function() {
         return $('<div/>').text(value).html();
     }
     $(".split").click(function() {
-        $("textarea.splittinymce", '.reviewpopup_cont1').val('');
-        $(".popupoverlay").show();
-        $(".reviewpopup_cont1").show();
+        var ed = $('#MainContent_elm1').tinymce();
+        var selectedContent = ed.selection.getContent();
+        var filterTheHtml = $('<div/>').text(selectedContent).filter('*[:empty]').remove().text().replace('&nbsp;','');
+        if(filterTheHtml != ''){
+            splitAction(selectedContent);
+        }else{
+            alert('select any text ya ban2dam')
+        }
     });
 
     $(".close_btn").click(function() {
         $(".popupoverlay").hide();
         $(".reviewpopup_cont").hide();
+        $(".reviewpopup_cont-st1").hide();
     });
 
     $(".approve1").click(function() {
@@ -361,8 +367,42 @@ $(document).ready(function() {
             $(".reviewpopup_cont1").hide();
             return;
         }
+        splitAction($("textarea.splittinymce", '.reviewpopup_cont1').val());
+    });
+
+    $(".ddlOtherTitles").change(function() {
+        var selectID = $(".ddlOtherTitles option:selected").attr("value");
+        if( selectID == "5" || selectID == "6")
+        {
+        $(".divddlCommittee").show();
+        }
+        else{
+        $(".divddlCommittee").hide();
+        }
+
+        if(selectID != "0" && selectID != "4"  && selectID != "4"  && selectID != "7")
+        {
+        $(".txtSpeakerOtherJob").val($(".ddlOtherTitles option:selected").text());
+        }
+        else{
+          $(".txtSpeakerOtherJob").val("");
+        }
+     });
+
+     $(".ddlCommittee").change(function() {
+         var selecText =  $(".txtSpeakerOtherJob").val() + " " + $(".ddlCommittee option:selected").text();
+         $(".txtSpeakerOtherJob").val(selecText);
+     });
+
+
+    // split function
+    function splitAction(selectedHtml){
         if (confirm("هل أنت متأكد من أنك تريد قطع النص الحالي؟ .. هذه الخطوة لا يمكن الرجوع فيها")) {
+            // cut
+            tinyMCE.execCommand('mceReplaceContent',false,'');
+            // vars
             var currentFileID = getParameterByName("sfid");
+            // call the ajax call
             jQuery.ajax({
                 cache: false,
                 type: 'post',
@@ -371,12 +411,13 @@ $(document).ready(function() {
                     funcname: 'SplitItem',
                     FRAGORDER: $(".hdcurrentOrder").val(),
                     XMLPATH: $(".hdxmlFilePath").val(),
-                    SPLITTEDTEXT: htmlEncode($("textarea.splittinymce", '.reviewpopup_cont1').val()),
+                    SPLITTEDTEXT: htmlEncode(selectedHtml),
                     sfid: currentFileID,
                 },
                 dataType: 'json',
                 success: function(response) {
-                    $(".next").removeAttr("disabled");
+                    // next action
+                    $(".next").removeAttr("disabled").triggerHandler('click');
                 },
                 error: function() {
                     alert("لقد حدث خطأ");
@@ -387,7 +428,7 @@ $(document).ready(function() {
             $(".popupoverlay").hide();
             $(".reviewpopup_cont1").hide();
         }
-    });
+    }
 
     // previous button onclick
     $(".prev").click(function() {
@@ -404,7 +445,7 @@ $(document).ready(function() {
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
-            var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
+            var SpeakerJob = $("#MainContent_txtSpeakerOtherJob").val();
             // editor value
             var clone = $('<div>').append($("#MainContent_elm1").attr("value"))
             clone.find('span').removeClass('highlight editable hover')
@@ -494,7 +535,8 @@ $(document).ready(function() {
             $("#MainContent_CurrentItemID").val(response.FragOrderInXml);
             $("#MainContent_txtComments").val(response.Item.CommentOnText);
             $("#MainContent_txtFooter").val(response.Item.PageFooter);
-            $("#MainContent_txtSpeakerJob").html(response.Item.CommentOnAttendant);
+            $("#MainContent_txtSpeakerJob").html(response.AttendantJobTitle);
+            $("#MainContent_txtSpeakerOtherJob").val(response.Item.CommentOnAttendant);
             $('#MainContent_imgSpeakerAvatar').attr("src",response.AttendantAvatar);
             // bind drop down lists
             var AgendaItem_SelectedID = $("#MainContent_ddlAgendaItems > option:selected").attr("value");
@@ -661,7 +703,7 @@ $(document).ready(function() {
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
-            var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
+            var SpeakerJob = $("#MainContent_txtSpeakerOtherJob").val();
             var Text = encodeURI($("#MainContent_elm1").attr("value"));
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
@@ -740,7 +782,7 @@ $(document).ready(function() {
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
-            var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
+            var SpeakerJob = $("#MainContent_txtSpeakerOtherJob").val();
             var Text = encodeURI($("#MainContent_elm1").attr("value"));
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
@@ -889,7 +931,7 @@ $(document).ready(function() {
         height: 200,
         theme_advanced_source_editor_wrap: true,
         // Theme options
-        theme_advanced_buttons1: "bold,italic,|,outdent,indent,blockquote",
+        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright",
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_buttons4: "",
@@ -900,11 +942,11 @@ $(document).ready(function() {
         // Example content CSS (should be your site CSS)
         content_css: "styles/tinymce_content.css",
         // invalid elements
-        invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,,head,,html,iframe,img,input,link,meta,object,option,param,script,select,style,table,tbody,tr,td,th,tbody,textarea,xmp",
+        invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,head,,html,iframe,img,input,link,meta,object,option,param,script,select,style,table,tbody,tr,td,th,tbody,textarea,xmp",
         // valid elements
-        valid_elements: "@[class],span[*],strong,em,blockquote,br",
+        valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br",
         force_br_newlines: true,
-        force_p_newlines: false,
+        force_p_newlines: true,
         forced_root_block: '',
         setup: function(ed) {
             // function to make the span editable
@@ -1030,9 +1072,34 @@ $(document).ready(function() {
                     if (k == 116) {
                         window.location.href = window.location.href;
                     }
+                }).bind('keydown', 'alt+g', function() {
+                    // add agenda item
+                    $(".addingNewAgendaItem").trigger('click')
+                }).bind('keydown', 'alt+p', function() {
+                    // add procedure
+                    $(".btnAddProcuder").trigger('click')
+                }).bind('keydown', 'alt+m', function() {
+                    // add attach
+                    $(".btnAssignAttachToContentItem").trigger('click')
+                }).bind('keydown', 'alt+v', function() {
+                    // add vote
+                    $(".btnAddNewVote").trigger('click')
                 }).bind('keydown', 'alt+z', function() {
                     // previous page
                     $(".btn.prev").trigger('click')
+                }).bind('keydown', 'alt+c', function() {
+                    // previous page
+                    $(".btn.split").trigger('click')
+                }).bind('keydown', 'alt+r', function() {
+                    // previous page
+                    $(".btn.btnSaveAndExit").trigger('click')
+                }).bind('keydown', 'alt+y', function() {
+                    // previous page
+                    $(".btn.finish").trigger('click')
+                })
+                .bind('keydown', 'alt+y', function() {
+                    // previous page
+                    $(".btn.finish").trigger('click')
                 }).bind('keydown', 'alt+w', function() {
                     // play & pause player
                     if (AudioPlayer.data("jPlayer").status.paused) {
@@ -1075,10 +1142,10 @@ $(document).ready(function() {
         cleanup: true,
         cleanup_on_startup: true,
         width: '100%',
-        height: 200,
+        height: 400,
         theme_advanced_source_editor_wrap: true,
         // Theme options
-        theme_advanced_buttons1: "bold,italic,|,outdent,indent,blockquote",
+        theme_advanced_buttons1: "bold,italic,|,justifycenter,justifyright",
         theme_advanced_buttons2: "",
         theme_advanced_buttons3: "",
         theme_advanced_buttons4: "",
@@ -1089,17 +1156,18 @@ $(document).ready(function() {
         // Example content CSS (should be your site CSS)
         content_css: "styles/tinymce_content.css",
         // invalid elements
-        invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,,head,,html,iframe,img,input,link,meta,object,option,param,script,select,style,table,tbody,tr,td,th,tbody,textarea,xmp",
+        invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,head,,html,iframe,img,input,link,meta,object,option,param,script,select,style,table,tbody,tr,td,th,tbody,textarea,xmp",
         // valid elements
-        valid_elements: "@[class],span[*],strong,em,blockquote,br",
+        valid_elements: "@[class],span[*],p[*],strong,em,blockquote,br",
         force_br_newlines: true,
-        force_p_newlines: false,
+        force_p_newlines: true,
         forced_root_block: ''
     };
     $('#MainContent_Textarea1, #MainContent_Textarea2').tinymce(defaultOptions);
     // change the default options
-    defaultOptions.height = 120;
-    $('#MainContent_Textarea3').tinymce(defaultOptions);
+    var newOptions = $.extend({},defaultOptions);
+    newOptions.height = 200;
+    $('#MainContent_Textarea3').tinymce(newOptions);
 
     // ajax load the dropdown list
     jQuery.ajax({
@@ -1114,7 +1182,7 @@ $(document).ready(function() {
             if (response != '') {
                 // vars
                 var MainContent_DropDownList1 = $('#MainContent_DropDownList1');
-                var MainContent_DropDownList2 = $('#MainContent_DropDownList2');
+                var listData = $('#listData');
                 // loop to create the options
                 for (var i = 0; i < response.length; i++) {
                     var option = response[i];
@@ -1125,7 +1193,7 @@ $(document).ready(function() {
                 MainContent_DropDownList1.change(function() {
                     if (MainContent_DropDownList1.val() != 0) {
                         // reset
-                        MainContent_DropDownList2.find('option:not(:eq(0))').remove();
+                        listData.html('');
                         // vars
                         var selectOptionIndex = $('option:selected', MainContent_DropDownList1).index() - 1;
                         var newDropDownListValues = response[selectOptionIndex];
@@ -1134,23 +1202,30 @@ $(document).ready(function() {
                         for (var i = 0; i < newDropDownListValuesLength; i++) {
                             var option = newDropDownListValues.SessionProcedureObj[i];
                             // create the option in the dropdown list
-                            MainContent_DropDownList2.append($('<option></option>').attr('value', option.ID).text(option.ProcedureTitle));
+                            listData.append($('<li/>').data('value', option.ID).text(option.ProcedureTitle));
                         }
+                    }else{
+                        // reset
+                        listData.html('');
                     }
                 });
                 // second list
-                MainContent_DropDownList2.change(function() {
-                    if (MainContent_DropDownList2.val() != 0) {
-                        // vars
-                        var OldtextareaValue = $("textarea.splittinymce", '.reviewpopup_cont2').val();
-                        var selectedOption = $('option:selected', MainContent_DropDownList2);
-                        var addingParText = selectedOption.text();
-                        var clone = $('<span>').before('</br>').append(addingParText).attr('procedure-id', MainContent_DropDownList2.val());
-                        clone = clone.wrapAll('<div>');
-                        // change the html
-                        $("textarea.splittinymce", '.reviewpopup_cont2').append(clone.parent().html());
-                        // reset
-                        MainContent_DropDownList2.val(0)
+                $(listData).delegate('li','click',function(){
+                    // vars
+                    var $this = $(this);
+                    var addingParText = $this.text();
+                    var clone = $('<p/>').append(addingParText).attr('procedure-id', $this.data('value'));
+                    var tintMceActive = tinyMCE.activeEditor.selection;
+                    var nodeName = tintMceActive.getNode().nodeName;
+                    clone = clone.wrapAll('<div>');
+                    tinymce.execCommand('mceFocus',false,'MainContent_Textarea2');
+                    
+                    if((nodeName == 'SPAN' || nodeName == 'P') && tintMceActive.getRng().startOffset == 0){
+                        $(tinyMCE.activeEditor.selection.getNode()).before(clone.parent().html());
+                    }else if((nodeName == 'SPAN' || nodeName == 'P')){
+                        $(tinyMCE.activeEditor.selection.getNode()).after(clone.parent().html());
+                    }else{
+                        tinymce.activeEditor.execCommand('mceInsertContent', false, clone.parent().html());
                     }
                 });
             }

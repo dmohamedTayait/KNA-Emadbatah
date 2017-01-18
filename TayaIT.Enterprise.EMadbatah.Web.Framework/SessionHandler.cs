@@ -166,6 +166,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         {
                             SessionDetails sd = EMadbatahFacade.GetSessionBySessionID(sessionID);
                             List<SessionAudioFile> filesThatAlreadyExist = new List<SessionAudioFile>();
+                            int speakerAdded = 0;
                             string mp3FolderPath = sd.MP3FolderPath;
                             string sessionFilesPath = _context.Server.MapPath("~") + "\\SessionFiles\\" + sd.EparlimentID;
 
@@ -180,7 +181,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             DirectoryInfo mp3DirInfo = new DirectoryInfo(mp3FolderPath);
                             FileInfo[] mp3Files = mp3DirInfo.GetFiles();
 
-                            files2Send = CopyMP3Files(mp3Files, sessionFilesPath, sd.EparlimentID, sessionID, out filesThatAlreadyExist);
+                            files2Send = CopyMP3Files(mp3Files, sessionFilesPath, sd.EparlimentID, sessionID, out filesThatAlreadyExist, out speakerAdded);
 
                             if (files2Send.Count > 0 || filesThatAlreadyExist.Count > 0)
                             {
@@ -274,7 +275,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             FileInfo[] xmlFiles = xmlDirInfo.GetFiles();
                             
                             int mp3FilesCount = mp3Files.Length;
-
+                            int speakerAdded = 0;
                             //now the session can start and run without all MP3 Files completed
                             //int xmlFilesCount = 0;
                             //bool xmlFileMissing = false;
@@ -309,9 +310,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 
 
                             // copyfiles From Share
-                            files2Send = CopyMP3Files(mp3Files, sessionFilesPath, eparID, sessionID, out filesThatAlreadyExist);
+                            files2Send = CopyMP3Files(mp3Files, sessionFilesPath, eparID, sessionID, out filesThatAlreadyExist, out speakerAdded);
 
-                            if (files2Send.Count > 0 || filesThatAlreadyExist.Count > 0)
+                            if (files2Send.Count > 0 || filesThatAlreadyExist.Count > 0 || speakerAdded == 1)
                                 {
                                     EMadbatahFacade.UpdateSessionMP3Path(sessionID, mp3Path);
                                     //send to db
@@ -394,16 +395,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
         }
 
 
-        public List<SessionAudioFile> CopyMP3Files(FileInfo[] mp3Files, string sessionFilesPath, int eparID, long sessionID, out List<SessionAudioFile> filesThatAlreadyExist)
+        public List<SessionAudioFile> CopyMP3Files(FileInfo[] mp3Files, string sessionFilesPath, int eparID, long sessionID, out List<SessionAudioFile> filesThatAlreadyExist, out int speakerAdded)
         {
             List<SessionAudioFile> files2Send = new List<SessionAudioFile>();
             filesThatAlreadyExist = new List<SessionAudioFile>();
-
             int count = 0;
+            speakerAdded = 0;
             foreach (FileInfo file in mp3Files)
             {
                 if (file.Name.ToLower().EndsWith("mp3") &&
-                !file.Name.ToLower().Contains("full") &&
+                !file.Name.ToLower().Contains("full") && !file.Name.ToLower().Contains("speakers") &&
                 !file.Name.ToLower().Contains("opening"))
                 {
                     count++;
@@ -457,6 +458,18 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
 
                     if (mp3FileExistLocally && xmlFileExistLocally)
                         filesThatAlreadyExist.Add(saf);
+                }
+                else if (file.Name.ToLower().Contains("speakers"))
+                {
+                    if (!Directory.Exists(sessionFilesPath))
+                        Directory.CreateDirectory(sessionFilesPath);
+
+                    string newFileName = sessionFilesPath + "\\" + new FileInfo(file.FullName).Name;
+                    if (!File.Exists(newFileName))
+                    {
+                        File.Copy(file.FullName, newFileName);
+                        speakerAdded = 1;
+                    }
                 }
             }
 

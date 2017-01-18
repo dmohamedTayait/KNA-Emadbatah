@@ -94,10 +94,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                     if (fileData.Length > 0)
                                     {
                                         newId = AttachmentHelper.AddNewAttachement(sessionID, AttachmentFileName, Path.GetExtension(AttachmentFileName).ToLower().Replace(".", ""), fileData);
-                                        if (newId > -1)
+                                       /* if (newId > -1)
                                         {
                                             EMadbatahFacade.UpdateSessionStatus(sessionID, Model.SessionStatus.InProgress);
-                                        }
+                                        }*/
                                     }
 
                                     if (File.Exists(filePath))

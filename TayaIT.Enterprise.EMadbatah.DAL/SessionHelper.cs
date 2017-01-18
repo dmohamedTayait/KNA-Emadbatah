@@ -210,7 +210,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         if (checkEquality)
                             allSessions = context.Sessions
                                         .Where(c => c.SessionStatusID == statusCode)
-                                        .OrderByDescending(c => c.Date)
+                                        .OrderByDescending(c => c.StartTime)
                                         .Skip(count * pageNo)
                                         .Take(count).ToList<Session>();
                         else

@@ -19,7 +19,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         //   + "<br>(  الساعة %sessionTime%   )</strong></div>";
 
 
-        public static string madbatahHeader = " كان محددا لاجتماع مجلس الأمة بجلسته العادية العلنية تمام الساعة "
+        public static string madbatahHeader = " عقد مجلس الأمة جلسته العادية العلنية فى تمام الساعة "
             + "%sessionTime%"
             + " "
             + "من صباح يوم "
@@ -27,11 +27,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             + " ، "
             + " الموافق "
             + "%GeorgianDate%"
-            + " و فى تمام الساعة "
-            + "%sessionTime%"
-            + " حضر الى منصة الرئاسة "
+            + " برئاسة "
             + " %President% "
-            + " رئيس مجلس الأمة"
+            + " %PresidentTitle%"
             + ".";
 
         public static string madbatahStartNotOnTime = "( أخرت الجلسة فى تمام الساعة "
@@ -43,16 +41,23 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 + " ، "
                 + " الموافق "
                 + "%GeorgianDate%"
-                + ") برئاسة السيد"
+                + " برئاسة "
                 + " %President% "
-                + " رئيس مجلس الأمة"
+                + " %PresidentTitle%"
                 + ")";
 
-        public static string madbatahTuesdayIntro = "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، تفتح الجلسة و تتلى اسماء الأعضاء ثم أسماء المعتذرين عن جلسة اليوم ثم أسماء الغائبين و المنصرفين عن الجلسة الماضية دون إذن أو اخطار .";
+        public static string presidentStr = "السيد الرئيــــــــــــــــــــــــــــــــــس :";
+        public static string tempPresidentStr = "السيد رئيس الجلســــــــــــــــــــــة :";
+        public static string sessionAttendantTitle = "* وبحضــور الســــادة الأعضــــــــاء : ";
+        public static string sessionAttendantTitle2 = "* تليت بعد افتتاح الجلسة أسماء الأعضاء الحاضرين:";
+        public static string attendantWithinSessionTitle = "* و فى أثناء الجلسة حضر كل من السادة الأعضـــاء:";
+        public static string absentAttendantTitle = "*الغائبـــــــــون بدون عـــــــذر:";
+        public static string abologizeAttendantTitle = "* الغائبــــــــــون بعــــــــــــــذر:";
 
-        public static string madbatahWednesdayIntro = "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، تفتح الجلسة و تتلى اسماء الأعضاء ثم أسماء المعتذرين عن جلسة اليوم ثم أسماء الغائبين و المنصرفين عن الجلسة الماضية دون إذن أو اخطار .";
 
-
+       // public static string madbatahTuesdayIntro = "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، تفتح الجلسة و تتلى اسماء الأعضاء ثم أسماء المعتذرين عن جلسة اليوم ثم أسماء الغائبين و المنصرفين عن الجلسة الماضية دون إذن أو اخطار .";
+        public static string madbatahWednesdayIntro = "بسم الله ، و الحمد لله ، و الصلاة و السلام على رسول الله ، تفتح الجلسة و تتلى اسماء الأعضاء ثم أسماء السادة الأعضاء المعتذرين عن جلسة اليوم .";
+        public static string madbatahTuesdayIntro = madbatahWednesdayIntro; 
         public static string madbatahIntro = madbatahTuesdayIntro;
 
         public static List<List<Attendant>> GetSessionAttendantOrderedByStatus(long sessionID, int sessionAttendantType)
@@ -65,7 +70,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             List<Attendant> inMissionAttendants = new List<Attendant>();
             List<List<Attendant>> allAttendants = new List<List<Attendant>>();
 
-            sessionAttendants = AttendantHelper.GetAttendantInSession(sessionID, sessionAttendantType);
+            sessionAttendants = AttendantHelper.GetAttendantInSession(sessionID, sessionAttendantType,false);
 
 
             foreach (Attendant attendant in sessionAttendants)
@@ -103,28 +108,225 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         {
             return EMadbatahFacade.GetSessionDetailsBySessionID(sessionID);
         }
+
         public static List<AgendaSubItem> GetAgendaSubItemsbyAgendaID(long agendaItemID)
         {
             return AgendaHelper.GetAgendaSubItemsByAgendaID(agendaItemID);
         }
-        //public static Hashtable GetSessionAgendaItems(long sessionID)
-        //{
-        //    return EMadbatahFacade.GetSessionBySessionID(sessionID).AgendaItems;
-        //    //((SessionAgendaItem)EMadbatahFacade.GetSessionBySessionID(sessionID).AgendaItems[0]).SubAgendaItems;
-        //}
+       
+        public static string GetAutomaticSessionStartText(long sessionID)
+        {
+            SessionDetails details = GetSessionDetails(sessionID);
+            DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
+            string dayNameAr = details.Date.ToString("dddd", dateFormat); // LocalHelper.GetLocalizedString("strDay" + hijDate.DayOfWeek);
+            string monthNameAr = LocalHelper.GetLocalizedString("strMonth" + details.Date.Month);
+            string monthNameHijAr = details.Date.ToString("MMMM", dateFormat); //LocalHelper.GetLocalizedString("strHijMonth"+hijDate.Month);
+            string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
+            string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
+            string sessionNum = details.Subject; //"الخامسة عشره";
+            string hijriDate = dayNameAr + " " + dayOfMonthNumHij + " من " + monthNameHijAr + " سنة " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
+            string gDate = details.Date.Day + " من " + monthNameAr + " سنة " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
+            string timeInHour = LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour);// +" " + LocalHelper.GetLocalizedString("strTime" + details.Date.ToString("tt"));//"التاسعة صباحا";
+            string seasonType = details.StageType;// "العادي";
+            long seasonStage = details.Stage;// "الخامس";
+            string sessionSeason = details.Season + "";// "الرابع عشر";
+            string president = "";
+            string presidentTitle = "";
+           DefaultAttendant att = DefaultAttendantHelper.GetAttendantById(details.PresidentID);
+           if (att != null)
+           {
+               president = att.AttendantTitle + " " + att.Name;
+               if (att.Type == (int)Model.AttendantType.President)
+                   presidentTitle = "رئيس مجلس الأمة";
+               else if (att.Type != (int)Model.AttendantType.President && att.JobTitle != null)
+                   presidentTitle = att.JobTitle;
 
-        //public static int UpdateSessionSetSessionStartID(long sessionID, long sessionStartID)
-        //{
-        //    return SessionHelper.UpdateSessionSetSessionStartID(sessionID, sessionStartID);
-        //}
-        //public static SessionStart AddSessionStart(string text, long userID)
-        //{
-        //    return SessionStartHelper.AddSessionStart(text, userID,false);
-        //}
-        //public static int UpdateSessionStart(long sessionStartID, string text)
-        //{
-        //    return SessionStartHelper.UpdateSessionStartText(sessionStartID, text);
-        //}
+           }
+
+            string sessionStart = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingMedium;font-size:16pt;line-height:30px;font-weight:bold; text-align: right;clear:both;\">" + madbatahHeader.Replace("%sessionNum%", sessionNum).Replace("%GeorgianDate%", gDate).Replace("%sessionTime%", timeInHour).Replace("%hijriDate%", hijriDate).Replace("%President%", president).Replace("%PresidentTitle%", presidentTitle) + "</div>";
+
+            string body = "<br/>";
+
+            List<Attendant> attendants = new List<Attendant>();
+            List<Attendant> attendantsWithinSession = new List<Attendant>();
+            List<Attendant> abologAttendants = new List<Attendant>();
+            List<Attendant> absenceAttendants = new List<Attendant>();
+            List<Attendant> inMissionAttendants = new List<Attendant>();
+
+            List<List<Attendant>> allAttendants = new List<List<Attendant>>();
+
+            //Session Started on Time
+            if (details.SessionStartFlag == (int)SessionOpenStatus.OnTime)
+            {
+                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + presidentStr + "</div>";
+                if (details.Date.DayOfWeek == DayOfWeek.Tuesday)
+                    body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + SessionStartFacade.madbatahTuesdayIntro + "</div>";
+                else
+                    body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + SessionStartFacade.madbatahWednesdayIntro + "</div>";
+
+                body += "<br/>";
+                body += "<br/>";
+                allAttendants = SessionStartFacade.GetSessionAttendantOrderedByStatus(details.SessionID, details.SessionStartFlag);
+                if (allAttendants.Count > 0)
+                {
+                    attendants = allAttendants[0];
+                    attendantsWithinSession = allAttendants[1];
+                    abologAttendants = allAttendants[2];
+                    absenceAttendants = allAttendants[3];
+                    inMissionAttendants = allAttendants[4];
+                    body += writeAttendantNFile(sessionAttendantTitle2, attendants);
+                    body += writeAttendantNFile(attendantWithinSessionTitle, attendantsWithinSession);
+                    body += writeAttendantNFile(abologizeAttendantTitle, abologAttendants);
+                    body += writeAttendantNFile(absentAttendantTitle, absenceAttendants);
+                }
+            }
+            //Session Started After Time
+            else
+            {
+                allAttendants = SessionStartFacade.GetSessionAttendantOrderedByStatus(details.SessionID, (int)SessionOpenStatus.OnTime);
+                if (allAttendants.Count > 0)
+                    body += writeAttendantNFile(sessionAttendantTitle, allAttendants[0]);
+
+                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + presidentStr + "</div>";
+                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، نتيجة لعدم اكتمال النصاب تأخر الجلسة لمدة نصف ساعة." + "</div>";
+                body += "<br/>";
+                body += "<br/>";
+
+                string docStartNotOnTime = SessionStartFacade.madbatahStartNotOnTime.Replace("%sessionNum%", sessionNum).Replace("%GeorgianDate%", gDate).Replace("%sessionTime%", timeInHour).Replace("%hijriDate%", hijriDate).Replace("%President%", president).Replace("%PresidentTitle%", presidentTitle);
+                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + docStartNotOnTime + "</div>";
+                body += "<br/>";
+                body += "<br/>";
+
+                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingMedium'>" + presidentStr + "</div>";
+                
+                if (details.Date.DayOfWeek == DayOfWeek.Tuesday)
+                    body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + SessionStartFacade.madbatahTuesdayIntro + "</div>";
+                else
+                    body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + SessionStartFacade.madbatahWednesdayIntro + "</div>";
+
+                body += "<br/>";
+                body += "<br/>";
+
+                allAttendants = SessionStartFacade.GetSessionAttendantOrderedByStatus(details.SessionID, (int)SessionOpenStatus.NotOnTime);
+                if (allAttendants.Count > 0)
+                {
+                    attendants = allAttendants[0];
+                    attendantsWithinSession = allAttendants[1];
+                    abologAttendants = allAttendants[2];
+                    absenceAttendants = allAttendants[3];
+                    inMissionAttendants = allAttendants[4];
+                    body += writeAttendantNFile(sessionAttendantTitle2, attendants);
+                    body += writeAttendantNFile(attendantWithinSessionTitle, attendantsWithinSession);
+                    body += writeAttendantNFile(abologizeAttendantTitle, abologAttendants);
+                    body += writeAttendantNFile(absentAttendantTitle, absenceAttendants);
+
+                }
+            }
+
+            //Committee Attendance
+            bool isCommittee = false;
+            List<Committee> committeeLst = CommitteeHelper.GetAllCommittee();
+            foreach (Committee comm in committeeLst)
+            {
+                List<List<DefaultAttendant>> allAtt = CommitteeHelper.GetSessionCommiteeAttendance(comm.ID, details.SessionID);
+                if (allAtt[0].Count > 0 || allAtt[1].Count > 0 || allAtt[2].Count > 0)
+                {
+                    if (!isCommittee)
+                    {
+                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingMedium'>" + "* أسماء السادة الأعضاء الغائبين بعذر أو من دون عذر عن حضور اجتماعات المجلس:" + "</div>";
+                        isCommittee = true;
+                    }
+                    body+="<br/>";
+                    body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingMedium'>" + comm.CommitteeName + "</div>";
+                    body += "<br/>";
+                    body += writeAttendantNFile(abologizeAttendantTitle, allAtt[1], allAtt[2]);
+                    body += writeAttendantNFile(absentAttendantTitle, allAtt[0]);
+                }
+            }
+
+            string madbatahStart = "<html style=\"direction: rtl; font-family: AdvertisingMedium; font-size: 16pt; line-height: 20px;\">";
+            madbatahStart += "<body dir=\"rtl\">";
+            madbatahStart += sessionStart + body;// +"<br/>";
+            madbatahStart += "</body></html>";
+            return madbatahStart;
+        }
+
+        public static string writeAttendantNFile(string head, List<Attendant> attendants)
+        {
+            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingMedium;font-size:16pt;line-height:30px; text-align: right;clear:both;\">";
+            if (attendants.Count > 0)
+            {
+                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + head + "</div>";
+                foreach (Attendant att in attendants)
+                {
+                    if (att.Name != "غير معرف")
+                    {
+                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + " - " + att.Name.Trim() + "</div>";
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                            body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "        (" + att.JobTitle.Trim() + ")" + "</div>";
+                    }
+                }
+                body += "<br/>";
+                body += "<br/>";
+            }
+            return body;
+        }
+
+        public static string writeAttendantNFile(string head, List<DefaultAttendant> attendants)
+        {
+            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingMedium;font-size:16pt;line-height:30px; text-align: right;clear:both;\">";
+            string attStr = "";
+            if (attendants.Count > 0)
+            {
+                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + head + "</div>";
+                foreach (DefaultAttendant att in attendants)
+                {
+                    if (att.Name != "غير معرف")
+                    {
+                        attStr = " - " + att.Name.Trim();
+                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + attStr + "</div>";
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                            body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "        (" + att.JobTitle.Trim() + ")" + "</div>";
+                    }
+                }
+                body += "<br/>";
+            }
+            return body;
+        }
+
+        public static string writeAttendantNFile(string head, List<DefaultAttendant> attendants1, List<DefaultAttendant> attendants2)
+        {
+            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingMedium; text-align: right;font-size:16pt;line-height:30px;clear:both;\">";
+            string attStr = "";
+            if (attendants1.Count > 0 || attendants2.Count > 0)
+            {
+                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + head + "</div>";
+                foreach (DefaultAttendant att in attendants2)
+                {
+                    if (att.Name != "غير معرف")
+                    {
+                        attStr = " - " + att.Name.Trim();
+                        attStr += " (مهمة رسمية ) ";
+                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + attStr + "</div>";
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                            body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "        (" + att.JobTitle.Trim() + ")" + "</div>";
+                    }
+                }
+                foreach (DefaultAttendant att in attendants1)
+                {
+                    if (att.Name != "غير معرف")
+                    {
+                        attStr = " - " + att.Name.Trim();
+                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + attStr + "</div>";
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                            body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "        (" + att.JobTitle.Trim() + ")" + "</div>";
+                    }
+                }
+                body += "<br/>";
+            }
+            return body;
+        }
+
         public static string GetAutomaticSessionStartTextOld(long sessionID)
         {
 
@@ -456,201 +658,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             madbatahStart += sessionIntro;
             madbatahStart += introBody + "</font></body></html>";
             return madbatahStart;
-        }
-
-        public static string GetAutomaticSessionStartText(long sessionID)
-        {
-            SessionDetails details = GetSessionDetails(sessionID);
-            DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
-            string dayNameAr = details.Date.ToString("dddd", dateFormat); // LocalHelper.GetLocalizedString("strDay" + hijDate.DayOfWeek);
-            string monthNameAr = LocalHelper.GetLocalizedString("strMonth" + details.Date.Month);
-            string monthNameHijAr = details.Date.ToString("MMMM", dateFormat); //LocalHelper.GetLocalizedString("strHijMonth"+hijDate.Month);
-            string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
-            string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
-
-            //for header
-            string sessionNum = details.Subject; //"الخامسة عشره";
-            string hijriDate = dayNameAr + " " + dayOfMonthNumHij + " من " + monthNameHijAr + " سنة " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
-            string gDate = details.Date.Day + " من " + monthNameAr + " سنة " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
-            string timeInHour = LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour);// +" " + LocalHelper.GetLocalizedString("strTime" + details.Date.ToString("tt"));//"التاسعة صباحا";
-            string seasonType = details.StageType;// "العادي";
-            long seasonStage = details.Stage;// "الخامس";
-            string sessionSeason = details.Season + "";// "الرابع عشر";
-
-            string sessionStart = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingMedium;font-size:16pt;line-height:30px;font-weight:bold; text-align: right;clear:both;\">" + madbatahHeader.Replace("%sessionNum%", sessionNum).Replace("%GeorgianDate%", gDate).Replace("%sessionTime%", timeInHour).Replace("%hijriDate%", hijriDate).Replace("%President%", details.Presidnt) + "</div>";
-
-            string body = "<br/>";
-
-            List<Attendant> attendants = new List<Attendant>();
-            List<Attendant> attendantsWithinSession = new List<Attendant>();
-            List<Attendant> abologAttendants = new List<Attendant>();
-            List<Attendant> absenceAttendants = new List<Attendant>();
-            List<Attendant> inMissionAttendants = new List<Attendant>();
-
-            List<List<Attendant>> allAttendants = new List<List<Attendant>>();
-
-            //Session Started on Time
-            if (details.SessionStartFlag == (int)SessionOpenStatus.OnTime)
-            {
-                allAttendants = SessionStartFacade.GetSessionAttendantOrderedByStatus(details.SessionID, details.SessionStartFlag);
-                if (allAttendants.Count > 0)
-                {
-                    attendants = allAttendants[0];
-                    attendantsWithinSession = allAttendants[1];
-                    abologAttendants = allAttendants[2];
-                    absenceAttendants = allAttendants[3];
-                    inMissionAttendants = allAttendants[4];
-                   body += writeAttendantNFile("* و بحضور السادة الأعضاء:", attendants);
-                   body +=writeAttendantNFile("* و فى أثناء الجلسة حضر كل من السادة الأعضاء:", attendantsWithinSession);
-                   body+= writeAttendantNFile("* الغائبون بعذر:", abologAttendants);
-                   body+= writeAttendantNFile("*الغائبون بدون اعتذار:", absenceAttendants);
-                }
-            }
-            //Session Started After Time
-            else
-            {
-                allAttendants = SessionStartFacade.GetSessionAttendantOrderedByStatus(details.SessionID, (int)SessionOpenStatus.OnTime);
-                if (allAttendants.Count > 0)
-                    body += writeAttendantNFile("* و بحضور السادة الأعضاء:", allAttendants[0]);
-
-                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + "السيد الرئيس:" + "</div>";
-                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، نتيجة لعدم اكتمال النصاب تأخر الجلسة لمدة نصف ساعة." + "</div>";
-                body += "<br/>";
-                body += "<br/>";
-              
-                string docStartNotOnTime = SessionStartFacade.madbatahStartNotOnTime.Replace("%sessionNum%", sessionNum).Replace("%GeorgianDate%", gDate).Replace("%sessionTime%", timeInHour).Replace("%hijriDate%", hijriDate).Replace("%President%", details.Presidnt);
-                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + docStartNotOnTime + "</div>";
-                body += "<br/>";
-                body += "<br/>";
-
-                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingMedium'>" + "السيد الرئيس:" + "</div>";
-                
-                if (details.Date.DayOfWeek == DayOfWeek.Tuesday)
-                    body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + SessionStartFacade.madbatahTuesdayIntro + "</div>";
-                else
-                    body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + SessionStartFacade.madbatahWednesdayIntro + "</div>";
-
-                body += "<br/>";
-                body += "<br/>";
-
-                allAttendants = SessionStartFacade.GetSessionAttendantOrderedByStatus(details.SessionID, (int)SessionOpenStatus.NotOnTime);
-                if (allAttendants.Count > 0)
-                {
-                    attendants = allAttendants[0];
-                    attendantsWithinSession = allAttendants[1];
-                    abologAttendants = allAttendants[2];
-                    absenceAttendants = allAttendants[3];
-                    inMissionAttendants = allAttendants[4];
-                    body += writeAttendantNFile("* تليت بعد افتتاح الجلسة أسماء الأعضاء الحاضرين:", attendants);
-                    body += writeAttendantNFile("* و فى أثناء الجلسة حضر كل من السادة الأعضاء:", attendantsWithinSession);
-                    body += writeAttendantNFile("* الغائبون بعذر:", abologAttendants);
-                    body += writeAttendantNFile("*الغائبون بدون اعتذار:", absenceAttendants);
-
-                }
-            }
-
-            //Committee Attendance
-            bool isCommittee = false;
-            List<Committee> committeeLst = CommitteeHelper.GetAllCommittee();
-            foreach (Committee comm in committeeLst)
-            {
-                List<List<DefaultAttendant>> allAtt = CommitteeHelper.GetSessionCommiteeAttendance(comm.ID, details.SessionID);
-                if (allAtt[0].Count > 0 || allAtt[1].Count > 0 || allAtt[2].Count > 0)
-                {
-                    if (!isCommittee)
-                    {
-                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingMedium'>" + "* أسماء السادة الأعضاء الغائبين بعذر أو من دون عذر عن حضور اجتماعات المجلس:" + "</div>";
-                        isCommittee = true;
-                    }
-                    body+="<br/>";
-                    body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;text-decoration:underline;font-family:AdvertisingMedium'>" + comm.CommitteeName + "</div>";
-                    body += "<br/>";
-                    body += writeAttendantNFile("* الغائبون بعذر:", allAtt[1], allAtt[2]);
-                    body += writeAttendantNFile("*الغائبون بدون اعتذار:", allAtt[0] );
-                }
-            }
-
-            string madbatahStart = "<html style=\"direction: rtl; font-family: AdvertisingMedium; font-size: 16pt; line-height: 20px;\">";
-            madbatahStart += "<body dir=\"rtl\">";
-            madbatahStart += sessionStart + body;// +"<br/>";
-            madbatahStart += "</body></html>";
-            return madbatahStart;
-        }
-
-        public static string writeAttendantNFile(string head, List<Attendant> attendants)
-        {
-            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingMedium;font-size:16pt;line-height:30px; text-align: right;clear:both;\">";
-            if (attendants.Count > 0)
-            {
-                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + head + "</div>";
-                foreach (Attendant att in attendants)
-                {
-                    if (att.Name != "غير معرف")
-                    {
-                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + " - " + att.Name.Trim() + "</div>";
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
-                            body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "        (" + att.JobTitle.Trim() + ")" + "</div>";
-                    }
-                }
-                body += "<br/>";
-                body += "<br/>";
-            }
-            return body;
-        }
-
-        public static string writeAttendantNFile(string head, List<DefaultAttendant> attendants)
-        {
-            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingMedium;font-size:16pt;line-height:30px; text-align: right;clear:both;\">";
-            string attStr = "";
-            if (attendants.Count > 0)
-            {
-                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + head + "</div>";
-                foreach (DefaultAttendant att in attendants)
-                {
-                    if (att.Name != "غير معرف")
-                    {
-                        attStr = " - " + att.Name.Trim();
-                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + attStr + "</div>";
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
-                            body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "        (" + att.JobTitle.Trim() + ")" + "</div>";
-                    }
-                }
-                body += "<br/>";
-            }
-            return body;
-        }
-
-        public static string writeAttendantNFile(string head, List<DefaultAttendant> attendants1, List<DefaultAttendant> attendants2)
-        {
-            string body = "<div style=\"text-align:right;direction:rtl;font-family:AdvertisingMedium; text-align: right;font-size:16pt;line-height:30px;clear:both;\">";
-            string attStr = "";
-            if (attendants1.Count > 0 || attendants2.Count > 0)
-            {
-                body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingMedium'>" + head + "</div>";
-                foreach (DefaultAttendant att in attendants2)
-                {
-                    if (att.Name != "غير معرف")
-                    {
-                        attStr = " - " + att.Name.Trim();
-                        attStr += " (مهمة رسمية ) ";
-                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + attStr + "</div>";
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
-                            body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "        (" + att.JobTitle.Trim() + ")" + "</div>";
-                    }
-                }
-                foreach (DefaultAttendant att in attendants1)
-                {
-                    if (att.Name != "غير معرف")
-                    {
-                        attStr = " - " + att.Name.Trim();
-                        body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + attStr + "</div>";
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
-                            body += "<div style='font-weight:bold;font-size:16pt;line-height:30px;text-align:right;direction:rtl; text-align: right;font-family:AdvertisingMedium'>" + "        (" + att.JobTitle.Trim() + ")" + "</div>";
-                    }
-                }
-                body += "<br/>";
-            }
-            return body;
         }
 
         public static bool AddUpdateSessionStart(long sessionId, string sessionStartText, long userID, string startName)

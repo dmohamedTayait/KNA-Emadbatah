@@ -67,8 +67,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             string dirToChose = string.Empty;
             foreach (DirectoryInfo dir in dirs)
             {
-                if (dir.Name.Contains(sessionSerial.ToString())
-                    && dir.Name.Contains(sessionDate.Day.ToString("00") + "-" + sessionDate.Month.ToString("00") + "-" + sessionDate.Year.ToString()))
+                if (dir.Name.Contains(sessionDate.Day.ToString("00") + "-" + sessionDate.Month.ToString("00") + "-" + sessionDate.Year.ToString()))
                 {
                     dirToChose = dir.Name;
                     break;

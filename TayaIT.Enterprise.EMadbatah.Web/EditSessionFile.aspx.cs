@@ -63,6 +63,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             file.LastInsertedFragNumInXml = 0;
                         }
                     }
+
+                    List<Committee> Committees = CommitteeHelper.GetAllCommittee();
+                    ListItem liNewCommittee = new ListItem("-- اختر --", "0");
+                    ddlCommittee.Items.Insert(0, liNewCommittee);
+                    foreach (Committee committeeObj in Committees)
+                    {
+                        liNewCommittee = new ListItem("( " + committeeObj.CommitteeName.ToString() + ")", committeeObj.ID.ToString());
+                        ddlCommittee.Items.Add(liNewCommittee);
+                    }
                     // bind data
                     BindData();
                 }
@@ -202,7 +211,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     imgSpeakerAvatar.Src = "/images/unknown.jpg";
                 }
 
-
+                if (attendObj != null && attendObj.JobTitle != null)
+                {
+                    txtSpeakerJob.InnerText = attendObj.JobTitle;
+                }
+                else
+                {
+                    txtSpeakerJob.InnerText = "";
+                }
                 if (lastContentItem.AgendaItemID != null)
                 {
                     // btn_addNewAgendaItem.Style.Add("display", "none");
@@ -252,7 +268,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 }
 
                 ddlSpeakers.SelectedValue = lastContentItem.AttendantID.ToString();
-                txtSpeakerJob.InnerText = lastContentItem.CommentOnAttendant;//usama for job title
+                txtSpeakerOtherJob.Value = lastContentItem.CommentOnAttendant;//usama for job title
                 txtComments.InnerText = lastContentItem.CommentOnText;
                 txtFooter.InnerText = lastContentItem.PageFooter;
 

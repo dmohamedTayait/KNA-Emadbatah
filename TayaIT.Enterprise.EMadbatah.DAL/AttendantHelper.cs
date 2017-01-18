@@ -146,6 +146,24 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static Attendant GetAttendantByDefaultAttendantId(long attendant_id)
+        {
+            try
+            {
+                Attendant attendant = null;
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    attendant = context.Attendants.FirstOrDefault(c => c.DefaultAttendantID == attendant_id);
+                }
+                return attendant;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.GetAttendantById(" + attendant_id + ")");
+                return null;
+            }
+        }
+
         public static long GetUnknownAttendantId(long sessionID)
         {
             try
@@ -317,6 +335,37 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
                     List<Attendant> attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                    return attendantsInTime;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static List<Attendant> GetAttendantInSession(long SessionID, int SessionAttendantType,bool excluded)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    long sessionPresidentID = 0;
+                    List<Attendant> attendantsInTime = new List<Attendant>();
+                    if (excluded)
+                    {
+                        Session sessionObj = SessionHelper.GetSessionByID(SessionID);
+                        if (sessionObj.PresidentID != null && sessionObj.PresidentID != 0)
+                        {
+                            Attendant attObj = AttendantHelper.GetAttendantByDefaultAttendantId(long.Parse(sessionObj.PresidentID.ToString()));
+                            sessionPresidentID = attObj.ID;
+                            attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.DefaultAttendantID != sessionObj.PresidentID && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                        }
+                    }
+                    else
+                    {
+                        attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                    }
                     return attendantsInTime;
                 }
             }

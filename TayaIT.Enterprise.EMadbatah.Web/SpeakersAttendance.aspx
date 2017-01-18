@@ -16,7 +16,7 @@
         select
         {
             width: 100%;
-            font-size: 15px;
+            font-size: 16px;
         }
         table.radio_list td label
         {
@@ -52,42 +52,70 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
-            var AudioPlayer = $("#jquery_jplayer_1");
-            var playertime;
-            AudioPlayer.jPlayer({
-                swfPath: "/scripts/jPlayer/",
-                wmode: "window",
-                solution: 'html, flash',
-                supplied: "mp3",
-                preload: 'metadata',
-                volume: 1,
-                cssSelectorAncestor: '#jp_container_1',
-                errorAlerts: false,
-                warningAlerts: false,
-                ready: function () {
-                    // play the jplayer
-                    $(this).jPlayer("setMedia", {
-                        mp3: 'http://localhost:12000/SessionFiles/1345/session_10-05-2016_1.mp3'//$(".MP3FilePath").val() // mp3 file path
-                    }).jPlayer("pause");
-                    // next x seconds button
+           // mp3player($(".MP3FilePath").val());
+            // on change
+            var MP3FilePath = $(".MP3FilePath");
+            var MP3FilePathValue = MP3FilePath.val();
+           // var AudioPlayer = $("#jquery_jplayer_1");
+            // timer
+            setInterval(function () {
+                // vars
+                MP3FilePath = $(".MP3FilePath");
+                // cehck if the value changed
+                if (MP3FilePath.val() != MP3FilePathValue) {
+                    // save the last value
+                    MP3FilePathValue = MP3FilePath.val();
+                    // change the player file
+                  /*  AudioPlayer.jPlayer("setMedia", {
+                        mp3: MP3FilePathValue
+                    }).jPlayer("play", 0);
                     $('.jp-audio .next-jp-xseconds').click(function (e) {
                         AudioPlayer.jPlayer("play", playertime + 5)
                     });
                     // prev x seconds button
                     $('.jp-audio .prev-jp-xseconds').click(function (e) {
                         AudioPlayer.jPlayer("play", playertime - 5)
-                    });
-                },
-                timeupdate: function (event) {
-                    if (!$(this).data("jPlayer").status.paused) {
-                        // highlight the word by time
-                        playertime = event.jPlayer.status.currentTime;
-                    }
+                    });*/
+                    mp3player(MP3FilePathValue);
                 }
-            });
-        })
-    </script>
-    <script type="text/javascript">
+            }, 500);
+        });
+
+        function mp3player(mp3path) {     // alert($(".MP3FilePath").val());
+           var AudioPlayer = $("#jquery_jplayer_1");
+           var playertime;
+           AudioPlayer.jPlayer({
+               swfPath: "/scripts/jPlayer/",
+               wmode: "window",
+               solution: 'html, flash',
+               supplied: "mp3",
+               preload: 'metadata',
+               volume: 1,
+               cssSelectorAncestor: '#jp_container_1',
+               errorAlerts: false,
+               warningAlerts: false,
+               ready: function () {
+                   // play the jplayer
+                   $(this).jPlayer("setMedia", {
+                       mp3:mp3path// $(".MP3FilePath").val() // mp3 file path//'http://localhost:12000/SessionFiles/1345/session_10-05-2016_1.mp3'//$(".MP3FilePath").val() // mp3 file path
+                   }).jPlayer("play",0);
+                   // next x seconds button
+                   $('.jp-audio .next-jp-xseconds').click(function (e) {
+                       AudioPlayer.jPlayer("play", playertime + 5)
+                   });
+                   // prev x seconds button
+                   $('.jp-audio .prev-jp-xseconds').click(function (e) {
+                       AudioPlayer.jPlayer("play", playertime - 5)
+                   });
+               },
+               timeupdate: function (event) {
+                   if (!$(this).data("jPlayer").status.paused) {
+                       // highlight the word by time
+                       playertime = event.jPlayer.status.currentTime;
+                   }
+               }
+           });
+       }
 
         $(document).ready(function () {
             AjaxEndMethod();
@@ -116,6 +144,8 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
+               <input id="MP3FolderPath" class="MP3FolderPath" type="hidden" runat="server" value="" />
+               <input id="MP3FilePath" class="MP3FilePath" type="hidden" runat="server" value="http://localhost:12000/SessionFiles/1345/session_10-05-2016_1.mp3" name="MP3FilePath"/>
                 <div class="grid_24">
                     <div>
                         <asp:Label runat="server" ID="lblInfo1" Visible="false" CssClass="lInfo"></asp:Label>
@@ -140,7 +170,7 @@
                     <div class="largerow">
                         <asp:RadioButtonList ID="ddlTimes" runat="server" AutoPostBack="True" Style="display: none"
                             OnSelectedIndexChanged="ddlTimes_SelectedIndexChanged" RepeatDirection="Horizontal"
-                            CssClass="sessionopenintime h3">
+                            CssClass="sessionopenintime h2">
                         </asp:RadioButtonList>
                         <div class="clear">
                         </div>
@@ -172,7 +202,7 @@
                         </div>
                     </div>
                     <br />
-                    <asp:GridView ID="GVAttendants" runat="server" CssClass="table h2" BorderWidth="0"
+                    <asp:GridView ID="GVAttendants" runat="server" CssClass="table h1" BorderWidth="0"
                         CellPadding="0" AutoGenerateColumns="false" GridLines="None" OnRowDataBound="GVAttendants_RowDataBound"
                         OnRowCreated="testHide">
                         <Columns>
@@ -185,7 +215,7 @@
                                 <ItemTemplate>
                                     <asp:Label runat="server" ID="lblFName" Text='<%# string.Format("{0} {1}", Eval("AttendantTitle ") ,Eval("Name"))%>'></asp:Label></ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="<span class='space-st1' style='color:blue'>حاضر</span><span class='space-st1' style='color:red'>غائب</span><span class='space-st1' style='color:green'>غائب بعذر</span><span class='space-st1' style='width:120px !important'>حاضر أثناء الجلسة</span>">
+                            <asp:TemplateField HeaderText="<span class='space-st1' style='color:blue'>حاضر</span><span class='space-st1' style='color:red'>غائب</span><span class='space-st1' style='color:green'>غائب بعذر</span><span class='space-st1' style='width:130px !important'>حاضر أثناء الجلسة</span>">
                                 <ItemTemplate>
                                     <asp:RadioButtonList ID="RBLAttendantStates" runat="server" RepeatDirection="Horizontal"
                                         DataSourceID="AttendantStateDS" DataTextField="ArName" DataValueField="ID" CssClass="radio_list">
@@ -199,7 +229,7 @@
                     <br />
                     <br />
                     <br />
-                    <asp:Button ID="btnSave" runat="server" Text="حفظ" OnClick="btnSave_Click" CssClass="btn"
+                    <asp:Button ID="btnSave" runat="server" Text="حفــظ" OnClick="btnSave_Click" CssClass="btn"
                         Style="display: none" />
                     <br />
                     <br />

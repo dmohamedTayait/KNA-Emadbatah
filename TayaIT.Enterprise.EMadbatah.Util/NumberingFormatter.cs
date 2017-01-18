@@ -46,7 +46,7 @@ namespace TayaIT.Enterprise.EMadbatah.Util
         private const String currency_Jama = "";// = "ريالات";
         private const String currency_Mothana = "";// = "ريالان";
         private const String connector = "و";
-        private const String one = "الأولى";
+        private const String one = "الواحدة";
         private const String two = "الثانية";
         private const String three = "الثالثة";
         private const String four = "الرابعة";

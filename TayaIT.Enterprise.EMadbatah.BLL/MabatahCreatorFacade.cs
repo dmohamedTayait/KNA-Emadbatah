@@ -28,7 +28,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 List<SpeakersIndexItem> speakersIndex = new List<SpeakersIndexItem>();
                 TayaIT.Enterprise.EMadbatah.Model.SessionDetails details = SessionStartFacade.GetSessionDetails(sessionID);
                 //MadbatahCover
-                CreateMadbatahCover(details, SessionWorkingDir + "coverDoc.docx", ServerMapPath);
+                CreateMadbatahCover(details, SessionWorkingDir + "MadbatahcoverDoc.docx", ServerMapPath);
 
                 int sessionStartSize = 0;
                 SessionFile start = SessionStartFacade.GetSessionStartBySessionID(sessionID);
@@ -59,10 +59,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 List<string> mergeList = new List<string>();
                 mergeList.Add(SessionWorkingDir + "indexDoc.docx");
                 mergeList.Add(SessionWorkingDir + "indexSpeakers.docx");//done
-                mergeList.Add(ServerMapPath + "\\docs\\BodyCover.docx");//ready
+                mergeList.Add(ServerMapPath + "\\docs\\templates\\MadbatahBodyCover.docx");//ready
                 mergeList.Add(SessionWorkingDir + "bodyDoc.docx");
-                mergeList.Add(ServerMapPath + "\\docs\\EndCover.docx");//ready
-                File.Copy(SessionWorkingDir + "coverDoc.docx", SessionWorkingDir + sessionID + ".docx", true);
+                mergeList.Add(ServerMapPath + "\\docs\\templates\\MadbatahEndCover.docx");//ready
+                File.Copy(SessionWorkingDir + "MadbatahcoverDoc.docx", SessionWorkingDir + sessionID + ".docx", true);
                 WordprocessingWorker.MergeWithAltChunk(SessionWorkingDir + sessionID + ".docx", mergeList.ToArray());
 
 
@@ -95,7 +95,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
         public static void CreateMadbatahCover(Model.SessionDetails details, string outCoverPath, string ServerMapPath)
         {
-            File.Copy(ServerMapPath + "\\docs\\templates\\madbatahCover-template.docx", outCoverPath, true);
+            File.Copy(ServerMapPath + "\\docs\\templates\\MadbatahStartCover.docx", outCoverPath, true);
 
             //calculate hijri date
             DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
@@ -115,9 +115,19 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             NumberingFormatter fomratterMale = new NumberingFormatter(true);
             string sessionName = details.Type + " / " + details.EparlimentID.ToString();//EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
 
-            string footer = "الأمانة العامة لمجلس الأمة | قطاع الجلسات | ادارة المضابط";//"5/5/14");
-            ///for 3'olaf
-            ///
+            string timeInHour = "الساعة ";
+            timeInHour += LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour);
+
+            string timeInMin = "";
+            if (details.StartTime.Minute != 0)
+            {
+                timeInMin = " و الدقيقة  ";
+                timeInMin += fomratterFemale.getResultEnhanced(details.StartTime.Minute);
+            }
+           // )
+            if (details.StartTime.ToString().IndexOf("AM") > 0)
+                timeInMin += " صباحاً";
+           
             StringBuilder sb = new StringBuilder();
             sb.Append("<root>");
 
@@ -128,7 +138,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             sb.Append("<Subject>").Append(details.Subject).Append("</Subject>");
             sb.Append("<DateHijri>").Append(hijriDate).Append("</DateHijri>");
             sb.Append("<DateMilady>").Append(gDate).Append("</DateMilady>");
-            sb.Append("<StartTime>").Append(details.StartTime.ToLongTimeString()).Append("</StartTime>");
+            sb.Append("<StartTime>").Append(timeInHour + timeInMin).Append("</StartTime>");
             //  sb.Append("<Footer>").Append(footer).Append("</Footer>");
             sb.Append("</root>");
 
@@ -202,7 +212,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 sessionItem.MergedWithPrevious = false;
                             lastIteminPrevList = sessionItem;
 
-                            //Dina temp Code
                             string text = "";
                             string contentItemAsText = "";
                             foreach (SessionContentItem contentItem in speakerGroup[j])
@@ -238,13 +247,37 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         else
                                             doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                                         */
+
                                         string attFullPresentationName = "";
-                                        if (att.AttendantTitle == null)
-                                            attFullPresentationName = "السيد " + att.Name.Trim();
-                                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
-                                        doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                                        if (att.Type == 3)
-                                            doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                        if ((Model.AttendantType)att.Type == Model.AttendantType.President)
+                                        {
+                                            doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                                        }
+                                        else
+                                        {
+                                            if (contentItem.IsSessionPresident == 1)
+                                            {
+                                                doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                if (att.AttendantTitle == null)
+                                                    attFullPresentationName = "السيد " + att.Name.Trim();
+                                                else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                                attFullPresentationName = "( " + attFullPresentationName;
+                                                if (att.Type != 3)
+                                                    attFullPresentationName = attFullPresentationName + ")";
+                                                doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                if (att.Type == 3)
+                                                    doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                            }
+                                            else
+                                            {
+                                                if (att.AttendantTitle == null)
+                                                    attFullPresentationName = "السيد " + att.Name.Trim();
+                                                else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                                doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                                                if (att.Type == 3)
+                                                    doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                            }
+                                        }
 
                                         int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString(), att.Type));
                                         if (itemIndex == -1)
@@ -302,22 +335,16 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         }
 
                                         text = "";
-                                      /* doc.InsertPictures(files);
-                                        if (!doc.IsOpen)
-                                            doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open);*/
                                         foreach (string f in files)
                                         {
                                             ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);
                                             ii++;
                                         }
-                                        //doc.Save();
                                     }
                                 }
                                 if (speakerGroup[j].Count == k)
                                 {
                                     string[] sep = new string[1] { "#!#!#!" };
-
-
                                     string[] paragraphs = contentItemAsText.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                                     string parag = "";
                                     foreach (string strP in paragraphs)
@@ -340,7 +367,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         }
                                     }
                                 }
-
                             }
                             k = 0;
                             text = "";
@@ -426,9 +452,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         }
 
 
-        public static int CreateMadbatahIndex(List<MadbatahIndexItem> index,
-          string folderPath, int indexSize, int bodySize, string outIndexPath, string ServerMapPath,
-          Model.SessionDetails details)
+        public static int CreateMadbatahIndex(List<MadbatahIndexItem> index,string folderPath, int indexSize, int bodySize, string outIndexPath, string ServerMapPath,Model.SessionDetails details)
         {
             try
             {
@@ -449,28 +473,28 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 string indexHeader = @"<table width='100%' border='0' align='right' style='writing-mode: tb-rl; text-align:right; direction: rtl; font-family: AdvertisingMedium; font-size: 16pt;'>
                    <tr>
-                    <p style='text-align:center; font-family: AdvertisingMedium; font-size: 16pt; font-weight: bold;'>بسم الله الرحمن الرحيم</p>
-                    <p style='text-align:center; font-family: AdvertisingMedium; font-size: 16pt; font-weight: bold;'>مجلس الأمة</p>
-                    <p style='text-align:center; font-family: AdvertisingMedium; font-size: 16pt; font-weight: bold;'>الأمانة العامة</p>
-                    <p style='text-align:center; font-family: AdvertisingMedium; font-size: 16pt; font-weight: bold;'>ادارة شؤون المضابط</p>
+                    <p style='text-align:center; font-family: AdvertisingBold; font-size: 14pt;'>بسم الله الرحمن الرحيم</p>
+                    <p style='text-align:center; font-family: AdvertisingBold; font-size: 14pt;'>مجلس الأمة</p>
+                    <p style='text-align:center; font-family: AdvertisingBold; font-size: 14pt;'>الأمانة العامة</p>
+                    <p style='text-align:center; font-family: AdvertisingBold; font-size: 14pt;'>ادارة شؤون المضابط</p>
                     <br/>
-                    <p style='text-align:center;text-decoration:underline; font-family: AdvertisingMedium; font-size: 16pt; direction:rtl; font-weight: bold;'>ملخص الموضوعات التى نظرت فى  " + sessionName + " </p>"
-                    + "<p style='text-align:center;text-decoration:underline; font-family: AdvertisingMedium; font-size: 16pt; direction:rtl; font-weight: bold;'>المعقودة يوم  " + hijriDate + "</p>"
-                    + "<p style='text-align:center;text-decoration:underline; font-family: AdvertisingMedium; font-size: 16pt; direction:rtl; font-weight: bold;>الموافق  " + gDate + "</p>"
-                    + "<br/>"
-                    + "<p style='text-align:center; font-family: AdvertisingMedium; font-size: 16pt; '>فهرس الموضوعات</p>"
-                    + "<br/>"
-                    + " </tr><tr><table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingMedium; font-size: 14pt;' align='center' cellpadding='5' cellspacing='0'>"
-                     + " <tr>"
-                     + "   <th>م</th>"
-                     + "   <th>الموضوع</th>"
-                     + "   <th>الصفحات</th>"
-                     + " </tr>";
+                    <p style='text-align:center;text-decoration:underline; font-family: AdvertisingBold; font-size: 14pt; direction:rtl;'>ملخص الموضوعات التى نظرت فى  " + sessionName + " </p>"
+                  + "<p style='text-align:center;text-decoration:underline; font-family: AdvertisingBold; font-size: 14pt; direction:rtl;'>المعقودة يوم  " + hijriDate + "</p>"
+                  + "<p style='text-align:center;text-decoration:underline; font-family: AdvertisingBold; font-size: 14pt; direction:rtl;'>الموافق  " + gDate + "</p>"
+                  + "<br/>"
+                  + "<div style='text-align:center; font-family: AdvertisingBold; font-size: 14pt;'>فهرس الموضوعات</div>"
+                  + "<br/>"
+                  + " </tr><tr><table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingMedium; font-size: 14pt;' align='center' cellpadding='5' cellspacing='0'>"
+                  + " <tr>"
+                  + "   <th style='border:2px solid #000;width:50px'>م</th>"
+                  + "   <th style='border:2px solid #000'>الموضوع</th>"
+                  + "   <th style='border:2px solid #000'>الصفحات</th>"
+                  + " </tr>";
 
 
                 int i = 1, j = 1;
                 string indx = "";
-                string emptyRowBold = "<tr style=\"font-family: AdvertisingMedium;font-size: 14pt;\"><td>ItemNum</td><td style='text-align:right;'>ItemName</td><td>PageNum</td></tr>";
+                string emptyRowBold = "<tr style=\"font-family: AdvertisingMedium;font-size: 14pt;\"><td style='border:2px solid #000;width:50px'>ItemNum</td><td style='text-align:right;border:2px solid #000'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
@@ -527,18 +551,18 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         {
             try
             {
-                string indexHeader = @"<p style='text-align:center;text-decoration:underline; font-family: AdvertisingMedium; font-size: 16pt; font-weight: bold'>فهرس المتحدثين</p>
-                    <p style='text-align:center; font-family: AdvertisingMedium; font-size: 14pt; font-weight: bold'>(السادة الاعضاء المتحدثون على الموضوعات التى تم مناقشتها أثناء انعقاد الجلسة)</p>
+                string indexHeader = @"<p style='text-align:center;text-decoration:underline; font-family: AdvertisingBold; font-size: 12pt; '>فهـــــرس المتحــــــدثــين</p>
+                    <p style='text-align:center; font-family: AdvertisingBold; font-size: 12pt; f'>(السادة الاعضاء المتحدثون على الموضوعات التى تم مناقشتها أثناء انعقاد الجلسة)</p>
                     <br><br>
-                    <table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingMedium; font-size: 14pt;' align='center' cellpadding='5' cellspacing='0'>
+                    <table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingBold; font-size: 14pt;' align='center' cellpadding='3' cellspacing='0'>
                         <tr>
-                            <th>اسم المتحدث</th>
-                            <th>رقم الصفحة</th>
+                            <th style='border:2px solid #000'>اسم المتحدث</th>
+                            <th style='border:2px solid #000'>رقم الصفحة</th>
                         </tr>";
             
 
                 int i = 1;
-                string emptyRowBold = "<tr><td style='text-align:right;'>ItemName</td><td>PageNum</td></tr>";
+                string emptyRowBold = "<tr><td style='text-align:right;border:2px solid #000'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 

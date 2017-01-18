@@ -5,6 +5,7 @@
 <%@ Import Namespace="TayaIT.Enterprise.EMadbatah.BLL" %>
 <%@ Import Namespace="TayaIT.Enterprise.EMadbatah.Util" %>
 <%@ Import Namespace="TayaIT.Enterprise.EMadbatah.Web" %>
+
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="scripts/SessionScript.js" type="text/javascript"></script>
     <script src="scripts/fileuploader.js" type="text/javascript"></script>
@@ -84,11 +85,8 @@
                     <!-- new row -->
                     <tr class="tbrow tbrow<%=session.Status.ToString()%> tbrowID<%=currentSessionNum%>">
                         <td class="options">
-                            <% if (session.Status != SessionStatus.New)
-                               {%>
                             <div class="hoverArrow down">
                             </div>
-                            <%} %>
                         </td>
                         <td colspan="6">
                             <table class="columns" width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -119,19 +117,14 @@
                                         <%} %>
                                         <span id="spnWarn" name="spnWarn" runat="server"></span>
                                     </td>
-                                    <td class="column column5">
-                                        <span class="grayed">- - - - -</span>
-                                    </td>
-                                    <td class="column column6">
-                                        <span class="grayed">- - - - -</span>
-                                    </td>
-                                    <%
+                                      <%
                                         break;
                                                case SessionStatus.InProgress:
                                                case SessionStatus.Completed:
                                                case SessionStatus.Approved:
                                                case SessionStatus.FinalApproved:
                                     %>
+                              
                                     <td class="column column4">
                                         <table class="smalltable" width="100%" border="0" cellspacing="0" cellpadding="0">
                                             <thead>
@@ -187,8 +180,10 @@
                                                         string sessionFileRevName = saf.FileReviewerUserName;
                                                         string lastModefied = saf.LastModefied.ToString();
                                                         int sessionFileOrder = saf.Order;
-                                                                    
-                                                                    
+                                                        /*try{
+                                                        TayaIT.Enterprise.EMadbatah.DAL.SessionFile tempF = TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.GetSessionFileByID(saf.ID);     
+                                                        sessionFileOwnerName =  tempF.User.FName; 
+                                                        }catch{}   */ 
                                                 %>
                                                 <tr data-order="<%=sessionFileOrder%>" data-id="<%=saf.ID%>" data-sessionid="<%=session.SessionID%>">
                                                     <td title="<%=sessionFileName%>">
@@ -283,6 +278,12 @@
                                             </tbody>
                                         </table>
                                     </td>
+                                    <%
+                                     break;
+                                     default:
+                                        break;
+                                           } 
+                                     %>
                                     <td class="column column5">
                                         <div class="margR5">
                                             <div class="row">
@@ -340,6 +341,21 @@
                                             </div>
                                         </div>
                                     </td>
+
+                                        <% switch (session.Status)
+                                       {
+                                           case SessionStatus.New:                                                           
+                                    %>
+                                       <td class="column column6">
+                                        <span class="grayed">- - - - -</span>
+                                    </td>
+                                          <%
+                                        break;
+                                               case SessionStatus.InProgress:
+                                               case SessionStatus.Completed:
+                                               case SessionStatus.Approved:
+                                               case SessionStatus.FinalApproved:
+                                    %>
                                     <td class="column column6">
                                         <div class="margR5">
                                             <div>
