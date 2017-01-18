@@ -1,0 +1,417 @@
+----------------------------------------
+Timestamp: 4/27/2016 3:08:37 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem(99)  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddCustomAgendaItem(String text, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 105</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>Invalid column name 'EParliamentID'.
+Invalid column name 'EParliamentParentID'.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 4/27/2016 4:01:40 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessions(0,10)  - Priority: -1 - Title:An error occurred while reading from the store provider's data reader. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()
+   at System.Data.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessions(Int32 pageNo, Int32 count, Int32 statusCode, Boolean checkEquality) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 184</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.HasMoreRows()
+   at System.Data.SqlClient.SqlDataReader.ReadInternal(Boolean setTimeout)
+   at System.Data.SqlClient.SqlDataReader.Read()
+   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 4/28/2016 12:20:48 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 12:53:33 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98)  - Priority: -1 - Title:Could not find a part of the path 'C:\test\98sessionStartDoc.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at MS.Internal.IO.Zip.ZipArchive.OpenOnFile(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.ZipPackage..ctor(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.HTMLtoDOCX.SaveDOCX(String fileName, String BodyText, Boolean IncludeHTML) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\HTMLtoDOCX.cs:line 44
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.HTMLtoDOCX.CreateFileFromHTML(String HTMLString, String DOCXSavePath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\HTMLtoDOCX.cs:line 19
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 49</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 12:54:13 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Could not find a part of the path 'C:\test\98\sessionStartDoc.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at MS.Internal.IO.Zip.ZipArchive.OpenOnFile(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.ZipPackage..ctor(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.HTMLtoDOCX.SaveDOCX(String fileName, String BodyText, Boolean IncludeHTML) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\HTMLtoDOCX.cs:line 44
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.HTMLtoDOCX.CreateFileFromHTML(String HTMLString, String DOCXSavePath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\HTMLtoDOCX.cs:line 19
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 49</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 12:54:58 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,~/test/98/)  - Priority: -1 - Title:Could not find a part of the path 'C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\~\test\98\sessionStartDoc.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at MS.Internal.IO.Zip.ZipArchive.OpenOnFile(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.ZipPackage..ctor(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.HTMLtoDOCX.SaveDOCX(String fileName, String BodyText, Boolean IncludeHTML) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\HTMLtoDOCX.cs:line 44
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.HTMLtoDOCX.CreateFileFromHTML(String HTMLString, String DOCXSavePath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\HTMLtoDOCX.cs:line 19
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 49</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 12:56:42 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Could not find a part of the path 'C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\~\resources\numbering.xml'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   at System.Xml.XmlTextReaderImpl.OpenUrlDelegate(Object xmlResolver)
+   at System.Threading.CompressedStack.runTryCode(Object userData)
+   at System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(TryCode code, CleanupCode backoutCode, Object userData)
+   at System.Threading.CompressedStack.Run(CompressedStack compressedStack, ContextCallback callback, Object state)
+   at System.Xml.XmlTextReaderImpl.OpenUrl()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.Load(String filename)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentPartsFromXml() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 160
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 76
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 432</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 12:57:16 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 67</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 12:58:34 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Could not find a part of the path 'C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\~\resources\numbering.xml'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   at System.Xml.XmlTextReaderImpl.OpenUrlDelegate(Object xmlResolver)
+   at System.Threading.CompressedStack.runTryCode(Object userData)
+   at System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(TryCode code, CleanupCode backoutCode, Object userData)
+   at System.Threading.CompressedStack.Run(CompressedStack compressedStack, ContextCallback callback, Object state)
+   at System.Xml.XmlTextReaderImpl.OpenUrl()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.Load(String filename)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentPartsFromXml() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 160
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 76
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 432</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 12:58:36 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 67</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:01:57 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Could not find a part of the path 'C:\resources\numbering.xml'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   at System.Xml.XmlTextReaderImpl.OpenUrlDelegate(Object xmlResolver)
+   at System.Threading.CompressedStack.runTryCode(Object userData)
+   at System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(TryCode code, CleanupCode backoutCode, Object userData)
+   at System.Threading.CompressedStack.Run(CompressedStack compressedStack, ContextCallback callback, Object state)
+   at System.Xml.XmlTextReaderImpl.OpenUrl()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.Load(String filename)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentPartsFromXml() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 160
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 76
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 432</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:01:59 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 67</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:10:16 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Could not find a part of the path '\docs\templates\madbatahCover-template.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 815
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 70</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:19:31 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Could not find a part of the path 'C:\Program Files (x86)\Common Files\Microsoft Shared\resources\numbering.xml'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   at System.Xml.XmlTextReaderImpl.OpenUrlDelegate(Object xmlResolver)
+   at System.Threading.CompressedStack.runTryCode(Object userData)
+   at System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(TryCode code, CleanupCode backoutCode, Object userData)
+   at System.Threading.CompressedStack.Run(CompressedStack compressedStack, ContextCallback callback, Object state)
+   at System.Xml.XmlTextReaderImpl.OpenUrl()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.Load(String filename)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentPartsFromXml() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 160
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 76
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 432</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:19:31 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 67</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:19:37 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Could not find a part of the path 'C:\Program Files (x86)\Common Files\Microsoft Shared\resources\numbering.xml'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   at System.Xml.XmlTextReaderImpl.OpenUrlDelegate(Object xmlResolver)
+   at System.Threading.CompressedStack.runTryCode(Object userData)
+   at System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(TryCode code, CleanupCode backoutCode, Object userData)
+   at System.Threading.CompressedStack.Run(CompressedStack compressedStack, ContextCallback callback, Object state)
+   at System.Xml.XmlTextReaderImpl.OpenUrl()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.Load(String filename)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentPartsFromXml() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 160
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 76
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 432</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:19:37 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 67</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:21:11 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Could not find a part of the path 'C:\Program Files (x86)\Common Files\Microsoft Shared\resources\numbering.xml'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize)
+   at System.Xml.XmlDownloadManager.GetStream(Uri uri, ICredentials credentials, IWebProxy proxy, RequestCachePolicy cachePolicy)
+   at System.Xml.XmlUrlResolver.GetEntity(Uri absoluteUri, String role, Type ofObjectToReturn)
+   at System.Xml.XmlTextReaderImpl.OpenUrlDelegate(Object xmlResolver)
+   at System.Threading.CompressedStack.runTryCode(Object userData)
+   at System.Runtime.CompilerServices.RuntimeHelpers.ExecuteCodeWithGuaranteedCleanup(TryCode code, CleanupCode backoutCode, Object userData)
+   at System.Threading.CompressedStack.Run(CompressedStack compressedStack, ContextCallback callback, Object state)
+   at System.Xml.XmlTextReaderImpl.OpenUrl()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   at System.Xml.XmlDocument.Load(XmlReader reader)
+   at System.Xml.XmlDocument.Load(String filename)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentPartsFromXml() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 160
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 76
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 432</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 01:21:14 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 67</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 02:25:51 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:The process cannot access the file '\docs\templates\madbatahCover-template.docx' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 817
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 02:32:11 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:The process cannot access the file '/test/98/coverDoc.docx' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite)
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahCover(SessionDetails details, String outCoverPath, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 817
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 09:25:08 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment  - Priority: -1 - Title:Index was outside the bounds of the array.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment(List`1 index, List`1 attachments, String folderPath, Int32 indexSize, Int32 sessionStartSize, Int32 bodySize, String outIndexPath, String ServerMapPath, SessionDetails details, Boolean upDateAttach, Int32& allAttachSizes) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 1034</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 09:25:09 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Index with Attachment Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 148</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 09:28:01 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment  - Priority: -1 - Title:Index was outside the bounds of the array.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment(List`1 index, List`1 attachments, String folderPath, Int32 indexSize, Int32 sessionStartSize, Int32 bodySize, String outIndexPath, String ServerMapPath, SessionDetails details, Boolean upDateAttach, Int32& allAttachSizes) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 1034</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 09:28:03 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Index with Attachment Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 148</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 09:30:52 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment  - Priority: -1 - Title:Index was outside the bounds of the array.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment(List`1 index, List`1 attachments, String folderPath, Int32 indexSize, Int32 sessionStartSize, Int32 bodySize, String outIndexPath, String ServerMapPath, SessionDetails details, Boolean upDateAttach, Int32& allAttachSizes) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 1034</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 09:30:53 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Index with Attachment Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 148</STACKTRACE>
+
+
+----------------------------------------

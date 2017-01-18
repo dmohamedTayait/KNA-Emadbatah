@@ -1,0 +1,288 @@
+----------------------------------------
+Timestamp: 30/04/2016 09:33:46 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment  - Priority: -1 - Title:Index was outside the bounds of the array.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment(List`1 index, List`1 attachments, String folderPath, Int32 indexSize, Int32 sessionStartSize, Int32 bodySize, String outIndexPath, String ServerMapPath, SessionDetails details, Boolean upDateAttach, Int32& allAttachSizes) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 1034</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 30/04/2016 09:33:46 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Index with Attachment Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 148</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:39:46 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 696
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 682
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 634</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:39:55 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:48:03 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:The process cannot access the file 'C:\test\98\body.docx' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at MS.Internal.IO.Zip.ZipArchive.OpenOnFile(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.ZipPackage..ctor(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.CreateCore(String path)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type, Boolean autoSave)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 72
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 465</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:48:03 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:48:03 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:The process cannot access the file 'C:\test\98\body.docx' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at MS.Internal.IO.Zip.ZipArchive.OpenOnFile(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.ZipPackage..ctor(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.CreateCore(String path)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type, Boolean autoSave)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 72
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 465</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:48:03 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:48:06 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:The process cannot access the file 'C:\test\98\body.docx' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at MS.Internal.IO.Zip.ZipArchive.OpenOnFile(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.ZipPackage..ctor(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.CreateCore(String path)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type, Boolean autoSave)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 72
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 465</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:48:06 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:48:23 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 696
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 682
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 634</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:48:23 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:57:35 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 696
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 682
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 634</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 08:57:36 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 09:10:34 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:The process cannot access the file 'C:\test\98\body.docx' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at MS.Internal.IO.Zip.ZipArchive.OpenOnFile(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.ZipPackage..ctor(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.CreateCore(String path)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type, Boolean autoSave)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 72
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 465</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 09:10:34 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 09:10:54 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 696
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 682
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 634</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 09:10:54 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 09:11:56 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 696
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 682
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 634</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 09:11:56 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 09:13:38 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 696
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 682
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 634</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 09:13:38 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 72</STACKTRACE>
+
+
+----------------------------------------

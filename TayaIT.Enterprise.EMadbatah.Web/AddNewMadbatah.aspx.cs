@@ -20,24 +20,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            ContentPlaceHolder mpContentPlaceHolder;
-            TextBox mpTextBox;
-            mpContentPlaceHolder =
-              (ContentPlaceHolder)Master.FindControl("MainContent");
-            if (mpContentPlaceHolder != null)
-            {
-                mpTextBox =
-                    (TextBox)mpContentPlaceHolder.FindControl("txtMadbatahTitle");
-                Session sessionObj = new Session();
-                sessionObj.Date = DateTime.Now;
-
-                sessionObj.President = "Dina";
-                sessionObj.Subject = mpTextBox.Text;
-                sessionObj.Stage = 1;
-                sessionObj.StageType = "123/l";
-                sessionObj.SessionStatusID = (int)Model.SessionStatus.New;
-                long id = SessionHelper.AddNewSession(sessionObj, "test");
-            }
+            bool is_test = TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98, "/test/98/", "");
         }
     }
 }

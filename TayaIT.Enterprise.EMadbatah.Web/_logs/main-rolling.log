@@ -1,63 +1,47 @@
 ----------------------------------------
-Timestamp: 4/27/2016 3:08:37 PM
+Timestamp: 01/05/2016 10:00:01 م
 
-Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem(99)  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Id conflicts with the Id of an existing relationship.
+Parameter name: id
 
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
-   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
-   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
-   at System.Data.Objects.ObjectContext.SaveChanges()
-   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddCustomAgendaItem(String text, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 105</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>Invalid column name 'EParliamentID'.
-Invalid column name 'EParliamentParentID'.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
-   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
-   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
-   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
-   at System.Data.SqlClient.SqlDataReader.get_MetaData()
-   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
-   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
-   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
-   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
-   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
-   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
-   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.Packaging.OpenXmlPartContainer.AddNewPartInternal[T](String contentType, String id)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPartContainer.AddNewPart[T](String contentType, String id)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.ImageWriter.AddImage(Body body, MainDocumentPart mainpart, String filename, String SigId) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\ImageWriter.cs:line 57
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 509</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 4/27/2016 4:01:40 PM
+Timestamp: 01/05/2016 10:00:18 م
 
-Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessions(0,10)  - Priority: -1 - Title:An error occurred while reading from the store provider's data reader. See the inner exception for details.
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
 
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()
-   at System.Data.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
-   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
-   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessions(Int32 pageNo, Int32 count, Int32 statusCode, Boolean checkEquality) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 184</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
-   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
-   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
-   at System.Data.SqlClient.SqlDataReader.HasMoreRows()
-   at System.Data.SqlClient.SqlDataReader.ReadInternal(Boolean setTimeout)
-   at System.Data.SqlClient.SqlDataReader.Read()
-   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()</STACKTRACE></INNEREXCEPTION>
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 56</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 4/28/2016 12:20:48 PM
+Timestamp: 01/05/2016 10:02:20 م
 
-Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(98,/test/98/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
 
-Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
-   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
-   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
-   at System.Net.Mail.SmtpClient.Send(MailMessage message)
-   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 696
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\28_4\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 682
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 562</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 01/05/2016 10:02:25 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(98,/test/98/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\28_4\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 56</STACKTRACE>
 
 
 ----------------------------------------

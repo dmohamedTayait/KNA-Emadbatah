@@ -26,22 +26,14 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             //WordDocument doc = new WordDocument();
             try
             {
-                /*StreamWriter sw = new StreamWriter(workingDir + "sessionStart.htmlhtml");
-               
-                sw.Write(start.SessionStartText); //should be replaced with 
-                //sw.Write(SessionStartFacade.GetAutomaticSessionStartText(sessionID)); //should be replaced with 
-                sw.WriteLine();
-                sw.Close();
-                
-                BasicFormat format = new BasicFormat();
-                //File.Copy(workingDir + "sessionStart.htmlhtml", "G:\\sessionStart.htmlhtml");
-                docStart.OpenForHtml(workingDir + "sessionStart.htmlhtml");
+                int coverSize = 1;
+                List<MadbatahIndexItem> index = new List<MadbatahIndexItem>();
+                List<SpeakersIndexItem> speakersIndex = new List<SpeakersIndexItem>();
+                TayaIT.Enterprise.EMadbatah.Model.SessionDetails details = SessionStartFacade.GetSessionDetails(sessionID);
+                //create madbatahCover
+                CreateMadbatahCover(details, SessionWorkingDir + "coverDoc.docx", ServerMapPath);
 
-                docStart.ReplaceWithPageBreak("mcenoneditable");
-                //doc.InsertPageNumInFooterWithSessionNum("4/13/4");
-                docStart.SaveDocument(workingDir + "sessionStartDoc.doc");
-                int sessionStartSize = docStart.GetNumPages() + 1;
-                docStart.Quit();*/
+
                 int sessionStartSize = 0;
                 SessionFile start = SessionStartFacade.GetSessionStartBySessionID(sessionID);
                 //HtmlToOpenXml.SaveHtmlToWord(start.SessionStartText, SessionWorkingDir + "sessionStartDoc.docx", ServerMapPath+ "\\resources\\", out sessionStartSize);
@@ -49,7 +41,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 hd.CreateFileFromHTML(start.SessionStartText, SessionWorkingDir + "sessionStartDoc.docx");
 
 
-                using (WordprocessingWorker doc = new WordprocessingWorker(SessionWorkingDir + "sessionStartDoc.docx", WordprocessingWorker.GetDocParts(ServerMapPath+"\\resources\\"), DocFileOperation.Open))
+                using (WordprocessingWorker doc = new WordprocessingWorker(SessionWorkingDir + "sessionStartDoc.docx", WordprocessingWorker.GetDocParts(ServerMapPath + "\\resources\\"), DocFileOperation.Open))
                 {
                     WordprocessingWorker doctmp = doc;
                     sessionStartSize = doc.CountPagesUsingOpenXML(doc, SessionWorkingDir + "sessionStartDoc.docx", WordprocessingWorker.GetDocParts(ServerMapPath + "\\resources\\"), ServerMapPath, out doctmp);//CountPagesUsingOpenXML(DocumentType.DOCX, folderPath + att.Name);
@@ -57,48 +49,21 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 }
 
 
-                int coverSize = 1;
-                List<MadbatahIndexItem> index = new List<MadbatahIndexItem>();
-                List<SpeakersIndexItem> speakersIndex = new List<SpeakersIndexItem>();
-                TayaIT.Enterprise.EMadbatah.Model.SessionDetails details = SessionStartFacade.GetSessionDetails(sessionID);
-                int bodySize = MabatahCreatorFacade.CreateMadbatahBody(sessionID, SessionWorkingDir + "body.docx", ServerMapPath , details, out index, out speakersIndex);
+
+                int bodySize = MabatahCreatorFacade.CreateMadbatahBody(sessionID, SessionWorkingDir + "body.docx", SessionWorkingDir, ServerMapPath, details, out index, out speakersIndex);
                 //, out sessionName, out sessionNameForFooter);
                 if (bodySize == -1)
-                    throw new Exception("Madbatah Body Creation Failed."); 
+                    throw new Exception("Madbatah Body Creation Failed.");
 
-                //create madbatahCover
-                CreateMadbatahCover(details, SessionWorkingDir + "coverDoc.docx",ServerMapPath);
-                
-                
-                //attachment Cover
-                
-                //AttachCover.CreateNew();
-                //AttachCover.initializeStyle();
-                //format = new BasicFormat();
-                //format.textStyle = TextStyle.Bold;
-                //format.align = Alignment.Center;
-
-                //AttachCover.insertBreakLine(8);
-                //AttachCover.insertText("الملاحـق", 72, format, FontColor.Black, TextFont.Arial);
-                //AttachCover.insertBreakLine(2);
-                //AttachCover.ReplaceWithPageBreak("mcenoneditable");
-                //AttachCover.SaveDocument(workingDir + "attachCover.doc");
-                //AttachCover.Quit();
 
                 List<string> mergeList = new List<string>();
                 //mergeList.Add(SessionWorkingDir + "coverDoc.docx");//done
                 mergeList.Add(SessionWorkingDir + "indexDoc.docx");
-                mergeList.Add(SessionWorkingDir + "sessionStartDoc.docx");//done
-                mergeList.Add(SessionWorkingDir + "body.docx");
-                mergeList.Add(ServerMapPath + "\\docs\\AttachmentsCover.docx");//ready
-
 
                 
-                
-
                 ////attachments
                 List<Attachement> attachments = AttachmentHelper.GetSessionAttachments(sessionID);
-                foreach (Attachement att in attachments)
+               /* foreach (Attachement att in attachments)
                 {
                     System.IO.File.WriteAllBytes(SessionWorkingDir + att.Name, att.FileContent);
                     FileInfo fInfo = new FileInfo(SessionWorkingDir + att.Name);
@@ -113,12 +78,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, ""));
                         //WordDocument pdfAttDoc = new WordDocument();
                         //pdfAttDoc.CreateNew();
-                        
-                       // WordprocessingWorker.InsertAPicture(wordAttFilePath, files);
+
+                        // WordprocessingWorker.InsertAPicture(wordAttFilePath, files);
 
                         ImageWriter.CreateImageDocument(wordAttFilePath, ServerMapPath + "\\resources\\", files);
 
-                        
+
                         //foreach (string file in files)
                         //    pdfAttDoc.InsertImage(file);
                         ////int pagenos =  getNumberOfPdfPages(pdfFilePath);
@@ -131,7 +96,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         //use waleed function
                     }
                 }
-
+                */
 
                 //int indexSize = MabatahCreatorFacade.CreateMadbatahIndex(index, folderPath + "coverDoc1.doc", folderPath + "indexDoc1.doc", details);//, sessionName );
                 int allAttachSizes = 0;
@@ -164,7 +129,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 int attachCover = 1;
 
                 int speakerSize = MabatahCreatorFacade.CreateSpeakersIndex(speakersIndex,
-                    coverSize + sessionStartSize+indexSize - 1, //2 for att cover + speakers cover
+                    coverSize + sessionStartSize + indexSize - 1, //2 for att cover + speakers cover
                     ServerMapPath, SessionWorkingDir + "indexSpeakers.docx");
 
                 //mergeList.Add(SessionWorkingDir + "indexSpeakers.doc");
@@ -180,10 +145,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 if (indexSize == -1)
                     throw new Exception("Index with Attachment Creation Failed.");
 
-                //mergeList.Add(SessionWorkingDir + "indexDoc3.doc");//done
 
-                mergeList.Add(ServerMapPath + "\\docs\\SpeakersCover.docx");//ready
                 mergeList.Add(SessionWorkingDir + "indexSpeakers.docx");//done
+                mergeList.Add(ServerMapPath + "\\docs\\BodyCover.docx");//ready
+                mergeList.Add(SessionWorkingDir + "sessionStartDoc.docx");//done
+                mergeList.Add(SessionWorkingDir + "body.docx");
+                mergeList.Add(ServerMapPath + "\\docs\\EndCover.docx");//ready
 
                 //List<byte[]> docs = new List<byte[]>();
                 //foreach (string file in mergeList)
@@ -192,7 +159,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 //File.WriteAllBytes(SessionWorkingDir + "merged.docx", WordprocessingWorker.OpenAndCombine(docs));
                 //WordMerger.MergeDocs(mergeList.ToArray(), SessionWorkingDir + sessionID + ".docx", true);
                 File.Copy(SessionWorkingDir + "coverDoc.docx", SessionWorkingDir + sessionID + ".docx", true);
-                WordprocessingWorker.MergeWithAltChunk(SessionWorkingDir + sessionID + ".docx",mergeList.ToArray());
+                WordprocessingWorker.MergeWithAltChunk(SessionWorkingDir + sessionID + ".docx", mergeList.ToArray());
 
                 //PdfMaker.ConvertDocxToPdf(SessionWorkingDir, ServerMapPath, SessionWorkingDir + sessionID + ".docx", SessionWorkingDir + sessionID + ".pdf");
                 //doc = new WordDocument();
@@ -208,27 +175,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
             catch (Exception ex)
             {
-                //if (!docStart.IsClosed)
-                //    docStart.Quit();
-                //if (!AttachCover.IsClosed)
-                //    AttachCover.Quit();
-
-                //if (!doc.IsClosed)
-                //    doc.Quit();
-
-                //foreach (System.Diagnostics.Process thisproc in System.Diagnostics.Process.GetProcesses())
-                //{
-                //    if (thisproc.ProcessName.StartsWith("WINWORD"))
-                //    {
-                //        thisproc.Kill();
-                //    }
-                //}
-
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(" + sessionID + "," + SessionWorkingDir + ")");
                 return false;
-                
             }
-
         }
 
         public static List<SessionContentItem> GroupSpeakerSimilarArticles(List<SessionContentItem> groupedItems)
@@ -405,8 +354,38 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return (title + attName).Trim();
 
         }
+
+        public static string GetAttendantTitleNSpeakersIndex(Object SomeObj, long session_id)
+        {
+            Attendant att = null;
+            string title = "السيد العضو  ";
+            if (SomeObj is SessionAttendant)
+            {
+                SessionAttendant sAtt = (SessionAttendant)SomeObj;
+                att = new Attendant()
+                {
+                    ID = sAtt.ID,
+                    Name = sAtt.Name,
+                    FirstName = sAtt.FirstName,
+                    SecondName = sAtt.SecondName,
+                    TribeName = sAtt.TribeName,
+                    Type = (int)sAtt.Type
+                };
+            }
+            else
+                att = (Attendant)SomeObj;
+
+            string attName = "";
+            if (string.IsNullOrEmpty(att.FirstName) && string.IsNullOrEmpty(att.SecondName) && string.IsNullOrEmpty(att.TribeName))
+                attName = att.Name.Trim();
+            else
+                attName = ((att.FirstName == null ? "" : att.FirstName) + " " + (att.SecondName == null ? "" : att.SecondName) + " " + (att.TribeName == null ? "" : att.TribeName)).Replace("   ", " ").Replace("  ", " ").Trim();
        
-        public static int CreateMadbatahBody(long sessionID, string outFilePath, string ServerMapPath, Model.SessionDetails details, out List<MadbatahIndexItem> index, out List<SpeakersIndexItem> speakersIndex
+            return (title + attName).Trim();
+
+        }
+
+        public static int CreateMadbatahBody(long sessionID, string outFilePath, string SessionWorkingDir, string ServerMapPath, Model.SessionDetails details, out List<MadbatahIndexItem> index, out List<SpeakersIndexItem> speakersIndex
             )//, out string sessionName, out string sessionNameForFooter)
         {
 
@@ -436,7 +415,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     speakersIndex = new List<SpeakersIndexItem>();
                     List<string> writtenAgendaItems = new List<string>();
 
-                    //List<List<SessionContentItem>> allItems = SessionContentItemHelper.GetItemsBySessionIDGrouped(sessionID);
                     List<List<SessionContentItem>> allItems = SessionContentItemHelper.GetItemsBySessionIDGrouped(sessionID);
 
                     //should merge items by same speaker
@@ -454,14 +432,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     List<string> WrittenAgendaItemForNewOrder = new List<string>();
                     foreach (List<SessionContentItem> groupedItems in allItems)
                     {
-
-
                         AgendaItem curAgendaItem = groupedItems[0].AgendaItem;
                         AgendaSubItem curAgendaSubItem = groupedItems[0].AgendaSubItem;
 
                         //if (writtenAgendaItems.IndexOf(curAgendaItem.Name) == -1)//commeneted 12-04-2012
                         {
-                            //
+                            ii++;
                             pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                             string originalName = curAgendaItem.Name;
                             writtenAgendaItems.Add(curAgendaItem.Name);
@@ -491,6 +467,52 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             }
                             
                             doc.AddParagraph("* " + updatedAgendaName + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+
+                            ////attachments
+                            if (ii == 1)
+                            {
+                                List<Attachement> attachments = AttachmentHelper.GetSessionAttachments(sessionID);
+                                Attachement att = attachments[0];
+                                System.IO.File.WriteAllBytes(SessionWorkingDir + att.Name, att.FileContent);
+                                FileInfo fInfo = new FileInfo(SessionWorkingDir + att.Name);
+
+                                if (fInfo.Extension.ToLower().Equals(".pdf"))
+                                {
+                                    String pdfFilePath = SessionWorkingDir + att.Name;
+                                    pdf2ImageConvert.convertPdfFile(pdfFilePath);
+                                    string wordAttFilePath = SessionWorkingDir + att.Name.ToLower().Replace(".pdf", ".pdf.docx");
+                                    string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, ""));
+
+                                    foreach (string f in files)
+                                    {
+                                        ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);
+                                    }
+                                }
+                                //ImageWriter.CreateImageDocument(wordAttFilePath, ServerMapPath + "\\resources\\", files);
+
+                            }
+                            if (ii == 2)
+                            {
+                                List<Attachement> attachments = AttachmentHelper.GetSessionAttachments(sessionID);
+                                Attachement att = attachments[1];
+                                System.IO.File.WriteAllBytes(SessionWorkingDir + att.Name, att.FileContent);
+                                FileInfo fInfo = new FileInfo(SessionWorkingDir + att.Name);
+
+                                if (fInfo.Extension.ToLower().Equals(".pdf"))
+                                {
+                                    String pdfFilePath = SessionWorkingDir + att.Name;
+                                    pdf2ImageConvert.convertPdfFile(pdfFilePath);
+                                    string wordAttFilePath = SessionWorkingDir + att.Name.ToLower().Replace(".pdf", ".pdf.docx");
+                                    string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, ""));
+
+                                    foreach (string f in files)
+                                    {
+                                        ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);
+                                    }
+                                }
+                                //ImageWriter.CreateImageDocument(wordAttFilePath, ServerMapPath + "\\resources\\", files);
+
+                            }
                             //commeneted 12-04-2012
                             //index.Add(new MadbatahIndexItem(curAgendaItem.ID , originalName, pageNum, true, "", "", curAgendaItem.IsCustom, curAgendaItem.IsGroupSubAgendaItems));
 
@@ -556,9 +578,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         //foreach (SessionContentItem sessionItem in groupedItems)
                         foreach (SessionContentItem sessionItem in newGroup)
                         {
-
-                            //if (sessionItem.AttendantID == 4847)
-                            //    Console.WriteLine("");
                             //a check should be done of files, meshmesh
                             if (lastIteminPrevList != null && lastIteminPrevList.AttendantID == sessionItem.AttendantID &&
                                 lastIteminPrevList.AgendaItemID == sessionItem.AgendaItemID &&
@@ -575,12 +594,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             if (!sessionItem.MergedWithPrevious.Value)
                             {
                                 Attendant att = sessionItem.Attendant;
-                                //doc.insertBreakLine(1);//meshmesh
-                                //doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.Arial);
-
-                                //ibrahim 11-06-2012
-                                //doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att) +":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-
                                 if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
                                 {
                                     //doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.Arial);
@@ -589,25 +602,14 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 else
                                     doc.AddParagraph(MabatahCreatorFacade.GetAttendantTitle(att, sessionID) + ":", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
-                                int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitle(att, sessionID), pageNum.ToString(), att.Type));
+                                int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString(), att.Type));
                                 if (itemIndex == -1)
-                                    speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitle(att, sessionID), pageNum.ToString() + ",", att.Type));
+                                    speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString() + ",", att.Type));
                                 else
                                 {
-                                    //if (!speakersIndex[itemIndex].PageNum.Contains("," + pageNum + ",") ||
-                                    //    !speakersIndex[itemIndex].PageNum.EndsWith("," + pageNum) ||
-                                    //    !speakersIndex[itemIndex].PageNum.StartsWith(pageNum + ","))
                                     speakersIndex[itemIndex].PageNum += pageNum + ", ";
                                 }
-
-
-                                //doc.insertBreakLine(1);
                             }
-
-                            //if (ctr == 0 && sessionItem.MergedWithPrevious.Value) //from 2 diff files, meshmesh
-                            //    doc.typeBackspace();
-
-                            //string contentItemAsHtml = setFormatAtrrInSpan(sessionItem.Text).Trim();
                             string contentItemAsHtml = sessionItem.Text.ToLower().Replace("<br/>", "#####").Replace("<br>", "#####");
                             string[] parts = contentItemAsHtml.Split(new string[] { "#####" }, StringSplitOptions.RemoveEmptyEntries);
                             foreach (string part in parts)
@@ -618,132 +620,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 doc.AddParagraph(tt.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
                                 //doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                             }
-                            /*
-                            //we can group similar consequent spans together.
-                            MatchCollection subCollections = Regex.Matches(contentItemAsHtml, "<span.*?</span>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-                            //foreach (Match submatch in subCollections)
-                            
-                            bool containBoldOrItalic = false;
-                            for (int counter = 0; counter < subCollections.Count; counter++)
-                            {
-                                Match submatch = subCollections[counter];
-                                string innerText = TextHelper.StripHTML(submatch.Value).Trim();
-                                StringBuilder sb = new StringBuilder();
-                                while (!submatch.Value.Contains("bold=\"1\"") &&
-                                    !submatch.Value.Contains("<strong>") &&
-                                    !submatch.Value.Contains("italic=\"1\"") &&
-                                    !submatch.Value.Contains("><br"))
-                                {
-                                    sb.Append(innerText).Append(" ");
-                                    counter++;
-                                    if (counter == subCollections.Count)
-                                        break;
-                                    submatch = subCollections[counter];
-                                    innerText = TextHelper.StripHTML(submatch.Value).Trim();
-                                }
-                                if (counter > 0 && !string.IsNullOrEmpty(sb.ToString()))
-                                {
-                                    counter--;
-                                    submatch = subCollections[counter];
-                                    innerText = TextHelper.StripHTML(submatch.Value).Trim();
-                                }
-
-                                BasicFormat trackFormat = new BasicFormat();
-                                if ((submatch.Value.Contains("bold=\"1\"") || submatch.Value.Contains("<strong>"))
-                                    && submatch.Value.Contains("italic=\"1\""))
-                                {
-                                    trackFormat.textStyle = TextStyle.BoldItalic;
-                                }
-                                else
-                                    if (submatch.Value.Contains("italic=\"1\""))
-                                    {
-                                        trackFormat.textStyle = TextStyle.Italic;
-                                    }
-                                    else
-                                        if (submatch.Value.Contains("bold=\"1\"") || submatch.Value.Contains("<strong>"))
-                                        {
-                                            trackFormat.textStyle = TextStyle.Bold;
-                                        }
-                                        else
-                                            trackFormat.textStyle = TextStyle.Normal;
-
-                                if (submatch.Value.Contains("><br"))
-                                {
-                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                    //doc.insertBreakLine(1);
-                                }
-                                //doc.insertText(innerText + " ", 14, format, FontColor.Black, TextFont.Arial);
-                                if (!string.IsNullOrEmpty(sb.ToString()))
-                                {
-                                    //format.textStyle = TextStyle.Normal;
-                                    //doc.insertText(sb.Append(" ").ToString(), 14, format, FontColor.Black, TextFont.Arial);
-                                    if (!containBoldOrItalic)
-                                        doc.AddParagraph(sb.Append(" ").ToString(), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
-                                    else
-                                        doc.AddTextToWordDocument(sb.Append(" ").ToString(), ParagraphStyle.NormalArabic, ParagrapJustification.Both);
-                                }
-                                else
-                                {
-                                    innerText = TextHelper.StripHTML(submatch.Value).Trim() + " ";
-                                    containBoldOrItalic = true;
-                                    switch (trackFormat.textStyle)//todo
-                                    {
-                                        case TextStyle.Normal:
-                                            if (counter == 0)
-                                                doc.AddParagraph(innerText, ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
-                                            else
-                                                doc.AddTextToWordDocument(innerText, ParagraphStyle.NormalArabic, ParagrapJustification.Both);
-                                            break;
-                                        case TextStyle.Bold:
-                                            if (counter == 0)
-                                                doc.AddParagraph(innerText, ParagraphStyle.ParagraphTitle, ParagrapJustification.Both, false, "");
-                                            else
-                                                doc.AddTextToWordDocument(innerText, ParagraphStyle.ParagraphTitle, ParagrapJustification.Both);
-
-                                            break;
-                                        case TextStyle.Italic:
-                                            if (counter == 0)
-                                                doc.AddParagraph(innerText, ParagraphStyle.ParagraphItalic, ParagrapJustification.Both, false, "");
-                                            else
-                                                doc.AddTextToWordDocument(innerText, ParagraphStyle.ParagraphItalic, ParagrapJustification.Both);
-                                            break;
-                                        case TextStyle.Underlined:
-                                            if (counter == 0)
-                                                doc.AddParagraph(innerText, ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
-                                            else
-                                                doc.AddTextToWordDocument(innerText, ParagraphStyle.NormalArabic, ParagrapJustification.Both);
-
-                                            break;
-                                        case TextStyle.BoldItalic:
-                                            if (counter == 0)
-                                                doc.AddParagraph(innerText, ParagraphStyle.ParagraphBoldItalic, ParagrapJustification.Both, false, "");
-                                            else
-                                                doc.AddTextToWordDocument(innerText, ParagraphStyle.ParagraphBoldItalic, ParagrapJustification.Both);
-                                            break;
-                                        case TextStyle.BoldUnderlined:
-                                            if (counter == 0)
-                                                doc.AddParagraph(innerText, ParagraphStyle.ParagraphTitle, ParagrapJustification.Both, false, "");
-                                            else
-                                                doc.AddTextToWordDocument(innerText, ParagraphStyle.ParagraphTitle, ParagrapJustification.Both);
-
-                                            break;
-                                        case TextStyle.ItalicUnderLined:
-                                            if (counter == 0)
-                                                doc.AddParagraph(innerText, ParagraphStyle.ParagraphItalic, ParagrapJustification.Both, false, "");
-                                            else
-                                                doc.AddTextToWordDocument(innerText, ParagraphStyle.ParagraphItalic, ParagrapJustification.Both);
-                                            break;
-                                        default:
-                                            break;
-                                    }
-
-                                }
-
-                                if (submatch.Value.Contains("<br /><span>"))
-                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                    
-                            }//end of for looping on spans
-                            */
+                        
 
                             if (!sessionItem.MergedWithPrevious.Value)
                                 doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
@@ -811,16 +688,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         }
         public static void CreateMadbatahCover(Model.SessionDetails details, string outCoverPath, string ServerMapPath)
         {
-
             File.Copy(ServerMapPath + "\\docs\\templates\\madbatahCover-template.docx", outCoverPath, true);
-                //for dates 
-                //Model.SessionDetails details = SessionStartFacade.GetSessionDetails(sessionID);
-
+              
                 //calculate hijri date
                 //details.Date = details.Date.Subtract(new TimeSpan(1, 0, 0));
                 DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
                 //DateTime hijDate = details.Date.ToString("f", dateFormat);
-
 
                 string dayNameAr = details.Date.ToString("dddd", dateFormat); // LocalHelper.GetLocalizedString("strDay" + hijDate.DayOfWeek);
                 string monthNameAr = LocalHelper.GetLocalizedString("strMonth" + details.Date.Month);
@@ -828,9 +701,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
                 string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
 
-                /// We format the date structure to whatever we want - LAITH - 11/13/2005 1:05:39 PM -
-                //  dateFormat.ShortDatePattern = "dd/MM/yyyy";
-                //   return dateConv;//(dateConv.Date.ToString("f", dateFormat));
 
                 //for header
                 string sessionNum = details.Subject; //"الخامسة عشره";
@@ -839,7 +709,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 NumberingFormatter fomratterFemale = new NumberingFormatter(false);
                 NumberingFormatter fomratterMale = new NumberingFormatter(true);
-                string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
+                string sessionName = details.EparlimentID.ToString() + "/" + details.Type;//EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
 
             string footer = details.Subject + "- الدور " + details.Stage + "- الفصل " + details.Season.ToString();//"5/5/14");
                 ///for 3'olaf
@@ -854,7 +724,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             sb.Append("<Subject>").Append(details.Subject).Append("</Subject>");
             sb.Append("<DateHijri>").Append(hijriDate).Append("</DateHijri>");
             sb.Append("<DateMilady>").Append(gDate).Append("</DateMilady>");
-            sb.Append("<Footer>").Append(footer).Append("</Footer>");
+            sb.Append("<StartTime>").Append(details.StartTime.ToLongTimeString()).Append("</StartTime>");
+           // sb.Append("<Footer>").Append(footer).Append("</Footer>");
             sb.Append("</root>");
      
             WordTemplateHandler.replaceCustomXML(outCoverPath,sb.ToString());
@@ -896,9 +767,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             NumberingFormatter fomratterMale = new NumberingFormatter(true);
             string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
 
-            string footer = details.Subject + "/" + details.Stage + "/" + details.Season.ToString();//"5/5/14");
-            ///for 3'olaf
-            ///
+          
             StringBuilder sb = new StringBuilder();
             sb.Append("<root>");
             sb.Append("<SessionNum>").Append(sessionNum).Append("</SessionNum>");
@@ -917,7 +786,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             sb.Append("<Subject>").Append(details.Subject).Append("</Subject>");
             sb.Append("<DateHijri>").Append(hijriDate).Append("</DateHijri>");
             sb.Append("<DateMilady>").Append(gDate).Append("</DateMilady>");
-            sb.Append("<Footer>").Append(footer).Append("</Footer>");
             sb.Append("</root>");
 
 
@@ -960,16 +828,43 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             WordTemplateHandler.replaceTableXmlContents(outStartPath, contentControlValues);
         }
 
-        public static int CreateMadbatahIndexWithAttachment(List<MadbatahIndexItem> index, List<Attachement> attachments, 
-            string folderPath , int indexSize, int sessionStartSize, int bodySize, string outIndexPath, string ServerMapPath,
+        public static int CreateMadbatahIndexWithAttachment(List<MadbatahIndexItem> index, List<Attachement> attachments,
+            string folderPath, int indexSize, int sessionStartSize, int bodySize, string outIndexPath, string ServerMapPath,
             Model.SessionDetails details, bool upDateAttach, out int allAttachSizes)
         {
-            try{
-               ////////////////<p align=\"center\"><font face=\"arial\" size=\"14pt\">فهرس المحتويات</font></p>
-                string indexHeader = "<p align=\"center\"><font size=\"14\" face=\"arial\">"
-                    + "<table width=\"100%\" border=\"0\" align=\"right\" cellpadding=\"5\" cellspacing=\"5\" style=\"writing-mode: tb-rl; text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">"
-                    + "<tr style=\"background-color: #CCC;\"><th colspan=\"3\" align=\"center\" scope=\"col\">فهرس المحتويات</th></tr>"
-                    + "<tr style=\"background-color: #CCC;\"><th scope=\"col\">البند</th><th scope=\"col\">الموضوع</th><th scope=\"col\">رقم الصفحة</th></tr>";
+            try
+            {
+                allAttachSizes = 0;
+                //calculate hijri date
+                DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
+                string dayNameAr = details.Date.ToString("dddd", dateFormat); // LocalHelper.GetLocalizedString("strDay" + hijDate.DayOfWeek);
+                string monthNameAr = LocalHelper.GetLocalizedString("strMonth" + details.Date.Month);
+                string monthNameHijAr = details.Date.ToString("MMMM", dateFormat); //LocalHelper.GetLocalizedString("strHijMonth"+hijDate.Month);
+                string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
+                string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
+
+
+                //for header
+                string sessionNum = details.Subject; //"الخامسة عشره";
+                string hijriDate = dayNameAr + " " + dayOfMonthNumHij + " " + monthNameHijAr + " سنة " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
+                string gDate = " " + details.Date.Day + " " + monthNameAr + " سنة " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
+
+                string sessionName = details.Subject + "رقم (" + details.Type + ")";
+
+
+                string indexHeader =
+                    "<p align=\"center\"><font size=\"14\" face=\"arial\">"
+                    + "<table width=\"100%\" border=\"0\" align=\"right\" cellpadding=\"3\" cellspacing=\"3\" style=\"writing-mode: tb-rl; text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">"
+                    + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">بسم الله الرحمن الرحيم</th></tr>"
+                    + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">مجلس الأمة</th></tr>"
+                    + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">الأمانة العامة</th></tr>"
+                    + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">ادارة شؤون المضابط</th></tr>"
+                    + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\"></th></tr>"
+                    + "<tr style=text-decoration:underline; \";\"><th colspan=\"3\" align=\"center\" scope=\"col\">ملخص الموضوعات التى نظرت فى  " + sessionName + " ت</th></tr>"
+                    + "<tr style=text-decoration:underline; \";\"><th colspan=\"3\" align=\"center\" scope=\"col\">المعقودة يوم " + hijriDate + "</th></tr>"
+                    + "<tr style=text-decoration:underline; \";\"><th colspan=\"3\" align=\"center\" scope=\"col\">الموافق " + gDate + "</th></tr>"
+                    + "<tr style=\";\"><th colspan=\"3\" align=\"center\" scope=\"col\">فهرس الموضوعات</th></tr>"
+                    + "<tr style=\";\"><th scope=\"col\">م</th><th scope=\"col\">الموضوع</th><th scope=\"col\">رقم الصفحة</th></tr>";
 
                 //doc.insertText("فهرس المحتويات", 14, format, FontColor.Black, TextFont.Arial);
                 //doc.insertBreakLine(1);
@@ -985,181 +880,66 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string emptyRow = "<tr align=\"right\" style=\"font-family: arial;font-size: 14pt;\"><td>ItemNum</td><td>ItemName</td><td>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
+     
+
                 foreach (MadbatahIndexItem item in index)
                 {
                     string itemNum = "";
                     string name = "";
                     string pageNum = "";
-                    //item.PageNum = item.PageNum + coverSize + sessionStartSize + indexSize;
+                    string nextPageNum = "";
+                    MadbatahIndexItem nextItem = item;
                     if (item.IsMainItem)
                     {
+                        try { nextItem = index[i]; }
+                        catch { }
                         itemNum = LocalHelper.GetLocalizedString("str" + (i));
                         i++;
                         name = item.Name;
-                        //str += item.Subject.PadLeft(charsBold - ((item.Subject.Length % 90) + item.PageNum.ToString().Length - 1), ' ');// +"     ";
                         pageNum = item.PageNum.ToString();
-                        //added 7-6-2012
+                        nextPageNum = nextItem.PageNum.ToString();
+
                         string[] pageNums = pageNum.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                        StringBuilder sbpagesNumber = new StringBuilder();
-                        foreach (string curpageNum in pageNums)
-                        {
-                            sbpagesNumber.Append(curpageNum.Trim()).Append(", ");
-                        }
-                        pageNum = sbpagesNumber.ToString();
-                        //format.textStyle = TextStyle.Bold;
-                        string toBeReplaced = emptyRowBold.Replace("ItemNum", itemNum).Replace("ItemName", name).Replace("PageNum", pageNum);
-                        //if (name.Contains("افتتاحية الجلسة ، وكلمة معالي رئيس المجلس"))
-                        if (item.IsCustom != null && item.IsCustom == true) //for handling eftta7eyet el magles
-                        {
-                            toBeReplaced = emptyRowBold.Replace("ItemNum", "").Replace("ItemName", name).Replace("PageNum", pageNum);
-                            i--;
-                        }
-
+                        pageNum = pageNums[0].Trim().ToString();
+                        string[] nextPageNums = nextPageNum.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                        nextPageNum = nextPageNums[0].Trim().ToString();
+                        if (pageNum != nextPageNum)
+                            pageNum = nextPageNum + "-" +  pageNum ;
+               
+                        string toBeReplaced = emptyRowBold.Replace("ItemNum", i.ToString()).Replace("ItemName", name).Replace("PageNum", pageNum);
+                        
+                      
                         sb.Append(toBeReplaced);
-
-
-                        if (item.IsGroupSubAgendaItems)//25-03-2012
-                        {
-                            List<AgendaSubItem> list = DAL.AgendaHelper.GetAgendaSubItemsByAgendaID(item.ID);
-                            foreach (AgendaSubItem sub in list)
-                            {
-                                name = sub.Name;
-                                pageNum = item.PageNum.ToString();
-                                //added 7-6-2012
-                                pageNums = pageNum.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                                sbpagesNumber = new StringBuilder();
-                                foreach (string curpageNum in pageNums)
-                                {
-                                    sbpagesNumber.Append(curpageNum.Trim()).Append(", ");
-                                }
-                                pageNum = sbpagesNumber.ToString();
-
-
-                                if (!string.IsNullOrEmpty(sub.QFrom) && !string.IsNullOrEmpty(sub.QTo))
-                                    name = new StringBuilder().Append("سؤال موجه إلى معالي / ") + sub.QTo + "من سعادةالعضو /" + sub.QFrom + "حول \"" + sub.Name + "\".";
-                                sb.Append(emptyRow.Replace("ItemNum", "").Replace("ItemName", "- " + name).Replace("PageNum", pageNum));
-                            }
-
-                        }
-
-
                     }
-                    else
-                    {
-                        //str += "- " + item.Subject.PadLeft(charsNorm - ((item.Subject.Length%90) + item.PageNum.ToString().Length + "- ".Length - 1), ' ');// +"     ";
-                        //str += item.PageNum;
-                        //format.textStyle = TextStyle.Normal;
-                        if (!item.IsGroupSubAgendaItems)//25-03-2012
-                        {
-                            name = item.Name;
-                            pageNum = item.PageNum.ToString();
-
-                            //added 7-6-2012
-                            string[] pageNums = pageNum.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                            StringBuilder sbpagesNumber = new StringBuilder();
-                            foreach (string curpageNum in pageNums)
-                            {
-                                sbpagesNumber.Append(curpageNum.Trim()).Append(", ");
-                            }
-                            pageNum = sbpagesNumber.ToString();
-
-
-                            if (!string.IsNullOrEmpty(item.QFrom) && !string.IsNullOrEmpty(item.QTo))
-                                name = new StringBuilder().Append("سؤال موجه إلى معالي / ") + item.QTo + "من سعادةالعضو /" + item.QFrom + "حول \"" + item.Name + "\".";
-                            sb.Append(emptyRow.Replace("ItemNum", "").Replace("ItemName", "- " + name).Replace("PageNum", pageNum));
-                        }
-                    }
-                    //doc.insertText(str, 14, format, FontColor.Black, TextFont.Arial);
-                    //doc.insertBreakLine(1);
                 }
 
-                int attCtr = 1;
                 int startPageNum = coverSize + sessionStartSize + indexSize + bodySize + 1; // 1 for attachments cover
-                
+
                 DocXmlParts xmlFilesPaths = WordprocessingWorker.GetDocParts(ServerMapPath + "\\resources\\");
-                
-                allAttachSizes=0;
-                foreach (Attachement att in attachments)
-                {
-                    string itemNum = "";
-                    if (attCtr == 1)
-                        itemNum = "الملاحق";
-
-                    int numAttachPages = 0;
-                    //if (new FileInfo(folderPath + att.Name).Extension == ".pdf")
-                    //{
-                    //    ;//call waleed code to get PDF
-                    //}
-                    //else
-                    //{
-
-
-                    //numAttachPages = WordprocessingWorker.CountPagesUsingOpenXML(null, folderPath + att.Name, xmlFilesPaths, ServerMapPath, out doc);//CountPagesUsingOpenXML(DocumentType.DOCX, folderPath + att.Name);
-                    //usama for page numbers
-                    using (WordprocessingWorker doc = new WordprocessingWorker(folderPath + att.Name, xmlFilesPaths, DocFileOperation.Open))
-                    {
-                        WordprocessingWorker doctmp = doc;
-                        numAttachPages = doc.CountPagesUsingOpenXML(doc, folderPath + att.Name, xmlFilesPaths, ServerMapPath,out doctmp);//CountPagesUsingOpenXML(DocumentType.DOCX, folderPath + att.Name);
-                        doctmp.Dispose();
-                    }
-                    //}
-                    //if (upDateAttach)
-                    //{
-                    //    //tempDoc.GoToTheBegining();
-                    //    tempDoc.insertText("ملحق رقم " + attCtr, 36, format, FontColor.Black, TextFont.Arial);
-                    //    tempDoc.insertBreakLine(1);
-                    //    tempDoc.SaveDocument(folderPath + att.Name.Replace(".doc", "_mod.doc"));
-                    //}
-                    sb.Append(emptyRow.Replace("ItemNum", itemNum).Replace("ItemName", "ملحق رقم " + attCtr).Replace("PageNum", startPageNum.ToString()));
-                    startPageNum += numAttachPages;
-                    allAttachSizes += numAttachPages;
-                    
-                    i++;
-                    attCtr++;
-                }
-                //add item for قهرس المتحدثين
-                //index.Add(new MadbatahIndexItem("", "فهرس المتحدثين", coverSize + indexSize + sessionStartSize + bodySize + allAttachSizes, true));
-                sb.Append(emptyRowBold.Replace("ItemNum", "--").Replace("ItemName", "فهرس المتحدثين").Replace("PageNum", (startPageNum + 1).ToString()));
 
                 sb.Append("</table></font></p>");
 
-                    int stats = 0;
-                    //HtmlToOpenXml.SaveHtmlToWord(sb.ToString(), @outIndexPath, ServerMapPath + "\\resources\\", out stats);
-                    HTMLtoDOCX hd = new HTMLtoDOCX();
-                    hd.CreateFileFromHTML(sb.ToString(), @outIndexPath);
+                int stats = 0;
+                //HtmlToOpenXml.SaveHtmlToWord(sb.ToString(), @outIndexPath, ServerMapPath + "\\resources\\", out stats);
+                HTMLtoDOCX hd = new HTMLtoDOCX();
+                hd.CreateFileFromHTML(sb.ToString(), @outIndexPath);
 
-                    using (WordprocessingWorker doc = new WordprocessingWorker(outIndexPath, xmlFilesPaths, DocFileOperation.Open))
-                    {
-                        WordprocessingWorker doctmp = doc;
-                        stats = doc.CountPagesUsingOpenXML(doc, outIndexPath, xmlFilesPaths, ServerMapPath, out doctmp);//CountPagesUsingOpenXML(DocumentType.DOCX, folderPath + att.Name);
-                        doctmp.Dispose();
-                    }
+                using (WordprocessingWorker doc = new WordprocessingWorker(outIndexPath, xmlFilesPaths, DocFileOperation.Open))
+                {
+                    WordprocessingWorker doctmp = doc;
+                    stats = doc.CountPagesUsingOpenXML(doc, outIndexPath, xmlFilesPaths, ServerMapPath, out doctmp);//CountPagesUsingOpenXML(DocumentType.DOCX, folderPath + att.Name);
+                    doctmp.Dispose();
+                }
 
-
-                //StreamWriter sw = new StreamWriter(outIndexPath.Replace(".doc", ".htmlhtml"));
-                //sw.Write(sb.ToString());
-                //sw.WriteLine();
-                //sw.Close();
-                
-                //docStart.OpenForHtml(outIndexPath.Replace(".doc", ".htmlhtml"));
-
-                //docStart.ReplaceWithPageBreak("mcenoneditable");
-                ////doc.InsertPageNumInFooterWithSessionNum("4/13/4");
-                //docStart.SaveDocument(@outIndexPath);
-
-
-                //docStart.GetCurrentPageNumber();
-                /////doc.SaveDocument(outPath);
-                //docStart.Quit();
                 return stats;
             }
             catch (Exception ex)
             {
-               
+
                 allAttachSizes = 0;
-               
+
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahIndexWithAttachment");
-                
+
                 return -1;
             }
         }
@@ -1186,11 +966,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
            
             try
             {
-                string indexHeader = "<font size=\"14\" face=\"arial\"><table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"5\" cellspacing=\"5\" style=\"writing-mode: tb-rl; text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">"
-                + "<tr style=\"background-color: #CCC;\"><th colspan=\"3\" align=\"center\" scope=\"col\">فهرس المتحدثين</th></tr>"
-                + "<tr style=\"background-color: #CCC;\"><th scope=\"col\">المسلسل</th><th scope=\"col\">المتحدث</th><th scope=\"col\">ارقام الصفحات</th></tr>";
+                string indexHeader = "<font size=\"14\" face=\"arial\"><div style\"text-align:center;text-decoration:underline; font-family: arial; font-size: 14pt;\">فهرس المتحدثين</div><table width=\"100%\" border=\"0\" align=\"center\" cellpadding=\"5\" cellspacing=\"5\" style=\"writing-mode: tb-rl; text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">"
+                + "<tr style=\";\"><th colspan=\"2\" align=\"center\" scope=\"col\">السادة الاعضاء المتحدثون على الموضوعات التى تم مناقشتها أثناء انعقاد الجلسة</th></tr>"
+                + "<tr style=\";\"><th scope=\"col\">المتحدث</th><th scope=\"col\">ارقام الصفحات</th></tr>";
                 int i = 1;
-                string emptyRowBold = "<strong><tr align=\"right\" style=\"font-family: arial;font-size: 14pt;\"><td>ItemNum</td><td>ItemName</td><td>PageNum</td></tr></strong>";
+                string emptyRowBold = "<strong><tr align=\"right\" style=\"font-family: arial;font-size: 14pt;\"><td>ItemName</td><td>PageNum</td></tr></strong>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
@@ -1212,7 +992,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (pagesStr.Length > 2)
                         pagesStr = pagesStr.Remove(pagesStr.Length - 2);
                     //sb.Append(emptyRowBold.Replace("ItemNum", i.ToString()).Replace("ItemName", MabatahCreatorFacade.GetAttendantTitle(item.Name, item.attType) + item.Name.Trim()).Replace("PageNum", pagesStr));
-                    sb.Append(emptyRowBold.Replace("ItemNum", i.ToString()).Replace("ItemName", item.Name.Trim()).Replace("PageNum", pagesStr));
+                    sb.Append(emptyRowBold.Replace("ItemName", item.Name.Trim()).Replace("PageNum", pagesStr));
                     i++;
                     //string str = item.Name.PadLeft(charsNorm - ((item.Name.Length % 90) + pagesStr.ToString().Length  - 1), ' ');// +"     ";
                     ////str += item.PageNum;
