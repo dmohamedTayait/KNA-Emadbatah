@@ -11,6 +11,7 @@
     <EntitySet Name="CommitteeAttendant" EntityType="EMadbatahModel.Store.CommitteeAttendant" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DefaultAttendant" EntityType="EMadbatahModel.Store.DefaultAttendant" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MadbatahFilesStatus" EntityType="EMadbatahModel.Store.MadbatahFilesStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MembersVote" EntityType="EMadbatahModel.Store.MembersVote" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Procedure" EntityType="EMadbatahModel.Store.Procedure" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProcedureType" EntityType="EMadbatahModel.Store.ProcedureType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Role" EntityType="EMadbatahModel.Store.Role" store:Type="Tables" Schema="dbo" />
@@ -21,6 +22,9 @@
     <EntitySet Name="SessionFile" EntityType="EMadbatahModel.Store.SessionFile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionFileStatus" EntityType="EMadbatahModel.Store.SessionFileStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionStatus" EntityType="EMadbatahModel.Store.SessionStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBLMeeting" EntityType="EMadbatahModel.Store.TBLMeeting" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBLNonSecretVoteSubject" EntityType="EMadbatahModel.Store.TBLNonSecretVoteSubject" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TBLPerson" EntityType="EMadbatahModel.Store.TBLPerson" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User" EntityType="EMadbatahModel.Store.User" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_AgendaItem_Session" Association="EMadbatahModel.Store.FK_AgendaItem_Session">
       <End Role="Session" EntitySet="Session" />
@@ -57,6 +61,10 @@
     <AssociationSet Name="FK_CommitteeAttendant_Session" Association="EMadbatahModel.Store.FK_CommitteeAttendant_Session">
       <End Role="Session" EntitySet="Session" />
       <End Role="CommitteeAttendant" EntitySet="CommitteeAttendant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MembersVote_TBLNonSecretVoteSubject" Association="EMadbatahModel.Store.FK_MembersVote_TBLNonSecretVoteSubject">
+      <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubject" />
+      <End Role="MembersVote" EntitySet="MembersVote" />
     </AssociationSet>
     <AssociationSet Name="FK_Procedure_ProcedureType" Association="EMadbatahModel.Store.FK_Procedure_ProcedureType">
       <End Role="ProcedureType" EntitySet="ProcedureType" />
@@ -114,6 +122,10 @@
       <End Role="SessionFile" EntitySet="SessionFile" />
       <End Role="SessionContentItem" EntitySet="SessionContentItem" />
     </AssociationSet>
+    <AssociationSet Name="FK_SessionContentItem_TBLNonSecretVoteSubject" Association="EMadbatahModel.Store.FK_SessionContentItem_TBLNonSecretVoteSubject">
+      <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubject" />
+      <End Role="SessionContentItem" EntitySet="SessionContentItem" />
+    </AssociationSet>
     <AssociationSet Name="FK_SessionContentItem_User" Association="EMadbatahModel.Store.FK_SessionContentItem_User">
       <End Role="User" EntitySet="User" />
       <End Role="SessionContentItem" EntitySet="SessionContentItem" />
@@ -137,6 +149,10 @@
     <AssociationSet Name="FK_SessionFile_User" Association="EMadbatahModel.Store.FK_SessionFile_User">
       <End Role="User" EntitySet="User" />
       <End Role="SessionFile" EntitySet="SessionFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLNonSecretVoteSubject_TBLMeeting" Association="EMadbatahModel.Store.FK_TBLNonSecretVoteSubject_TBLMeeting">
+      <End Role="TBLMeeting" EntitySet="TBLMeeting" />
+      <End Role="TBLNonSecretVoteSubject" EntitySet="TBLNonSecretVoteSubject" />
     </AssociationSet>
     <AssociationSet Name="FK_User_Role" Association="EMadbatahModel.Store.FK_User_Role">
       <End Role="Role" EntitySet="Role" />
@@ -195,6 +211,8 @@
     <Property Name="AttendDate" Type="datetime" />
     <Property Name="SessionAttendantType" Type="int" />
     <Property Name="AttendantTitle" Type="nvarchar" MaxLength="500" />
+    <Property Name="OrderByAttendantType" Type="int" />
+    <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -238,6 +256,8 @@
     <Property Name="JobTitle" Type="nvarchar" MaxLength="500" />
     <Property Name="Type" Type="int" />
     <Property Name="AttendantTitle" Type="nvarchar" MaxLength="500" />
+    <Property Name="OrderByAttendantType" Type="int" />
+    <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="MadbatahFilesStatus">
     <Key>
@@ -245,6 +265,16 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="MembersVote">
+    <Key>
+      <PropertyRef Name="AutoID" />
+    </Key>
+    <Property Name="AutoID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NonSecretVoteSubjectID" Type="int" Nullable="false" />
+    <Property Name="PersonID" Type="int" Nullable="false" />
+    <Property Name="MemberVoteID" Type="int" />
+    <Property Name="MemberFullName" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Procedure">
     <Key>
@@ -296,6 +326,7 @@
     <Property Name="Checker" Type="int" />
     <Property Name="SessionStartFlag" Type="int" />
     <Property Name="Serial" Type="bigint" />
+    <Property Name="PresidentID" Type="int" />
   </EntityType>
   <EntityType Name="SessionAttendant">
     <Key>
@@ -336,7 +367,8 @@
     <Property Name="Ignored" Type="bit" />
     <Property Name="FileReviewerID" Type="bigint" />
     <Property Name="AttachementID" Type="bigint" />
-    <Property Name="IsAdmin" Type="int" />
+    <Property Name="IsSessionPresident" Type="int" />
+    <Property Name="VotingID" Type="int" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>
@@ -378,6 +410,39 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="TBLMeeting">
+    <Key>
+      <PropertyRef Name="MeetingID" />
+    </Key>
+    <Property Name="MeetingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MeetingSN" Type="nvarchar" MaxLength="50" />
+    <Property Name="MeetingNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="MeetingDate" Type="datetime" />
+    <Property Name="MeetingTitle" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="TBLNonSecretVoteSubject">
+    <Key>
+      <PropertyRef Name="NonSecretVoteSubjectID" />
+    </Key>
+    <Property Name="NonSecretVoteSubjectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MeetingID" Type="int" />
+    <Property Name="NonSecretVoteSubjectNumber" Type="int" Nullable="false" />
+    <Property Name="NonSecretVoteSubject" Type="nvarchar" />
+    <Property Name="NonSecretVoteSubjectDate" Type="datetime" />
+    <Property Name="NonSecreatVoteSubjectIsClosed" Type="bit" />
+    <Property Name="NofAgree" Type="int" />
+    <Property Name="NofDisagree" Type="int" />
+    <Property Name="NofNoVote" Type="int" />
+    <Property Name="NofAttendance" Type="int" />
+  </EntityType>
+  <EntityType Name="TBLPerson">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PersonShortName" Type="nvarchar" MaxLength="100" />
+    <Property Name="PersonFullName" Type="nvarchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -502,6 +567,18 @@
       </Principal>
       <Dependent Role="CommitteeAttendant">
         <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MembersVote_TBLNonSecretVoteSubject">
+    <End Role="TBLNonSecretVoteSubject" Type="EMadbatahModel.Store.TBLNonSecretVoteSubject" Multiplicity="1" />
+    <End Role="MembersVote" Type="EMadbatahModel.Store.MembersVote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLNonSecretVoteSubject">
+        <PropertyRef Name="NonSecretVoteSubjectID" />
+      </Principal>
+      <Dependent Role="MembersVote">
+        <PropertyRef Name="NonSecretVoteSubjectID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -681,6 +758,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SessionContentItem_TBLNonSecretVoteSubject">
+    <End Role="TBLNonSecretVoteSubject" Type="EMadbatahModel.Store.TBLNonSecretVoteSubject" Multiplicity="0..1" />
+    <End Role="SessionContentItem" Type="EMadbatahModel.Store.SessionContentItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLNonSecretVoteSubject">
+        <PropertyRef Name="NonSecretVoteSubjectID" />
+      </Principal>
+      <Dependent Role="SessionContentItem">
+        <PropertyRef Name="VotingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SessionContentItem_User">
     <End Role="User" Type="EMadbatahModel.Store.User" Multiplicity="0..1" />
     <End Role="SessionContentItem" Type="EMadbatahModel.Store.SessionContentItem" Multiplicity="*" />
@@ -752,6 +841,18 @@
       </Principal>
       <Dependent Role="SessionFile">
         <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLNonSecretVoteSubject_TBLMeeting">
+    <End Role="TBLMeeting" Type="EMadbatahModel.Store.TBLMeeting" Multiplicity="0..1" />
+    <End Role="TBLNonSecretVoteSubject" Type="EMadbatahModel.Store.TBLNonSecretVoteSubject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLMeeting">
+        <PropertyRef Name="MeetingID" />
+      </Principal>
+      <Dependent Role="TBLNonSecretVoteSubject">
+        <PropertyRef Name="MeetingID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

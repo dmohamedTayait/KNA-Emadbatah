@@ -76,6 +76,9 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string FILE_TYPE { get { return "filetype"; } }
             public string FILE_VERSION { get { return "filever"; } }
 
+            //for voting
+            public string Vote_ID { get { return "voteid"; } }
+
             //for reviewer
             public string CONTENT_ITEM_TEXT { get { return "contentitemtext"; } }
             public string REVIEWER_NOTE { get { return "reviewernote"; } }
@@ -93,6 +96,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string AgendaSubItemID { get { return "AgendaSubItemID"; } }
             public string SpeakerID { get { return "SpeakerID"; } }
             public string SameAsPrevSpeaker { get { return "SameAsPrevSpeaker"; } }
+            public string IsSessionPresident { get { return "IsSessionPresident"; } }
             public string IsGroupSubAgendaItems { get { return "IsGroupSubAgendaItems"; } }
             public string Ignored { get { return "Ignored"; } }
             public string PrevContentID { get { return "PrevContentID"; } }

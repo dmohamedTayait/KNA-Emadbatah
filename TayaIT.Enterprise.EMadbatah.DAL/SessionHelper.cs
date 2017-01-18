@@ -126,10 +126,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
 
         }
-
-        //public static int 
-
-        //???
+        
         public static List<Session> GetSessions(int pageNo, int count)
         {
             try
@@ -341,13 +338,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     if (context.Sessions.Count<Session>() > 0)
                     {
                         toRet = context.Sessions.FirstOrDefault(s => s.ID == sessionID);
-                      //  foreach (Attendant attendant in toRet.Attendants.ToList<Attendant>())
-                      //  {
-                      //      attendant.SessionAttendant.Where(x => x. == sessionID);//("session_id=" + sessionID.ToString(),);
-                       //     toRet.Attendants.Add(attendant);
-                        // }
-                        //toRet.SessionAttendtant.Where(
-                    }
+                     }
                     return toRet;
                 }
             }
@@ -405,15 +396,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
-
-
-
-
-
-
-
-
-
+        
         public static Session GetSessionDetailsByEParlimentID(long epid)
         {
             try
@@ -453,11 +436,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
-
-
-
-
         public static Session GetSessionByEParlimentID(long sessionEParlimentID)
         {
             try
@@ -480,7 +458,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
-
 
         public static bool IsSessionWordFileAndPDFCreated(long sessionID)
         {
@@ -555,7 +532,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
         public static int UpdateSessionMadabathFilesStatus(long sessionID, int newStatus)
         {
             try
@@ -578,8 +554,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1;
             }
         }
-                
-
+ 
         public static byte[] GetSessionWordFile(long sessionID)
         {
             try
@@ -709,7 +684,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
         public static int UpdateSessionMP3FilePath(long sessionID, string mp3path)
         {
             try
@@ -787,7 +761,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1;
             }
         }
-
 
         // added by ihab
         public static int GetSessionFileError(long sessionFileID)
@@ -920,7 +893,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
         public static int UpdateSessionWordAndPdfFiles(long sessionID, byte[] wordDoc, byte[] pdfDoc, bool final = false)
         {
             try
@@ -984,7 +956,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         //        return -1;
         //    }
         //}
-
 
         public static int GetSessionsCount(int statusCode, bool checkEquality)
         {
@@ -1127,8 +1098,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
-
         #endregion
         
         //#region SessionStatus
@@ -1245,8 +1214,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         //{
  
         //}
-
-
 
         public static Hashtable GetSessionStatisticsForFileReviewer(long sessionID, long fileRevID)
         {

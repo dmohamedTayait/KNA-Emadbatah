@@ -62,6 +62,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             IsSessionFileLockedByFileRev,
             ApproveRejectedItemsInFile
         }
+
         public enum SessionStartFunctions
         {
             ReloadAutomaticSessionStart,
@@ -88,7 +89,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             SaveSessionContentItem,
             UpdateSessionFileStatusCompleted,
             SplitItem,
-            GetSpeakerJobTitle
+            GetSpeakerJobTitle,
+            GetSpeakerJobTitleAndAvatar
         }
 
         public enum FileFunctions
@@ -102,6 +104,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
         {
             GetProcedureTypes,
             GetProcedures
+        }
+
+        public enum VotingFunctions
+        {
+            GetSessionVotes
         }
     }
 }

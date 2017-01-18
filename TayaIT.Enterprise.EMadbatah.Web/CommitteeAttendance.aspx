@@ -106,6 +106,9 @@
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
+              <div>
+                        <asp:Label runat="server" ID="lblInfo1" Visible="false" CssClass="lInfo"></asp:Label>
+                    </div>
                 <div class="grid_24 xxlargerow">
                     <div class="Ntitle">
                         غياب اللجان:</div>
@@ -211,6 +214,10 @@
                     </div>
                 </div>
                 <br />
+                  <div>
+                        <asp:Label runat="server" ID="lblInfo2" Visible="false" CssClass="lInfo"></asp:Label>
+                    </div>
+                        <br />
                 <br />
             </ContentTemplate>
         </asp:UpdatePanel>

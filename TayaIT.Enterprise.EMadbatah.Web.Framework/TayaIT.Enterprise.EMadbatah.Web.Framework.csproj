@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="AdminHandler.cs" />
     <Compile Include="BaseHandler.cs" />
+    <Compile Include="VotingHandler.cs" />
     <Compile Include="ProcedureHandler.cs" />
     <Compile Include="EditSessionHandler.cs" />
     <Compile Include="ReorderHandler.cs" />

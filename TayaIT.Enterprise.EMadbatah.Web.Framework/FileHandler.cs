@@ -137,7 +137,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 fileData = (fileType == FileExtensionType.pdf) ? SessionHelper.GetSessionPDFFinalFile(sessionID) : SessionHelper.GetSessionWordFinalFile(sessionID);
 
                             SessionDetails sd = EMadbatahFacade.GetSessionBySessionID(sessionID);
-                            string fileName = EMadbatahFacade.GetSessionName(sd.Season, sd.Stage, sd.Serial) + "-"+ sd.Date.Day + "-" + sd.Date.Month + "-" + sd.Date.Year+"." +FileType;
+                            string fileName = "( " + sd.EparlimentID.ToString() + " / " + sd.Type + " ) " + "-" + sd.Date.Day + "-" + sd.Date.Month + "-" + sd.Date.Year + "." + FileType;
                             if (fileData != null && fileData.Length > 0)
                             {
                                 SendFile(fileData, fileName, fileType);

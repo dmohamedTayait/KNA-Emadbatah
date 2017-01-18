@@ -55,7 +55,6 @@
     <Compile Include="SessionContentItemFacade.cs" />
     <Compile Include="EditorFacade.cs" />
     <Compile Include="EMadbatahFacade.cs" />
-    <Compile Include="Eparliment.cs" />
     <Compile Include="SessionFileFacade.cs" />
     <Compile Include="ReviewNotesFacade.cs" />
     <Compile Include="SessionStartFacade.cs" />

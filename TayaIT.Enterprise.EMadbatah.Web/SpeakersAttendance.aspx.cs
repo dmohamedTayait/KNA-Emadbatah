@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TayaIT.Enterprise.EMadbatah.BLL;
 using TayaIT.Enterprise.EMadbatah.DAL;
+using System.Text;
+using TayaIT.Enterprise.EMadbatah.Config;
+using TayaIT.Enterprise.EMadbatah.Model;
+using System.IO;
+using System.Collections;
+using TayaIT.Enterprise.EMadbatah.Localization;
+using TayaIT.Enterprise.EMadbatah.Util;
+
 
 namespace TayaIT.Enterprise.EMadbatah.Web
 {
@@ -17,12 +25,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             {
                 EMadbatahEntities ee = new EMadbatahEntities();
                 List<Session> Sessions = ee.Sessions.Where(c => c.SessionStatusID !=(int)Model.SessionStatus.FinalApproved).Select(a => a).OrderByDescending(aa => aa.ID).ToList();
-
-
-             /*   ddlSessions.DataSource = Sessions;
-                ddlSessions.DataValueField = "ID";
-                ddlSessions.DataTextField = "EParliamentID";
-                ddlSessions.DataBind();*/
 
                 ListItem liNew = new ListItem("-- اختر --", "0");
                 ddlSessions.Items.Insert(0, liNew);
@@ -87,7 +89,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
         protected void ddlSessions_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            lblInfo1.Visible = false;
+            lblInfo2.Visible = false;
             EMadbatahEntities ee = new EMadbatahEntities();
             int SessionID = int.Parse(ddlSessions.SelectedValue);
             Session SessionSelected = ee.Sessions.Where(aaaa => aaaa.ID == SessionID).Select(a => a).FirstOrDefault();
@@ -129,6 +132,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
         protected void ddlTimes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblInfo1.Visible = false;
+            lblInfo2.Visible = false;
             EMadbatahEntities ee = new EMadbatahEntities();
             int SessionID = int.Parse(ddlSessions.SelectedValue);
             Session SessionSelected = ee.Sessions.Where(aaaa => aaaa.ID == SessionID).Select(a => a).FirstOrDefault();
@@ -186,8 +191,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-           // InfoMessagePlace.Text = "يتم الان حفظ بياناتك برجاء الاتنظار";
-            ShowInfo("يتم الان حفظ بياناتك برجاء الاتنظار");
+            lblInfo1.Text = "يتم الان حفظ بياناتك برجاء الاتنظار";
+            lblInfo1.Visible = true;
+            lblInfo2.Text = "يتم الان حفظ بياناتك برجاء الاتنظار";
+            lblInfo2.Visible = true;
             foreach (GridViewRow item in GVAttendants.Rows)
             {
 
@@ -213,83 +220,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 }
 
             }
-            //InfoMessagePlace.Text = ;
-            ShowInfo("تم الحفظ بنجاح");
-        }
-
-        // Write Data in file
-        protected void btnSaveToFile_Click(object sender, EventArgs e)
-        {
-            int SessionID = int.Parse(ddlSessions.SelectedValue);
-            EMadbatahEntities ee = new EMadbatahEntities();
-
-            List<Attendant> attendantsinsession = ee.Attendants.Select(aa => aa).Where(rr => rr.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(qq => qq.ID).ToList();
-
-            Session s = ee.Sessions.Select(aa => aa).Where(qq => qq.ID == SessionID).FirstOrDefault();
-
-            // بدات في موعدها
-            // هنكتب مره واحده بس الفايل
-            if (s.SessionStartFlag == 1)
-            {
-                string datatofile = "الساده الحضور اثناء فتح الجلسه في موعدها" + Environment.NewLine;
-                for (int i = 0; i < attendantsinsession.Count; i++)
-                {
-                    if (attendantsinsession[i].AttendantState != null)
-                    {
-                        datatofile += attendantsinsession[i].ID + "    " + attendantsinsession[i].Name + "    " + attendantsinsession[i].AttendantState.Name + Environment.NewLine;
-                    }
-                    else
-                    {
-                        datatofile += attendantsinsession[i].ID + "    " + attendantsinsession[i].Name + "    " + "No Status" + Environment.NewLine;
-                    }
-                }
-
-                using (StreamWriter _testData = new StreamWriter(Server.MapPath("~/data.txt"), true))
-                {
-                    _testData.WriteLine(datatofile); // Write the file.
-                }
-
-            }
-
-             // مبداتش في موعدها
-            // هنكتب مرتين في الفايل    
-            else
-            {
-                List<Attendant> attendantsinsessioninfirst = attendantsinsession.Select(aa => aa).Where(rr => rr.SessionAttendantType == 1).OrderBy(qq => qq.ID).ToList();
-
-                string datatofile = "الساده الحضور اثناء فتح الجلسه في موعدها" + Environment.NewLine;
-
-                for (int i = 0; i < attendantsinsessioninfirst.Count; i++)
-                {
-                    if (attendantsinsessioninfirst[i].AttendantState != null)
-                    {
-                        datatofile += attendantsinsessioninfirst[i].ID + "    " + attendantsinsessioninfirst[i].Name + "    " + attendantsinsessioninfirst[i].AttendantState.Name + Environment.NewLine;
-                    }
-                    else
-                    {
-                        datatofile += attendantsinsessioninfirst[i].ID + "    " + attendantsinsessioninfirst[i].Name + "    " + "No Status" + Environment.NewLine;
-                    }
-                }
-
-                datatofile += Environment.NewLine + "الساده الحضور بعد فتح الجلسه " + Environment.NewLine;
-                attendantsinsessioninfirst = attendantsinsession.Select(aa => aa).Where(rr => rr.SessionAttendantType == 0).OrderBy(qq => qq.ID).ToList();
-
-                for (int i = 0; i < attendantsinsessioninfirst.Count; i++)
-                {
-                    if (attendantsinsessioninfirst[i].AttendantState != null)
-                    {
-                        datatofile += attendantsinsessioninfirst[i].ID + "    " + attendantsinsessioninfirst[i].Name + "    " + attendantsinsessioninfirst[i].AttendantState.Name + Environment.NewLine;
-                    }
-                    else
-                    {
-                        datatofile += attendantsinsessioninfirst[i].ID + "    " + attendantsinsessioninfirst[i].Name + "    " + "No Status" + Environment.NewLine;
-                    }
-                }
-                using (StreamWriter _testData = new StreamWriter(Server.MapPath("~/data.txt"), true))
-                {
-                    _testData.WriteLine(datatofile);
-                }
-            }
+            lblInfo1.Text = "تم الحفظ بنجاح";
+            lblInfo1.Visible = true;
+            lblInfo2.Text = "تم الحفظ بنجاح";
+            lblInfo2.Visible = true;
         }
 
         protected void testHide(object sender, GridViewRowEventArgs e)

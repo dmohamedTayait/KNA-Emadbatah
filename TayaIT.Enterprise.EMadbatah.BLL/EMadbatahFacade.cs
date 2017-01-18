@@ -840,7 +840,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 session.ReviewerID,
                 reviwerName,
                 session.MP3FolderPath,
-               (int) session.SessionStartFlag
+               (int) session.SessionStartFlag,(int)session.PresidentID
                 );
 
             return sd;
@@ -945,8 +945,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                             if (ret > 0)
                             {
-                                if (Directory.Exists(folderPath))
-                                    Directory.Delete(folderPath, true);
                                 string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
 
                                 emailData.Add("<%SessionName%>", sessionName);
@@ -960,8 +958,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         break;
                                     case FileVersion.final:
                                         int result = DAL.SessionHelper.UpdateSessionMadabathFilesStatus(details.SessionID, (int)Model.MadbatahFilesStatus.FinalCreated);
-                                        Eparliment ep = new Eparliment();
-                                        // bool result = ep.IngestContentsForFinalApprove(sessionID);
                                         if (result != -1)
                                             MailManager.SendMail(new Email(new Emailreceptionist(threadUser.Email, threadUser.Name)), SystemMailType.FinalApproveSession, emailData, threadContext);
                                         else
@@ -971,7 +967,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         }
                                         break;
                                 }
-
+                                if (Directory.Exists(folderPath))
+                                    Directory.Delete(folderPath, true);
                             }
                             else
                             {
@@ -1081,8 +1078,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                             if (ret > 0)
                             {
-                                if (Directory.Exists(folderPath))
-                                    Directory.Delete(folderPath, true);
+                                try
+                                {
+                                    if (Directory.Exists(folderPath))
+                                        Directory.Delete(folderPath, true);
+                                }
+                                catch { }
                                 string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
 
                                 emailData.Add("<%SessionName%>", sessionName);
@@ -1096,8 +1097,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         break;
                                     case FileVersion.final:
                                        int result = DAL.SessionHelper.UpdateSessionMadabathFilesStatus(details.SessionID, (int)Model.MadbatahFilesStatus.FinalCreated);
-                                        Eparliment ep = new Eparliment();
-                                       // bool result = ep.IngestContentsForFinalApprove(sessionID);
                                         if (result != -1)
                                             MailManager.SendMail(new Email(new Emailreceptionist(threadUser.Email, threadUser.Name)), SystemMailType.FinalApproveSession, emailData, threadContext);
                                         else

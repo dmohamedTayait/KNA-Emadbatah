@@ -175,15 +175,14 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     SessionFile sf = new SessionFile();
 
                     int pageNum = 0;
-                    int ii = 0;
+                    int ii = 1000;
                     List<long> WrittenAgendaItemWithGroupedSubItems = new List<long>();
                     List<string> WrittenAgendaItemForNewOrder = new List<string>();
                     foreach (List<SessionContentItem> groupedItems in allItems)
                     {
-                        ii++;
-                        pageNum = 1;//doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
+                        
+                        pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                         int ctr = 0;
-
                         //meshmesh: to handle merged with prev issue
                         List<List<SessionContentItem>> speakerGroup = new List<List<SessionContentItem>>();
                         List<SessionContentItem> newGroup = GroupSpeakerSimilarArticles(groupedItems, out speakerGroup);
@@ -210,7 +209,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             {
                                 if (!doc.IsOpen)
                                     doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open);
-                                pageNum = 1;// doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
+                                pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                                 AgendaItem updatedAgenda = contentItem.AgendaItem;
                                 if (updatedAgenda.Name != "غير معرف")
                                 {
@@ -230,7 +229,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                                 if (k == 0)
                                 {
-                                    pageNum = 1;// doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
+                                    pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
                                     if (!sessionItem.MergedWithPrevious.Value)
                                     {
                                         Attendant att = sessionItem.Attendant;
@@ -275,7 +274,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         String pdfFilePath = SessionWorkingDir + attach.Name;
                                         pdf2ImageConvert.convertPdfFile(pdfFilePath);
                                         string wordAttFilePath = SessionWorkingDir + attach.Name.ToLower().Replace(".pdf", ".pdf.docx");
-                                        string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, ""));
+                                        string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, "")).OrderBy(p => new FileInfo(p).CreationTime).ToArray(); ;
 
                                         // doc.AddParagraph(contentItemAsText.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
                                         //contentItemAsText = "";
@@ -303,10 +302,15 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         }
 
                                         text = "";
+                                      /* doc.InsertPictures(files);
+                                        if (!doc.IsOpen)
+                                            doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open);*/
                                         foreach (string f in files)
                                         {
                                             ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);
+                                            ii++;
                                         }
+                                        //doc.Save();
                                     }
                                 }
                                 if (speakerGroup[j].Count == k)
@@ -340,6 +344,25 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             }
                             k = 0;
                             text = "";
+
+                            if (j == 0)
+                            {
+                               /*List<MembersVote> mems = MembersVoteHelper.GetMembersVoteNonSecretVoteID(155);
+                               List<SessionMembersVote> membersVoteLst = new List<SessionMembersVote>();
+                               foreach (MembersVote mem in mems)
+                               {
+                                   SessionMembersVote s = new SessionMembersVote(mem.AutoID, mem.NonSecretVoteSubjectID, mem.PersonID,(int) mem.MemberVoteID, mem.MemberFullName);
+                                   membersVoteLst.Add(s);
+                               }
+
+                               doc.AddCustomTable(membersVoteLst);
+
+                                doc.AddTable(new string[,] 
+                                     { { "Texas", "1" }, 
+                                     { "California", "2" }, 
+                                     { "New York", "3" }, 
+                                     { "Massachusetts", "4" } });*/
+                            }
                             j++;
 
 
@@ -388,7 +411,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                            , ParagraphStyle.NormalArabic, ParagrapJustification.RTL, false, "");
 
                     doc.Save();
-                    int num = 1;// doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
+                    int num = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
                     doc.Dispose();
                     return num;
                 }
@@ -401,6 +424,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 return -1;
             }
         }
+
 
         public static int CreateMadbatahIndex(List<MadbatahIndexItem> index,
           string folderPath, int indexSize, int bodySize, string outIndexPath, string ServerMapPath,
@@ -964,6 +988,57 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return (title + attName).Trim();
 
         }
+
+        public static void test(string outFilePath, string SessionWorkingDir, string ServerMapPath)
+        {
+
+            string docPath = outFilePath;
+            string resfolderpath = ServerMapPath + "\\resources\\";
+            DocXmlParts xmlFilesPaths = new DocXmlParts();
+            xmlFilesPaths.CoreFilePropertiesPart = resfolderpath + "core.xml";
+            xmlFilesPaths.EndNotes = resfolderpath + "endnotes.xml";
+            xmlFilesPaths.FilePropPartPath = resfolderpath + "app.xml";
+            xmlFilesPaths.FontTablePart = resfolderpath + "fontTable.xml";
+            xmlFilesPaths.FooterPartPath = resfolderpath + "footer1.xml";
+            xmlFilesPaths.FootnotesPart = resfolderpath + "footnotes.xml";
+            xmlFilesPaths.NumberingDefinitionsPartPath = resfolderpath + "numbering.xml";
+            xmlFilesPaths.SettingsPartPath = resfolderpath + "settings.xml";
+            xmlFilesPaths.StylePartPath = resfolderpath + "styles.xml";
+            xmlFilesPaths.ThemePartPath = resfolderpath + "theme1.xml";
+            xmlFilesPaths.WebSettingsPartPath = resfolderpath + "webSettings.xml";
+            xmlFilesPaths.HeaderPartPath = resfolderpath + "header.xml";
+            try
+            {
+                WordprocessingWorker doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.CreateNew);
+                {
+                    List<MembersVote> mems = MembersVoteHelper.GetMembersVoteNonSecretVoteID(155);
+                    List<SessionMembersVote> membersVoteLst = new List<SessionMembersVote>();
+                    foreach (MembersVote mem in mems)
+                    {
+                        SessionMembersVote s = new SessionMembersVote(mem.AutoID, mem.NonSecretVoteSubjectID, mem.PersonID, (int)mem.MemberVoteID, mem.MemberFullName);
+                        membersVoteLst.Add(s);
+                    }
+                    doc.AddCustomTable(membersVoteLst);
+                }
+                doc.Save();
+                doc.Dispose();
+            }
+            catch (Exception ex)
+            {
+            }
+            /*
+
+            TableCellMarginDefault tableCellMarginDefault1 = new TableCellMarginDefault();
+
+            TopMargin topMargin1 = new TopMargin() { Width = "500", Type = TableWidthUnitValues.Pct };
+
+            TableCellLeftMargin tableCellLeftMargin1 = new TableCellLeftMargin() { Width = 108, Type = TableWidthValues.Dxa };
+
+            BottomMargin bottomMargin1 = new BottomMargin() { Width = "500", Type = TableWidthUnitValues.Pct };
+
+            TableCellRightMargin tableCellRightMargin1 = new TableCellRightMargin() { Width = 108, Type = TableWidthValues.Dxa };*/
+        }
+
 
         public static void CreateMadbatahStart2(Model.SessionDetails details, string outStartPath, string ServerMapPath)
         {

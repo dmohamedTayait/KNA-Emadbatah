@@ -16,7 +16,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             AgendaItems = new Hashtable();
 
         }
-        //Ahmed Samir : costructor for reviewer, dataentry pages : when returned from DB
+
         public SessionDetails(long sessionID,
             DateTime date,
             SessionStatus sessionStatus,
@@ -37,7 +37,6 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             Subject = subject;
 
         }
-        //end
 
         public SessionDetails(int eparlimentID,
             long serial,
@@ -52,39 +51,20 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             long stage,
             string stageType,
             List<SessionAttendant> attendance,
-            Hashtable agendaItems,
-            SessionStatus status,
-            string subject)
-        {
-            Initialize(eparlimentID, -1, serial, date, dateHijri, startTime, endTime, type, president, place, season, stage, stageType, null, attendance, null, agendaItems, status, subject,0);
-
-        }
-
-        public SessionDetails(int eparlimentID,
-            long sessionID,
-            long serial,
-            DateTime date,
-            DateTime dateHijri,
-            DateTime startTime,
-            DateTime endTime,
-            string type,
-            string president,
-            string place,
-            long season,
-            long stage,
-            string stageType,
-            List<SessionAudioFile> sessionFiles,
-            List<SessionAttendant> attendance,
-            List<SessionAttachment> attachments,
             Hashtable agendaItems,
             SessionStatus status,
             string subject,
-            long? reviewerID,
-            string reviewerName,
-            string mp3FolderPath,
-            int sessionStartFlag)
+            int presidentID)
         {
-            Initialize(eparlimentID, sessionID, serial, date, dateHijri, startTime, endTime, type, president, place, season, stage, stageType, sessionFiles, attendance, attachments, agendaItems, status, subject, sessionStartFlag);
+            Initialize(eparlimentID, -1, serial, date, dateHijri, startTime, endTime, type, president, place, season, stage, stageType, null, attendance, null, agendaItems, status, subject, 0, presidentID);
+
+        }
+
+        public SessionDetails(int eparlimentID,       long sessionID,   long serial,    DateTime date,   DateTime dateHijri, DateTime startTime,  DateTime endTime,
+            string type, string president,  string place,   long season,    long stage,   string stageType, List<SessionAudioFile> sessionFiles,    List<SessionAttendant> attendance,
+            List<SessionAttachment> attachments, Hashtable agendaItems, SessionStatus status, string subject, long? reviewerID, string reviewerName, string mp3FolderPath, int sessionStartFlag, int presidentID)
+        {
+            Initialize(eparlimentID, sessionID, serial, date, dateHijri, startTime, endTime, type, president, place, season, stage, stageType, sessionFiles, attendance, attachments, agendaItems, status, subject, sessionStartFlag,presidentID);
             ReviewerID = reviewerID;
             ReviewerName = reviewerName;
             MP3FolderPath = mp3FolderPath;
@@ -108,7 +88,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             List<SessionAttachment> attachments,
             Hashtable agendaItems,
             SessionStatus status,
-            string subject, int sessionStartFlag)
+            string subject, int sessionStartFlag, int presidentID)
         {
             Status = status;
             EparlimentID = eparlimentID;
@@ -126,6 +106,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
             StageType = stageType;
             Subject = subject;
             SessionStartFlag = (int)sessionStartFlag;
+            PresidentID = presidentID;
             if (attendance != null)
                 Attendance = attendance;
             else
@@ -160,10 +141,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         public long Stage { get; set; } // (الدور)
         public string StageType { get; set; } //(نوع الدور)
         public List<SessionAttendant> Attendance { get; set; }
-        //public List<SessionAgendaItem> AgendaItems { get; set; }
-        //Ahmed Samir : properties
         public long UserId { get; set; }
-
         public List<SessionAttachment> Attachments { get; set; }
         public List<SessionAudioFile> SessionFiles { get; set; }
         public List<string> ReviewerStatus { get; set; }
@@ -174,8 +152,7 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         public string ReviewerName { get; set; }
         public string Subject { get; set; }
         public int SessionStartFlag { get; set; }
-
-        //END
+        public int PresidentID { get; set; }
         public string MP3FolderPath { get; set; }
     }
 }

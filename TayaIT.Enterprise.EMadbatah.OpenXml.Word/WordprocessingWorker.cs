@@ -769,13 +769,180 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             }
         }
 
+        public void AddTable(string[,] data)
+        {
+            var doc = _currentDoc.MainDocumentPart.Document;
 
+            Table table = new Table();
+
+            TableProperties props = new TableProperties(
+                new TableBorders(
+                new TopBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 12
+                },
+                new BottomBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 12
+                },
+                new LeftBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 12
+                },
+                new RightBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 12
+                },
+                new InsideHorizontalBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 12
+                },
+                new InsideVerticalBorder
+                {
+                    Val = new EnumValue<BorderValues>(BorderValues.Single),
+                    Size = 12
+                }));
+
+            table.AppendChild<TableProperties>(props);
+
+            for (var i = 0; i <= data.GetUpperBound(0); i++)
+            {
+                var tr = new TableRow();
+                for (var j = 0; j <= data.GetUpperBound(1); j++)
+                {
+                    var tc = new TableCell();
+                    tc.Append(new Paragraph(new Run(new Text(data[i, j]))));
+
+                    // Assume you want columns that are automatically sized.
+                    tc.Append(new TableCellProperties(
+                        new TableCellWidth { Type = TableWidthUnitValues.Auto }));
+
+                    tr.Append(tc);
+                }
+                table.Append(tr);
+            }
+            doc.Body.Append(table);
+        }
+
+        public void AddCustomTable(List<Model.SessionMembersVote> membersVoteLst)
+        {
+            var doc = _currentDoc.MainDocumentPart.Document;
+
+            Table table = new Table();
+            TableProperties tableProp = new TableProperties();
+            TableStyle tableStyle = new TableStyle() { Val = "styleTableGrid" };
+            TableWidth tableWidth = new TableWidth() { Width = "2500", Type = TableWidthUnitValues.Pct };
+            TableLook tableLook = new TableLook() { Val = "04A0", FirstRow = true,
+                LastRow = false, FirstColumn = true, LastColumn = false,
+                NoHorizontalBand = false, NoVerticalBand = true };
+            TableJustification tblJustification = new TableJustification();
+            tblJustification.Val = TableRowAlignmentValues.Right;
+            tableProp.Append(tableStyle);
+            tableProp.Append(tableWidth);
+            tableProp.Append(tableLook);
+            tableProp.Append(tblJustification);
+            table.Append(tableProp);    
+
+
+            int i = 0;
+            foreach (Model.SessionMembersVote member in membersVoteLst)
+            {
+                var tr = new TableRow();
+
+                Paragraph paragraph1 = new Paragraph();
+                ParagraphProperties paragraphProp1 = new ParagraphProperties();
+                Justification justification1 = new Justification();
+                justification1.Val = JustificationValues.Center;
+                paragraphProp1.Append(justification1);
+                paragraph1.Append(paragraphProp1);   
+                Run run1 = new Run(new Text((i + 1).ToString()) { Space = SpaceProcessingModeValues.Preserve });
+                paragraph1.Append(run1);
+
+
+                var tc1 = new TableCell();
+                tc1.Append(paragraph1);
+                tc1.Append(new TableCellProperties(
+                    new TableCellWidth { Type = TableWidthUnitValues.Pct , Width = "400" }));
+                tc1.Append(new TableCellProperties(
+                   new TableCellMarginDefault(
+                new TableCellLeftMargin { Width = 108, Type = TableWidthValues.Dxa },
+                new TableCellRightMargin { Width = 108, Type = TableWidthValues.Dxa }
+                 )));
+                tc1.Append(new TableCellProperties(new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center }));
+
+                Paragraph paragraph2 = new Paragraph();
+                ParagraphProperties paragraphProp2 = new ParagraphProperties();
+                Justification justification2 = new Justification();
+                justification2.Val = JustificationValues.Right;
+                paragraphProp2.Append(justification2);
+                paragraph2.Append(paragraphProp2);   
+                Run run2 = new Run(new Text("  " + member.MemberFullName) { Space = SpaceProcessingModeValues.Preserve });
+                paragraph2.Append(run2);
+
+
+                var tc2 = new TableCell();
+                tc2.Append(paragraph2);
+                tc2.Append(new TableCellProperties(
+                                   new TableCellWidth { Type = TableWidthUnitValues.Pct, Width = "2500" }));
+                tc2.Append(new TableCellProperties(
+                   new TableCellMarginDefault(
+                new TableCellLeftMargin { Width = 108, Type = TableWidthValues.Dxa },
+                new TableCellRightMargin { Width = 108, Type = TableWidthValues.Dxa }
+                 )));
+                tc2.Append(new TableCellProperties(new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center }));
+
+                Paragraph paragraph3 = new Paragraph();
+                ParagraphProperties paragraphProp3 = new ParagraphProperties();
+                Justification justification3 = new Justification();
+                justification3.Val = JustificationValues.Center;
+                paragraphProp3.Append(justification3);
+                paragraph3.Append(paragraphProp3);   
+                Run run3 = new Run(new Text(member.MemberVoteID.ToString()) { Space = SpaceProcessingModeValues.Preserve });
+                paragraph3.Append(run3);
+                var tc3 = new TableCell();
+                Shading shading1 = new Shading()  {
+                        Color = "Green",
+                        Fill = "ABCDEF",
+                        Val = ShadingPatternValues.Clear
+                    };
+                Shading shading2 = new Shading()
+                {
+                    Color = "Red",
+                    Fill = "010101",
+                    Val = ShadingPatternValues.Clear
+                };
+
+                if (member.MemberVoteID == 1)
+                    tc3.Append(shading1);
+                else if (member.MemberVoteID == 2)
+                    tc3.Append(shading2);
+                tc3.Append(paragraph3);
+                tc3.Append(new TableCellProperties(
+                                new TableCellWidth { Type = TableWidthUnitValues.Pct, Width = "800" }));
+                tc3.Append(new TableCellProperties(
+                   new TableCellMarginDefault(
+                new TableCellLeftMargin { Width = 108, Type = TableWidthValues.Dxa },
+                new TableCellRightMargin { Width = 108, Type = TableWidthValues.Dxa }
+                 )));
+                tc3.Append(new TableCellProperties(new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center }));
+    
+                tr.Append(tc3);
+                tr.Append(tc2);
+                tr.Append(tc1);
+              
+                table.Append(tr);
+                i++;
+            }
+            doc.Body.Append(table);
+        }
 
         private void InitializeDocumentStyles()
         {
-
-
-
             // Create a style part and add it to the document
             XmlDocument stylesXml = new XmlDocument();
             stylesXml.Load(_docXmlParts.StylePartPath);
@@ -921,50 +1088,111 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             styleParagraphTitleBoldItalic.Append(new BasedOn() { Val = "Normal" });
             styleParagraphTitleBoldItalic.Append(new NextParagraphStyle() { Val = "Normal" });
             styleParagraphTitleBoldItalic.Append(runParagraphBoldItalicTextProp);
-
-            //(now from style)
-            //RunProperties runFootNoteProp = new RunProperties();
-            //RunFonts runFontsFootNote = new RunFonts() { ComplexScript = "Simplified Arabic" };
-            //NoProof noProof = new NoProof();
-            //FontSize fontSizeFootNote = new FontSize() { Val = "20" };
-            //FontSizeComplexScript fontSizeComplexScriptFootNote = new FontSizeComplexScript() { Val = "20" };
-            //RightToLeftText rtlFootNote = new RightToLeftText();
-            //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
-            //runFootNoteProp.Append(runFontsFootNote);
-            //runFootNoteProp.Append(noProof);
-            //runFootNoteProp.Append(fontSizeFootNote);
-            //runFootNoteProp.Append(fontSizeComplexScriptFootNote);
-            //runFootNoteProp.Append(rtlFootNote);
-            //runFootNoteProp.Append(languages);
-            //Style styleFootNote = new Style() { Type = StyleValues.Paragraph, StyleId = "FootnoteText" };
-            //SemiHidden semiHidden = new SemiHidden();
-            //Rsid rsidFootNote = new Rsid() { Val = "00DB4CCA" };
-            //styleFootNote.Append(new Name() { Val = "Taya Madbatah Foot Note Text" });
-            //styleFootNote.Append(new BasedOn() { Val = "Normal" });
-            //styleFootNote.Append(new NextParagraphStyle() { Val = "Normal" });
-            //styleFootNote.Append(runFootNoteProp);
+            
+            Style styleTableGrid = new Style() { Type = StyleValues.Table, StyleId = "styleTableGrid" };
+            StyleName styleName1 = new StyleName() { Val = "Table Grid" };
+            BasedOn basedOn1 = new BasedOn() { Val = "TableNormal" };
+            UIPriority uIPriority1 = new UIPriority() { Val = 59 };
+            Rsid rsid1 = new Rsid() { Val = "005F1CC5" };
 
 
-            //RunProperties runFootnoteRefProp = new RunProperties();
-            //Rsid rsiFdootnoteRef = new Rsid() { Val = "008A7103" };
-            //// RunStyle runStyleFootnoteRef = new RunStyle() { Val = "FootnoteReference" };
-            //RunFonts runFontsFootnoteRef = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-            //FontSize fontSizeFootnoteRef = new FontSize() { Val = "32" };
-            //FontSizeComplexScript fontSizeComplexScriptFootnoteRef = new FontSizeComplexScript() { Val = "32" };
-            //RightToLeftText rtlFootnoteRef = new RightToLeftText();
+            RunProperties runTableParagraphTitleTextProp = new RunProperties();
+            RunFonts runTableParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingMedium", HighAnsi = "AdvertisingMedium", ComplexScript = "AdvertisingMedium" };
+            Bold Tablebold = new Bold();
+            BoldComplexScript TableBoldComplexScript = new BoldComplexScript();
+            FontSize fontTableParagraphTitleTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontTableParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
+            RightToLeftText TableRtlTextParagraphTitle = new RightToLeftText();
+            Justification justification = new Justification();
+            justification.Val = JustificationValues.Right;
+            runTableParagraphTitleTextProp.Append(runTableParagraphTitleTextFonts);
+            runTableParagraphTitleTextProp.Append(Tablebold);
+            runTableParagraphTitleTextProp.Append(TableBoldComplexScript);
+            runTableParagraphTitleTextProp.Append(fontTableParagraphTitleTextSize);
+            runTableParagraphTitleTextProp.Append(fontTableParagraphTitleComplexScriptSize);
+            runTableParagraphTitleTextProp.Append(TableRtlTextParagraphTitle);
+            runTableParagraphTitleTextProp.Append(justification);
 
-            ////runFootnoteRefProp.Append(runStyleFootnoteRef);
-            //runFootnoteRefProp.Append(runFontsFootnoteRef);
-            //runFootnoteRefProp.Append(fontSizeFootnoteRef);
-            //runFootnoteRefProp.Append(fontSizeComplexScriptFootnoteRef);
-            //runFootnoteRefProp.Append(rtlFootnoteRef);
-            ////Rsid rsidFootNoteRef = new Rsid() { Val = "00DB4CCA" };
-            //Style styleFootNoteRef = new Style() { StyleId = "FootnoteReference" };
-            //styleFootNoteRef.Append(new Name() { Val = "Taya Madbatah Foot Note Ref Text" });
-            //styleFootNoteRef.Append(new BasedOn() { Val = "Normal" });
-            //styleFootNoteRef.Append(new NextParagraphStyle() { Val = "Normal" });
-            //styleFootNoteRef.Append(runFootnoteRefProp);
+            StyleParagraphProperties styleParagraphProperties1 = new StyleParagraphProperties();
+            SpacingBetweenLines spacingBetweenLines1 = new SpacingBetweenLines()
+            {
+                After = "0",
+                Line = "240",
+                LineRule = LineSpacingRuleValues.Auto
+            };
 
+            styleParagraphProperties1.Append(spacingBetweenLines1);
+
+            StyleTableProperties styleTableProperties1 = new StyleTableProperties();
+            TableIndentation tableIndentation1 = new TableIndentation()
+            {
+                Width = 0,
+                Type = TableWidthUnitValues.Dxa
+            };
+
+            TableBorders tableBorders1 = new TableBorders();
+            TopBorder topBorder1 = new TopBorder()
+            {
+                Val = BorderValues.Single,
+                Color = "auto",
+                Size = (UInt32Value)4U,
+                Space = (UInt32Value)0U
+            };
+            LeftBorder leftBorder1 = new LeftBorder()
+            {
+                Val = BorderValues.Single,
+                Color = "auto",
+                Size = (UInt32Value)4U,
+                Space = (UInt32Value)0U
+            };
+            BottomBorder bottomBorder1 = new BottomBorder()
+            {
+                Val = BorderValues.Single,
+                Color = "auto",
+                Size = (UInt32Value)4U,
+                Space = (UInt32Value)0U
+            };
+            RightBorder rightBorder1 = new RightBorder()
+            {
+                Val = BorderValues.Single,
+                Color = "auto",
+                Size = (UInt32Value)4U,
+                Space = (UInt32Value)0U
+            };
+            InsideHorizontalBorder insideHorizontalBorder1 = new InsideHorizontalBorder()
+            {
+                Val = BorderValues.Single,
+                Color = "auto",
+                Size = (UInt32Value)4U,
+                Space = (UInt32Value)0U
+            };
+            InsideVerticalBorder insideVerticalBorder1 = new InsideVerticalBorder()
+            {
+                Val = BorderValues.Single,
+                Color = "auto",
+                Size = (UInt32Value)4U,
+                Space = (UInt32Value)0U
+            };
+
+            tableBorders1.Append(topBorder1);
+            tableBorders1.Append(leftBorder1);
+            tableBorders1.Append(bottomBorder1);
+            tableBorders1.Append(rightBorder1);
+            tableBorders1.Append(insideHorizontalBorder1);
+            tableBorders1.Append(insideVerticalBorder1);
+
+
+            styleTableProperties1.Append(tableIndentation1);
+            styleTableProperties1.Append(tableBorders1);
+
+
+            styleTableGrid.Append(styleName1);
+            styleTableGrid.Append(basedOn1);
+            styleTableGrid.Append(uIPriority1);
+            styleTableGrid.Append(rsid1);
+            styleTableGrid.Append(styleParagraphProperties1);
+            styleTableGrid.Append(styleTableProperties1);
+            styleTableGrid.Append(runTableParagraphTitleTextProp);
 
             _docStylePart.Styles = new Styles();
             _docStylePart.Styles.Append(styleNormalText);
@@ -972,6 +1200,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             _docStylePart.Styles.Append(styleUnderlineParagraphTitle);
             _docStylePart.Styles.Append(styleParagraphTitleItalic);
             _docStylePart.Styles.Append(styleParagraphTitleBoldItalic);
+            _docStylePart.Styles.Append(styleTableGrid);
             //_docStylePart.Styles.Append(styleFootNoteRef);
             //_docStylePart.Styles.Append(styleFootNote);
             _docStylePart.Styles.Save();
@@ -1326,8 +1555,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
         }
 
-
-
+        
         public static byte[] OpenAndCombine(IList<byte[]> documents)
         {
             MemoryStream mainStream = new MemoryStream();
@@ -1478,6 +1706,29 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 AddImageToBody(wordprocessingDocument, mainPart.GetIdOfPart(imagePart));
             }
         }
+
+        public void InsertPictures(string[] fileNames)
+        {
+            try
+            {
+                MainDocumentPart mainPart = _currentDoc.MainDocumentPart;
+                if (mainPart == null)
+                    mainPart = _currentDoc.AddMainDocumentPart();
+                if (mainPart.Document == null)
+                    mainPart.Document = MakeEmpyDocument();
+                ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
+                foreach (string fileName in fileNames)
+                {
+                    FileStream stream = new FileStream(fileName, FileMode.Open);
+                    imagePart.FeedData(stream);
+                }
+                AddImageToBody(_currentDoc, mainPart.GetIdOfPart(imagePart));
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
         private static void AddImageToBody(WordprocessingDocument wordDoc, string relationshipId)
         {
 

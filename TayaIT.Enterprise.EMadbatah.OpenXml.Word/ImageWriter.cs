@@ -51,7 +51,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 image = new Bitmap(fsImageFile);
             }
             long imageWidthEMU = (long)((image.Width / image.HorizontalResolution) * 714400L) ;//* 914400L);
-            long imageHeightEMU = (long)((image.Height / image.VerticalResolution) * 774400L);
+            long imageHeightEMU = (long)((image.Height / image.VerticalResolution) * 744400L);
 
             // add this is not already there
             try

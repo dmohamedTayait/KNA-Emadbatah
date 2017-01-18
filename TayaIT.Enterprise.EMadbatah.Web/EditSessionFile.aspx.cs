@@ -177,8 +177,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             li = new ListItem("-------- اختر المتحدث --------", "0");
             ddlSpeakers.Items.Insert(0, li);
 
-
-            string attachID = "";
+           //Bind Available Attachments
             string attachName = "";
             List<TayaIT.Enterprise.EMadbatah.DAL.Attachement> attachmentLst = TayaIT.Enterprise.EMadbatah.DAL.AttachmentHelper.GetSessionAttachments(long.Parse(SessionID));
             ListItem liAttach = new ListItem();
@@ -191,19 +190,19 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 rdlattachments.Items.Add(liAttach);
             }
 
-
-           foreach (AgendaItem item in current_session.AgendaItems)
-            {
-                ListItem liAgenda = new ListItem(item.Name, item.ID.ToString());
-                liAgenda.Attributes["IsGroupSubAgendaItems"] = item.IsGroupSubAgendaItems.ToString().ToLower();
-                ddlAgendaItems.Items.Add(liAgenda);
-            }
-
-            li = new ListItem("-------- اختر البند --------", "0");
-            ddlAgendaItems.Items.Insert(0, li);
-
             if (lastContentItem != null)
             {
+                Attendant attendObj = AttendantHelper.GetAttendantById(lastContentItem.AttendantID);
+                if (attendObj != null && attendObj.AttendantAvatar != null && attendObj.AttendantAvatar != "")
+                {
+                    imgSpeakerAvatar.Src = "/images/AttendantAvatars/" + attendObj.AttendantAvatar;
+                }
+                else
+                {
+                    imgSpeakerAvatar.Src = "/images/unknown.jpg";
+                }
+
+
                 if (lastContentItem.AgendaItemID != null)
                 {
                     // btn_addNewAgendaItem.Style.Add("display", "none");
@@ -226,13 +225,30 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     attachName = attachObj.Name;
                     attachId.Value = lastContentItem.AttachementID.ToString();
                     divAttach.Style.Add("display", "");
-                    divAttach.InnerHtml = "<span>" + attachName + "</span>";
+                    spanAttachTitle.InnerHtml = attachName;
                 }
                 else
                 {
                     attachId.Value = "0";
                     divAttach.Style.Add("display", "none");
-                    divAttach.InnerHtml = "";
+                    spanAttachTitle.InnerHtml = "";
+                }
+
+
+                string voteSubject = "";
+                if (lastContentItem.VotingID != null && lastContentItem.VotingID != 0)
+                {
+                    TBLNonSecretVoteSubject voteObj = NonSecretVoteSubjectHelper.GetSessionVoteByVoteID((int)lastContentItem.VotingID);
+                    voteSubject = voteObj.NonSecretVoteSubject;
+                    voteId.Value = lastContentItem.VotingID.ToString();
+                    divVote.Style.Add("display", "");
+                    spanVoteSubject.InnerHtml = voteSubject;
+                }
+                else
+                {
+                    voteId.Value = "0";
+                    divVote.Style.Add("display", "none");
+                    spanVoteSubject.InnerHtml = "";
                 }
 
                 ddlSpeakers.SelectedValue = lastContentItem.AttendantID.ToString();
@@ -253,7 +269,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 else
                     sameAsPrevSpeaker.Attributes.Add("checked", "checked");
 
-                if (lastContentItem.Ignored == null && lastContentItem.Ignored == false)
+
+                if (lastContentItem.IsSessionPresident == null || lastContentItem.IsSessionPresident == 0)
+                    isSessionPresident.Attributes.Remove("checked");
+                else
+                    isSessionPresident.Attributes.Add("checked", "checked");
+
+                 if (lastContentItem.Ignored == null && lastContentItem.Ignored == false)
                     chkIgnoredSegment.Attributes.Remove("checked");
                 else
                     chkIgnoredSegment.Attributes.Add("checked", "checked");
@@ -285,11 +307,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                 attachId.Value = "0";
                 divAttach.Style.Add("display", "none");
-                divAttach.InnerHtml = "";
+                spanAttachTitle.InnerHtml = "";
+
+                voteId.Value = "0";
+                divVote.Style.Add("display", "none");
+                spanVoteSubject.InnerHtml = "";
             }
 
 
             // bind labels
+            eparId.Value = current_session.EParliamentID.ToString();
             lblSessionName.Text = current_session.EParliamentID.ToString() + " / " + current_session.Type.ToString();
             lblSessionDate.Text = current_session.Date.ToShortDateString();
             lblMP3FileName.Text = System.IO.Path.GetFileName(file.Name);
@@ -310,6 +337,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     btnNext.Attributes.Remove("disabled");
                     btnPrev.Attributes.Add("disabled", "disabled");
                     sameAsPrevSpeaker.Attributes.Add("disabled", "disabled");
+                    
                 }
                 else
                     if (FragOrder > 0 && FragOrder <= p.Count - 1 )

@@ -11,7 +11,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblInfo1.Visible = false;
+            lblInfo2.Visible = false;
             if (!Page.IsPostBack)
             {
                 EMadbatahEntities ee = new EMadbatahEntities();
@@ -45,17 +46,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
         }
 
-
-        // Action excuted when ddl changed
         protected void ddlCommittee_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblInfo1.Visible = false;
+            lblInfo2.Visible = false;
             List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants();
             GVDefaultAttendants.DataSource = DefaultAttendants;
             GVDefaultAttendants.DataBind();
         }
 
-
-        // Update DefaultAttendants status in GV from DB 
         protected void GVDefaultAttendants_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             int CommitteeSelected = int.Parse(ddlCommittee.SelectedValue);
@@ -79,8 +78,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
         }
 
-
-        // Update DB from userinput in GV
         protected void btnSave_Click(object sender, EventArgs e)
         {
             int SessionId = int.Parse(ddlSessions.SelectedValue);
@@ -101,12 +98,18 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 }
 
                 int result = CommitteeHelper.UpdateCommitteeAttendant(CommitteeSelected, DefaultAttendantId, SessionId, AttendantStatus, committeeDate);
-
             }
+
+            lblInfo1.Text = "تم الحفظ بنجاح";
+            lblInfo1.Visible = true;
+            lblInfo2.Text = "تم الحفظ بنجاح";
+            lblInfo2.Visible = true;
         }
 
         protected void ddlSessions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblInfo1.Visible = false;
+            lblInfo2.Visible = false;
             List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants();
             GVDefaultAttendants.DataSource = DefaultAttendants;
             GVDefaultAttendants.DataBind();

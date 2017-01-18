@@ -1,6 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CreateNewSession.aspx.cs" Title="المضبطة الإلكترونية - إضافة مضبطة جديدة"
     Inherits="TayaIT.Enterprise.EMadbatah.Web.CreateNewSession" MasterPageFile="~/Site.master" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
+</asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
   <script src="scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
   <script src="scripts/jquery.dynDateTime.min.js" type="text/javascript"></script>
@@ -136,6 +138,17 @@
             <asp:ListItem>غير عادي</asp:ListItem>
           </asp:DropDownList>
           <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlStagetype" InitialValue="0" ErrorMessage="*" ValidationGroup="VGSession" ForeColor="Red" />
+        </div>
+        <div class="clear"> </div>
+      </div>
+           <div class="largerow">
+        <div class="grid_5 h2">
+          <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="ddlPresident" InitialValue="0" ErrorMessage="*" ValidationGroup="VGSession" ForeColor="Red" />
+          <asp:Label ID="Label1" runat="server" Text="رئيس الجلسة"></asp:Label>
+        </div>
+        <div class="grid_8">
+          <asp:DropDownList ID="ddlPresident" runat="server" CssClass="inputBlock">
+          </asp:DropDownList>
         </div>
         <div class="clear"> </div>
       </div>

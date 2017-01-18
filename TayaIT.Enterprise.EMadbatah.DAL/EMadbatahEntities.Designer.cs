@@ -47,6 +47,9 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionContentItem_Attachement", "Attachement", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attachement), "SessionContentItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionContentItem), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_MembersVote_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(TayaIT.Enterprise.EMadbatah.DAL.TBLNonSecretVoteSubject), "MembersVote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.MembersVote), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLMeeting", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.TBLMeeting), "TBLNonSecretVoteSubject", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.TBLNonSecretVoteSubject), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionContentItem_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.TBLNonSecretVoteSubject), "SessionContentItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionContentItem), true)]
 
 #endregion
 
@@ -417,6 +420,70 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
         private ObjectSet<DefaultAttendant> _DefaultAttendants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<MembersVote> MembersVotes
+        {
+            get
+            {
+                if ((_MembersVotes == null))
+                {
+                    _MembersVotes = base.CreateObjectSet<MembersVote>("MembersVotes");
+                }
+                return _MembersVotes;
+            }
+        }
+        private ObjectSet<MembersVote> _MembersVotes;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TBLMeeting> TBLMeetings
+        {
+            get
+            {
+                if ((_TBLMeetings == null))
+                {
+                    _TBLMeetings = base.CreateObjectSet<TBLMeeting>("TBLMeetings");
+                }
+                return _TBLMeetings;
+            }
+        }
+        private ObjectSet<TBLMeeting> _TBLMeetings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TBLNonSecretVoteSubject> TBLNonSecretVoteSubjects
+        {
+            get
+            {
+                if ((_TBLNonSecretVoteSubjects == null))
+                {
+                    _TBLNonSecretVoteSubjects = base.CreateObjectSet<TBLNonSecretVoteSubject>("TBLNonSecretVoteSubjects");
+                }
+                return _TBLNonSecretVoteSubjects;
+            }
+        }
+        private ObjectSet<TBLNonSecretVoteSubject> _TBLNonSecretVoteSubjects;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TBLPerson> TBLPersons
+        {
+            get
+            {
+                if ((_TBLPersons == null))
+                {
+                    _TBLPersons = base.CreateObjectSet<TBLPerson>("TBLPersons");
+                }
+                return _TBLPersons;
+            }
+        }
+        private ObjectSet<TBLPerson> _TBLPersons;
 
         #endregion
         #region AddTo Methods
@@ -579,6 +646,38 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         public void AddToDefaultAttendants(DefaultAttendant defaultAttendant)
         {
             base.AddObject("DefaultAttendants", defaultAttendant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the MembersVotes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToMembersVotes(MembersVote membersVote)
+        {
+            base.AddObject("MembersVotes", membersVote);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TBLMeetings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTBLMeetings(TBLMeeting tBLMeeting)
+        {
+            base.AddObject("TBLMeetings", tBLMeeting);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TBLNonSecretVoteSubjects EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTBLNonSecretVoteSubjects(TBLNonSecretVoteSubject tBLNonSecretVoteSubject)
+        {
+            base.AddObject("TBLNonSecretVoteSubjects", tBLNonSecretVoteSubject);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TBLPersons EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTBLPersons(TBLPerson tBLPerson)
+        {
+            base.AddObject("TBLPersons", tBLPerson);
         }
 
         #endregion
@@ -1731,6 +1830,54 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _AttendantTitle;
         partial void OnAttendantTitleChanging(global::System.String value);
         partial void OnAttendantTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OrderByAttendantType
+        {
+            get
+            {
+                return _OrderByAttendantType;
+            }
+            set
+            {
+                OnOrderByAttendantTypeChanging(value);
+                ReportPropertyChanging("OrderByAttendantType");
+                _OrderByAttendantType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OrderByAttendantType");
+                OnOrderByAttendantTypeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OrderByAttendantType;
+        partial void OnOrderByAttendantTypeChanging(Nullable<global::System.Int32> value);
+        partial void OnOrderByAttendantTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AttendantAvatar
+        {
+            get
+            {
+                return _AttendantAvatar;
+            }
+            set
+            {
+                OnAttendantAvatarChanging(value);
+                ReportPropertyChanging("AttendantAvatar");
+                _AttendantAvatar = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AttendantAvatar");
+                OnAttendantAvatarChanged();
+            }
+        }
+        private global::System.String _AttendantAvatar;
+        partial void OnAttendantAvatarChanging(global::System.String value);
+        partial void OnAttendantAvatarChanged();
 
         #endregion
     
@@ -2675,6 +2822,54 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _AttendantTitle;
         partial void OnAttendantTitleChanging(global::System.String value);
         partial void OnAttendantTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OrderByAttendantType
+        {
+            get
+            {
+                return _OrderByAttendantType;
+            }
+            set
+            {
+                OnOrderByAttendantTypeChanging(value);
+                ReportPropertyChanging("OrderByAttendantType");
+                _OrderByAttendantType = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OrderByAttendantType");
+                OnOrderByAttendantTypeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OrderByAttendantType;
+        partial void OnOrderByAttendantTypeChanging(Nullable<global::System.Int32> value);
+        partial void OnOrderByAttendantTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AttendantAvatar
+        {
+            get
+            {
+                return _AttendantAvatar;
+            }
+            set
+            {
+                OnAttendantAvatarChanging(value);
+                ReportPropertyChanging("AttendantAvatar");
+                _AttendantAvatar = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AttendantAvatar");
+                OnAttendantAvatarChanged();
+            }
+        }
+        private global::System.String _AttendantAvatar;
+        partial void OnAttendantAvatarChanging(global::System.String value);
+        partial void OnAttendantAvatarChanged();
 
         #endregion
     
@@ -2826,6 +3021,202 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Session>("EMadbatahModel.FK_Session_MadbatahFilesStatus", "Session", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="MembersVote")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MembersVote : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MembersVote object.
+        /// </summary>
+        /// <param name="autoID">Initial value of the AutoID property.</param>
+        /// <param name="nonSecretVoteSubjectID">Initial value of the NonSecretVoteSubjectID property.</param>
+        /// <param name="personID">Initial value of the PersonID property.</param>
+        public static MembersVote CreateMembersVote(global::System.Int32 autoID, global::System.Int32 nonSecretVoteSubjectID, global::System.Int32 personID)
+        {
+            MembersVote membersVote = new MembersVote();
+            membersVote.AutoID = autoID;
+            membersVote.NonSecretVoteSubjectID = nonSecretVoteSubjectID;
+            membersVote.PersonID = personID;
+            return membersVote;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AutoID
+        {
+            get
+            {
+                return _AutoID;
+            }
+            set
+            {
+                if (_AutoID != value)
+                {
+                    OnAutoIDChanging(value);
+                    ReportPropertyChanging("AutoID");
+                    _AutoID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("AutoID");
+                    OnAutoIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _AutoID;
+        partial void OnAutoIDChanging(global::System.Int32 value);
+        partial void OnAutoIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NonSecretVoteSubjectID
+        {
+            get
+            {
+                return _NonSecretVoteSubjectID;
+            }
+            set
+            {
+                OnNonSecretVoteSubjectIDChanging(value);
+                ReportPropertyChanging("NonSecretVoteSubjectID");
+                _NonSecretVoteSubjectID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NonSecretVoteSubjectID");
+                OnNonSecretVoteSubjectIDChanged();
+            }
+        }
+        private global::System.Int32 _NonSecretVoteSubjectID;
+        partial void OnNonSecretVoteSubjectIDChanging(global::System.Int32 value);
+        partial void OnNonSecretVoteSubjectIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PersonID
+        {
+            get
+            {
+                return _PersonID;
+            }
+            set
+            {
+                OnPersonIDChanging(value);
+                ReportPropertyChanging("PersonID");
+                _PersonID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PersonID");
+                OnPersonIDChanged();
+            }
+        }
+        private global::System.Int32 _PersonID;
+        partial void OnPersonIDChanging(global::System.Int32 value);
+        partial void OnPersonIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> MemberVoteID
+        {
+            get
+            {
+                return _MemberVoteID;
+            }
+            set
+            {
+                OnMemberVoteIDChanging(value);
+                ReportPropertyChanging("MemberVoteID");
+                _MemberVoteID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MemberVoteID");
+                OnMemberVoteIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _MemberVoteID;
+        partial void OnMemberVoteIDChanging(Nullable<global::System.Int32> value);
+        partial void OnMemberVoteIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MemberFullName
+        {
+            get
+            {
+                return _MemberFullName;
+            }
+            set
+            {
+                OnMemberFullNameChanging(value);
+                ReportPropertyChanging("MemberFullName");
+                _MemberFullName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("MemberFullName");
+                OnMemberFullNameChanged();
+            }
+        }
+        private global::System.String _MemberFullName;
+        partial void OnMemberFullNameChanging(global::System.String value);
+        partial void OnMemberFullNameChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_MembersVote_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject")]
+        public TBLNonSecretVoteSubject TBLNonSecretVoteSubject
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLNonSecretVoteSubject>("EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLNonSecretVoteSubject>("EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<TBLNonSecretVoteSubject> TBLNonSecretVoteSubjectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLNonSecretVoteSubject>("EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TBLNonSecretVoteSubject>("EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject", value);
                 }
             }
         }
@@ -3803,6 +4194,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int32> _SessionStartFlag;
         partial void OnSessionStartFlagChanging(Nullable<global::System.Int32> value);
         partial void OnSessionStartFlagChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PresidentID
+        {
+            get
+            {
+                return _PresidentID;
+            }
+            set
+            {
+                OnPresidentIDChanging(value);
+                ReportPropertyChanging("PresidentID");
+                _PresidentID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PresidentID");
+                OnPresidentIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PresidentID;
+        partial void OnPresidentIDChanging(Nullable<global::System.Int32> value);
+        partial void OnPresidentIDChanged();
 
         #endregion
     
@@ -4669,24 +5084,48 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> IsAdmin
+        public Nullable<global::System.Int32> VotingID
         {
             get
             {
-                return _IsAdmin;
+                return _VotingID;
             }
             set
             {
-                OnIsAdminChanging(value);
-                ReportPropertyChanging("IsAdmin");
-                _IsAdmin = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IsAdmin");
-                OnIsAdminChanged();
+                OnVotingIDChanging(value);
+                ReportPropertyChanging("VotingID");
+                _VotingID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("VotingID");
+                OnVotingIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _IsAdmin;
-        partial void OnIsAdminChanging(Nullable<global::System.Int32> value);
-        partial void OnIsAdminChanged();
+        private Nullable<global::System.Int32> _VotingID;
+        partial void OnVotingIDChanging(Nullable<global::System.Int32> value);
+        partial void OnVotingIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> IsSessionPresident
+        {
+            get
+            {
+                return _IsSessionPresident;
+            }
+            set
+            {
+                OnIsSessionPresidentChanging(value);
+                ReportPropertyChanging("IsSessionPresident");
+                _IsSessionPresident = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsSessionPresident");
+                OnIsSessionPresidentChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _IsSessionPresident;
+        partial void OnIsSessionPresidentChanging(Nullable<global::System.Int32> value);
+        partial void OnIsSessionPresidentChanged();
 
         #endregion
     
@@ -5068,6 +5507,44 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Attachement>("EMadbatahModel.FK_SessionContentItem_Attachement", "Attachement", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionContentItem_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject")]
+        public TBLNonSecretVoteSubject TBLNonSecretVoteSubject
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLNonSecretVoteSubject>("EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLNonSecretVoteSubject>("EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<TBLNonSecretVoteSubject> TBLNonSecretVoteSubjectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLNonSecretVoteSubject>("EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TBLNonSecretVoteSubject>("EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject", "TBLNonSecretVoteSubject", value);
                 }
             }
         }
@@ -6011,6 +6488,643 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="TBLMeeting")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TBLMeeting : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TBLMeeting object.
+        /// </summary>
+        /// <param name="meetingID">Initial value of the MeetingID property.</param>
+        public static TBLMeeting CreateTBLMeeting(global::System.Int32 meetingID)
+        {
+            TBLMeeting tBLMeeting = new TBLMeeting();
+            tBLMeeting.MeetingID = meetingID;
+            return tBLMeeting;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 MeetingID
+        {
+            get
+            {
+                return _MeetingID;
+            }
+            set
+            {
+                if (_MeetingID != value)
+                {
+                    OnMeetingIDChanging(value);
+                    ReportPropertyChanging("MeetingID");
+                    _MeetingID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("MeetingID");
+                    OnMeetingIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _MeetingID;
+        partial void OnMeetingIDChanging(global::System.Int32 value);
+        partial void OnMeetingIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MeetingSN
+        {
+            get
+            {
+                return _MeetingSN;
+            }
+            set
+            {
+                OnMeetingSNChanging(value);
+                ReportPropertyChanging("MeetingSN");
+                _MeetingSN = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("MeetingSN");
+                OnMeetingSNChanged();
+            }
+        }
+        private global::System.String _MeetingSN;
+        partial void OnMeetingSNChanging(global::System.String value);
+        partial void OnMeetingSNChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MeetingNo
+        {
+            get
+            {
+                return _MeetingNo;
+            }
+            set
+            {
+                OnMeetingNoChanging(value);
+                ReportPropertyChanging("MeetingNo");
+                _MeetingNo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("MeetingNo");
+                OnMeetingNoChanged();
+            }
+        }
+        private global::System.String _MeetingNo;
+        partial void OnMeetingNoChanging(global::System.String value);
+        partial void OnMeetingNoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> MeetingDate
+        {
+            get
+            {
+                return _MeetingDate;
+            }
+            set
+            {
+                OnMeetingDateChanging(value);
+                ReportPropertyChanging("MeetingDate");
+                _MeetingDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MeetingDate");
+                OnMeetingDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _MeetingDate;
+        partial void OnMeetingDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnMeetingDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MeetingTitle
+        {
+            get
+            {
+                return _MeetingTitle;
+            }
+            set
+            {
+                OnMeetingTitleChanging(value);
+                ReportPropertyChanging("MeetingTitle");
+                _MeetingTitle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("MeetingTitle");
+                OnMeetingTitleChanged();
+            }
+        }
+        private global::System.String _MeetingTitle;
+        partial void OnMeetingTitleChanging(global::System.String value);
+        partial void OnMeetingTitleChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLNonSecretVoteSubject")]
+        public EntityCollection<TBLNonSecretVoteSubject> TBLNonSecretVoteSubjects
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TBLNonSecretVoteSubject>("EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLNonSecretVoteSubject");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TBLNonSecretVoteSubject>("EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLNonSecretVoteSubject", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="TBLNonSecretVoteSubject")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TBLNonSecretVoteSubject : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TBLNonSecretVoteSubject object.
+        /// </summary>
+        /// <param name="nonSecretVoteSubjectID">Initial value of the NonSecretVoteSubjectID property.</param>
+        /// <param name="nonSecretVoteSubjectNumber">Initial value of the NonSecretVoteSubjectNumber property.</param>
+        public static TBLNonSecretVoteSubject CreateTBLNonSecretVoteSubject(global::System.Int32 nonSecretVoteSubjectID, global::System.Int32 nonSecretVoteSubjectNumber)
+        {
+            TBLNonSecretVoteSubject tBLNonSecretVoteSubject = new TBLNonSecretVoteSubject();
+            tBLNonSecretVoteSubject.NonSecretVoteSubjectID = nonSecretVoteSubjectID;
+            tBLNonSecretVoteSubject.NonSecretVoteSubjectNumber = nonSecretVoteSubjectNumber;
+            return tBLNonSecretVoteSubject;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NonSecretVoteSubjectID
+        {
+            get
+            {
+                return _NonSecretVoteSubjectID;
+            }
+            set
+            {
+                if (_NonSecretVoteSubjectID != value)
+                {
+                    OnNonSecretVoteSubjectIDChanging(value);
+                    ReportPropertyChanging("NonSecretVoteSubjectID");
+                    _NonSecretVoteSubjectID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("NonSecretVoteSubjectID");
+                    OnNonSecretVoteSubjectIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _NonSecretVoteSubjectID;
+        partial void OnNonSecretVoteSubjectIDChanging(global::System.Int32 value);
+        partial void OnNonSecretVoteSubjectIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> MeetingID
+        {
+            get
+            {
+                return _MeetingID;
+            }
+            set
+            {
+                OnMeetingIDChanging(value);
+                ReportPropertyChanging("MeetingID");
+                _MeetingID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MeetingID");
+                OnMeetingIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _MeetingID;
+        partial void OnMeetingIDChanging(Nullable<global::System.Int32> value);
+        partial void OnMeetingIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NonSecretVoteSubjectNumber
+        {
+            get
+            {
+                return _NonSecretVoteSubjectNumber;
+            }
+            set
+            {
+                OnNonSecretVoteSubjectNumberChanging(value);
+                ReportPropertyChanging("NonSecretVoteSubjectNumber");
+                _NonSecretVoteSubjectNumber = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NonSecretVoteSubjectNumber");
+                OnNonSecretVoteSubjectNumberChanged();
+            }
+        }
+        private global::System.Int32 _NonSecretVoteSubjectNumber;
+        partial void OnNonSecretVoteSubjectNumberChanging(global::System.Int32 value);
+        partial void OnNonSecretVoteSubjectNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NonSecretVoteSubject
+        {
+            get
+            {
+                return _NonSecretVoteSubject;
+            }
+            set
+            {
+                OnNonSecretVoteSubjectChanging(value);
+                ReportPropertyChanging("NonSecretVoteSubject");
+                _NonSecretVoteSubject = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NonSecretVoteSubject");
+                OnNonSecretVoteSubjectChanged();
+            }
+        }
+        private global::System.String _NonSecretVoteSubject;
+        partial void OnNonSecretVoteSubjectChanging(global::System.String value);
+        partial void OnNonSecretVoteSubjectChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> NonSecretVoteSubjectDate
+        {
+            get
+            {
+                return _NonSecretVoteSubjectDate;
+            }
+            set
+            {
+                OnNonSecretVoteSubjectDateChanging(value);
+                ReportPropertyChanging("NonSecretVoteSubjectDate");
+                _NonSecretVoteSubjectDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NonSecretVoteSubjectDate");
+                OnNonSecretVoteSubjectDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _NonSecretVoteSubjectDate;
+        partial void OnNonSecretVoteSubjectDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnNonSecretVoteSubjectDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> NonSecreatVoteSubjectIsClosed
+        {
+            get
+            {
+                return _NonSecreatVoteSubjectIsClosed;
+            }
+            set
+            {
+                OnNonSecreatVoteSubjectIsClosedChanging(value);
+                ReportPropertyChanging("NonSecreatVoteSubjectIsClosed");
+                _NonSecreatVoteSubjectIsClosed = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NonSecreatVoteSubjectIsClosed");
+                OnNonSecreatVoteSubjectIsClosedChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _NonSecreatVoteSubjectIsClosed;
+        partial void OnNonSecreatVoteSubjectIsClosedChanging(Nullable<global::System.Boolean> value);
+        partial void OnNonSecreatVoteSubjectIsClosedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NofAgree
+        {
+            get
+            {
+                return _NofAgree;
+            }
+            set
+            {
+                OnNofAgreeChanging(value);
+                ReportPropertyChanging("NofAgree");
+                _NofAgree = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NofAgree");
+                OnNofAgreeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NofAgree;
+        partial void OnNofAgreeChanging(Nullable<global::System.Int32> value);
+        partial void OnNofAgreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NofDisagree
+        {
+            get
+            {
+                return _NofDisagree;
+            }
+            set
+            {
+                OnNofDisagreeChanging(value);
+                ReportPropertyChanging("NofDisagree");
+                _NofDisagree = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NofDisagree");
+                OnNofDisagreeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NofDisagree;
+        partial void OnNofDisagreeChanging(Nullable<global::System.Int32> value);
+        partial void OnNofDisagreeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NofNoVote
+        {
+            get
+            {
+                return _NofNoVote;
+            }
+            set
+            {
+                OnNofNoVoteChanging(value);
+                ReportPropertyChanging("NofNoVote");
+                _NofNoVote = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NofNoVote");
+                OnNofNoVoteChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NofNoVote;
+        partial void OnNofNoVoteChanging(Nullable<global::System.Int32> value);
+        partial void OnNofNoVoteChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NofAttendance
+        {
+            get
+            {
+                return _NofAttendance;
+            }
+            set
+            {
+                OnNofAttendanceChanging(value);
+                ReportPropertyChanging("NofAttendance");
+                _NofAttendance = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NofAttendance");
+                OnNofAttendanceChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NofAttendance;
+        partial void OnNofAttendanceChanging(Nullable<global::System.Int32> value);
+        partial void OnNofAttendanceChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_MembersVote_TBLNonSecretVoteSubject", "MembersVote")]
+        public EntityCollection<MembersVote> MembersVotes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<MembersVote>("EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject", "MembersVote");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<MembersVote>("EMadbatahModel.FK_MembersVote_TBLNonSecretVoteSubject", "MembersVote", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLMeeting")]
+        public TBLMeeting TBLMeeting
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLMeeting>("EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLMeeting").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLMeeting>("EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLMeeting").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<TBLMeeting> TBLMeetingReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TBLMeeting>("EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLMeeting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TBLMeeting>("EMadbatahModel.FK_TBLNonSecretVoteSubject_TBLMeeting", "TBLMeeting", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionContentItem_TBLNonSecretVoteSubject", "SessionContentItem")]
+        public EntityCollection<SessionContentItem> SessionContentItems
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SessionContentItem>("EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject", "SessionContentItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionContentItem>("EMadbatahModel.FK_SessionContentItem_TBLNonSecretVoteSubject", "SessionContentItem", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="TBLPerson")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TBLPerson : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TBLPerson object.
+        /// </summary>
+        /// <param name="personID">Initial value of the PersonID property.</param>
+        public static TBLPerson CreateTBLPerson(global::System.Int32 personID)
+        {
+            TBLPerson tBLPerson = new TBLPerson();
+            tBLPerson.PersonID = personID;
+            return tBLPerson;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 PersonID
+        {
+            get
+            {
+                return _PersonID;
+            }
+            set
+            {
+                if (_PersonID != value)
+                {
+                    OnPersonIDChanging(value);
+                    ReportPropertyChanging("PersonID");
+                    _PersonID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("PersonID");
+                    OnPersonIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _PersonID;
+        partial void OnPersonIDChanging(global::System.Int32 value);
+        partial void OnPersonIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PersonShortName
+        {
+            get
+            {
+                return _PersonShortName;
+            }
+            set
+            {
+                OnPersonShortNameChanging(value);
+                ReportPropertyChanging("PersonShortName");
+                _PersonShortName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PersonShortName");
+                OnPersonShortNameChanged();
+            }
+        }
+        private global::System.String _PersonShortName;
+        partial void OnPersonShortNameChanging(global::System.String value);
+        partial void OnPersonShortNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PersonFullName
+        {
+            get
+            {
+                return _PersonFullName;
+            }
+            set
+            {
+                OnPersonFullNameChanging(value);
+                ReportPropertyChanging("PersonFullName");
+                _PersonFullName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PersonFullName");
+                OnPersonFullNameChanged();
+            }
+        }
+        private global::System.String _PersonFullName;
+        partial void OnPersonFullNameChanging(global::System.String value);
+        partial void OnPersonFullNameChanged();
+
+        #endregion
+    
     }
     
     /// <summary>

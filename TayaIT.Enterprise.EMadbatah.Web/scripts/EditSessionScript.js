@@ -230,14 +230,18 @@ $(document).ready(function() {
                 type: 'post',
                 url: 'EditSessionHandler.ashx',
                 data: {
-                    funcname: 'GetSpeakerJobTitle',
+                    funcname: 'GetSpeakerJobTitleAndAvatar',
                     attid: attendantID
                 },
                 //contentType: "application/json; charset=utf-8",
                 dataType: 'json',
                 success: function(data) {
                     if (data != 'error') {
-                        $('#MainContent_txtSpeakerJob').html(data);
+                        var d = new Date();
+                        var n = d.getTime(); 
+                        var dataArr = data.split(",");
+                        $('#MainContent_txtSpeakerJob').html(dataArr[0]);
+                        $('#MainContent_imgSpeakerAvatar').attr("src","/images/AttendantAvatars/" + dataArr[1]+"?" + n.toString());
                     }
                 }
 
@@ -250,12 +254,14 @@ $(document).ready(function() {
     $(".next").click(function() {
         if ($("#editSessionFileForm").valid()) {
             $(".next").attr("disabled", "disabled");
-           // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
-          //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
-            var AgendaItemID =  $('.agendaItemId').val();
-            var AttachID =  $('.attachId').val();
+            // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+            //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+            var AgendaItemID = $('.agendaItemId').val();
+            var AttachID = $('.attachId').val();
+            var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+            var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
             var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
@@ -269,7 +275,7 @@ $(document).ready(function() {
             // Show progress
             var ed = $('#MainContent_elm1').tinymce()
             ed.setProgressState(1);
-             $(".addingNewAgendaItem").show();
+            $(".addingNewAgendaItem").show();
             // pause the player
             $("#jquery_jplayer_1").jPlayer("pause");
             //
@@ -297,9 +303,11 @@ $(document).ready(function() {
                     data: {
                         funcname: 'DoNext',
                         AgendaItemID: AgendaItemID,
-                        attachid: AttachID,
+                        AttachID: AttachID,
+                        VoteID: VoteID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
+                        IsSessionPresident: IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                         Ignored: Ignored,
                         SpeakerJob: SpeakerJob,
@@ -329,14 +337,14 @@ $(document).ready(function() {
                     }
                 });
             }
-       }
+        }
     });
 
     function htmlEncode(value) {
         return $('<div/>').text(value).html();
     }
     $(".split").click(function() {
-        $("textarea.splittinymce",'.reviewpopup_cont1').val('');
+        $("textarea.splittinymce", '.reviewpopup_cont1').val('');
         $(".popupoverlay").show();
         $(".reviewpopup_cont1").show();
     });
@@ -347,7 +355,7 @@ $(document).ready(function() {
     });
 
     $(".approve1").click(function() {
-        if ($("textarea.splittinymce",'.reviewpopup_cont1').val() == '') {
+        if ($("textarea.splittinymce", '.reviewpopup_cont1').val() == '') {
             alert("لا يمكن القطع إلا بوجود نص");
             $(".popupoverlay").hide();
             $(".reviewpopup_cont1").hide();
@@ -363,7 +371,7 @@ $(document).ready(function() {
                     funcname: 'SplitItem',
                     FRAGORDER: $(".hdcurrentOrder").val(),
                     XMLPATH: $(".hdxmlFilePath").val(),
-                    SPLITTEDTEXT: htmlEncode($("textarea.splittinymce",'.reviewpopup_cont1').val()),
+                    SPLITTEDTEXT: htmlEncode($("textarea.splittinymce", '.reviewpopup_cont1').val()),
                     sfid: currentFileID,
                 },
                 dataType: 'json',
@@ -386,11 +394,13 @@ $(document).ready(function() {
         if ($("#editSessionFileForm").valid()) {
             $(".prev").attr("disabled", "disabled");
             var PrevContentID = $("#MainContent_CurrentItemID").val() != "0" ? $("#MainContent_CurrentItemID").val() : "";
-           // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+            // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
             //var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
-            var AgendaItemID =  $('.agendaItemId').val();
-            var AttachID =  $('.attachId').val();
+            var AgendaItemID = $('.agendaItemId').val();
+            var AttachID = $('.attachId').val();
+            var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
+            var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
@@ -402,7 +412,7 @@ $(document).ready(function() {
                 // comments value
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
-              $(".addingNewAgendaItem").show();
+            $(".addingNewAgendaItem").show();
 
             // Show progress
             var ed = $('#MainContent_elm1').tinymce()
@@ -419,9 +429,11 @@ $(document).ready(function() {
                     PrevContentID: PrevContentID,
                     AgendaItemID: AgendaItemID,
                     AttachID: AttachID,
-                   // AgendaSubItemID: AgendaSubItemID,
+                    VoteID: VoteID,
+                    // AgendaSubItemID: AgendaSubItemID,
                     SpeakerID: SpeakerID,
                     SameAsPrevSpeaker: SameAsPrevSpeaker,
+                    IsSessionPresident: IsSessionPresident,
                     IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                     Ignored: Ignored,
                     SpeakerJob: SpeakerJob,
@@ -476,13 +488,14 @@ $(document).ready(function() {
 
         // update editor text
         if (response.Message == "success") {
-           $(".btnAddProcuder").removeAttr('disabled', 'disabled');
+            $(".btnAddProcuder").removeAttr('disabled', 'disabled');
             // update text controls value
             $("#MainContent_elm1").val(response.Item.Text);
             $("#MainContent_CurrentItemID").val(response.FragOrderInXml);
             $("#MainContent_txtComments").val(response.Item.CommentOnText);
             $("#MainContent_txtFooter").val(response.Item.PageFooter);
             $("#MainContent_txtSpeakerJob").html(response.Item.CommentOnAttendant);
+            $('#MainContent_imgSpeakerAvatar').attr("src",response.AttendantAvatar);
             // bind drop down lists
             var AgendaItem_SelectedID = $("#MainContent_ddlAgendaItems > option:selected").attr("value");
             var AgendaSubItem_SelectedID = $("#MainContent_ddlAgendaSubItems > option:selected").attr("value");
@@ -490,23 +503,27 @@ $(document).ready(function() {
             var Speakers_SelectedID = $("#MainContent_ddlSpeakers > option:selected").attr("value");
             $('.agendaItemId').val(response.AgendaItemID);
             $('.attachId').val(response.AttachID);
+            $('.voteId').val(response.VoteID);
             $('.agendaItemTxt').html(response.AgendaItemText);
-            if(response.AgendaItemText == "غير معرف")
-            {
-            $('.divAgenda').hide(); 
+            if (response.AgendaItemText == "غير معرف") {
+                $('.divAgenda').hide();
+            } else {
+                $('.divAgenda').show();
             }
-            else  
-            {       
-              $('.divAgenda').show();
-            } 
-             if(response.AttachID == "0")
-            {
-            $('.divAttach').hide(); 
+            if (response.AttachID == "0") {
+                $('.divAttach').hide();
+                $('.spanAttachTitle').html('');
+            } else {
+                $('.divAttach').show();
+                $('.spanAttachTitle').html(response.AttachText);
             }
-            else  
-            {       
-              $('.divAttach').show().html("<span>" + response.AttachText + "</span>");
-            } 
+            if (response.VoteID == "0") {
+                $('.divVote').hide();
+                $('.spanVoteSubject').html('');
+            } else {
+                $('.divVote').show();
+                $('.spanVoteSubject').html(response.VoteSubject);
+            }
             //alert(AgendaSubItem_SelectedID);
 
             // set start and end time in hidden fields
@@ -591,6 +608,14 @@ $(document).ready(function() {
                 $('.sameAsPrevSpeaker').attr('checked', 'checked');
                 allInputs.attr('disabled', 'disabled');
             }
+            if (response.IsSessionPresident == "0") //&& response.Item.AttendantID == null) {
+            {
+                $('.isSessionPresident').removeAttr('checked');
+            }
+             else 
+            {  
+                $('.isSessionPresident').attr('checked', 'checked');
+            }
             if (response.Item.AttendantID == 0) { //if data is from xml, so initialized the speaker
                 $("#MainContent_ddlSpeakers").val(0);
                 allInputs.removeAttr('disabled');
@@ -602,7 +627,7 @@ $(document).ready(function() {
 
                 $('.sameAsPrevSpeaker').removeAttr('disabled');
                 $('.sameAsPrevSpeaker').removeAttr('checked');
-
+                $('.isSessionPresident').removeAttr('checked');
                 $('.chkIgnoredSegment').removeAttr('checked');
             }
 
@@ -626,12 +651,14 @@ $(document).ready(function() {
             }
             var sessionID = $(".sessionID").val();
             $("#btnSaveAndExit").attr("disabled", "disabled");
-          //  var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
-          //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
-            var AgendaItemID =  $('.agendaItemId').val();
-            var AttachID =  $('.attachId').val();
+            //  var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+            //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+            var AgendaItemID = $('.agendaItemId').val();
+            var AttachID = $('.attachId').val();
+            var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+            var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
             var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
@@ -640,7 +667,7 @@ $(document).ready(function() {
             var Footer = $("#MainContent_txtFooter").val();
 
             if (SameAsPrevSpeaker == false && prevAgendaItemIndex == AgendaItemID &&
-                    prevSpeakerIndex == SpeakerID) {
+                prevSpeakerIndex == SpeakerID) {
                 if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
                     $(".sameAsPrevSpeaker").attr('checked', 'checked');
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
@@ -661,8 +688,10 @@ $(document).ready(function() {
                         funcname: 'SaveAndExit',
                         AgendaItemID: AgendaItemID,
                         AttachID: AttachID,
+                        VoteID: VoteID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
+                        IsSessionPresident: IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                         Ignored: Ignored,
                         SpeakerJob: SpeakerJob,
@@ -701,12 +730,14 @@ $(document).ready(function() {
     $(".finish").click(function() {
         if ($("#editSessionFileForm").valid()) {
             $(".finish").attr("disabled", "disabled");
-           // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
-           // var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
-            var AgendaItemID =  $('.agendaItemId').val();
-            var AttachID =  $('.attachId').val();
+            // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
+            // var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
+            var AgendaItemID = $('.agendaItemId').val();
+            var AttachID = $('.attachId').val();
+            var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+            var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
             var SpeakerJob = $("#MainContent_txtSpeakerJob").html();
@@ -737,8 +768,10 @@ $(document).ready(function() {
                         funcname: 'UpdateSessionFileStatusCompleted',
                         AgendaItemID: AgendaItemID,
                         AttachID: AttachID,
+                        VoteID: VoteID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
+                        IsSessionPresident:IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                         Ignored: Ignored,
                         SpeakerJob: SpeakerJob,
@@ -1083,39 +1116,39 @@ $(document).ready(function() {
                 var MainContent_DropDownList1 = $('#MainContent_DropDownList1');
                 var MainContent_DropDownList2 = $('#MainContent_DropDownList2');
                 // loop to create the options
-                for(var i=0;i<response.length;i++){
+                for (var i = 0; i < response.length; i++) {
                     var option = response[i];
                     // create the option in the dropdown list
-                    MainContent_DropDownList1.append($('<option></option>').attr('value',option.ID).text(option.ProcedureType));
+                    MainContent_DropDownList1.append($('<option></option>').attr('value', option.ID).text(option.ProcedureType));
                 }
                 // first list
-                MainContent_DropDownList1.change(function(){
-                   if(MainContent_DropDownList1.val() != 0){
+                MainContent_DropDownList1.change(function() {
+                    if (MainContent_DropDownList1.val() != 0) {
                         // reset
                         MainContent_DropDownList2.find('option:not(:eq(0))').remove();
                         // vars
-                        var selectOptionIndex = $('option:selected',MainContent_DropDownList1).index() - 1;
+                        var selectOptionIndex = $('option:selected', MainContent_DropDownList1).index() - 1;
                         var newDropDownListValues = response[selectOptionIndex];
                         var newDropDownListValuesLength = newDropDownListValues.SessionProcedureObj.length;
                         // loop to create the options
-                        for(var i=0;i<newDropDownListValuesLength;i++){
+                        for (var i = 0; i < newDropDownListValuesLength; i++) {
                             var option = newDropDownListValues.SessionProcedureObj[i];
                             // create the option in the dropdown list
-                            MainContent_DropDownList2.append($('<option></option>').attr('value',option.ID).text(option.ProcedureTitle));
+                            MainContent_DropDownList2.append($('<option></option>').attr('value', option.ID).text(option.ProcedureTitle));
                         }
-                   }
+                    }
                 });
                 // second list
-                MainContent_DropDownList2.change(function(){
-                    if(MainContent_DropDownList2.val() != 0){
+                MainContent_DropDownList2.change(function() {
+                    if (MainContent_DropDownList2.val() != 0) {
                         // vars
-                        var OldtextareaValue = $("textarea.splittinymce",'.reviewpopup_cont2').val();
-                        var selectedOption = $('option:selected',MainContent_DropDownList2);
-                        var addingParText =  selectedOption.text();
-                        var clone = $('<span>').before('</br>').append(addingParText).attr('procedure-id',MainContent_DropDownList2.val());
+                        var OldtextareaValue = $("textarea.splittinymce", '.reviewpopup_cont2').val();
+                        var selectedOption = $('option:selected', MainContent_DropDownList2);
+                        var addingParText = selectedOption.text();
+                        var clone = $('<span>').before('</br>').append(addingParText).attr('procedure-id', MainContent_DropDownList2.val());
                         clone = clone.wrapAll('<div>');
                         // change the html
-                        $("textarea.splittinymce",'.reviewpopup_cont2').append(clone.parent().html());
+                        $("textarea.splittinymce", '.reviewpopup_cont2').append(clone.parent().html());
                         // reset
                         MainContent_DropDownList2.val(0)
                     }
@@ -1131,7 +1164,7 @@ $(document).ready(function() {
         var htmlContent = $('#MainContent_elm1').val();
         var clone = $('<div>').append(htmlContent)
         clone.find('span').removeClass('highlight editable hover');
-        $("textarea.splittinymce",'.reviewpopup_cont2').val(clone.html());
+        $("textarea.splittinymce", '.reviewpopup_cont2').val(clone.html());
         // show the popup
         $(".popupoverlay").show();
         $(".reviewpopup_cont2").show();
@@ -1140,38 +1173,112 @@ $(document).ready(function() {
     // add procuder yes button
     $(".approve2").click(function(e) {
         // bind the new value
-        $('#MainContent_elm1').val($("textarea.splittinymce",'.reviewpopup_cont2').val());
+        $('#MainContent_elm1').val($("textarea.splittinymce", '.reviewpopup_cont2').val());
         // close the popup
         $(".popupoverlay").hide();
         $(".reviewpopup_cont2").hide();
         e.preventDefault();
     });
 
-        // add Attach button
+    // add Attach button
     $(".btnAssignAttachToContentItem").click(function(e) {
         var checkedRadio = $(".rdlattachments input:radio");
         var attachId = $(".attachId").val();
-        if(attachId){
-            checkedRadio.filter('[value="'+attachId+'"]').prop('checked', true);
+        if (attachId) {
+            checkedRadio.filter('[value="' + attachId + '"]').prop('checked', true);
         }
 
         $(".popupoverlay").show();
         $(".reviewpopup_cont4").show();
-        $(".rdlattachments").attr("checked","");
+        $(".rdlattachments").attr("checked", "");
         e.preventDefault();
     });
 
-        // add procuder yes button
-    $(".btnAddAttach",'.reviewpopup_cont4').click(function(e) {
+    $(".btnAddAttach", '.reviewpopup_cont4').click(function(e) {
         var checkedRadio = $(".rdlattachments input:radio:checked");
-        if(checkedRadio.length > 0){
+        if (checkedRadio.length > 0) {
             $(".attachId").val(checkedRadio.val());
-            $('.divAttach').html(checkedRadio.next().text());
-            $('.divAttach').show(); 
+            $('.divAttach').show();
+            $('.spanAttachTitle').html(checkedRadio.next().text());
         }
         // close the popup
         $(".popupoverlay").hide();
         $(".reviewpopup_cont4").hide();
+        e.preventDefault();
+    });
+
+    $(".removeAttach").click(function(e) {
+       $(".attachId").val('0');
+       $('.divAttach').hide();
+       $('.spanAttachTitle').html('');
+       e.preventDefault();
+    });
+
+    function loadSessionVotes() {
+        var voteId = $(".voteId").val();
+        $('.rdlvotes').empty();
+        //Load Available Votes
+        jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: 'VotingHandler.ashx',
+            data: {
+                funcname: 'GetSessionVotes',
+                epsid: $(".eparId").val()
+            },
+            dataType: 'json',
+            success: function(response) {
+                var radio;
+                var label;
+                var div;
+                for (i = 0; i < response.length; i++) {
+                    radio = $('<input>').attr({
+                        type: 'radio',
+                        name: 'colorinput',
+                        value: response[i].ID,
+                        id: 'test' + response[i].ID
+                    });
+                    if (response[i].ID.toString() == voteId.toString()) {
+                        radio.attr("checked", "checked");
+                    }
+                    div = $('<div class="rd">');
+                    div.append(radio);
+                    div.append('<label>' + response[i].NonSecretVoteSubject + '</label>');
+                    $('.rdlvotes').append(div);
+                }
+                /* var checkedRadio = $(".rdlvotes input:radio");
+               
+                 if (voteId) {
+                     checkedRadio.filter('[value="' + voteId + '"]').prop('checked', true);
+                 }*/
+            }
+        });
+    }
+    // add Attach button
+    $(".btnAddNewVote").click(function(e) {
+        loadSessionVotes();
+        $(".popupoverlay").show();
+        $(".reviewpopup_cont5").show();
+        e.preventDefault();
+    });
+
+    $(".btnAddVote", '.reviewpopup_cont5').click(function(e) {
+        var checkedRadio = $(".rdlvotes input:radio:checked");
+        if (checkedRadio.length > 0) {
+            $(".voteId").val(checkedRadio.val());
+            $('.spanVoteSubject').html(checkedRadio.next().text());
+            $('.divVote').show();
+        }
+        // close the popup
+        $(".popupoverlay").hide();
+        $(".reviewpopup_cont5").hide();
+        e.preventDefault();
+    });
+
+     $(".removeVote").click(function(e) {
+        $(".voteId").val('0');
+        $('.spanVoteSubject').html('');
+        $('.divVote').hide();
         e.preventDefault();
     });
 
@@ -1181,17 +1288,17 @@ $(document).ready(function() {
         $(".popupoverlay").show();
         $(".reviewpopup_cont3").show();
         // reset values
-        $("textarea.splittinymce",'.reviewpopup_cont3').val('');
-        $('.isAgendaItemIndexed','.reviewpopup_cont3').prop('checked', false);
+        $("textarea.splittinymce", '.reviewpopup_cont3').val('');
+        $('.isAgendaItemIndexed', '.reviewpopup_cont3').prop('checked', false);
         e.preventDefault();
     });
     // add new agenda yes button
     $(".approve3").click(function(e) {
         // vars
-        var checked = $('.isAgendaItemIndexed','.reviewpopup_cont3').is(':checked');
-        var htmlData = $("textarea.splittinymce",'.reviewpopup_cont3').val();
+        var checked = $('.isAgendaItemIndexed', '.reviewpopup_cont3').is(':checked');
+        var htmlData = $("textarea.splittinymce", '.reviewpopup_cont3').val();
         checked = (checked) ? 1 : 0;
-        if(htmlData != ''){
+        if (htmlData != '') {
             // ajax load
             jQuery.ajax({
                 cache: false,
@@ -1214,13 +1321,11 @@ $(document).ready(function() {
                     // repalce the button with the content
                     $(".addingNewAgendaItem").hide();
                     $('.agendaItemTxt').html(htmlData);
-                    if(response != 0)
-                    {
-                     $(".divAgenda").show();
+                    if (response != 0) {
+                        $(".divAgenda").show();
                     }
                 },
-                error: function() {
-                }
+                error: function() {}
             });
         }
         e.preventDefault();

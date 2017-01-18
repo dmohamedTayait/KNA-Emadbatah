@@ -3,7 +3,6 @@
     Title="المضبطة الإلكترونية - حضور و غياب الأعضاء" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
-   
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <script src="Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
@@ -14,42 +13,42 @@
     <link href="Styles/calendar-blue.css" rel="stylesheet" type="text/css" />
     <link href="Styles/calendar-blue.css" rel="stylesheet" type="text/css" />
     <style>
-         select
+        select
         {
             width: 100%;
-            font-size:15px;
+            font-size: 15px;
         }
-    table.radio_list td label
-    {
-        display:none
-    }
-    .table , .table td
-    {
-        border-bottom:1px solid #DEDEDE;
-    }
-      .radio_list , .radio_list td
-    {
-        border:none;
-    }
-    .radio_list
-    {
+        table.radio_list td label
+        {
+            display: none;
+        }
+        .table, .table td
+        {
+            border-bottom: 1px solid #DEDEDE;
+        }
+        .radio_list, .radio_list td
+        {
+            border: none;
+        }
+        .radio_list
+        {
             width: 330px;
-    }
-    .table th
-    {
-        text-align:right;
-          height:35px;
-    }
-    .sessionopenintime td input
-    {
-        margin: 5px 15px 0px 10px 
-    }
-    .space-st1
-    {
-        margin:0 2px;
-        display:inline-block;
-        width:75px;
-    }
+        }
+        .table th
+        {
+            text-align: right;
+            height: 35px;
+        }
+        .sessionopenintime td input
+        {
+            margin: 5px 15px 0px 10px;
+        }
+        .space-st1
+        {
+            margin: 0 2px;
+            display: inline-block;
+            width: 75px;
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -118,6 +117,9 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <div class="grid_24">
+                    <div>
+                        <asp:Label runat="server" ID="lblInfo1" Visible="false" CssClass="lInfo"></asp:Label>
+                    </div>
                     <div class="xxlargerow">
                         <div class="Ntitle">
                             حضور و غياب الأعضاء:</div>
@@ -136,8 +138,9 @@
                         </div>
                     </div>
                     <div class="largerow">
-
-                        <asp:RadioButtonList ID="ddlTimes" runat="server" AutoPostBack="True" Style="display: none"  OnSelectedIndexChanged="ddlTimes_SelectedIndexChanged" RepeatDirection="Horizontal" CssClass="sessionopenintime h3">
+                        <asp:RadioButtonList ID="ddlTimes" runat="server" AutoPostBack="True" Style="display: none"
+                            OnSelectedIndexChanged="ddlTimes_SelectedIndexChanged" RepeatDirection="Horizontal"
+                            CssClass="sessionopenintime h3">
                         </asp:RadioButtonList>
                         <div class="clear">
                         </div>
@@ -169,8 +172,8 @@
                         </div>
                     </div>
                     <br />
-                    <asp:GridView ID="GVAttendants" runat="server" CssClass="table h2" BorderWidth="0" CellPadding="0"
-                        AutoGenerateColumns="false" GridLines="None" OnRowDataBound="GVAttendants_RowDataBound"
+                    <asp:GridView ID="GVAttendants" runat="server" CssClass="table h2" BorderWidth="0"
+                        CellPadding="0" AutoGenerateColumns="false" GridLines="None" OnRowDataBound="GVAttendants_RowDataBound"
                         OnRowCreated="testHide">
                         <Columns>
                             <asp:TemplateField>
@@ -200,12 +203,14 @@
                         Style="display: none" />
                     <br />
                     <br />
+                    <div>
+                        <asp:Label runat="server" ID="lblInfo2" Visible="false" CssClass="lInfo"></asp:Label>
+                    </div>
+                    <br />
                     <br />
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
-        <asp:Button ID="btnSaveToFile" runat="server" Text="Save in File" OnClick="btnSaveToFile_Click"
-            Visible="false" />
     </div>
     </form>
 </asp:Content>

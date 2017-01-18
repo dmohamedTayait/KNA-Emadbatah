@@ -34,6 +34,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                 return WebHelper.GetQSValue(Constants.QSKeyNames.ATTACHMENT_ID, _context);
             }
         }
+        public string VoteID
+        {
+            get
+            {
+                return WebHelper.GetQSValue(Constants.QSKeyNames.Vote_ID, _context);
+            }
+        }
         public string AgendaItemText
         {
             get
@@ -74,7 +81,22 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             else
                                 break;
                         }
-
+                    case WebFunctions.EditWizard.GetSpeakerJobTitleAndAvatar:
+                        {
+                            if (AttendantID != null && long.TryParse(AttendantID, out attendantID))
+                            {
+                                Attendant att = AttendantHelper.GetAttendantById(attendantID);
+                                if (att != null)
+                                    jsonStringOut = SerializeObjectInJSON(att.JobTitle + "," + att.AttendantAvatar);
+                                else
+                                    jsonStringOut = SerializeObjectInJSON("error");
+                                //List<SessionAgendaItem> items = EditorFacade.GetAgendaSubItemsByAgendaID(agendItemID);
+                                //jsonStringOut = SerializeObjectInJSON(items);
+                                break;
+                            }
+                            else
+                                break;
+                        }
                     case WebFunctions.EditWizard.GetAgendaSubItems:
                         {
                             if (AgendaID != null && long.TryParse(AgendaID, out agendItemID))
@@ -149,11 +171,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                             current_session_info["SameAsPrevSpeaker"] = nextContentItem.MergedWithPrevious;
                                             current_session_info["IsGroupSubAgendaItems"] = nextContentItem.AgendaItem.IsGroupSubAgendaItems;
                                             current_session_info["Ignored"] = nextContentItem.Ignored;
-
+                                            current_session_info["IsSessionPresident"] = nextContentItem.IsSessionPresident.ToString();
                                         }
                                         result["PargraphStartTime"] = current_session_info["PargraphStartTime"];
                                         result["PargraphEndTime"] = current_session_info["PargraphEndTime"];
                                         result["SameAsPrevSpeaker"] = current_session_info["SameAsPrevSpeaker"];
+                                        result["IsSessionPresident"] = current_session_info["IsSessionPresident"];
                                         result["IsGroupSubAgendaItems"] = current_session_info["IsGroupSubAgendaItems"];
                                         result["Ignored"] = current_session_info["Ignored"];
 
@@ -167,6 +190,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         result["AgendaItemText"] = selectedAgendaItem != null ? selectedAgendaItem.Name : "";
                                         result["AgendaItemID"] = selectedAgendaItem != null ? selectedAgendaItem.ID.ToString() : "";
 
+                                        //For Attachment
                                         if (retItem.AttachementID != null && retItem.AttachementID != 0)
                                         {
                                             Attachement attach = AttachmentHelper.GetAttachementByID((int)retItem.AttachementID);
@@ -186,6 +210,39 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                             result["AttachText"] = "";
                                             result["AttachID"] = "0";
                                         }
+                                        
+                                        //For Voting
+                                        if (retItem.VotingID != null && retItem.VotingID != 0)
+                                        {
+                                           TBLNonSecretVoteSubject vote = NonSecretVoteSubjectHelper.GetSessionVoteByVoteID((int)retItem.VotingID);
+                                            if (vote != null)
+                                            {
+                                                result["VoteSubject"] = vote.NonSecretVoteSubject;
+                                                result["VoteID"] = vote.NonSecretVoteSubjectID.ToString();
+                                            }
+                                            else
+                                            {
+                                                result["VoteSubject"] = "";
+                                                result["VoteID"] = "0";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            result["VoteSubject"] = "";
+                                            result["VoteID"] = "0";
+                                        }
+
+                                        //userAvatar
+                                        Attendant attendObj = AttendantHelper.GetAttendantById(retItem.AttendantID);
+                                        if (attendObj != null && attendObj.AttendantAvatar != null && attendObj.AttendantAvatar != "")
+                                        {
+                                            result["AttendantAvatar"] =  "/images/AttendantAvatars/" + attendObj.AttendantAvatar;
+                                        }
+                                        else
+                                        {
+                                             result["AttendantAvatar"]  = "/images/unknown.jpg?t=" + DateTime.Now.ToString();
+                                        }
+
                                         List<AgendaItem> AgendaItems = currentSession.AgendaItems.ToList<AgendaItem>();
                                         List<SessionAgendaItem> retAgendaItems = new List<SessionAgendaItem>();
                                         foreach (AgendaItem agendaItem in AgendaItems)
@@ -250,12 +307,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                           current_session_info["PargraphStartTime"] = prevContentItem.StartTime;
                                           current_session_info["PargraphEndTime"] = prevContentItem.EndTime;
                                           current_session_info["SameAsPrevSpeaker"] = prevContentItem.MergedWithPrevious;
+                                          current_session_info["IsSessionPresident"] = prevContentItem.IsSessionPresident.ToString();
                                           current_session_info["IsGroupSubAgendaItems"] = prevContentItem.AgendaItem.IsGroupSubAgendaItems;
-current_session_info["Ignored"] = prevContentItem.Ignored;
-
-                                          
-
-
+                                          current_session_info["Ignored"] = prevContentItem.Ignored;
                                       }
                                       //get prev item from db if exist, meshmesh
                                       if (prevItemOrderID - 1 >= 0)
@@ -276,6 +330,7 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
                                       result["PargraphStartTime"] = current_session_info["PargraphStartTime"];
                                       result["PargraphEndTime"] = current_session_info["PargraphEndTime"];
                                       result["SameAsPrevSpeaker"] = current_session_info["SameAsPrevSpeaker"];
+                                      result["IsSessionPresident"] = current_session_info["IsSessionPresident"];
                                       result["IsGroupSubAgendaItems"] = current_session_info["IsGroupSubAgendaItems"];
                                       result["Ignored"] = current_session_info["Ignored"];
 
@@ -305,6 +360,38 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
                                       {
                                           result["AttachText"] = "";
                                           result["AttachID"] = "0";
+                                      }
+
+                                      //For Voting
+                                      if (retItem.VotingID != null && retItem.VotingID != 0)
+                                      {
+                                          TBLNonSecretVoteSubject vote = NonSecretVoteSubjectHelper.GetSessionVoteByVoteID((int)retItem.VotingID);
+                                          if (vote != null)
+                                          {
+                                              result["VoteSubject"] = vote.NonSecretVoteSubject;
+                                              result["VoteID"] = vote.NonSecretVoteSubjectID.ToString();
+                                          }
+                                          else
+                                          {
+                                              result["VoteSubject"] = "";
+                                              result["VoteID"] = "0";
+                                          }
+                                      }
+                                      else
+                                      {
+                                          result["VoteSubject"] = "";
+                                          result["VoteID"] = "0";
+                                      }
+
+                                      //userAvatar
+                                      Attendant attendObj = AttendantHelper.GetAttendantById(retItem.AttendantID);
+                                      if (attendObj != null && attendObj.AttendantAvatar != null && attendObj.AttendantAvatar != "")
+                                      {
+                                          result["AttendantAvatar"] = "/images/AttendantAvatars/" + attendObj.AttendantAvatar;
+                                      }
+                                      else
+                                      {
+                                          result["AttendantAvatar"] = "/images/unknown.jpg?t=" + DateTime.Now.ToString();
                                       }
 
                                       result["ItemFragOrder"] = prevItemOrderID.ToString();
@@ -517,6 +604,7 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
             int AgendaItemID;
             long SpeakerID;
             bool SameAsPrevSpeaker = bool.Parse(WebHelper.GetQSValue(Constants.QSKeyNames.SameAsPrevSpeaker, _context));
+            int IsSessionPresident = int.Parse(WebHelper.GetQSValue(Constants.QSKeyNames.IsSessionPresident, _context));
             bool IsGroupSubAgendaItems = bool.Parse(WebHelper.GetQSValue(Constants.QSKeyNames.IsGroupSubAgendaItems, _context));
             bool Ignored = bool.Parse(WebHelper.GetQSValue(Constants.QSKeyNames.Ignored, _context));
             string SpeakerJob = WebHelper.GetQSValue(Constants.QSKeyNames.SpeakerJob, _context);
@@ -586,23 +674,23 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
                         {
                             int status = (int)Model.SessionContentItemStatus.Rejected;
                             if (CurrentUser.Role != UserRole.DataEntry)
-                                SessionContentItemHelper.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, status, true, CurrentUser.ID, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
+                                SessionContentItemHelper.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, status, true, CurrentUser.ID, SameAsPrevSpeaker, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident);
                             else
-                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, (Model.SessionContentItemStatus)status, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
+                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, (Model.SessionContentItemStatus)status, SameAsPrevSpeaker, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident);
                         
                         }
                         else
                             if (currContentItem.StatusID == (int)Model.SessionContentItemStatus.Approved && session.SessionStatusID == (int)Model.SessionStatus.Approved)
                             {
-                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, Model.SessionContentItemStatus.ModefiedAfterApprove, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
+                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, Model.SessionContentItemStatus.ModefiedAfterApprove, SameAsPrevSpeaker, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident);
                                 SessionHelper.UpdateSessionStatus(Session_ID, (int)Model.SessionStatus.Completed);
                             }
                             else if (currContentItem.StatusID == (int)Model.SessionContentItemStatus.Rejected)
-                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, Model.SessionContentItemStatus.Fixed, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
+                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, Model.SessionContentItemStatus.Fixed, SameAsPrevSpeaker, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident);
                             else if (CurrentUser.Role != UserRole.DataEntry)
-                                    SessionContentItemHelper.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, currContentItem.StatusID, true, CurrentUser.ID, SameAsPrevSpeaker, Ignored,long.Parse(AttachID));
+                                SessionContentItemHelper.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, currContentItem.StatusID, true, CurrentUser.ID, SameAsPrevSpeaker, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident);
                             else
-                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, (Model.SessionContentItemStatus)currContentItem.StatusID, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
+                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, (Model.SessionContentItemStatus)currContentItem.StatusID, SameAsPrevSpeaker, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident);
                         
                     }
                     else // create new
@@ -622,8 +710,8 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
                         if ((int)SpeakerID == (int)Model.AttendantType.UnKnown)
                             status = (int)Model.SessionContentItemStatus.Rejected;
 
-                     
-                        SessionContentItemFacade.AddNewSessionContentItem(Session_File_ID, (long)Session_ID, Text, (int)SpeakerID, AgendaItemID, agendaSubItemInt, CurrentUser.ID, status, Comments, SpeakerJob, Footer, SameAsPrevSpeaker, FragOrder, (float)stime, (float)etime, (float)duration, Ignored,long.Parse(AttachID));
+
+                        SessionContentItemFacade.AddNewSessionContentItem(Session_File_ID, (long)Session_ID, Text, (int)SpeakerID, AgendaItemID, agendaSubItemInt, CurrentUser.ID, status, Comments, SpeakerJob, Footer, SameAsPrevSpeaker, FragOrder, (float)stime, (float)etime, (float)duration, Ignored, long.Parse(AttachID), int.Parse(VoteID), IsSessionPresident);
                     }
 
                     if (session.SessionStatusID == (int)Model.SessionStatus.Approved)
@@ -704,6 +792,8 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
             retItem.PageFooter = nextContentItem.PageFooter;
             retItem.FragOrderInXml = nextContentItem.FragOrderInXml;
             retItem.AttachementID = nextContentItem.AttachementID;
+            retItem.VotingID = nextContentItem.VotingID;
+            retItem.IsSessionPresident = nextContentItem.IsSessionPresident;
             //retItem.Attendant = nextContentItem.Attendant;
             return retItem;
         }

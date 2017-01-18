@@ -38,16 +38,19 @@
     <form id="editSessionFileForm" runat="server">
     <input id="MP3FilePath" class="MP3FilePath" type="hidden" runat="server" value="" />
     <input id="sessionID" type="hidden" value="" runat="server" class="sessionID" />
+    <input id="eparId" type="hidden" value="" runat="server" class="eparId" />
     <input id="XmlFilePath" type="hidden" value="" runat="server" class="hdxmlFilePath" />
     <input type="hidden" id="hdPageMode" runat="server" value="1" class="hdPageMode" />
     <input type="hidden" id="hdSessionContentItemID" runat="server" value="1" class="hdSessionContentItemID" />
     <input type="hidden" id="startTime" runat="server" value="" class="hdstartTime" />
     <input type="hidden" id="endTime" runat="server" value="" class="hdendTime" />
     <input type="hidden" id="currentOrder" runat="server" value="" class="hdcurrentOrder" />
-    <input type="hidden" name="agendaItemId" id="agendaItemId" value="" runat="server" class="agendaItemId" />
+    <input type="hidden" name="agendaItemId" id="agendaItemId" value="" runat="server"
+        class="agendaItemId" />
     <input type="hidden" name="attachId" id="attachId" value="0" runat="server" class="attachId" />
+    <input type="hidden" name="voteId" id="voteId" value="0" runat="server" class="voteId" />
     <div id="editSessionFile" class="grid_22 prefix_1 suffix_1">
-        <div class="borderBD row">
+        <div class="borderBD row h2">
             <div class="fr">
                 الملف: <strong>
                     <asp:Label ID="lblMP3FileName" runat="server"></asp:Label></strong>
@@ -57,7 +60,9 @@
                     <asp:Label ID="lblSessionDate" runat="server"></asp:Label></strong>
             </div>
             <div class="fl">
-                الجلسة: <strong>( <asp:Label ID="lblSessionName" runat="server"></asp:Label> )</strong>
+                الجلسة: <strong>(
+                    <asp:Label ID="lblSessionName" runat="server"></asp:Label>
+                    )</strong>
             </div>
             <div class="clear">
             </div>
@@ -65,13 +70,17 @@
         <div class="row">
             <div class="row">
                 <div class="grid_22">
-                <div id="divAgenda" name="divAgenda" runat="server" class="divAgenda">
-                   <h2>البند: </h2> <p class="agendaItemTxt"><%= agendaItemTxt%></p>
-                    <br />
+                    <div id="divAgenda" name="divAgenda" runat="server" class="divAgenda">
+                        <h2>
+                            البند:
+                        </h2>
+                        <p class="agendaItemTxt">
+                            <%= agendaItemTxt%></p>
+                        <br />
                     </div>
-                    <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn addingNewAgendaItem" value="اضافة فهرس" />
                 </div>
-                <div class="clear"></div>
+                <div class="clear">
+                </div>
             </div>
             <!--<div class="row">
                 <div class="grid_3">
@@ -119,39 +128,43 @@
                 <div class="clear">
                 </div>
             </div>-->
-            <div class="row">
-                <div class="grid_2">
-                    <span class="red">*</span> المتحدث:
+            <div class="row h2">
+                <div class="grid_3">
+                <div>
+                    <span class="red">*</span> المتحدث:</div>
                 </div>
-                <div class="grid_7">
+                <div class="grid_10">
                     <div class="marginBS">
                         <asp:DropDownList ID="ddlSpeakers" AutoPostBack="false" runat="server">
                         </asp:DropDownList>
                     </div>
-                    <div>
-                        <input name="" id="sameAsPrevSpeaker" runat="server" class="sameAsPrevSpeaker" type="checkbox"
-                            value="" />
-                        <label>
-                            نفس المتحدث السابق</label>
-                    </div>
-                </div>
-                <div class="grid_2 ">
-                    وظيفة المتحدث:</div>
-                <div class="grid_7">
+                    <div style="margin-top:10px;margin-bottom:10px">
                     <div id="newjobtitle" class="edit">
                         <div class="editmode">
-                            <%--<input id="addnewjobbutton" name="" type="button" class="smallbtn" value="إضافة">
-                            <input name="addnewjobtext" id="txtSpeakerJob" runat="server" type="text" class="textfield"
-                                size="26">--%>
-                                <label name="addnewjobtext" id="txtSpeakerJob" runat="server" class="textfield" style="font-weight:bold;font-size:16px; border:0 !important;
-    box-shadow: 0 0 !important"
-                                size="26"></label>
+                            <label name="addnewjobtext" id="txtSpeakerJob" runat="server" class="textfield" style="font-weight: bold;
+                                font-size: 16px; border: 0 !important; box-shadow: 0 0 !important" size="26">
+                            </label>
                         </div>
                         <div class="donemode">
                             <strong></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="editnewjobbutton" href="#">[تعديل]</a>
                         </div>
+                    </div></div>
+                    <div style="margin-top:10px;margin-bottom:10px">
+                        <input name="" id="sameAsPrevSpeaker" runat="server" class="sameAsPrevSpeaker" type="checkbox"
+                            value="" />
+                        <label>
+                            نفس المتحدث السابق</label>
+                             &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input name="isSessionPresident" id="isSessionPresident" runat="server" class="isSessionPresident"
+                            type="checkbox" value="" />
+                        <label>
+                            رئيس الجلسة</label>
                     </div>
                 </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="grid_5 fl">
+                    <img style="width:200px ;height:150px" src="/images/unknown.jpg" id="imgSpeakerAvatar" name="imgSpeakerAvatar" runat="server" alt=""/>
+                    </div>
                 <div class="clear">
                 </div>
             </div>
@@ -187,9 +200,19 @@
                 <textarea id="elm1" runat="server" name="elm1" rows="3" style="width: 100%" class="tinymce"></textarea>
             </div>
             <div class="row divAttach" id="divAttach" runat="server" name="divAttach">
-                <span></span>
+                <span style="color:Red">*</span>
+                <span style="color:green">اسم المرفق: </span>
+                <span id="spanAttachTitle" runat="server" name="spanAttachTitle" class="spanAttachTitle"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:void(0)" class="removeAttach"> حذف المرفق</a>
             </div>
-            <div class="row">
+            <div class="row divVote" id="divVote" runat="server" name="divVote">
+                <span style="color:Red">*</span>
+                <span style="color:green;">اسم التصويت: </span>
+                <span id="spanVoteSubject" runat="server" name="spanVoteSubject" class="spanVoteSubject"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:void(0)" class="removeVote">حذف التصويت</a>
+            </div>
+             <br/>
+            <div class="row h2">
                 <div class="grid_11 alpha">
                     <div class="row">
                         تعليق على الفقرة</div>
@@ -207,9 +230,9 @@
                 <div class="clear">
                 </div>
             </div>
+            <br/>
             <div class="nav row">
                 <div class="fr">
-                    <!--disabled="disabled" -->
                     <input name="" runat="server" disabled="disabled" id="btnNext" type="button" class="btn next"
                         value="التالى" />
                     &nbsp;&nbsp;
@@ -221,13 +244,21 @@
                     <input name="chkIgnoredSegment" id="chkIgnoredSegment" runat="server" class="chkIgnoredSegment"
                         type="checkbox" value="" />
                     <label for="chkIgnoredSegment">
-                        تجاهل هذا المقطع</label>
+                        تجاهل هذا المقطع</label>  &nbsp;&nbsp;
                 </div>
-                <div class="fr prefix_3">
+                <div class="fr" style="padding-left: 30px;">
                     <input name="" runat="server" disabled="disabled" id="btnFinish" type="button" class="btn finish"
                         value="انهاء" />
                 </div>
                 <div class="fl">
+                   <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn addingNewAgendaItem" value="اضافة فهرس" /> 
+                    &nbsp;&nbsp;
+                    <input name="" runat="server" id="btnAddProcuder" type="button" class="btn btnAddProcuder" value="اضافة اجراء" />
+                    &nbsp;&nbsp;
+                    <input name="" runat="server" id="btnAssignAttachToContentItem" type="button" class="btn btnAssignAttachToContentItem" value="اضافة مرفق" />
+                    &nbsp;&nbsp;
+                    <input name="" runat="server" id="btnAddNewVote" type="button" class="btn btnAddNewVote" value="اضافة تصويت" />
+                      &nbsp;&nbsp;
                     <input name="" id="btnSplit" runat="server" type="button" class="btn split" value="اقطع" />
                     &nbsp;&nbsp;
                     <input name="" type="button" id="btnSaveAndExit" class="btn" value="حفظ و خروج" />
@@ -235,16 +266,13 @@
                     <input name="" type="button" id="various1" data-div="#inline1" class="btn" value="عودة للنص الأصلى" />
                     &nbsp;&nbsp;
                     <input id="Button1" class="btn " type="button" value="خطأ" onclick="return Button1_onclick()" />
-                </div>
-                <div>
-                    <input name="" runat="server" id="btnAddProcuder" type="button" class="btn btnAddProcuder"
-                        value="اضافة اجراء" />
-                    <input name="" runat="server" id="btnAssignAttachToContentItem" type="button" class="btn btnAssignAttachToContentItem"
-                        value="اضافة مرفق" />
+                                 
                 </div>
                 <div class="clear">
                 </div>
             </div>
+            <br/>
+            <br/>
         </div>
         <!--Begin popup container div-->
         <div class="main_popup_container displaynone">
@@ -298,7 +326,8 @@
                         <asp:ListItem Text="-------- اختر الاجراء --------" Value="0"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
-                <div class="clear"></div>
+                <div class="clear">
+                </div>
             </div>
             <div class="row">
                 <div class="grid_3">
@@ -309,10 +338,12 @@
                         <asp:ListItem Text="-------- اختر --------" Value="0"></asp:ListItem>
                     </asp:DropDownList>
                 </div>
-                <div class="clear"></div>
+                <div class="clear">
+                </div>
             </div>
             <div class="datacontainer inputcont">
-                <textarea id="Textarea2" runat="server" name="elm1" rows="3" style="width: 100%" class="splittinymce"></textarea>
+                <textarea id="Textarea2" runat="server" name="elm1" rows="3" style="width: 100%"
+                    class="splittinymce"></textarea>
             </div>
             <div class="poppbtnscont fl">
                 <div class="fl">
@@ -332,18 +363,22 @@
             <div class="clear">
             </div>
             <div>
-                <h2><span class="red">*</span> البند :</h2>
+                <h2 class="borderBD">
+                    <span class="red">*</span> البند :</h2>
             </div>
-            <div class="datacontainer inputcont">
-                <textarea id="Textarea3" runat="server" name="elm1" rows="3" style="width: 100%" class="splittinymce"></textarea>
+            <div class="datacontainer inputcont datacontainer1">
+                <textarea id="Textarea3" runat="server" name="elm1" rows="3" style="width: 100%"
+                    class="splittinymce"></textarea>
             </div>
             <div>
-                <input type="checkbox" class="isAgendaItemIndexed" id="isAgendaItemIndexed" runat="server" value="1" />
-                <label for="MainContent_isAgendaItemIndexed">مسلسل</label>
+                <input type="checkbox" class="isAgendaItemIndexed" id="isAgendaItemIndexed" runat="server"
+                    value="1" />
+                <label for="MainContent_isAgendaItemIndexed">
+                    مسلسل</label>
             </div>
             <div class="poppbtnscont fl">
                 <div class="fl">
-                    <input type="button" id="Button3" class="approve3" value="أضف" />
+                    <input type="button" id="Button3" class="approve3 btn " value="أضف" />
                     <div class="clear">
                     </div>
                 </div>
@@ -353,23 +388,22 @@
             <div class="clear">
             </div>
         </div>
-
         <div class="reviewpopup_cont reviewpopup_cont4 graybg">
             <div class="close_btn">
             </div>
             <div class="clear">
             </div>
-            <div>
-                <h2><span class="red">*</span> المرفقات :</h2>
+            <div class="borderBD">
+                <h2>
+                    <span class="red">*</span> المرفقات :</h2>
             </div>
             <div class="datacontainer inputcont datacontainer2">
                 <asp:RadioButtonList runat="server" ID="rdlattachments" AutoPostBack="false" CssClass="rdlattachments">
                 </asp:RadioButtonList>
-        
             </div>
             <div class="poppbtnscont fl">
-                <div class="fl">
-                    <input type="button" id="btnAddAttach" class="btnAddAttach" value="اضافة مرفق" />
+                <div class="fl" style="margin: 10px;">
+                    <input type="button" id="btnAddAttach" class="btnAddAttach btn" value="أضف" />
                     <div class="clear">
                     </div>
                 </div>
@@ -379,11 +413,32 @@
             <div class="clear">
             </div>
         </div>
-
-
-
+        <div class="reviewpopup_cont reviewpopup_cont5 graybg">
+            <div class="close_btn">
+            </div>
+            <div class="clear">
+            </div>
+            <div class="borderBD">
+                <h2>
+                    <span class="red">*</span> التصويتات :</h2>
+            </div>
+            <div class="datacontainer inputcont datacontainer3">
+                <div class="rdlvotes">
+                </div>
+            </div>
+            <div class="poppbtnscont fl">
+                <div class="fl" style="margin: 10px">
+                    <input type="button" id="btnAddVote" class="btnAddVote btn" value="أضف" />
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
         <div class="clear">
         </div>
-      
     </form>
 </asp:Content>

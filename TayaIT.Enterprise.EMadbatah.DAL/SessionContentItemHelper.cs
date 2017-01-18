@@ -27,7 +27,9 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             float endTime,
             float duration,
             bool ignored,
-            long? attachID)
+            long? attachID,
+            int? voteID,
+            int isSessionPresident)
         {
 
 
@@ -56,10 +58,16 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         Duration = duration,
                         CreatedDate = DateTime.Now,
                         UpdateDate = DateTime.Now,
-                        Ignored = ignored
+                        Ignored = ignored,
+                        IsSessionPresident = isSessionPresident
                     };
+
                     if (attachID != 0 && attachID != null)
                         session_content_item.AttachementID = attachID;
+
+                    if (voteID != 0 && voteID != null)
+                        session_content_item.VotingID = voteID;
+
                     context.SessionContentItems.AddObject(session_content_item);
                     if (!string.IsNullOrEmpty(commentOnAttendant))
                     {
@@ -1004,7 +1012,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID, long? agendaSubItemID,
-            string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID, bool mergedWithPrev, bool ignored, long attachID
+            string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID, bool mergedWithPrev, bool ignored, long attachID, int voteID, int isSessionPresident
             )//, float startTime, float endTime, float duration)
         {
             try
@@ -1019,9 +1027,15 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         updated_session_content_item.Text = text;
                         updated_session_content_item.AttendantID = attendantID;
                         updated_session_content_item.AgendaItemID = agendaItemID;
+
                         if (attachID != 0 && attachID != null)
                             updated_session_content_item.AttachementID = attachID;
                         else updated_session_content_item.AttachementID = null;
+
+                        if (voteID != 0 && voteID != null)
+                            updated_session_content_item.VotingID = voteID;
+                        else updated_session_content_item.VotingID = null;
+
                         updated_session_content_item.AgendaSubItemID = agendaSubItemID;
                         updated_session_content_item.CommentOnAttendant = commentsOnAttendant;
                         updated_session_content_item.CommentOnText = commentsOnText;
@@ -1030,6 +1044,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         updated_session_content_item.MergedWithPrevious = mergedWithPrev;
                         updated_session_content_item.CreatedDate = DateTime.Now;
                         updated_session_content_item.Ignored = ignored;
+                        updated_session_content_item.IsSessionPresident = isSessionPresident;
                         //updated_session_content_item.StartTime = startTime;
                         //updated_session_content_item.EndTime = endTime;
                         //updated_session_content_item.Duration = duration;
@@ -1058,7 +1073,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
         public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID,
             long? agendaSubItemID, string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID,
-            bool updatedByRev , long reviewerID, bool mergedWithPrev, bool ignored, long attachID
+            bool updatedByRev, long reviewerID, bool mergedWithPrev, bool ignored, long attachID, int voteID, int isSessionPresident
             )//,float startTime,float endTime,float duration)
         {
             try
@@ -1073,9 +1088,15 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         updated_session_content_item.Text = text;
                         updated_session_content_item.AttendantID = attendantID;
                         updated_session_content_item.AgendaItemID = agendaItemID;
+
                         if (attachID != 0 && attachID != null)
                             updated_session_content_item.AttachementID = attachID;
                         else updated_session_content_item.AttachementID = null;
+
+                        if (voteID != 0 && voteID != null)
+                            updated_session_content_item.VotingID = voteID;
+                        else updated_session_content_item.VotingID = null;
+
                         updated_session_content_item.AgendaSubItemID = agendaSubItemID;
                         updated_session_content_item.CommentOnAttendant = commentsOnAttendant;
                         updated_session_content_item.CommentOnText = commentsOnText;
@@ -1085,6 +1106,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         updated_session_content_item.ReviewerUserID = reviewerID;
                         updated_session_content_item.MergedWithPrevious = mergedWithPrev;
                         updated_session_content_item.Ignored = ignored;
+                        updated_session_content_item.IsSessionPresident = isSessionPresident;
 
                         if (updatedByRev)
                             updated_session_content_item.UpdateDate = DateTime.Now;

@@ -129,7 +129,7 @@
                     {
                         string sessionDate = session.Date.Date.ToShortDateString();
                         string sessionDateHijri = session.DateHijri.ToString();
-                        string sessionName = EMadbatahFacade.GetSessionName(session.Season, session.Stage, session.Serial);//"[ د /" + session.Stage + "ف /" + session.Season + " " + session.Serial + " ]";
+                        string sessionName = "( " + session.EparlimentID.ToString() + " / " + session.Type + " ) ";//EMadbatahFacade.GetSessionName(session.Season, session.Stage, session.Serial);//"[ د /" + session.Stage + "ف /" + session.Season + " " + session.Serial + " ]";
                         string sessionStatus = GetLocalizedString("strSessionStatus" + session.Status.ToString());
 
                         int nRejected = 0;
@@ -236,8 +236,8 @@
                                                 </td>
                                                 <td data-currentuserid="<%=currentUserID %>" data-sessionfileid="<%=saf.ID%>">
                                                     <select id="selectUsers" class="selectUsers" data-currentuserid="<%=currentUserID %>">
-                                                        <% 
-                                                    
+                                                        <option value="-1" selected="selected">-- إسناد إلى مصحح -- </option>
+                                                        <%
                                                     List<EMadbatahUser> peopleWithDEPower = (from user in usersdb/*revusersdb*/
                                                                                             where user.Role != UserRole.Reviewer
                                                                                             select user).ToList<EMadbatahUser>();
@@ -245,10 +245,7 @@
                                                             foreach (EMadbatahUser user in peopleWithDEPower)
                                                             {
                                                                 if (counter == 0 && saf.UserID == null)
-                                                        %>
-                                                        <option value="-1" selected="selected">-- إسناد إلى مصحح -- </option>
-                                                        <%
-                                                        %><option value="<%=user.ID%>" <%=saf.UserID == user.ID ? "selected=\"selected\"" : ""%>>
+                                                          %><option value="<%=user.ID%>" <%=saf.UserID == user.ID ? "selected=\"selected\"" : ""%>>
                                                             <%=user.Name%></option>
                                                         <%   
 counter++;

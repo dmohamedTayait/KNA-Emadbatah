@@ -42,6 +42,8 @@
     <EntitySetMapping Name="Attendants">
       <EntityTypeMapping TypeName="EMadbatahModel.Attendant">
         <MappingFragment StoreEntitySet="Attendant">
+          <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
+          <ScalarProperty Name="OrderByAttendantType" ColumnName="OrderByAttendantType" />
           <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
           <ScalarProperty Name="SessionAttendantType" ColumnName="SessionAttendantType" />
           <ScalarProperty Name="AttendDate" ColumnName="AttendDate" />
@@ -86,6 +88,7 @@
     <EntitySetMapping Name="Sessions">
       <EntityTypeMapping TypeName="EMadbatahModel.Session">
         <MappingFragment StoreEntitySet="Session">
+          <ScalarProperty Name="PresidentID" ColumnName="PresidentID" />
           <ScalarProperty Name="SessionStartFlag" ColumnName="SessionStartFlag" />
           <ScalarProperty Name="Checker" ColumnName="Checker" />
           <ScalarProperty Name="MP3FolderPath" ColumnName="MP3FolderPath" />
@@ -115,7 +118,8 @@
     <EntitySetMapping Name="SessionContentItems">
       <EntityTypeMapping TypeName="EMadbatahModel.SessionContentItem">
         <MappingFragment StoreEntitySet="SessionContentItem">
-          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="IsSessionPresident" ColumnName="IsSessionPresident" />
+          <ScalarProperty Name="VotingID" ColumnName="VotingID" />
           <ScalarProperty Name="AttachementID" ColumnName="AttachementID" />
           <ScalarProperty Name="FileReviewerID" ColumnName="FileReviewerID" />
           <ScalarProperty Name="Ignored" ColumnName="Ignored" />
@@ -259,11 +263,60 @@
     <EntitySetMapping Name="DefaultAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
         <MappingFragment StoreEntitySet="DefaultAttendant">
+          <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
+          <ScalarProperty Name="OrderByAttendantType" ColumnName="OrderByAttendantType" />
           <ScalarProperty Name="AttendantTitle" ColumnName="AttendantTitle" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MembersVotes">
+      <EntityTypeMapping TypeName="EMadbatahModel.MembersVote">
+        <MappingFragment StoreEntitySet="MembersVote">
+          <ScalarProperty Name="MemberFullName" ColumnName="MemberFullName" />
+          <ScalarProperty Name="MemberVoteID" ColumnName="MemberVoteID" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+          <ScalarProperty Name="NonSecretVoteSubjectID" ColumnName="NonSecretVoteSubjectID" />
+          <ScalarProperty Name="AutoID" ColumnName="AutoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLMeetings">
+      <EntityTypeMapping TypeName="EMadbatahModel.TBLMeeting">
+        <MappingFragment StoreEntitySet="TBLMeeting">
+          <ScalarProperty Name="MeetingTitle" ColumnName="MeetingTitle" />
+          <ScalarProperty Name="MeetingDate" ColumnName="MeetingDate" />
+          <ScalarProperty Name="MeetingNo" ColumnName="MeetingNo" />
+          <ScalarProperty Name="MeetingSN" ColumnName="MeetingSN" />
+          <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLNonSecretVoteSubjects">
+      <EntityTypeMapping TypeName="EMadbatahModel.TBLNonSecretVoteSubject">
+        <MappingFragment StoreEntitySet="TBLNonSecretVoteSubject">
+          <ScalarProperty Name="NofAttendance" ColumnName="NofAttendance" />
+          <ScalarProperty Name="NofNoVote" ColumnName="NofNoVote" />
+          <ScalarProperty Name="NofDisagree" ColumnName="NofDisagree" />
+          <ScalarProperty Name="NofAgree" ColumnName="NofAgree" />
+          <ScalarProperty Name="NonSecreatVoteSubjectIsClosed" ColumnName="NonSecreatVoteSubjectIsClosed" />
+          <ScalarProperty Name="NonSecretVoteSubjectDate" ColumnName="NonSecretVoteSubjectDate" />
+          <ScalarProperty Name="NonSecretVoteSubject" ColumnName="NonSecretVoteSubject" />
+          <ScalarProperty Name="NonSecretVoteSubjectNumber" ColumnName="NonSecretVoteSubjectNumber" />
+          <ScalarProperty Name="MeetingID" ColumnName="MeetingID" />
+          <ScalarProperty Name="NonSecretVoteSubjectID" ColumnName="NonSecretVoteSubjectID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBLPersons">
+      <EntityTypeMapping TypeName="EMadbatahModel.TBLPerson">
+        <MappingFragment StoreEntitySet="TBLPerson">
+          <ScalarProperty Name="PersonFullName" ColumnName="PersonFullName" />
+          <ScalarProperty Name="PersonShortName" ColumnName="PersonShortName" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

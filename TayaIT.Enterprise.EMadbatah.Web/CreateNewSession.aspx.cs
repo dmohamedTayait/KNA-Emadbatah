@@ -23,8 +23,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.Unauthorized);
             if (!Page.IsPostBack)
             {
+                EMadbatahEntities context = new EMadbatahEntities();
+                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).OrderBy(x => x.OrderByAttendantType).ToList();
+                ddlPresident.DataSource = DefaultAttendants;
+                ddlPresident.DataTextField = "Name";
+                ddlPresident.DataValueField = "ID";
+                ddlPresident.DataBind();
+
             }
         }
+
         protected void btnCreateNewSession_Click(object sender, EventArgs e)
         {
             Session sessionObj = fillValues();
@@ -52,6 +60,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                 attendant.EparlimentID = sessionObj.EParliamentID;
                                 attendant.Type = DefaultAttendants[i].Type;
                                 attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
+                                attendant.OrderByAttendantType = DefaultAttendants[i].OrderByAttendantType;
+                                attendant.AttendantAvatar = DefaultAttendants[i].AttendantAvatar;
                                 attendant.State = 1;
                                 bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
                             }
@@ -74,6 +84,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         attendant.EparlimentID = sessionObj.EParliamentID;
                         attendant.Type = DefaultAttendants[i].Type;
                         attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
+                        attendant.OrderByAttendantType = DefaultAttendants[i].OrderByAttendantType;
+                        attendant.AttendantAvatar = DefaultAttendants[i].AttendantAvatar;
                         attendant.State = 1;
                         bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
 
@@ -85,6 +97,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         attendant.EparlimentID = sessionObj.EParliamentID;
                         attendant.Type = DefaultAttendants[i].Type;
                         attendant.AttendantTitle = DefaultAttendants[i].AttendantTitle;
+                        attendant.OrderByAttendantType = DefaultAttendants[i].OrderByAttendantType;
+                        attendant.AttendantAvatar = DefaultAttendants[i].AttendantAvatar;
                         attendant.State = 1;
                         res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
                     }
@@ -103,6 +117,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             string type = ddlType.SelectedValue;
             Int64 Season = Int64.Parse(ddlSeason.SelectedValue);
             Int64 Stage = Int64.Parse(ddlStage.SelectedValue);
+            Int32 PresidentID = Int32.Parse(ddlPresident.SelectedValue);
             string subject = txtSubject.Text;
             int SessionStartFlag = CBSessionStart.Checked ? (int)SessionOpenStatus.OnTime : (int)SessionOpenStatus.NotOnTime;
             string StageType = ddlStagetype.SelectedValue;
@@ -125,7 +140,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             sessionObj.Subject = subject;
             sessionObj.ReviewerID = CurrentUser.ID;
             sessionObj.SessionStartFlag = SessionStartFlag;
-
+            sessionObj.PresidentID = PresidentID;
             return sessionObj;
         }
     }

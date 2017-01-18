@@ -74,11 +74,14 @@ select.fitAll, textarea.fitAll {
 	box-shadow: 0px 1px 1px rgba(0,0,0,.65);
 	-moz-box-shadow: 0px 1px 1px rgba(0,0,0,.65);
 	-webkit-box-shadow: 0px 1px 1px rgba(0,0,0,.65);
-	font-size:9pt;
+	font-size:10pt;
+}
+.btn:disabled {
+    color:rosybrown;
 }
 .smallbtn {
 	padding:4px;
-	font-size:9pt;
+	font-size:10pt;
 	line-height:9pt;
 }
 .addnew, .prev, .next {
@@ -1110,11 +1113,33 @@ span.revFilelock {
 	resize: none;
 	/*direction:rtl;*/
 }
+.reviewpopup_cont4 , .reviewpopup_cont5
+{
+    height: auto !important;
+    margin-top: -125px;
+}
 .datacontainer2 td
 {
-    padding:3px;
+    padding:10px;
+    font-size: 15px;
+    font-weight: bold;
 }
 .datacontainer2 input
+{
+    vertical-align:middle;
+    margin-left:10px;
+}
+.datacontainer1 , .datacontainer2 , .datacontainer3
+{
+    padding-top:20px;
+}
+.datacontainer3 .rd
+{
+    padding:10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.datacontainer3 input
 {
     vertical-align:middle;
     margin-left:10px;
@@ -1140,7 +1165,7 @@ span.revFilelock {
 }
 .reviewpopup_cont3
 {
-    height:250px;
+    height:280px;
     margin-top:-125px;
 }
 /*note page rules*/
@@ -1347,6 +1372,22 @@ span.revFilelock {
 .addnewusercont .actionbtnsmenu:hover {
 	border:0 none;
 	outline:0 none;
+}
+.agendaItemTxt
+{
+    font-size:16px;
+}
+.divVote , .divAttach
+{
+    font-size:125%;
+    margin-bottom:20px;
+    margin-top:20px;
+    font-weight:bold;
+}
+.spanVoteSubject , .spanAttachTitle
+{
+    padding-right:10px;
+    padding-left:50px;
 }
 .deftable
 {
