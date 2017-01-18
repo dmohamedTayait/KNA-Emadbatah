@@ -1949,6 +1949,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _Name;
         partial void OnNameChanging(global::System.String value);
         partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ArName
+        {
+            get
+            {
+                return _ArName;
+            }
+            set
+            {
+                OnArNameChanging(value);
+                ReportPropertyChanging("ArName");
+                _ArName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ArName");
+                OnArNameChanged();
+            }
+        }
+        private global::System.String _ArName;
+        partial void OnArNameChanging(global::System.String value);
+        partial void OnArNameChanged();
 
         #endregion
     
@@ -2555,6 +2579,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _JobTitle;
         partial void OnJobTitleChanging(global::System.String value);
         partial void OnJobTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Type
+        {
+            get
+            {
+                return _Type;
+            }
+            set
+            {
+                OnTypeChanging(value);
+                ReportPropertyChanging("Type");
+                _Type = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Type");
+                OnTypeChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Type;
+        partial void OnTypeChanging(Nullable<global::System.Int32> value);
+        partial void OnTypeChanged();
 
         #endregion
     
@@ -4543,6 +4591,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int64> _AttachementID;
         partial void OnAttachementIDChanging(Nullable<global::System.Int64> value);
         partial void OnAttachementIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> IsAdmin
+        {
+            get
+            {
+                return _IsAdmin;
+            }
+            set
+            {
+                OnIsAdminChanging(value);
+                ReportPropertyChanging("IsAdmin");
+                _IsAdmin = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsAdmin");
+                OnIsAdminChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _IsAdmin;
+        partial void OnIsAdminChanging(Nullable<global::System.Int32> value);
+        partial void OnIsAdminChanged();
 
         #endregion
     

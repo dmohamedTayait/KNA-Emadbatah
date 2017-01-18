@@ -8,6 +8,15 @@
     position:static;
 }
 /*!global classes*/
+.radio_list td
+{
+    padding:2px;
+}
+.radio_list td input
+{
+    vertical-align:middle;
+    margin-left:5px;
+}
 .red {
 	color:Red;
 }
@@ -164,6 +173,12 @@ select.fitAll, textarea.fitAll {
 .textfield:focus {
 	border:1px solid #666;
 }
+.inputBlock
+{
+    box-sizing: border-box;
+    display:block;
+    width:100%;
+}
 .borderBD {
 	border-bottom:1px dotted #b7b7b7;
 	padding-bottom:15px;
@@ -247,13 +262,13 @@ header#header a.currentuser {
 {
     background-image:url(../images/logo.jpg);
 	background-repeat:no-repeat;
-	background-position:95% bottom;
+	background-position:100% bottom;
 	background-color:#fff;
 	position:relative;
-	height:130px;
+	height:135px;
 }
 #mainnavigationlist li {
-	padding:5px 75px 0px 30px;
+	padding:15px 160px 0px 30px;
 }
 #mainnavigationlist a {
 	background-image:url(../images/header_icons.gif);
@@ -581,8 +596,13 @@ header#header a.currentuser {
 	margin-right:25px;
 	font-size:10pt;
 }
-.adminhomebutton.setting_icon, .adminhomebutton.user_icon {
+.adminhomebutton.setting_icon, .adminhomebutton.user_icon, .adminhomebutton.create_ico {
 	margin-left:80px;
+}
+.adminhomebutton.create_ico a
+{
+    background:url("../images/create_ico.png") no-repeat;
+    background-position:right 0;
 }
 .adminhomebutton.setting_icon a {
 	background-position:right -79px;
@@ -599,7 +619,7 @@ header#header a.currentuser {
 	margin-left:10px;
 }
 /* default table */
-.table thead th {
+.table th {
 	padding-top:1px;
 	line-height:25px;
 	background:url("../images/top_nav_bg.jpg") repeat-x 0 0;
@@ -1074,6 +1094,15 @@ span.revFilelock {
 .datacontainer textarea {
 	resize: none;
 	/*direction:rtl;*/
+}
+.datacontainer2 td
+{
+    padding:3px;
+}
+.datacontainer2 input
+{
+    vertical-align:middle;
+    margin-left:10px;
 }
 .poppbtnscont a {
 	font-size:86%

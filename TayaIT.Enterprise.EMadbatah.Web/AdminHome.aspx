@@ -5,12 +5,14 @@
     <div class="grid_22 prefix_1 suffix_1">
         <div class="xxlargerow Ntitle">إختر الصفحة المراد إدارتها:</div>
         <div class="toolsbox suffix_1 prefix_1">
-          <div class="adminhomebutton setting_icon"><a href="CreateNewSession.aspx">اضافة مضبطة جديدة</a></div>
+          <div class="adminhomebutton create_ico"><a href="CreateNewSession.aspx">اضافة مضبطة جديدة</a></div>
             <div class="adminhomebutton setting_icon"><a href="AdminAPPConfig.aspx">إدارة الإعدادات</a></div>
              <div class="clear"></div>
             <div class="adminhomebutton user_icon"><a href="AdminSecurity.aspx">إدارة المستخدمين</a></div>
             <div class="adminhomebutton session_icon"><a href="AdminSessions.aspx">إدارة الجلسات</a></div>
              <div class="clear"></div>
+             <div class="adminhomebutton user_icon"><a href="SpeakersAttendance.aspx">إدارة الأعضاء</a></div>
+              <div class="adminhomebutton user_icon"><a href="CommitteeAttendance.aspx">إدارة اللجان</a></div>
         </div>
     </div>
     <div class="clear">

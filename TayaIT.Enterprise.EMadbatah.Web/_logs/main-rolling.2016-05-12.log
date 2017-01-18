@@ -1,0 +1,885 @@
+----------------------------------------
+Timestamp: 5/11/2016 5:31:04 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(116,/test/116/body.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 728
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 714
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 229</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/11/2016 5:31:04 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 37</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/11/2016 5:32:01 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(116,/test/116/body.docx)  - Priority: -1 - Title:Cannot insert the OpenXmlElement "newChild" because it is part of a tree. 
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.OpenXmlCompositeElement.AppendChild[T](T newChild)
+   at DocumentFormat.OpenXml.OpenXmlElement.Append(OpenXmlElement[] newChildren)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentStyles() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 832
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 78
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 154</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/11/2016 5:32:01 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 37</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/11/2016 5:33:46 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(116,/test/116/body.docx)  - Priority: -1 - Title:Cannot insert the OpenXmlElement "newChild" because it is part of a tree. 
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.OpenXmlCompositeElement.AppendChild[T](T newChild)
+   at DocumentFormat.OpenXml.OpenXmlElement.Append(OpenXmlElement[] newChildren)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentStyles() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 832
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 78
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 154</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/11/2016 5:33:47 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 37</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/11/2016 5:34:43 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(116,/test/116/body.docx)  - Priority: -1 - Title:Cannot insert the OpenXmlElement "newChild" because it is part of a tree. 
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.OpenXmlCompositeElement.AppendChild[T](T newChild)
+   at DocumentFormat.OpenXml.OpenXmlElement.Append(OpenXmlElement[] newChildren)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.InitializeDocumentStyles() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 832
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 78
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 154</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/11/2016 5:34:44 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 37</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 11:41:30 AM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionsCount()  - Priority: -1 - Title:An error occurred while reading from the store provider's data reader. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()
+   at System.Data.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionsCount(Int32 statusCode, Boolean checkEquality) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 999</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.HasMoreRows()
+   at System.Data.SqlClient.SqlDataReader.ReadInternal(Boolean setTimeout)
+   at System.Data.SqlClient.SqlDataReader.Read()
+   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 11:41:59 AM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Could not find file 'C:\test\116\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 11:44:10 AM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Could not find file 'C:\test\116\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 12:01:07 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Could not find file 'C:\test\116\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 12:01:55 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Could not find file 'C:\test\116\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 12:05:41 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Could not find file 'C:\test\116\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 12:09:12 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Could not find file 'C:\test\116\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 12:11:29 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(116,/test/116/)  - Priority: -1 - Title:Could not find file 'C:\test\116\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:04:23 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:04:33 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:04:35 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:07:33 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:41:13 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:41:47 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:41:56 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:42:03 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:44:30 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:46:32 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:48:30 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:48:34 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 2:50:23 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:05:56 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:05:58 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:37:24 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:37:34 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:37:35 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:43:15 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:46:44 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:46:46 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:48:01 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:48:03 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:52:32 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:53:13 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\137\)  - Priority: -1 - Title:Could not find file 'E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Files\137\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:53:13 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:53:16 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 3:56:45 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:00:07 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:01:28 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137,E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\\Files\137\)  - Priority: -1 - Title:Could not find file 'E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Files\137\body.docx'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.Open(String path, FileMode mode)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MergeWithAltChunk(String outPath, String[] files) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1356
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 60</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:01:28 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:01:36 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:03:39 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:03:45 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:04:11 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:05:38 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:12:26 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:12:36 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:12:51 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:12:56 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:12:56 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:13:24 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:13:25 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:13:43 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:13:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:Failure sending mail.
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>Thread was being aborted.</INNERMESSAGE><SOURCE>System</SOURCE><STACKTRACE>   at System.Net.UnsafeNclNativeMethods.OSSOCK.recv(IntPtr socketHandle, Byte* pinnedBuffer, Int32 len, SocketFlags socketFlags)
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, SocketError& errorCode)
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at System.Net.DelegatedStream.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Net.BufferedReadStream.Read(Byte[] buffer, Int32 offset, Int32 count)
+   at System.Net.Mail.SmtpReplyReaderFactory.ReadLines(SmtpReplyReader caller, Boolean oneLine)
+   at System.Net.Mail.SmtpReplyReaderFactory.ReadLine(SmtpReplyReader caller)
+   at System.Net.Mail.CheckCommand.Send(SmtpConnection conn, String& response)
+   at System.Net.Mail.StartTlsCommand.Send(SmtpConnection conn)
+   at System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpTransport.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpClient.GetConnection()
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:13:52 PM
+
+Category: SessionID:   - Priority: -1 - Title:Thread was being aborted.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.Util.Web</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 63
+   at TayaIT.Enterprise.EMadbatah.BLL.MailManager.SendMail(Email email, SystemMailType mailType, Hashtable emailDate, HttpContext context) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MailManager.cs:line 94
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 970</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:15:18 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:15:31 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:15:41 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:PDF creation failed
+
+Message: PDF creation failed
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:15:50 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:15:50 PM
+
+Category: SessionID:   - Priority: -1 - Title:Could not find file 'E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Files\137\137.pdf'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.ReadAllBytes(String path)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 943</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:16:55 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:17:28 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:18:29 PM
+
+Category: ReviewerHandler  - Priority: -1 - Title:PDF creation failed
+
+Message: PDF creation failed
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:18:38 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:18:45 PM
+
+Category: SessionID:   - Priority: -1 - Title:Could not find file 'E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Files\137\137.pdf'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at System.IO.File.ReadAllBytes(String path)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 943</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:26:23 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 4:26:53 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------

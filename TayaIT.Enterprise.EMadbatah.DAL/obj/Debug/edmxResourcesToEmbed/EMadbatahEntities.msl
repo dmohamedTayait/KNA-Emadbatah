@@ -60,6 +60,7 @@
     <EntitySetMapping Name="AttendantStates">
       <EntityTypeMapping TypeName="EMadbatahModel.AttendantState">
         <MappingFragment StoreEntitySet="AttendantState">
+          <ScalarProperty Name="ArName" ColumnName="ArName" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
@@ -113,6 +114,7 @@
     <EntitySetMapping Name="SessionContentItems">
       <EntityTypeMapping TypeName="EMadbatahModel.SessionContentItem">
         <MappingFragment StoreEntitySet="SessionContentItem">
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
           <ScalarProperty Name="AttachementID" ColumnName="AttachementID" />
           <ScalarProperty Name="FileReviewerID" ColumnName="FileReviewerID" />
           <ScalarProperty Name="Ignored" ColumnName="Ignored" />
@@ -255,6 +257,7 @@
     <EntitySetMapping Name="DefaultAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
         <MappingFragment StoreEntitySet="DefaultAttendant">
+          <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ID" ColumnName="ID" />

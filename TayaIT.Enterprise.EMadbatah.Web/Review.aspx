@@ -300,18 +300,7 @@
                                 <div class="fl">
                                     <input type="button" runat="server" id="btnFinalApproveSession" class="btnFinalApproveSession def_btn"
                                         value="تصديق" />
-                                        <%  
-                                            TayaIT.Enterprise.EMadbatah.Model.UserRole[] allowed_user_roles = new TayaIT.Enterprise.EMadbatah.Model.UserRole[] { TayaIT.Enterprise.EMadbatah.Model.UserRole.Admin, TayaIT.Enterprise.EMadbatah.Model.UserRole.FileReviewer, TayaIT.Enterprise.EMadbatah.Model.UserRole.Reviewer, TayaIT.Enterprise.EMadbatah.Model.UserRole.ReviewrDataEntry };
-                                           // if (CurrentUser.Role == TayaIT.Enterprise.EMadbatah.Model.UserRole.Reviewer)
-                                            if (allowed_user_roles.Contains(CurrentUser.Role))
-                                             { 
-                                          int session_chker = 0;
-                                            session_chker = SessionHelper.GetSessionChecker(long.Parse(SessionID));
-                                                 %>
-                                    <input id="Button1" class ="def_publish_btn" type="button" <%if(session_chker == 0)  {%>value ="نشر" <%}else {%> value="الغاء النشر"<%} %>  onclick="Button1_onclick()"/>
-                                    <input type="checkbox" id="chk_session_checker" name="chk_session_checker" <%if(session_chker !=0)  {%>checked="true" <%}%> onclick="Button1_onclick()"/>
-                                     <% }%>
-                                </div>
+                                 </div>
                                 <div class="clear">
                                 </div>
                             </div>

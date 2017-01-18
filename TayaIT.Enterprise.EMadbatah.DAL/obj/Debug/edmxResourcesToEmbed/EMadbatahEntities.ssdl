@@ -148,7 +148,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="text" />
+    <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="IsCustom" Type="bit" />
     <Property Name="SessionID" Type="bigint" />
     <Property Name="Order" Type="int" />
@@ -201,6 +201,7 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="ArName" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="AttendantType">
     <Key>
@@ -220,7 +221,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="CommitteeID" Type="bigint" />
     <Property Name="DefaultAttendantID" Type="bigint" />
     <Property Name="SessionID" Type="bigint" />
@@ -233,6 +234,7 @@
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="nvarchar" MaxLength="500" />
     <Property Name="JobTitle" Type="nvarchar" MaxLength="500" />
+    <Property Name="Type" Type="int" />
   </EntityType>
   <EntityType Name="MadbatahFilesStatus">
     <Key>
@@ -279,7 +281,6 @@
     <Property Name="Season" Type="bigint" Nullable="false" />
     <Property Name="Stage" Type="bigint" Nullable="false" />
     <Property Name="StageType" Type="varchar" Nullable="false" MaxLength="500" />
-    <Property Name="Serial" Type="bigint" Nullable="false" />
     <Property Name="SessionStatusID" Type="int" />
     <Property Name="SessionMadbatahWord" Type="varbinary(max)" />
     <Property Name="SessionMadbatahPDF" Type="varbinary(max)" />
@@ -291,6 +292,7 @@
     <Property Name="MP3FolderPath" Type="varchar" MaxLength="500" />
     <Property Name="Checker" Type="int" />
     <Property Name="SessionStartFlag" Type="int" />
+    <Property Name="Serial" Type="bigint" />
   </EntityType>
   <EntityType Name="SessionAttendant">
     <Key>
@@ -331,6 +333,7 @@
     <Property Name="Ignored" Type="bit" />
     <Property Name="FileReviewerID" Type="bigint" />
     <Property Name="AttachementID" Type="bigint" />
+    <Property Name="IsAdmin" Type="int" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>

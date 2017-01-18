@@ -253,6 +253,7 @@ $(document).ready(function() {
            // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
           //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
             var AgendaItemID =  $('.agendaItemId').val();
+            var AttachID =  $('.attachId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -296,6 +297,7 @@ $(document).ready(function() {
                     data: {
                         funcname: 'DoNext',
                         AgendaItemID: AgendaItemID,
+                        attachid: AttachID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -387,6 +389,7 @@ $(document).ready(function() {
            // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
             //var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
             var AgendaItemID =  $('.agendaItemId').val();
+            var AttachID =  $('.attachId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -415,6 +418,7 @@ $(document).ready(function() {
                     funcname: 'DoPrevious',
                     PrevContentID: PrevContentID,
                     AgendaItemID: AgendaItemID,
+                    AttachID: AttachID,
                    // AgendaSubItemID: AgendaSubItemID,
                     SpeakerID: SpeakerID,
                     SameAsPrevSpeaker: SameAsPrevSpeaker,
@@ -485,8 +489,24 @@ $(document).ready(function() {
             var AgendaSubItem_html = $("#MainContent_ddlAgendaSubItems").html();
             var Speakers_SelectedID = $("#MainContent_ddlSpeakers > option:selected").attr("value");
             $('.agendaItemId').val(response.AgendaItemID);
+            $('.attachId').val(response.AttachID);
             $('.agendaItemTxt').html(response.AgendaItemText);
-                        
+            if(response.AgendaItemText == "غير معرف")
+            {
+            $('.divAgenda').hide(); 
+            }
+            else  
+            {       
+              $('.divAgenda').show();
+            } 
+             if(response.AttachID == "0")
+            {
+            $('.divAttach').hide(); 
+            }
+            else  
+            {       
+              $('.divAttach').show().html("<span>" + response.AttachText + "</span>");
+            } 
             //alert(AgendaSubItem_SelectedID);
 
             // set start and end time in hidden fields
@@ -608,7 +628,8 @@ $(document).ready(function() {
             $("#btnSaveAndExit").attr("disabled", "disabled");
           //  var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
           //  var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
-             var AgendaItemID =  $('.agendaItemId').val();
+            var AgendaItemID =  $('.agendaItemId').val();
+            var AttachID =  $('.attachId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -639,6 +660,7 @@ $(document).ready(function() {
                     data: {
                         funcname: 'SaveAndExit',
                         AgendaItemID: AgendaItemID,
+                        AttachID: AttachID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -682,6 +704,7 @@ $(document).ready(function() {
            // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
            // var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
             var AgendaItemID =  $('.agendaItemId').val();
+            var AttachID =  $('.attachId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
@@ -713,6 +736,7 @@ $(document).ready(function() {
                     data: {
                         funcname: 'UpdateSessionFileStatusCompleted',
                         AgendaItemID: AgendaItemID,
+                        AttachID: AttachID,
                         SpeakerID: SpeakerID,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
@@ -1122,17 +1146,48 @@ $(document).ready(function() {
         $(".reviewpopup_cont2").hide();
         e.preventDefault();
     });
+
+        // add Attach button
+    $(".btnAssignAttachToContentItem").click(function(e) {
+        var checkedRadio = $(".rdlattachments input:radio");
+        var attachId = $(".attachId").val();
+        if(attachId){
+            checkedRadio.filter('[value="'+attachId+'"]').prop('checked', true);
+        }
+
+        $(".popupoverlay").show();
+        $(".reviewpopup_cont4").show();
+        $(".rdlattachments").attr("checked","");
+        e.preventDefault();
+    });
+
+        // add procuder yes button
+    $(".btnAddAttach",'.reviewpopup_cont4').click(function(e) {
+        var checkedRadio = $(".rdlattachments input:radio:checked");
+        if(checkedRadio.length > 0){
+            $(".attachId").val(checkedRadio.val());
+            $('.divAttach').html(checkedRadio.next().text());
+        }
+        // close the popup
+        $(".popupoverlay").hide();
+        $(".reviewpopup_cont4").hide();
+        e.preventDefault();
+    });
+
     // add new agenda button
     $(".addingNewAgendaItem").click(function(e) {
         // show the popup
         $(".popupoverlay").show();
         $(".reviewpopup_cont3").show();
+        // reset values
+        $("textarea.splittinymce",'.reviewpopup_cont3').val('');
+        $('.isAgendaItemIndexed','.reviewpopup_cont3').prop('checked', false);
         e.preventDefault();
     });
     // add new agenda yes button
     $(".approve3").click(function(e) {
         // vars
-        var checked = $('.isAgendaItemIndexed','.reviewpopup_cont3').is('checked');
+        var checked = $('.isAgendaItemIndexed','.reviewpopup_cont3').is(':checked');
         var htmlData = $("textarea.splittinymce",'.reviewpopup_cont3').val();
         checked = (checked) ? 1 : 0;
         if(htmlData != ''){
@@ -1158,6 +1213,10 @@ $(document).ready(function() {
                     // repalce the button with the content
                     $(".addingNewAgendaItem").hide();
                     $('.agendaItemTxt').html(htmlData);
+                    if(response != 0)
+                    {
+                     $(".divAgenda").show();
+                    }
                 },
                 error: function() {
                 }

@@ -16,7 +16,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             if (!Page.IsPostBack)
             {
                 EMadbatahEntities ee = new EMadbatahEntities();
-                List<Session> Sessions = ee.Sessions.Select(a => a).OrderByDescending(aa => aa.ID).ToList();
+                List<Session> Sessions = ee.Sessions.Where(c => c.SessionStatusID !=(int)Model.SessionStatus.FinalApproved).Select(a => a).OrderByDescending(aa => aa.ID).ToList();
 
 
              /*   ddlSessions.DataSource = Sessions;
@@ -29,6 +29,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 foreach(Session sessionObj in Sessions)
                 {
                     liNew = new ListItem( "( " + sessionObj.EParliamentID.ToString() + " / " + sessionObj.Type + " )",sessionObj.ID.ToString());
+                    if (SessionID != null)
+                    {
+                        if (sessionObj.ID == long.Parse(SessionID))
+                            liNew.Selected = true;
+                    }
                     ddlSessions.Items.Add(liNew);
                 }
               
@@ -43,7 +48,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     //بدات في موعدها
                     if (SessionSelected.SessionStartFlag == 1)
                     {
-                        ddlTimes.Items.Insert(0, new ListItem("افتتحت الجلسة بوقتها", "1"));
+                        ddlTimes.Items.Insert(0, new ListItem("اكتمل النصاب القانونى فى الموعد الأول", "1"));
+                        ddlTimes.Items[0].Selected = true;
                         ddlTimes.Style.Add("display", "block");
                         List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(long.Parse(SessionID), 1);
                         GVAttendants.DataSource = AttendantInTimes;
@@ -52,9 +58,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     else
                     {
                         ddlTimes.Style.Add("display", "block");
-                        ddlTimes.Items.Insert(0, new ListItem("افتتحت الجلسة بوقتها", "1"));
-                        ddlTimes.Items.Insert(1, new ListItem("افتتحت الجلسة بعد وقتها", "0"));
-
+                        ddlTimes.Items.Insert(0, new ListItem("اكتمل النصاب القانونى فى الموعد الأول", "1"));
+                        ddlTimes.Items.Insert(1, new ListItem("لم يكتمل النصاب القانونى فى الموعد الأول", "0"));
+                        ddlTimes.Items[0].Selected = true;
                         int selectedtime = int.Parse(ddlTimes.SelectedValue);
                         if (selectedtime == 1)
                         {
@@ -92,7 +98,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             if (SessionSelected.SessionStartFlag == 1)
             {
                 ddlTimes.Style.Add("display", "block");
-                ddlTimes.Items.Insert(0, new ListItem("افتتحت الجلسة بوقتها", "1"));
+                ddlTimes.Items.Insert(0, new ListItem("اكتمل النصاب القانونى فى الموعد الأول", "1"));
+                ddlTimes.Items[0].Selected = true;
                 List<Attendant> AttendantInTimes = AttendantHelper.GetAttendantInSession(SessionID, 1); //ee.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == 1 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
                 GVAttendants.DataSource = AttendantInTimes;
                 GVAttendants.DataBind();
@@ -100,9 +107,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             else
             {
                 ddlTimes.Style.Add("display", "block");
-                ddlTimes.Items.Insert(0, new ListItem("افتتحت الجلسة بوقتها", "1"));
-                ddlTimes.Items.Insert(1, new ListItem("افتتحت الجلسة بعد وقتها", "0"));
-
+                ddlTimes.Items.Insert(0, new ListItem("اكتمل النصاب القانونى فى الموعد الأول", "1"));
+                ddlTimes.Items.Insert(1, new ListItem("لم يكتمل النصاب القانونى فى الموعد الأول", "0"));
+                ddlTimes.Items[0].Selected = true;
                 int selectedtime = int.Parse(ddlTimes.SelectedValue);
                 if (selectedtime == 1)
                 {
@@ -172,11 +179,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     if (rb.Items.FindByValue(attendant[0].State.ToString()) != null)
                     {
                         rb.Items.FindByValue(attendant[0].State.ToString()).Selected = true;
-                    }
-                    TextBox txtAttendantDate = (TextBox)e.Row.FindControl("txtDOB");
-                    if (attendant[0].AttendDate != null)
-                    {
-                        txtAttendantDate.Text = attendant[0].AttendDate.ToString();
                     }
                 }
             }
@@ -295,18 +297,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             EMadbatahEntities ee = new EMadbatahEntities();
             int SessionID = int.Parse(ddlSessions.SelectedValue);
             Session SessionSelected = ee.Sessions.Where(aaaa => aaaa.ID == SessionID).Select(a => a).FirstOrDefault();
-
+            //  ddlTimes.Items[0].Selected = true;
             int ddd = int.Parse(ddlTimes.SelectedValue);
             //بدات في موعدها
-            if (SessionSelected.SessionStartFlag == 0 && ddd == 1)
-            {
-                e.Row.Cells[3].Visible = false;
-            }
-
-            if (SessionSelected.SessionStartFlag == 1)
-            {
-                e.Row.Cells[3].Visible = true;
-            }
         }
     }
 }

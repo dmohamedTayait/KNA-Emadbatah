@@ -23,7 +23,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         //http://stackoverflow.com/questions/3308299/replace-bookmark-text-in-word-file-using-open-xml-sdk
         private WordprocessingDocument _currentDoc;
         private MainDocumentPart _docMainPart;
-        
+
         private StyleDefinitionsPart _docStylePart;
         private DocumentSettingsPart _docSettingsPart;
         private FooterPart _docFooterPart;
@@ -62,7 +62,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         //private Body _body;
         private MemoryStream _inMemoryStream;
         private string _outputPath;
-        
+
 
         public String DocPath { get; set; }
         public bool IsOpen
@@ -74,7 +74,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
         public WordprocessingWorker(string docPath,
             DocXmlParts docXmlParts,
-            DocFileOperation fileOperation) 
+            DocFileOperation fileOperation)
         {
             DocPath = docPath;
             _docXmlParts = docXmlParts;
@@ -82,7 +82,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             _footNotes = new Footnotes();
             if (fileOperation == DocFileOperation.CreateNew)
             {
-                _currentDoc = WordprocessingDocument.Create(DocPath, WordprocessingDocumentType.Document);                
+                _currentDoc = WordprocessingDocument.Create(DocPath, WordprocessingDocumentType.Document);
                 _docMainPart = _currentDoc.AddMainDocumentPart();
                 _docMainPart.Document = MakeEmpyDocument();
 
@@ -95,8 +95,8 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 Open(docPath);
             }
 
-                     
-           // 
+
+            // 
             //_docMainPart.Document = new Document();
             //_body = new Body();
 
@@ -104,7 +104,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             //InitializeDocumentStyles();
 
 
-            
+
         }
 
 
@@ -135,7 +135,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
         public static DocXmlParts GetDocParts(string resfolderpath)
         {
-           
+
             DocXmlParts xmlFilesPaths = new DocXmlParts();
             xmlFilesPaths.CoreFilePropertiesPart = resfolderpath + "core.xml";
             xmlFilesPaths.EndNotes = resfolderpath + "endnotes.xml";
@@ -181,7 +181,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 }
             }
 
-            
+
             //endnotes.xml
             XmlDocument endNotesPartXML = new XmlDocument();
             endNotesPartXML.Load(_docXmlParts.EndNotes);
@@ -232,7 +232,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             //        ts.Write(coreFilePropertiesPartXml.InnerXml);
             //    }
             //}
-            
+
 
             XmlDocument settingsPartXml = new XmlDocument();
             settingsPartXml.Load(_docXmlParts.SettingsPartPath);
@@ -365,12 +365,12 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         //    /*doc.Save();
         //    doc.Close();
         //    doc.Dispose();
-            
+
         //    int count = 0;
         //    string tmpFileName = docPath.Replace(".docx", "_temp.docx");
         //    File.Copy(docPath, tmpFileName, true);
         //    FileInfo fi=new FileInfo(docPath);
-            
+
         //    PdfMaker.PrintToPdf(fi.DirectoryName, serverMapPath, tmpFileName, tmpFileName.Replace(".docx", ".pdf"));
         //    count = TayaIT.Enterprise.EMadbatah.Pdf2Word.pdf2ImageConvert.getNumberOfPdfPages(tmpFileName.Replace(".docx", ".pdf"));
         //    File.Delete(tmpFileName);
@@ -440,7 +440,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 return 0;
             }
         }
-        
+
         public int GetCurrentPageNumber()
         {
             //int pageCount = (int)document.ExtendedFilePropertiesPart.Properties.Pages.Text;
@@ -463,7 +463,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 _docMainPart.Document = MakeEmpyDocument();
 
             Paragraph paragraph = new Paragraph();
-            Run run = new Run(new Break() {});
+            Run run = new Run(new Break() { });
 
 
             paragraph.Append(run);
@@ -481,7 +481,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 _docMainPart.Document = MakeEmpyDocument();
 
             Paragraph paragraph = new Paragraph();
-            Run run = new Run(new CarriageReturn() {});
+            Run run = new Run(new CarriageReturn() { });
 
 
             paragraph.Append(run);
@@ -510,7 +510,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             //Paragraph currentParagraph = (Paragraph)_currentDoc.MainDocumentPart.RootElement.Descendants<Paragraph>().Last();
             //string modifiedString = Regex.Replace(pp.InnerText, currentString, reusableContentString);
             //currentParagraph.RemoveAllChildren<Run>();
-           
+
             switch (paragraphType)
             {
                 case ParagraphStyle.ParagraphTitle:
@@ -628,7 +628,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             }
             run.Append(new Text(paragraphText) { Space = SpaceProcessingModeValues.Preserve });
             currentParagraph.AppendChild<Run>(run);
-            
+
 
         }
 
@@ -637,13 +637,13 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
 
             paragraphText = System.Web.HttpUtility.HtmlDecode(paragraphText).Replace(";psbn&", " ").Replace("&nbsp;", " ");
- 
+
 
             if (_docMainPart == null)
                 _docMainPart = _currentDoc.AddMainDocumentPart();
             if (_docMainPart.Document == null)
                 _docMainPart.Document = MakeEmpyDocument();
-            
+
             Paragraph paragraph = new Paragraph();
             ParagraphProperties paragraphProp = new ParagraphProperties();
             BiDi biDi1 = new BiDi();
@@ -667,41 +667,41 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 default:
                     break;
             }
-            
-            
-                paragraphProp.Append(justification);
-                paragraphProp.ParagraphStyleId = new ParagraphStyleId() { Val = paragraphType.ToString() }; // we set the style
-                paragraph.Append(paragraphProp);    //HeadingArabic
-
-                Run run = new Run(new Text(paragraphText) { Space = SpaceProcessingModeValues.Preserve });
-
-                
-
-                switch (paragraphType)
-                {
-                    case ParagraphStyle.ParagraphTitle:
-                        break;
-                    case ParagraphStyle.NormalArabic:
-                        break;
-                    case ParagraphStyle.FootnoteText:
-                       // footnote = new Footnote() { Type = FootnoteEndnoteValues.Separator, Id = -1 };
-                        break;
-                    case ParagraphStyle.FootnoteReference:
-                   //     FootnoteReference footnoteRef = new FootnoteReference() { CustomMarkFollows = true, Id = 1 };
-                  //  run.Append(footnoteRef);
-                        break;
-                    case ParagraphStyle.SeparatorMark:
-                        SeparatorMark separatorMark = new SeparatorMark();                        
-                        run.Append(separatorMark);
-                        break;
-                    default:
-                        break;
-                }
 
 
-                paragraph.Append(run);
+            paragraphProp.Append(justification);
+            paragraphProp.ParagraphStyleId = new ParagraphStyleId() { Val = paragraphType.ToString() }; // we set the style
+            paragraph.Append(paragraphProp);    //HeadingArabic
 
-            if(appendFootNote)//if (paragraphType == ParagraphStyle.FootnoteText)
+            Run run = new Run(new Text(paragraphText) { Space = SpaceProcessingModeValues.Preserve });
+
+
+
+            switch (paragraphType)
+            {
+                case ParagraphStyle.ParagraphTitle:
+                    break;
+                case ParagraphStyle.NormalArabic:
+                    break;
+                case ParagraphStyle.FootnoteText:
+                    // footnote = new Footnote() { Type = FootnoteEndnoteValues.Separator, Id = -1 };
+                    break;
+                case ParagraphStyle.FootnoteReference:
+                    //     FootnoteReference footnoteRef = new FootnoteReference() { CustomMarkFollows = true, Id = 1 };
+                    //  run.Append(footnoteRef);
+                    break;
+                case ParagraphStyle.SeparatorMark:
+                    SeparatorMark separatorMark = new SeparatorMark();
+                    run.Append(separatorMark);
+                    break;
+                default:
+                    break;
+            }
+
+
+            paragraph.Append(run);
+
+            if (appendFootNote)//if (paragraphType == ParagraphStyle.FootnoteText)
             {
                 //SeparatorMark separatorMark2 = new SeparatorMark();
                 //paragraph.Append(new Run(separatorMark2));
@@ -713,21 +713,21 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 ////_docMainPart.Document.Body.Append(footnote);
                 //_footNotes.Append(footnote);
                 //_footnotesPart.Footnotes = _footNotes;
-               
+
                 //NewWordWorker n = new NewWordWorker();
                 //n.GenerateEndnotesPart1Content(_endnotesPart);
                 //n.GenerateFootnotesPart1Content(_footnotesPart, "عباس الهنداوي");
 
 
-               
+
             }
             else
                 _docMainPart.Document.Body.Append(paragraph);
-            
+
             Save();
         }
 
-        
+
         //public void GenerateAllFootNoteWork()
         //{
         //            GeneratedCode.GeneratedClass gc = new GeneratedCode.GeneratedClass();
@@ -735,8 +735,8 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         //            Save();
         //}
 
-        
-        public void Save() 
+
+        public void Save()
         {
             _docMainPart.Document.Save();// Save changes to the main document part.             
         }
@@ -747,229 +747,229 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         {
 
 
-            
-                // Create a style part and add it to the document
-                XmlDocument stylesXml = new XmlDocument();
-                stylesXml.Load(_docXmlParts.StylePartPath);
 
-                _docStylePart = _docMainPart.AddNewPart<StyleDefinitionsPart>();
-                //  Copy the style.xml content into the new part...
-                using (Stream outputStream = _docStylePart.GetStream())
+            // Create a style part and add it to the document
+            XmlDocument stylesXml = new XmlDocument();
+            stylesXml.Load(_docXmlParts.StylePartPath);
+
+            _docStylePart = _docMainPart.AddNewPart<StyleDefinitionsPart>();
+            //  Copy the style.xml content into the new part...
+            using (Stream outputStream = _docStylePart.GetStream())
+            {
+                using (StreamWriter ts = new StreamWriter(outputStream))
                 {
-                    using (StreamWriter ts = new StreamWriter(outputStream))
-                    {
-                        ts.Write(stylesXml.InnerXml);
-                    }
+                    ts.Write(stylesXml.InnerXml);
                 }
-
-        
-                 if(_docMainPart.StyleDefinitionsPart == null)
-                    _docStylePart = _docMainPart.AddNewPart<StyleDefinitionsPart>();
-                  else
-                   _docStylePart = _docMainPart.StyleDefinitionsPart;
+            }
 
 
-                //Run runNormalText = new Run() { RsidRunProperties = "007A6E3F" };
-                RunProperties runNormalTextProp = new RunProperties();
-                RunFonts runNormalTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
-                FontSize fontNormalTextSize = new FontSize() { Val = "28" };
-                FontSizeComplexScript fontComplexNormalTextSize = new FontSizeComplexScript() { Val = "28" };
-                RightToLeftText rightToLeftText = new RightToLeftText();
-                //BiDi biDi1 = new BiDi();
-                //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
-
-                runNormalTextProp.Append(runNormalTextFonts);
-                runNormalTextProp.Append(fontNormalTextSize);
-                runNormalTextProp.Append(fontComplexNormalTextSize);
-                runNormalTextProp.Append(rightToLeftText);
-                //runNormalTextProp.Append(biDi1);
-                //runNormalTextProp.Append(languages);
-                
-                Style styleNormalText = new Style();
-                styleNormalText.StyleId = "NormalArabic"; //this is the ID of the style
-                styleNormalText.Append(new Name() { Val = "Taya Madbatah Normal Text" }); //this is name                
-                styleNormalText.Append(new BasedOn() { Val = "Normal" });// our style based on Normal style                
-                styleNormalText.Append(new NextParagraphStyle() { Val = "Normal" });// the next paragraph is Normal type
-                styleNormalText.Append(runNormalTextProp);//we are adding properties previously defined
+            if (_docMainPart.StyleDefinitionsPart == null)
+                _docStylePart = _docMainPart.AddNewPart<StyleDefinitionsPart>();
+            else
+                _docStylePart = _docMainPart.StyleDefinitionsPart;
 
 
-                // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
-                RunProperties runParagraphTitleTextProp = new RunProperties();
-                RunFonts runParagraphTitleTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-                Bold bold = new Bold();
-                BoldComplexScript boldComplexScript = new BoldComplexScript();
-                FontSize fontParagraphTitleTextSize = new FontSize() { Val = "28" };
-                FontSizeComplexScript fontParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
-                RightToLeftText rtlTextParagraphTitle = new RightToLeftText();
-                runParagraphTitleTextProp.Append(runParagraphTitleTextFonts);
-                runParagraphTitleTextProp.Append(bold);
-                runParagraphTitleTextProp.Append(boldComplexScript);
-                runParagraphTitleTextProp.Append(fontParagraphTitleTextSize);
-                runParagraphTitleTextProp.Append(fontParagraphTitleComplexScriptSize);
-                runParagraphTitleTextProp.Append(rtlTextParagraphTitle);
-                //runParagraphTitleTextProp.Append(languages);
-                //runParagraphTitleText.Append(runParagraphTitleTextProp);
-                Style styleParagraphTitle = new Style();
-                styleParagraphTitle.StyleId = "ParagraphTitle";
-                styleParagraphTitle.Append(new Name() { Val = "Taya Madbatah Paragraph Title Text" });
-                styleParagraphTitle.Append(new BasedOn() { Val = "Normal" });
-                styleParagraphTitle.Append(new NextParagraphStyle() { Val = "Normal" });
-                styleParagraphTitle.Append(runParagraphTitleTextProp);
+            //Run runNormalText = new Run() { RsidRunProperties = "007A6E3F" };
+            RunProperties runNormalTextProp = new RunProperties();
+            RunFonts runNormalTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
+            FontSize fontNormalTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontComplexNormalTextSize = new FontSizeComplexScript() { Val = "28" };
+            RightToLeftText rightToLeftText = new RightToLeftText();
+            //BiDi biDi1 = new BiDi();
+            //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
+
+            runNormalTextProp.Append(runNormalTextFonts);
+            runNormalTextProp.Append(fontNormalTextSize);
+            runNormalTextProp.Append(fontComplexNormalTextSize);
+            runNormalTextProp.Append(rightToLeftText);
+            //runNormalTextProp.Append(biDi1);
+            //runNormalTextProp.Append(languages);
+
+            Style styleNormalText = new Style();
+            styleNormalText.StyleId = "NormalArabic"; //this is the ID of the style
+            styleNormalText.Append(new Name() { Val = "Taya Madbatah Normal Text" }); //this is name                
+            styleNormalText.Append(new BasedOn() { Val = "Normal" });// our style based on Normal style                
+            styleNormalText.Append(new NextParagraphStyle() { Val = "Normal" });// the next paragraph is Normal type
+            styleNormalText.Append(runNormalTextProp);//we are adding properties previously defined
 
 
-
-
-                // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
-                RunProperties runUnderlineParagraphTitleTextProp = new RunProperties();
-                RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-                Bold Underlinebold = new Bold();
-                Underline underline = new Underline() { Val = DocumentFormat.OpenXml.Wordprocessing.UnderlineValues.Single };
-                BoldComplexScript UnderlineboldComplexScript = new BoldComplexScript();
-                FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "28" };
-                FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
-                RightToLeftText UnderlinertlTextParagraphTitle = new RightToLeftText();
-                runUnderlineParagraphTitleTextProp.Append(runUnderlineParagraphTitleTextFonts);
-                runUnderlineParagraphTitleTextProp.Append(Underlinebold);
-                runUnderlineParagraphTitleTextProp.Append(underline);
-                runUnderlineParagraphTitleTextProp.Append(UnderlineboldComplexScript);
-                runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleTextSize);
-                runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleComplexScriptSize);
-                runUnderlineParagraphTitleTextProp.Append(UnderlinertlTextParagraphTitle);
-                //runParagraphTitleTextProp.Append(languages);
-                //runParagraphTitleText.Append(runParagraphTitleTextProp);
-                Style styleUnderlineParagraphTitle = new Style();
-                styleUnderlineParagraphTitle.StyleId = "UnderLineParagraphTitle";
-                styleUnderlineParagraphTitle.Append(new Name() { Val = "Taya Madbatah UnderLine Paragraph Title Text" });
-                styleUnderlineParagraphTitle.Append(new BasedOn() { Val = "Normal" });
-                styleUnderlineParagraphTitle.Append(new NextParagraphStyle() { Val = "Normal" });
-                styleUnderlineParagraphTitle.Append(runUnderlineParagraphTitleTextProp);
+            // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
+            RunProperties runParagraphTitleTextProp = new RunProperties();
+            RunFonts runParagraphTitleTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold bold = new Bold();
+            BoldComplexScript boldComplexScript = new BoldComplexScript();
+            FontSize fontParagraphTitleTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
+            RightToLeftText rtlTextParagraphTitle = new RightToLeftText();
+            runParagraphTitleTextProp.Append(runParagraphTitleTextFonts);
+            runParagraphTitleTextProp.Append(bold);
+            runParagraphTitleTextProp.Append(boldComplexScript);
+            runParagraphTitleTextProp.Append(fontParagraphTitleTextSize);
+            runParagraphTitleTextProp.Append(fontParagraphTitleComplexScriptSize);
+            runParagraphTitleTextProp.Append(rtlTextParagraphTitle);
+            //runParagraphTitleTextProp.Append(languages);
+            //runParagraphTitleText.Append(runParagraphTitleTextProp);
+            Style styleParagraphTitle = new Style();
+            styleParagraphTitle.StyleId = "ParagraphTitle";
+            styleParagraphTitle.Append(new Name() { Val = "Taya Madbatah Paragraph Title Text" });
+            styleParagraphTitle.Append(new BasedOn() { Val = "Normal" });
+            styleParagraphTitle.Append(new NextParagraphStyle() { Val = "Normal" });
+            styleParagraphTitle.Append(runParagraphTitleTextProp);
 
 
 
-                // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
-                RunProperties runParagraphItalicTextProp = new RunProperties();
-                RunFonts runParagraphItalicTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-                Italic italic = new Italic();
-                BoldComplexScript boldComplexScriptItalic = new BoldComplexScript();
-                FontSize fontParagraphItalicTextSize = new FontSize() { Val = "28" };
-                FontSizeComplexScript fontParagraphItalicComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
-                RightToLeftText rtlTextParagraphItalic = new RightToLeftText();
-                runParagraphItalicTextProp.Append(runParagraphItalicTextFonts);
-                runParagraphItalicTextProp.Append(italic);
-                runParagraphItalicTextProp.Append(fontParagraphItalicTextSize);
-                runParagraphItalicTextProp.Append(fontParagraphItalicComplexScriptSize);
-                runParagraphItalicTextProp.Append(rtlTextParagraphItalic);
-                //runParagraphTitleTextProp.Append(languages);
-                //runParagraphTitleText.Append(runParagraphTitleTextProp);
-                Style styleParagraphTitleItalic = new Style();
-                styleParagraphTitleItalic.StyleId = "ParagraphItalic";
-                styleParagraphTitleItalic.Append(new Name() { Val = "Taya Madbatah Paragraph Title Text" });
-                styleParagraphTitleItalic.Append(new BasedOn() { Val = "Normal" });
-                styleParagraphTitleItalic.Append(new NextParagraphStyle() { Val = "Normal" });
-                styleParagraphTitleItalic.Append(runParagraphItalicTextProp);
+
+            // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
+            RunProperties runUnderlineParagraphTitleTextProp = new RunProperties();
+            RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Bold Underlinebold = new Bold();
+            Underline underline = new Underline() { Val = DocumentFormat.OpenXml.Wordprocessing.UnderlineValues.Single };
+            BoldComplexScript UnderlineboldComplexScript = new BoldComplexScript();
+            FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
+            RightToLeftText UnderlinertlTextParagraphTitle = new RightToLeftText();
+            runUnderlineParagraphTitleTextProp.Append(runUnderlineParagraphTitleTextFonts);
+            runUnderlineParagraphTitleTextProp.Append(Underlinebold);
+            runUnderlineParagraphTitleTextProp.Append(underline);
+            runUnderlineParagraphTitleTextProp.Append(UnderlineboldComplexScript);
+            runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleTextSize);
+            runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleComplexScriptSize);
+            runUnderlineParagraphTitleTextProp.Append(UnderlinertlTextParagraphTitle);
+            //runParagraphTitleTextProp.Append(languages);
+            //runParagraphTitleText.Append(runParagraphTitleTextProp);
+            Style styleUnderlineParagraphTitle = new Style();
+            styleUnderlineParagraphTitle.StyleId = "UnderLineParagraphTitle";
+            styleUnderlineParagraphTitle.Append(new Name() { Val = "Taya Madbatah UnderLine Paragraph Title Text" });
+            styleUnderlineParagraphTitle.Append(new BasedOn() { Val = "Normal" });
+            styleUnderlineParagraphTitle.Append(new NextParagraphStyle() { Val = "Normal" });
+            styleUnderlineParagraphTitle.Append(runUnderlineParagraphTitleTextProp);
 
 
-                // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
-                RunProperties runParagraphBoldItalicTextProp = new RunProperties();
-                RunFonts runParagraphBoldItalicTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-                Italic italicBoldItalic = new Italic();
-                Bold boldBoldItalic = new Bold();
-                BoldComplexScript boldComplexScriptBoldItalic = new BoldComplexScript();
-                FontSize fontParagraphBoldItalicTextSize = new FontSize() { Val = "28" };
-                FontSizeComplexScript fontParagraphBoldItalicComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
-                RightToLeftText rtlTextParagraphBoldItalic = new RightToLeftText();
-                runParagraphBoldItalicTextProp.Append(runParagraphBoldItalicTextFonts);
-                runParagraphBoldItalicTextProp.Append(italicBoldItalic);
-                runParagraphBoldItalicTextProp.Append(boldBoldItalic);
-                runParagraphBoldItalicTextProp.Append(boldComplexScriptBoldItalic);
-                runParagraphBoldItalicTextProp.Append(fontParagraphBoldItalicTextSize);
-                runParagraphBoldItalicTextProp.Append(fontParagraphBoldItalicComplexScriptSize);
-                runParagraphBoldItalicTextProp.Append(rtlTextParagraphBoldItalic);
-                //runParagraphTitleTextProp.Append(languages);
-                //runParagraphTitleText.Append(runParagraphTitleTextProp);
-                Style styleParagraphTitleBoldItalic = new Style();
-                styleParagraphTitleBoldItalic.StyleId = "ParagraphBoldItalic";
-                styleParagraphTitleBoldItalic.Append(new Name() { Val = "Taya Madbatah Paragraph Title Text" });
-                styleParagraphTitleBoldItalic.Append(new BasedOn() { Val = "Normal" });
-                styleParagraphTitleBoldItalic.Append(new NextParagraphStyle() { Val = "Normal" });
-                styleParagraphTitleBoldItalic.Append(runParagraphBoldItalicTextProp);
 
-                //(now from style)
-                //RunProperties runFootNoteProp = new RunProperties();
-                //RunFonts runFontsFootNote = new RunFonts() { ComplexScript = "Simplified Arabic" };
-                //NoProof noProof = new NoProof();
-                //FontSize fontSizeFootNote = new FontSize() { Val = "20" };
-                //FontSizeComplexScript fontSizeComplexScriptFootNote = new FontSizeComplexScript() { Val = "20" };
-                //RightToLeftText rtlFootNote = new RightToLeftText();
-                //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
-                //runFootNoteProp.Append(runFontsFootNote);
-                //runFootNoteProp.Append(noProof);
-                //runFootNoteProp.Append(fontSizeFootNote);
-                //runFootNoteProp.Append(fontSizeComplexScriptFootNote);
-                //runFootNoteProp.Append(rtlFootNote);
-                //runFootNoteProp.Append(languages);
-                //Style styleFootNote = new Style() { Type = StyleValues.Paragraph, StyleId = "FootnoteText" };
-                //SemiHidden semiHidden = new SemiHidden();
-                //Rsid rsidFootNote = new Rsid() { Val = "00DB4CCA" };
-                //styleFootNote.Append(new Name() { Val = "Taya Madbatah Foot Note Text" });
-                //styleFootNote.Append(new BasedOn() { Val = "Normal" });
-                //styleFootNote.Append(new NextParagraphStyle() { Val = "Normal" });
-                //styleFootNote.Append(runFootNoteProp);
+            // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
+            RunProperties runParagraphItalicTextProp = new RunProperties();
+            RunFonts runParagraphItalicTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Italic italic = new Italic();
+            BoldComplexScript boldComplexScriptItalic = new BoldComplexScript();
+            FontSize fontParagraphItalicTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontParagraphItalicComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
+            RightToLeftText rtlTextParagraphItalic = new RightToLeftText();
+            runParagraphItalicTextProp.Append(runParagraphItalicTextFonts);
+            runParagraphItalicTextProp.Append(italic);
+            runParagraphItalicTextProp.Append(fontParagraphItalicTextSize);
+            runParagraphItalicTextProp.Append(fontParagraphItalicComplexScriptSize);
+            runParagraphItalicTextProp.Append(rtlTextParagraphItalic);
+            //runParagraphTitleTextProp.Append(languages);
+            //runParagraphTitleText.Append(runParagraphTitleTextProp);
+            Style styleParagraphTitleItalic = new Style();
+            styleParagraphTitleItalic.StyleId = "ParagraphItalic";
+            styleParagraphTitleItalic.Append(new Name() { Val = "Taya Madbatah Paragraph Title Text" });
+            styleParagraphTitleItalic.Append(new BasedOn() { Val = "Normal" });
+            styleParagraphTitleItalic.Append(new NextParagraphStyle() { Val = "Normal" });
+            styleParagraphTitleItalic.Append(runParagraphItalicTextProp);
 
 
-                //RunProperties runFootnoteRefProp = new RunProperties();
-                //Rsid rsiFdootnoteRef = new Rsid() { Val = "008A7103" };
-                //// RunStyle runStyleFootnoteRef = new RunStyle() { Val = "FootnoteReference" };
-                //RunFonts runFontsFootnoteRef = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
-                //FontSize fontSizeFootnoteRef = new FontSize() { Val = "28" };
-                //FontSizeComplexScript fontSizeComplexScriptFootnoteRef = new FontSizeComplexScript() { Val = "28" };
-                //RightToLeftText rtlFootnoteRef = new RightToLeftText();
+            // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
+            RunProperties runParagraphBoldItalicTextProp = new RunProperties();
+            RunFonts runParagraphBoldItalicTextFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            Italic italicBoldItalic = new Italic();
+            Bold boldBoldItalic = new Bold();
+            BoldComplexScript boldComplexScriptBoldItalic = new BoldComplexScript();
+            FontSize fontParagraphBoldItalicTextSize = new FontSize() { Val = "28" };
+            FontSizeComplexScript fontParagraphBoldItalicComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
+            RightToLeftText rtlTextParagraphBoldItalic = new RightToLeftText();
+            runParagraphBoldItalicTextProp.Append(runParagraphBoldItalicTextFonts);
+            runParagraphBoldItalicTextProp.Append(italicBoldItalic);
+            runParagraphBoldItalicTextProp.Append(boldBoldItalic);
+            runParagraphBoldItalicTextProp.Append(boldComplexScriptBoldItalic);
+            runParagraphBoldItalicTextProp.Append(fontParagraphBoldItalicTextSize);
+            runParagraphBoldItalicTextProp.Append(fontParagraphBoldItalicComplexScriptSize);
+            runParagraphBoldItalicTextProp.Append(rtlTextParagraphBoldItalic);
+            //runParagraphTitleTextProp.Append(languages);
+            //runParagraphTitleText.Append(runParagraphTitleTextProp);
+            Style styleParagraphTitleBoldItalic = new Style();
+            styleParagraphTitleBoldItalic.StyleId = "ParagraphBoldItalic";
+            styleParagraphTitleBoldItalic.Append(new Name() { Val = "Taya Madbatah Paragraph Title Text" });
+            styleParagraphTitleBoldItalic.Append(new BasedOn() { Val = "Normal" });
+            styleParagraphTitleBoldItalic.Append(new NextParagraphStyle() { Val = "Normal" });
+            styleParagraphTitleBoldItalic.Append(runParagraphBoldItalicTextProp);
 
-                ////runFootnoteRefProp.Append(runStyleFootnoteRef);
-                //runFootnoteRefProp.Append(runFontsFootnoteRef);
-                //runFootnoteRefProp.Append(fontSizeFootnoteRef);
-                //runFootnoteRefProp.Append(fontSizeComplexScriptFootnoteRef);
-                //runFootnoteRefProp.Append(rtlFootnoteRef);
-                ////Rsid rsidFootNoteRef = new Rsid() { Val = "00DB4CCA" };
-                //Style styleFootNoteRef = new Style() { StyleId = "FootnoteReference" };
-                //styleFootNoteRef.Append(new Name() { Val = "Taya Madbatah Foot Note Ref Text" });
-                //styleFootNoteRef.Append(new BasedOn() { Val = "Normal" });
-                //styleFootNoteRef.Append(new NextParagraphStyle() { Val = "Normal" });
-                //styleFootNoteRef.Append(runFootnoteRefProp);
+            //(now from style)
+            //RunProperties runFootNoteProp = new RunProperties();
+            //RunFonts runFontsFootNote = new RunFonts() { ComplexScript = "Simplified Arabic" };
+            //NoProof noProof = new NoProof();
+            //FontSize fontSizeFootNote = new FontSize() { Val = "20" };
+            //FontSizeComplexScript fontSizeComplexScriptFootNote = new FontSizeComplexScript() { Val = "20" };
+            //RightToLeftText rtlFootNote = new RightToLeftText();
+            //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
+            //runFootNoteProp.Append(runFontsFootNote);
+            //runFootNoteProp.Append(noProof);
+            //runFootNoteProp.Append(fontSizeFootNote);
+            //runFootNoteProp.Append(fontSizeComplexScriptFootNote);
+            //runFootNoteProp.Append(rtlFootNote);
+            //runFootNoteProp.Append(languages);
+            //Style styleFootNote = new Style() { Type = StyleValues.Paragraph, StyleId = "FootnoteText" };
+            //SemiHidden semiHidden = new SemiHidden();
+            //Rsid rsidFootNote = new Rsid() { Val = "00DB4CCA" };
+            //styleFootNote.Append(new Name() { Val = "Taya Madbatah Foot Note Text" });
+            //styleFootNote.Append(new BasedOn() { Val = "Normal" });
+            //styleFootNote.Append(new NextParagraphStyle() { Val = "Normal" });
+            //styleFootNote.Append(runFootNoteProp);
 
 
-                _docStylePart.Styles = new Styles();
-                _docStylePart.Styles.Append(styleNormalText);
-                _docStylePart.Styles.Append(styleParagraphTitle);
-                _docStylePart.Styles.Append(styleUnderlineParagraphTitle);
-                _docStylePart.Styles.Append(styleParagraphTitleItalic);
-                _docStylePart.Styles.Append(styleParagraphTitleBoldItalic);
-                //_docStylePart.Styles.Append(styleFootNoteRef);
-                //_docStylePart.Styles.Append(styleFootNote);
-                _docStylePart.Styles.Save();
-            
-               //// we have to set the properties
-               // RunProperties runProp = new RunProperties();
-               // runProp.Append(new Color() { Val = "FF0000" });// the color is red
-               // runProp.Append(new RunFonts() { ComplexScript = "Arial" });
-               // runProp.Append(new Bold()); 
-               // runProp.Append(new FontSize() { Val = "28" }); //font size (in 1/72 of an inch)
-               // Style styleHeading1 = new Style();
-               // styleHeading1.StyleId = "Heading1"; //this is the ID of the style
-               // styleHeading1.Append(new Name() { Val = "Taya Heading 1" }); //this is name                
-               // styleHeading1.Append(new BasedOn() { Val = "Normal" });// our style based on Normal style                
-               // styleHeading1.Append(new NextParagraphStyle() { Val = "Normal" });// the next paragraph is Normal type
-               // styleHeading1.Append(runProp);//we are adding properties previously defined
+            //RunProperties runFootnoteRefProp = new RunProperties();
+            //Rsid rsiFdootnoteRef = new Rsid() { Val = "008A7103" };
+            //// RunStyle runStyleFootnoteRef = new RunStyle() { Val = "FootnoteReference" };
+            //RunFonts runFontsFootnoteRef = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial", ComplexScript = "Arial" };
+            //FontSize fontSizeFootnoteRef = new FontSize() { Val = "28" };
+            //FontSizeComplexScript fontSizeComplexScriptFootnoteRef = new FontSizeComplexScript() { Val = "28" };
+            //RightToLeftText rtlFootnoteRef = new RightToLeftText();
 
-               // RunProperties runArabicProp = new RunProperties();
-               // runArabicProp.Append(new Color() { Val = "#00569f" });// the color is Blue
-               // runArabicProp.Append(new RunFonts() { ComplexScript = "Arial" });
-               // runArabicProp.Append(new Bold());
-               // runArabicProp.Append(new FontSize() { Val = "14" }); //font size (in 1/72 of an inch)
-                
+            ////runFootnoteRefProp.Append(runStyleFootnoteRef);
+            //runFootnoteRefProp.Append(runFontsFootnoteRef);
+            //runFootnoteRefProp.Append(fontSizeFootnoteRef);
+            //runFootnoteRefProp.Append(fontSizeComplexScriptFootnoteRef);
+            //runFootnoteRefProp.Append(rtlFootnoteRef);
+            ////Rsid rsidFootNoteRef = new Rsid() { Val = "00DB4CCA" };
+            //Style styleFootNoteRef = new Style() { StyleId = "FootnoteReference" };
+            //styleFootNoteRef.Append(new Name() { Val = "Taya Madbatah Foot Note Ref Text" });
+            //styleFootNoteRef.Append(new BasedOn() { Val = "Normal" });
+            //styleFootNoteRef.Append(new NextParagraphStyle() { Val = "Normal" });
+            //styleFootNoteRef.Append(runFootnoteRefProp);
 
-                // we have to add style that we have created to the StylePart
- // we save the style part
+
+            _docStylePart.Styles = new Styles();
+            _docStylePart.Styles.Append(styleNormalText);
+            _docStylePart.Styles.Append(styleParagraphTitle);
+            _docStylePart.Styles.Append(styleUnderlineParagraphTitle);
+            _docStylePart.Styles.Append(styleParagraphTitleItalic);
+            _docStylePart.Styles.Append(styleParagraphTitleBoldItalic);
+            //_docStylePart.Styles.Append(styleFootNoteRef);
+            //_docStylePart.Styles.Append(styleFootNote);
+            _docStylePart.Styles.Save();
+
+            //// we have to set the properties
+            // RunProperties runProp = new RunProperties();
+            // runProp.Append(new Color() { Val = "FF0000" });// the color is red
+            // runProp.Append(new RunFonts() { ComplexScript = "Arial" });
+            // runProp.Append(new Bold()); 
+            // runProp.Append(new FontSize() { Val = "28" }); //font size (in 1/72 of an inch)
+            // Style styleHeading1 = new Style();
+            // styleHeading1.StyleId = "Heading1"; //this is the ID of the style
+            // styleHeading1.Append(new Name() { Val = "Taya Heading 1" }); //this is name                
+            // styleHeading1.Append(new BasedOn() { Val = "Normal" });// our style based on Normal style                
+            // styleHeading1.Append(new NextParagraphStyle() { Val = "Normal" });// the next paragraph is Normal type
+            // styleHeading1.Append(runProp);//we are adding properties previously defined
+
+            // RunProperties runArabicProp = new RunProperties();
+            // runArabicProp.Append(new Color() { Val = "#00569f" });// the color is Blue
+            // runArabicProp.Append(new RunFonts() { ComplexScript = "Arial" });
+            // runArabicProp.Append(new Bold());
+            // runArabicProp.Append(new FontSize() { Val = "14" }); //font size (in 1/72 of an inch)
+
+
+            // we have to add style that we have created to the StylePart
+            // we save the style part
         }
 
         public void Validate()
@@ -983,7 +983,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             {
                 OpenXmlValidator validator = new OpenXmlValidator();
                 validator.Validate(_currentDoc);
-                
+
             }
         }
 
@@ -1143,7 +1143,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             //create our Header reference
             HeaderReference headerRef = new HeaderReference();
             headerRef.Id = rId;
-            
+
             sectionProps.RemoveAllChildren<HeaderReference>();
             sectionProps.Append(headerRef);
 
@@ -1195,7 +1195,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             Header header = new Header();
             Paragraph paragraph = new Paragraph();
             Run run = new Run(new Text(_docHeaderString) { Space = SpaceProcessingModeValues.Preserve });
-             ParagraphProperties paragraphProp = new ParagraphProperties();
+            ParagraphProperties paragraphProp = new ParagraphProperties();
             BiDi biDi1 = new BiDi();
             Justification justification = new Justification();
             justification.Val = JustificationValues.Center;
@@ -1219,6 +1219,8 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                                 new TabStop() { Val = TabStopValues.Clear, Position = 8640 },
                                 new TabStop() { Val = TabStopValues.Center, Position = 4820 },
                                 new TabStop() { Val = TabStopValues.Right, Position = 6639 }));
+
+            paragraphProperties.ParagraphStyleId = new ParagraphStyleId() { Val = ParagraphStyle.NormalArabic.ToString() }; 
 
             Paragraph paragraph = new Paragraph(
 
@@ -1256,7 +1258,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         /// <summary>
         /// Closes and disposes the in-memory document
         /// </summary>
-        
+
         private void CloseInMemoryDocument()
         {
             if (_currentDoc != null)
@@ -1292,323 +1294,323 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         public void Dispose()
         {
             Close();
-           
-            
+
+
         }
 
 
-      
-       public static byte[] OpenAndCombine(IList<byte[]> documents)
+
+        public static byte[] OpenAndCombine(IList<byte[]> documents)
+        {
+            MemoryStream mainStream = new MemoryStream();
+
+            mainStream.Write(documents[0], 0, documents[0].Length);
+            mainStream.Position = 0;
+
+            int pointer = 1;
+            byte[] ret;
+            try
             {
-                MemoryStream mainStream = new MemoryStream();
-
-                mainStream.Write(documents[0], 0, documents[0].Length);
-                mainStream.Position = 0;
-
-                int pointer = 1;
-                byte[] ret;
-                try
+                using (WordprocessingDocument mainDocument = WordprocessingDocument.Open(mainStream, true))
                 {
-                    using (WordprocessingDocument mainDocument = WordprocessingDocument.Open(mainStream, true))
+
+                    XElement newBody = XElement.Parse(mainDocument.MainDocumentPart.Document.Body.OuterXml);
+
+                    for (pointer = 1; pointer < documents.Count; pointer++)
                     {
+                        WordprocessingDocument tempDocument = WordprocessingDocument.Open(new MemoryStream(documents[pointer]), true);
+                        XElement tempBody = XElement.Parse(tempDocument.MainDocumentPart.Document.Body.OuterXml);
 
-                        XElement newBody = XElement.Parse(mainDocument.MainDocumentPart.Document.Body.OuterXml);
-
-                        for (pointer = 1; pointer < documents.Count; pointer++)
-                        {
-                            WordprocessingDocument tempDocument = WordprocessingDocument.Open(new MemoryStream(documents[pointer]), true);
-                            XElement tempBody = XElement.Parse(tempDocument.MainDocumentPart.Document.Body.OuterXml);
-
-                            newBody.Add(tempBody);
-                            mainDocument.MainDocumentPart.Document.Body = new Body(newBody.ToString());
-                            mainDocument.MainDocumentPart.Document.Save();
-                            mainDocument.Package.Flush();
-                        }
+                        newBody.Add(tempBody);
+                        mainDocument.MainDocumentPart.Document.Body = new Body(newBody.ToString());
+                        mainDocument.MainDocumentPart.Document.Save();
+                        mainDocument.Package.Flush();
                     }
                 }
-                catch (OpenXmlPackageException oxmle)
-                {
-                    //throw new OfficeMergeControlException(string.Format(CultureInfo.CurrentCulture, "Error while merging files. Document index {0}", pointer), oxmle);
-                }
-                catch (Exception e)
-                {
-                    //throw new OfficeMergeControlException(string.Format(CultureInfo.CurrentCulture, "Error while merging files. Document index {0}", pointer), e);
-                }
-                finally
-                {
-                    ret = mainStream.ToArray();
-                    mainStream.Close();
-                    mainStream.Dispose();
-                }
-                return (ret);
             }
-       static void AppendPageBreak(WordprocessingDocument myDoc)
-       {
-           MainDocumentPart mainPart = myDoc.MainDocumentPart;
-           OpenXmlElement last = myDoc.MainDocumentPart.Document
-               .Body
-               .Elements()
-               .LastOrDefault(e => e is Paragraph || e is AltChunk);
-           last.InsertAfterSelf(new Paragraph(
-               new Run(
-                   new Break() { Type = BreakValues.Page })));
-       }
-       public static void  MergeWithAltChunk(string outPath, string[] files)
-       {
-           //using (WordprocessingWorker myDoc = new WordprocessingWorker(outPath,GetDocParts(@"E:\FNC\EMadbatah\TayaIT.Enterprise.EMadbatah.Web\resources\"), DocFileOperation.Open))
-           using (WordprocessingDocument myDoc = WordprocessingDocument.Open(outPath, true))
-           {
-               MainDocumentPart mainPart = myDoc.MainDocumentPart;
-               /*if (mainPart == null)
-                   mainPart = myDoc.AddMainDocumentPart();
-               if (mainPart.Document == null)
-                   mainPart.Document = MakeEmpyDocument();
-               */
-               for (int i = 0; i < files.Length; i++)
-               {
-                   string altChunkId = "AltChunkId"+i;
-                   AlternativeFormatImportPart chunk = mainPart.AddAlternativeFormatImportPart(
-                   AlternativeFormatImportPartType.WordprocessingML, altChunkId);
-                   using (FileStream fileStream = File.Open(files[i], FileMode.Open))
-                       chunk.FeedData(fileStream);
-                   AltChunk altChunk = new AltChunk();
-                   altChunk.Id = altChunkId;
-                   //Ibrahim
-                   //AltChunkProperties acp = new AltChunkProperties() { MatchSource = new MatchSource() { Val = OnOffValue.FromBoolean(true) } };
-                   //altChunk.Append(acp);
-                   //Paragraph  para = new Paragraph(new Run(new Break()));
-                   //altChunk.Append(para);
-
-                   mainPart.Document.Body.InsertAfter(altChunk, mainPart.Document.Body.Elements<Paragraph>().Last());
-                   if (i != files.Length - 1)
-                       AppendPageBreak(myDoc);
-                   //mainPart.Document.Append(para);
-                   //mainPart.Document.Body.InsertAfter(para, mainPart.Document.Body.Elements<AltChunk>().Last());
-                   
-               }
-               mainPart.Document.Save();
-           }
-
-           /*
-           using (WordprocessingDocument myDoc = WordprocessingDocument.Open(doc1, true))
+            catch (OpenXmlPackageException oxmle)
             {
-                string altChunkId = "AltChunkId2";
+                //throw new OfficeMergeControlException(string.Format(CultureInfo.CurrentCulture, "Error while merging files. Document index {0}", pointer), oxmle);
+            }
+            catch (Exception e)
+            {
+                //throw new OfficeMergeControlException(string.Format(CultureInfo.CurrentCulture, "Error while merging files. Document index {0}", pointer), e);
+            }
+            finally
+            {
+                ret = mainStream.ToArray();
+                mainStream.Close();
+                mainStream.Dispose();
+            }
+            return (ret);
+        }
+        static void AppendPageBreak(WordprocessingDocument myDoc)
+        {
+            MainDocumentPart mainPart = myDoc.MainDocumentPart;
+            OpenXmlElement last = myDoc.MainDocumentPart.Document
+                .Body
+                .Elements()
+                .LastOrDefault(e => e is Paragraph || e is AltChunk);
+            last.InsertAfterSelf(new Paragraph(
+                new Run(
+                    new Break() { Type = BreakValues.Page })));
+        }
+        public static void MergeWithAltChunk(string outPath, string[] files)
+        {
+            //using (WordprocessingWorker myDoc = new WordprocessingWorker(outPath,GetDocParts(@"E:\FNC\EMadbatah\TayaIT.Enterprise.EMadbatah.Web\resources\"), DocFileOperation.Open))
+            using (WordprocessingDocument myDoc = WordprocessingDocument.Open(outPath, true))
+            {
                 MainDocumentPart mainPart = myDoc.MainDocumentPart;
-                AlternativeFormatImportPart chunk = mainPart.AddAlternativeFormatImportPart(
-                AlternativeFormatImportPartType.WordprocessingML, altChunkId);
-                using (FileStream fileStream = File.Open(doc2, FileMode.Open))
-                chunk.FeedData(fileStream);
-                AltChunk altChunk = new AltChunk();
-                altChunk.Id = altChunkId;
-                mainPart.Document.Body.InsertAfter(altChunk, mainPart.Document.Body.Elements<Paragraph>().Last());
+                /*if (mainPart == null)
+                    mainPart = myDoc.AddMainDocumentPart();
+                if (mainPart.Document == null)
+                    mainPart.Document = MakeEmpyDocument();
+                */
+                for (int i = 0; i < files.Length; i++)
+                {
+                    string altChunkId = "AltChunkId" + i;
+                    AlternativeFormatImportPart chunk = mainPart.AddAlternativeFormatImportPart(
+                    AlternativeFormatImportPartType.WordprocessingML, altChunkId);
+                    using (FileStream fileStream = File.Open(files[i], FileMode.Open))
+                        chunk.FeedData(fileStream);
+                    AltChunk altChunk = new AltChunk();
+                    altChunk.Id = altChunkId;
+                    //Ibrahim
+                    //AltChunkProperties acp = new AltChunkProperties() { MatchSource = new MatchSource() { Val = OnOffValue.FromBoolean(true) } };
+                    //altChunk.Append(acp);
+                    //Paragraph  para = new Paragraph(new Run(new Break()));
+                    //altChunk.Append(para);
+
+                    mainPart.Document.Body.InsertAfter(altChunk, mainPart.Document.Body.Elements<Paragraph>().Last());
+                    if (i != files.Length - 1)
+                        AppendPageBreak(myDoc);
+                    //mainPart.Document.Append(para);
+                    //mainPart.Document.Body.InsertAfter(para, mainPart.Document.Body.Elements<AltChunk>().Last());
+
+                }
                 mainPart.Document.Save();
             }
-          */
-       }
-       public static void InsertAPicture(string document, string fileName)
-       {
-           using (WordprocessingDocument wordprocessingDocument =
-               WordprocessingDocument.Open(document, true))
-           {
 
-               MainDocumentPart mainPart = wordprocessingDocument.MainDocumentPart;
-               //if (mainPart == null)
-               //    mainPart = wordprocessingDocument.AddMainDocumentPart();
-               //if (mainPart.Document == null)
-               //    mainPart.Document = MakeEmpyDocument();
-
-               ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
-
-               using (FileStream stream = new FileStream(fileName, FileMode.Open))
-               {
-                   imagePart.FeedData(stream);
-               }
-
-               AddImageToBody(wordprocessingDocument, mainPart.GetIdOfPart(imagePart));
-           }
-       }
-
-       public static void InsertAPicture(string document, string[] fileNames)
-       {
-           using (WordprocessingDocument wordprocessingDocument =
-               WordprocessingDocument.Open(document, true))
-           {
-               MainDocumentPart mainPart = wordprocessingDocument.MainDocumentPart;
-               if (mainPart == null)
-                   mainPart = wordprocessingDocument.AddMainDocumentPart();
-               if (mainPart.Document == null)
-                   mainPart.Document = MakeEmpyDocument();
-               ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
-               foreach(string fileName in fileNames)
-                   using (FileStream stream = new FileStream(fileName, FileMode.Open))
-                   {
-                       imagePart.FeedData(stream);
-                   }
-
-               AddImageToBody(wordprocessingDocument, mainPart.GetIdOfPart(imagePart));
-           }
-       }
-       private static void AddImageToBody(WordprocessingDocument wordDoc, string relationshipId)
-       {
-           
-           // Define the reference of the image.
-           var element =
-                new Drawing(
-                    new DW.Inline(
-                        new DW.Extent() { Cx = 990000L, Cy = 792000L },
-                        new DW.EffectExtent()
-                        {
-                            LeftEdge = 0L,
-                            TopEdge = 0L,
-                            RightEdge = 0L,
-                            BottomEdge = 0L
-                        },
-                        new DW.DocProperties()
-                        {
-                            Id = (UInt32Value)1U,
-                            Name = "Picture 1"
-                        },
-                        new DW.NonVisualGraphicFrameDrawingProperties(
-                            new A.GraphicFrameLocks() { NoChangeAspect = true }),
-                        new A.Graphic(
-                            new A.GraphicData(
-                                new PIC.Picture(
-                                    new PIC.NonVisualPictureProperties(
-                                        new PIC.NonVisualDrawingProperties()
-                                        {
-                                            Id = (UInt32Value)0U,
-                                            Name = "New Bitmap Image.jpg"
-                                        },
-                                        new PIC.NonVisualPictureDrawingProperties()),
-                                    new PIC.BlipFill(
-                                        new A.Blip(
-                                            new A.BlipExtensionList(
-                                                new A.BlipExtension()
-                                                {
-                                                    Uri =
-                                                      "{28A0092B-C50C-407E-A947-70E740481C1C}"
-                                                })
-                                        )
-                                        {
-                                            Embed = relationshipId,
-                                            CompressionState =
-                                            A.BlipCompressionValues.Print
-                                        },
-                                        new A.Stretch(
-                                            new A.FillRectangle())),
-                                    new PIC.ShapeProperties(
-                                        new A.Transform2D(
-                                            new A.Offset() { X = 0L, Y = 0L },
-                                            new A.Extents() { Cx = 990000L, Cy = 792000L }),
-                                        new A.PresetGeometry(
-                                            new A.AdjustValueList()
-                                        ) { Preset = A.ShapeTypeValues.Rectangle }))
-                            ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
-                    )
-                    {
-                        DistanceFromTop = (UInt32Value)0U,
-                        DistanceFromBottom = (UInt32Value)0U,
-                        DistanceFromLeft = (UInt32Value)0U,
-                        DistanceFromRight = (UInt32Value)0U,
-                        EditId = "50D07946"
-                    });
-
-           // Append the reference to body, the element should be in a Run.
-           wordDoc.MainDocumentPart.Document.Body.AppendChild(new Paragraph(new Run(element)));
-       }
-       public void AddFootnote(string text)
-       {
-           FootnoteEndnoteReferenceType reference;
-           reference = new FootnoteReference() { Id = AddFootnoteReference(text) };
-           Run run;
-           List<OpenXmlElement> elements = new List<OpenXmlElement>();
-           elements.Add(
-           run = new Run(
-               new RunProperties(
-                   new RunStyle() { Val = "Normal" }),
-               reference)
-           );
-           Paragraph paragraph = new Paragraph();
-
-
-           paragraph.Append(elements);
-
-           _docMainPart.Document.Body.Append(paragraph);
-
-
-           //_docMainPart.Document.Body.Append(run);
-
-       }
-       private Int32 footnotesRef = 1, endnotesRef = 1, figCaptionRef = -1;
-       private int AddFootnoteReference(string description)
-       {
-           FootnotesPart fpart =  _docMainPart.FootnotesPart;
-           if (fpart == null)
-               fpart = _docMainPart.AddNewPart<FootnotesPart>();
-
-           if (fpart.Footnotes == null)
-           {
-               // Insert a new Footnotes reference
-               new Footnotes(
-                   new Footnote(
-                       new Paragraph(
-                           new ParagraphProperties(
-                               new SpacingBetweenLines() { After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }),
-                           new Run(
-                               new SeparatorMark())
-                       )
-                   ) { Type = FootnoteEndnoteValues.Separator, Id = -1 },
-                   new Footnote(
-                       new Paragraph(
-                           new ParagraphProperties(
-                               new SpacingBetweenLines() { After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }),
-                           new Run(
-                               new ContinuationSeparatorMark())
-                       )
-                   ) { Type = FootnoteEndnoteValues.ContinuationSeparator, Id = 0 }).Save(fpart);
-               footnotesRef = 1;
-           }
-           else
-           {
-               // The footnotesRef Id is a required field and should be unique. You can assign yourself some hard-coded
-               // value but that's absolutely not safe. We will loop through the existing Footnote
-               // to retrieve the highest Id.
-               foreach (var p in fpart.Footnotes.Elements<Footnote>())
-               {
-                   if (p.Id.HasValue && p.Id > footnotesRef) footnotesRef = (int)p.Id.Value;
-               }
-               footnotesRef++;
-           }
-
-           Run markerRun;
-           fpart.Footnotes.Append(
-               new Footnote(
-                   new Paragraph(
-                       new ParagraphProperties(
-                           new ParagraphStyleId() { Val = "Normal"}),//htmlStyles.GetStyle("footnote text", false) }),
-                       markerRun = new Run(
-                           new RunProperties(
-                               new RunStyle() { Val = "Normal"}),//htmlStyles.GetStyle("footnote reference", true) }),
-                           new FootnoteReferenceMark()),
-                       new Run(
-               // Word insert automatically a space before the definition to separate the reference number
-               // with its description
-                           new Text(" " + description) { Space = SpaceProcessingModeValues.Preserve })
-                   )
-               ) { Id = footnotesRef });
-
-           /*if (!htmlStyles.DoesStyleExists("footnote reference"))
-           {
-               // Force the superscript style because if the footnote text style does not exists,
-               // the rendering will be awful.
-               markerRun.InsertInProperties(new VerticalTextAlignment() { Val = VerticalPositionValues.Superscript });
-           }
-           fpart.Footnotes.Save();
+            /*
+            using (WordprocessingDocument myDoc = WordprocessingDocument.Open(doc1, true))
+             {
+                 string altChunkId = "AltChunkId2";
+                 MainDocumentPart mainPart = myDoc.MainDocumentPart;
+                 AlternativeFormatImportPart chunk = mainPart.AddAlternativeFormatImportPart(
+                 AlternativeFormatImportPartType.WordprocessingML, altChunkId);
+                 using (FileStream fileStream = File.Open(doc2, FileMode.Open))
+                 chunk.FeedData(fileStream);
+                 AltChunk altChunk = new AltChunk();
+                 altChunk.Id = altChunkId;
+                 mainPart.Document.Body.InsertAfter(altChunk, mainPart.Document.Body.Elements<Paragraph>().Last());
+                 mainPart.Document.Save();
+             }
            */
-           return footnotesRef;
-       }
+        }
+        public static void InsertAPicture(string document, string fileName)
+        {
+            using (WordprocessingDocument wordprocessingDocument =
+                WordprocessingDocument.Open(document, true))
+            {
 
-        
+                MainDocumentPart mainPart = wordprocessingDocument.MainDocumentPart;
+                //if (mainPart == null)
+                //    mainPart = wordprocessingDocument.AddMainDocumentPart();
+                //if (mainPart.Document == null)
+                //    mainPart.Document = MakeEmpyDocument();
+
+                ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
+
+                using (FileStream stream = new FileStream(fileName, FileMode.Open))
+                {
+                    imagePart.FeedData(stream);
+                }
+
+                AddImageToBody(wordprocessingDocument, mainPart.GetIdOfPart(imagePart));
+            }
+        }
+
+        public static void InsertAPicture(string document, string[] fileNames)
+        {
+            using (WordprocessingDocument wordprocessingDocument =
+                WordprocessingDocument.Open(document, true))
+            {
+                MainDocumentPart mainPart = wordprocessingDocument.MainDocumentPart;
+                if (mainPart == null)
+                    mainPart = wordprocessingDocument.AddMainDocumentPart();
+                if (mainPart.Document == null)
+                    mainPart.Document = MakeEmpyDocument();
+                ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
+                foreach (string fileName in fileNames)
+                    using (FileStream stream = new FileStream(fileName, FileMode.Open))
+                    {
+                        imagePart.FeedData(stream);
+                    }
+
+                AddImageToBody(wordprocessingDocument, mainPart.GetIdOfPart(imagePart));
+            }
+        }
+        private static void AddImageToBody(WordprocessingDocument wordDoc, string relationshipId)
+        {
+
+            // Define the reference of the image.
+            var element =
+                 new Drawing(
+                     new DW.Inline(
+                         new DW.Extent() { Cx = 990000L, Cy = 792000L },
+                         new DW.EffectExtent()
+                         {
+                             LeftEdge = 0L,
+                             TopEdge = 0L,
+                             RightEdge = 0L,
+                             BottomEdge = 0L
+                         },
+                         new DW.DocProperties()
+                         {
+                             Id = (UInt32Value)1U,
+                             Name = "Picture 1"
+                         },
+                         new DW.NonVisualGraphicFrameDrawingProperties(
+                             new A.GraphicFrameLocks() { NoChangeAspect = true }),
+                         new A.Graphic(
+                             new A.GraphicData(
+                                 new PIC.Picture(
+                                     new PIC.NonVisualPictureProperties(
+                                         new PIC.NonVisualDrawingProperties()
+                                         {
+                                             Id = (UInt32Value)0U,
+                                             Name = "New Bitmap Image.jpg"
+                                         },
+                                         new PIC.NonVisualPictureDrawingProperties()),
+                                     new PIC.BlipFill(
+                                         new A.Blip(
+                                             new A.BlipExtensionList(
+                                                 new A.BlipExtension()
+                                                 {
+                                                     Uri =
+                                                       "{28A0092B-C50C-407E-A947-70E740481C1C}"
+                                                 })
+                                         )
+                                         {
+                                             Embed = relationshipId,
+                                             CompressionState =
+                                             A.BlipCompressionValues.Print
+                                         },
+                                         new A.Stretch(
+                                             new A.FillRectangle())),
+                                     new PIC.ShapeProperties(
+                                         new A.Transform2D(
+                                             new A.Offset() { X = 0L, Y = 0L },
+                                             new A.Extents() { Cx = 990000L, Cy = 792000L }),
+                                         new A.PresetGeometry(
+                                             new A.AdjustValueList()
+                                         ) { Preset = A.ShapeTypeValues.Rectangle }))
+                             ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                     )
+                     {
+                         DistanceFromTop = (UInt32Value)0U,
+                         DistanceFromBottom = (UInt32Value)0U,
+                         DistanceFromLeft = (UInt32Value)0U,
+                         DistanceFromRight = (UInt32Value)0U,
+                         EditId = "50D07946"
+                     });
+
+            // Append the reference to body, the element should be in a Run.
+            wordDoc.MainDocumentPart.Document.Body.AppendChild(new Paragraph(new Run(element)));
+        }
+        public void AddFootnote(string text)
+        {
+            FootnoteEndnoteReferenceType reference;
+            reference = new FootnoteReference() { Id = AddFootnoteReference(text) };
+            Run run;
+            List<OpenXmlElement> elements = new List<OpenXmlElement>();
+            elements.Add(
+            run = new Run(
+                new RunProperties(
+                    new RunStyle() { Val = "Normal" }),
+                reference)
+            );
+            Paragraph paragraph = new Paragraph();
+
+
+            paragraph.Append(elements);
+
+            _docMainPart.Document.Body.Append(paragraph);
+
+
+            //_docMainPart.Document.Body.Append(run);
+
+        }
+        private Int32 footnotesRef = 1, endnotesRef = 1, figCaptionRef = -1;
+        private int AddFootnoteReference(string description)
+        {
+            FootnotesPart fpart = _docMainPart.FootnotesPart;
+            if (fpart == null)
+                fpart = _docMainPart.AddNewPart<FootnotesPart>();
+
+            if (fpart.Footnotes == null)
+            {
+                // Insert a new Footnotes reference
+                new Footnotes(
+                    new Footnote(
+                        new Paragraph(
+                            new ParagraphProperties(
+                                new SpacingBetweenLines() { After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }),
+                            new Run(
+                                new SeparatorMark())
+                        )
+                    ) { Type = FootnoteEndnoteValues.Separator, Id = -1 },
+                    new Footnote(
+                        new Paragraph(
+                            new ParagraphProperties(
+                                new SpacingBetweenLines() { After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }),
+                            new Run(
+                                new ContinuationSeparatorMark())
+                        )
+                    ) { Type = FootnoteEndnoteValues.ContinuationSeparator, Id = 0 }).Save(fpart);
+                footnotesRef = 1;
+            }
+            else
+            {
+                // The footnotesRef Id is a required field and should be unique. You can assign yourself some hard-coded
+                // value but that's absolutely not safe. We will loop through the existing Footnote
+                // to retrieve the highest Id.
+                foreach (var p in fpart.Footnotes.Elements<Footnote>())
+                {
+                    if (p.Id.HasValue && p.Id > footnotesRef) footnotesRef = (int)p.Id.Value;
+                }
+                footnotesRef++;
+            }
+
+            Run markerRun;
+            fpart.Footnotes.Append(
+                new Footnote(
+                    new Paragraph(
+                        new ParagraphProperties(
+                            new ParagraphStyleId() { Val = "Normal" }),//htmlStyles.GetStyle("footnote text", false) }),
+                        markerRun = new Run(
+                            new RunProperties(
+                                new RunStyle() { Val = "Normal" }),//htmlStyles.GetStyle("footnote reference", true) }),
+                            new FootnoteReferenceMark()),
+                        new Run(
+                // Word insert automatically a space before the definition to separate the reference number
+                // with its description
+                            new Text(" " + description) { Space = SpaceProcessingModeValues.Preserve })
+                    )
+                ) { Id = footnotesRef });
+
+            /*if (!htmlStyles.DoesStyleExists("footnote reference"))
+            {
+                // Force the superscript style because if the footnote text style does not exists,
+                // the rendering will be awful.
+                markerRun.InsertInProperties(new VerticalTextAlignment() { Val = VerticalPositionValues.Superscript });
+            }
+            fpart.Footnotes.Save();
+            */
+            return footnotesRef;
+        }
+
+
 
     }
 }

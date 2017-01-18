@@ -1,0 +1,70 @@
+----------------------------------------
+Timestamp: 5/12/2016 6:54:37 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 6:54:45 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 6:54:48 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 6:55:03 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 6:55:28 PM
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/12/2016 6:56:39 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(137)  - Priority: -1 - Title:Nullable object must have a value.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)
+   at System.Nullable`1.get_Value()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionChecker(Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 751</STACKTRACE>
+
+
+----------------------------------------

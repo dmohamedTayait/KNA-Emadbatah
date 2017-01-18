@@ -27,6 +27,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                 return WebHelper.GetQSValue(Constants.QSKeyNames.AGENDA_ID, _context);
             }
         }
+        public string AttachID
+        {
+            get
+            {
+                return WebHelper.GetQSValue(Constants.QSKeyNames.ATTACHMENT_ID, _context);
+            }
+        }
         public string AgendaItemText
         {
             get
@@ -159,6 +166,26 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                             selectedAgendaItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", currentSession.ID);
                                         result["AgendaItemText"] = selectedAgendaItem != null ? selectedAgendaItem.Name : "";
                                         result["AgendaItemID"] = selectedAgendaItem != null ? selectedAgendaItem.ID.ToString() : "";
+
+                                        if (retItem.AttachementID != null && retItem.AttachementID != 0)
+                                        {
+                                            Attachement attach = AttachmentHelper.GetAttachementByID((int)retItem.AttachementID);
+                                            if (attach != null)
+                                            {
+                                                result["AttachText"] = attach.Name;
+                                                result["AttachID"] = attach.ID.ToString();
+                                            }
+                                            else
+                                            {
+                                                result["AttachText"] = "";
+                                                result["AttachID"] = "0";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            result["AttachText"] = "";
+                                            result["AttachID"] = "0";
+                                        }
                                         List<AgendaItem> AgendaItems = currentSession.AgendaItems.ToList<AgendaItem>();
                                         List<SessionAgendaItem> retAgendaItems = new List<SessionAgendaItem>();
                                         foreach (AgendaItem agendaItem in AgendaItems)
@@ -259,6 +286,27 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
                                           selectedAgendaItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", currentSession.ID);
                                       result["AgendaItemText"] = selectedAgendaItem != null ? selectedAgendaItem.Name : "";
                                       result["AgendaItemID"] = selectedAgendaItem != null ? selectedAgendaItem.ID.ToString() : "";
+
+                                      if (retItem.AttachementID != null && retItem.AttachementID != 0)
+                                      {
+                                          Attachement attach = AttachmentHelper.GetAttachementByID((int)retItem.AttachementID);
+                                          if (attach != null)
+                                          {
+                                              result["AttachText"] = attach.Name;
+                                              result["AttachID"] = attach.ID.ToString();
+                                          }
+                                          else
+                                          {
+                                              result["AttachText"] = "";
+                                              result["AttachID"] = "0";
+                                          }
+                                      }
+                                      else
+                                      {
+                                          result["AttachText"] = "";
+                                          result["AttachID"] = "0";
+                                      }
+
                                       result["ItemFragOrder"] = prevItemOrderID.ToString();
                                       List<AgendaItem> AgendaItems = currentSession.AgendaItems.ToList<AgendaItem>();
                                       List<SessionAgendaItem> retAgendaItems = new List<SessionAgendaItem>();
@@ -538,23 +586,23 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
                         {
                             int status = (int)Model.SessionContentItemStatus.Rejected;
                             if (CurrentUser.Role != UserRole.DataEntry)
-                                SessionContentItemHelper.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, status, true, CurrentUser.ID, SameAsPrevSpeaker, Ignored);
+                                SessionContentItemHelper.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, status, true, CurrentUser.ID, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
                             else
-                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, (Model.SessionContentItemStatus)status, SameAsPrevSpeaker, Ignored);
+                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, (Model.SessionContentItemStatus)status, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
                         
                         }
                         else
                             if (currContentItem.StatusID == (int)Model.SessionContentItemStatus.Approved && session.SessionStatusID == (int)Model.SessionStatus.Approved)
                             {
-                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, Model.SessionContentItemStatus.ModefiedAfterApprove, SameAsPrevSpeaker, Ignored);
+                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, Model.SessionContentItemStatus.ModefiedAfterApprove, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
                                 SessionHelper.UpdateSessionStatus(Session_ID, (int)Model.SessionStatus.Completed);
                             }
                             else if (currContentItem.StatusID == (int)Model.SessionContentItemStatus.Rejected)
-                                    SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, Model.SessionContentItemStatus.Fixed, SameAsPrevSpeaker, Ignored);
+                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, Model.SessionContentItemStatus.Fixed, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
                             else if (CurrentUser.Role != UserRole.DataEntry)
-                                    SessionContentItemHelper.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, currContentItem.StatusID, true, CurrentUser.ID, SameAsPrevSpeaker, Ignored);
+                                    SessionContentItemHelper.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, currContentItem.StatusID, true, CurrentUser.ID, SameAsPrevSpeaker, Ignored,long.Parse(AttachID));
                             else
-                                    SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, (Model.SessionContentItemStatus)currContentItem.StatusID, SameAsPrevSpeaker, Ignored);
+                                SessionContentItemFacade.UpdateSessionContentItem(currContentItem.ID, Text, SpeakerID, AgendaItemID, AgendaSubItemID, SpeakerJob, Comments, Footer, (Model.SessionContentItemStatus)currContentItem.StatusID, SameAsPrevSpeaker, Ignored, long.Parse(AttachID));
                         
                     }
                     else // create new
@@ -574,7 +622,8 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
                         if ((int)SpeakerID == (int)Model.AttendantType.UnKnown)
                             status = (int)Model.SessionContentItemStatus.Rejected;
 
-                        SessionContentItemFacade.AddNewSessionContentItem(Session_File_ID, (long)Session_ID, Text, (int)SpeakerID, AgendaItemID, agendaSubItemInt, CurrentUser.ID, status, Comments, SpeakerJob, Footer, SameAsPrevSpeaker, FragOrder, (float)stime, (float)etime, (float)duration, Ignored);
+                     
+                        SessionContentItemFacade.AddNewSessionContentItem(Session_File_ID, (long)Session_ID, Text, (int)SpeakerID, AgendaItemID, agendaSubItemInt, CurrentUser.ID, status, Comments, SpeakerJob, Footer, SameAsPrevSpeaker, FragOrder, (float)stime, (float)etime, (float)duration, Ignored,long.Parse(AttachID));
                     }
 
                     if (session.SessionStatusID == (int)Model.SessionStatus.Approved)
@@ -654,6 +703,7 @@ current_session_info["Ignored"] = prevContentItem.Ignored;
             retItem.CommentOnText = nextContentItem.CommentOnText;
             retItem.PageFooter = nextContentItem.PageFooter;
             retItem.FragOrderInXml = nextContentItem.FragOrderInXml;
+            retItem.AttachementID = nextContentItem.AttachementID;
             //retItem.Attendant = nextContentItem.Attendant;
             return retItem;
         }

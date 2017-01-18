@@ -180,18 +180,19 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     foreach (List<SessionContentItem> groupedItems in allItems)
                     {
                         AgendaItem curAgendaItem = groupedItems[0].AgendaItem;
-                        string originalName = curAgendaItem.Name;
-                        writtenAgendaItems.Add(curAgendaItem.Name);
-                        string updatedAgendaName = "";
-                        if (curAgendaItem.Name != "غير معرف")
-                        {
-                            updatedAgendaName = curAgendaItem.Name; ////usama new ordering
+                       
+                            string originalName = curAgendaItem.Name;
+                            writtenAgendaItems.Add(curAgendaItem.Name);
+                            string updatedAgendaName = "";
+                            if (curAgendaItem.Name != "غير معرف")
+                            {
+                                updatedAgendaName = curAgendaItem.Name;
+                                string agendaItem = Application[Constants.HTMLTemplateFileNames.ReviewItemAgendaItem].ToString()
+                                                        .Replace("<%itemText%>", "* " + updatedAgendaName + ":");
+                                sb.Append(agendaItem);
 
-                            string agendaItem = Application[Constants.HTMLTemplateFileNames.ReviewItemAgendaItem].ToString()
-                                                    .Replace("<%itemText%>", "* " + updatedAgendaName + ":");
-                            sb.Append(agendaItem);
-                        }
-                     
+                            }
+                      
                         foreach (SessionContentItem item in groupedItems)
                         {
                             if (lastSFID == 0)
@@ -211,14 +212,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             foreach (SessionContentItem item in items)
                             {*/
 
-                            if (!item.MergedWithPrevious.Value)//|| item.Attendant.Name == "غير معرف")
+                            if (!item.MergedWithPrevious.Value )//|| item.Attendant.Name == "غير معرف")
                             {
                                 Attendant att = item.Attendant;
-                                string attName = MabatahCreatorFacade.GetAttendantTitle(att, sessionId);
+                                string attName = MabatahCreatorFacade.GetAttendantTitle(att,sessionId);
                                 if (string.IsNullOrEmpty(attName))
                                     attName = "غير معرف: ";
                                 string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
-                                                    .Replace("<%itemText%>", attName + ":");
+                                                    .Replace("<%itemText%>", attName +":");
                                 sb.Append(speaker);
                             }
 
@@ -239,14 +240,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                     .Replace("<%title%>", "");
 
 
-                            reviewItem = reviewItem.Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
+                            reviewItem = reviewItem.Replace("<%FileRevName%>",item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
                                 .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
-                                .Replace("<%UserName%>", item.User == null ? "لا يوجد" : item.User.FName)
+                                .Replace("<%UserName%>", item.User == null? "لا يوجد" : item.User.FName)
                                 .Replace("<%RevName%>", sd.ReviewerName);
 
 
 
-                            if (item.SessionFile.FileReviewerID != null)
+                            if(item.SessionFile.FileReviewerID != null)
                                 reviewItem = reviewItem.Replace("<%FileRevID%>", item.SessionFile.FileReviewer.ID.ToString());
                             else
                                 reviewItem = reviewItem.Replace("<%FileRevID%>", "");
@@ -256,9 +257,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             string mp3FilePath = string.Format("{0}://{1}:{2}/", Request.Url.Scheme, Request.Url.Host, Request.Url.Port) + item.SessionFile.Name.Substring(1).Replace(@"\", "/");
                             reviewItem = reviewItem.Replace("<%MP3FilePath%>", mp3FilePath);
                             reviewItem = reviewItem.Replace("<%MP3FileStartTime%>", item.StartTime.ToString());
-                            reviewItem = reviewItem.Replace("<%MP3FileEndTime%>", item.EndTime.ToString());
+                            reviewItem = reviewItem.Replace("<%MP3FileEndTime%>", item.EndTime.ToString());                            
                             reviewItem = reviewItem.Replace("<%IsSessionStart%>", "0");
-
+                            
                             switch ((Model.SessionContentItemStatus)item.StatusID)
                             {
                                 case Model.SessionContentItemStatus.Approved: //approved
@@ -287,7 +288,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                        .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
                                         .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
                                         .Replace("<%UserName%>", item.User.FName)
-                                        .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تعليق");
+                                        .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تعليق"); 
                                 sb.Append(reviewItemComment);
                             }
                             //for footnote

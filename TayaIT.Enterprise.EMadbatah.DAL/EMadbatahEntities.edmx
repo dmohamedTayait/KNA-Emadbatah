@@ -153,7 +153,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="text" />
+          <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="IsCustom" Type="bit" />
           <Property Name="SessionID" Type="bigint" />
           <Property Name="Order" Type="int" />
@@ -206,6 +206,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ArName" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="AttendantType">
           <Key>
@@ -225,7 +226,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CommitteeID" Type="bigint" />
           <Property Name="DefaultAttendantID" Type="bigint" />
           <Property Name="SessionID" Type="bigint" />
@@ -238,6 +239,7 @@
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
           <Property Name="JobTitle" Type="nvarchar" MaxLength="500" />
+          <Property Name="Type" Type="int" />
         </EntityType>
         <EntityType Name="MadbatahFilesStatus">
           <Key>
@@ -284,7 +286,6 @@
           <Property Name="Season" Type="bigint" Nullable="false" />
           <Property Name="Stage" Type="bigint" Nullable="false" />
           <Property Name="StageType" Type="varchar" Nullable="false" MaxLength="500" />
-          <Property Name="Serial" Type="bigint" Nullable="false" />
           <Property Name="SessionStatusID" Type="int" />
           <Property Name="SessionMadbatahWord" Type="varbinary(max)" />
           <Property Name="SessionMadbatahPDF" Type="varbinary(max)" />
@@ -296,6 +297,7 @@
           <Property Name="MP3FolderPath" Type="varchar" MaxLength="500" />
           <Property Name="Checker" Type="int" />
           <Property Name="SessionStartFlag" Type="int" />
+          <Property Name="Serial" Type="bigint" />
         </EntityType>
         <EntityType Name="SessionAttendant">
           <Key>
@@ -336,6 +338,7 @@
           <Property Name="Ignored" Type="bit" />
           <Property Name="FileReviewerID" Type="bigint" />
           <Property Name="AttachementID" Type="bigint" />
+          <Property Name="IsAdmin" Type="int" />
         </EntityType>
         <EntityType Name="SessionContentItemStatus">
           <Key>
@@ -979,6 +982,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Attendants" Relationship="EMadbatahModel.FK_Attendant_AttendantState" FromRole="AttendantState" ToRole="Attendant" />
+          <Property Type="String" Name="ArName" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AttendantType">
           <Key>
@@ -1071,6 +1075,7 @@
           <NavigationProperty Name="FileReviewer" Relationship="EMadbatahModel.FK_SessionContentItem_FileReviewer" FromRole="SessionContentItem" ToRole="User" />
           <Property Type="Int64" Name="AttachementID" />
           <NavigationProperty Name="Attachement" Relationship="EMadbatahModel.FK_SessionContentItem_Attachement" FromRole="SessionContentItem" ToRole="Attachement" />
+          <Property Type="Int32" Name="IsAdmin" />
         </EntityType>
         <EntityType Name="SessionContentItemStatus">
           <Key>
@@ -1479,6 +1484,7 @@
           <Property Type="String" Name="JobTitle" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Attendants" Relationship="EMadbatahModel.FK_Attendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="Attendant" />
           <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="CommitteeAttendant" />
+          <Property Type="Int32" Name="Type" />
         </EntityType>
         <Association Name="FK_Attendant_DefaultAttendant">
           <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
@@ -1587,7 +1593,8 @@
             <ScalarProperty Name="EparlimentID" ColumnName="EparlimentID" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="AttendantStates"><EntityTypeMapping TypeName="EMadbatahModel.AttendantState"><MappingFragment StoreEntitySet="AttendantState">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ArName" ColumnName="ArName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Name" ColumnName="Name" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="AttendantTypes"><EntityTypeMapping TypeName="EMadbatahModel.AttendantType"><MappingFragment StoreEntitySet="AttendantType">
@@ -1624,6 +1631,7 @@
             <ScalarProperty Name="Subject" ColumnName="Subject" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="SessionContentItems"><EntityTypeMapping TypeName="EMadbatahModel.SessionContentItem"><MappingFragment StoreEntitySet="SessionContentItem">
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="AttachementID" ColumnName="AttachementID" />
                 <ScalarProperty Name="FileReviewerID" ColumnName="FileReviewerID" />
                 <ScalarProperty Name="Ignored" ColumnName="Ignored" />
@@ -1744,6 +1752,7 @@
           <EntitySetMapping Name="DefaultAttendants">
             <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
               <MappingFragment StoreEntitySet="DefaultAttendant">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1776,7 +1785,7 @@
         <EntityTypeShape EntityType="EMadbatahModel.Attachement" Width="1.5" PointX="9.375" PointY="14.5" Height="2.364889322916671" IsExpanded="true" />
         <EntityTypeShape EntityType="EMadbatahModel.Attendant" Width="1.5" PointX="3" PointY="9.5" Height="3.5186979166666656" IsExpanded="true" />
         <EntityTypeShape EntityType="EMadbatahModel.AttendantState" Width="1.5" PointX="0.75" PointY="10.125" Height="1.4279589843749996" IsExpanded="true" />
-        <EntityTypeShape EntityType="EMadbatahModel.AttendantType" Width="1.5" PointX="0.75" PointY="7.125" Height="1.4279589843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="EMadbatahModel.AttendantType" Width="1.5" PointX="0.75" PointY="6.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="EMadbatahModel.Role" Width="1.5" PointX="3" PointY="15" Height="1.4279589843750014" IsExpanded="true" />
         <EntityTypeShape EntityType="EMadbatahModel.Session" Width="1.5" PointX="5.25" PointY="8.125" Height="6.5955208333333317" IsExpanded="true" />
         <EntityTypeShape EntityType="EMadbatahModel.SessionContentItem" Width="1.5" PointX="7.5" PointY="8.125" Height="7.3647265625" IsExpanded="true" />
@@ -1819,10 +1828,10 @@
           <ConnectorPoint PointX="3" PointY="10.922841796875" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_Attendant_AttendantType" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.2499999999999996" PointY="8.72068359375" />
-          <ConnectorPoint PointX="2.625" PointY="9.09568359375" />
-          <ConnectorPoint PointX="2.625" PointY="12.386624721354167" />
-          <ConnectorPoint PointX="3" PointY="12.386624721354167" />
+          <ConnectorPoint PointX="2.2499999999999996" PointY="8.34568359375" />
+          <ConnectorPoint PointX="2.625" PointY="8.72068359375" />
+          <ConnectorPoint PointX="2.625" PointY="12.064646809895834" />
+          <ConnectorPoint PointX="3" PointY="12.064646809895834" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_Attendant" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="9.5011528461538468" />

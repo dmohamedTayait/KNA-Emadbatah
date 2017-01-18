@@ -26,7 +26,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             float startTime,
             float endTime,
             float duration,
-            bool ignored)
+            bool ignored,
+            long? attachID)
         {
 
 
@@ -56,8 +57,9 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         CreatedDate = DateTime.Now,
                         UpdateDate = DateTime.Now,
                         Ignored = ignored
-                        
                     };
+                    if (attachID != 0 && attachID != null)
+                        session_content_item.AttachementID = attachID;
                     context.SessionContentItems.AddObject(session_content_item);
                     if (!string.IsNullOrEmpty(commentOnAttendant))
                     {
@@ -1001,7 +1003,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
         }
 
-        public static int UpdateSessionContentItem(long sessionContentItemID,string text, long attendantID, long agendaItemID, long? agendaSubItemID, string commentsOnAttendant,string commentsOnText, string FooterText, int sessioContentItemStatusID, bool mergedWithPrev, bool ignored
+        public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID, long? agendaSubItemID,
+            string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID, bool mergedWithPrev, bool ignored, long attachID
             )//, float startTime, float endTime, float duration)
         {
             try
@@ -1016,6 +1019,9 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         updated_session_content_item.Text = text;
                         updated_session_content_item.AttendantID = attendantID;
                         updated_session_content_item.AgendaItemID = agendaItemID;
+                        if (attachID != 0 && attachID != null)
+                            updated_session_content_item.AttachementID = attachID;
+                        else updated_session_content_item.AttachementID = null;
                         updated_session_content_item.AgendaSubItemID = agendaSubItemID;
                         updated_session_content_item.CommentOnAttendant = commentsOnAttendant;
                         updated_session_content_item.CommentOnText = commentsOnText;
@@ -1041,7 +1047,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     int res = context.SaveChanges();
                     return res;
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -1051,7 +1057,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID,
-            long? agendaSubItemID, string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID, bool updatedByRev , long reviewerID, bool mergedWithPrev, bool ignored
+            long? agendaSubItemID, string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID,
+            bool updatedByRev , long reviewerID, bool mergedWithPrev, bool ignored, long attachID
             )//,float startTime,float endTime,float duration)
         {
             try
@@ -1066,6 +1073,9 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         updated_session_content_item.Text = text;
                         updated_session_content_item.AttendantID = attendantID;
                         updated_session_content_item.AgendaItemID = agendaItemID;
+                        if (attachID != 0 && attachID != null)
+                            updated_session_content_item.AttachementID = attachID;
+                        else updated_session_content_item.AttachementID = null;
                         updated_session_content_item.AgendaSubItemID = agendaSubItemID;
                         updated_session_content_item.CommentOnAttendant = commentsOnAttendant;
                         updated_session_content_item.CommentOnText = commentsOnText;

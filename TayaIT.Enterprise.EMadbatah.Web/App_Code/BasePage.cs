@@ -378,13 +378,42 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             WindowsIdentity id2 = (WindowsIdentity)this.Request.LogonUserIdentity;
 
 
-            string testUser = "Develop\\unada";//id.Name.ToLower();\\"Develop\\noha";
-            CurrentUser = EMadbatahFacade.GetUserByUserID(92);// EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
+            string testUser = "Develop\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
+            CurrentUser = EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
 
             CurrentDomain = id.Name.Split('\\')[0].ToLower();
 
-        
+                       if (CurrentUser == null && AppConfig.GetInstance().MainAdmin != null)
+            {
+                EMadbatahUser mainAdmin = AppConfig.GetInstance().MainAdmin;
+                if (!string.IsNullOrEmpty(mainAdmin.DomainUserName)
+                    && !string.IsNullOrEmpty(mainAdmin.Email)
+                    && !string.IsNullOrEmpty(mainAdmin.Name))
+                {
+                    long newid = EMadbatahFacade.AddNewUser(new EMadbatahUser(UserRole.Admin, mainAdmin.Name, mainAdmin.DomainUserName, mainAdmin.Email, true));
+                    CurrentUser = EMadbatahFacade.GetUserByUserID(newid);
 
+                }
+            }
+
+            if (!Request.AppRelativeCurrentExecutionFilePath.EndsWith(Constants.PageNames.ERROR_PAGE)
+                && !Request.AppRelativeCurrentExecutionFilePath.EndsWith(Constants.PageNames.SIGN_OUT))
+            {
+                if (CurrentUser == null || CurrentDomain == null)
+                {
+                    int nullval = 0;
+                    if (CurrentUser == null) { 
+                        nullval = 1; }
+                    else if (CurrentDomain == null)
+                    {
+                        nullval = 2; }
+                    Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.Unauthorized + "&nullis=" + nullval);
+                }
+                else if (CurrentDomain.ToLower() != AppConfig.GetInstance().AllowedDomainName.ToLower())
+                    Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.InvalidDomain);
+                else if (!CurrentUser.IsActive)
+                    Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.UserinActive);
+            }
 
             DisablePageCaching();
 

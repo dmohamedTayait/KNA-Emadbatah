@@ -71,7 +71,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         attendant.DefaultAttendantID = DefaultAttendants[i].ID;
                         attendant.SessionAttendantType = (int)SessionOpenStatus.OnTime;//1
                         attendant.EparlimentID = sessionObj.EParliamentID;
-                        attendant.Type = 1;
+                        attendant.Type = DefaultAttendants[i].Type;
                         attendant.State = 1;
                         bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
 
@@ -81,19 +81,19 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         attendant.DefaultAttendantID = DefaultAttendants[i].ID;
                         attendant.SessionAttendantType = (int)SessionOpenStatus.NotOnTime;//0
                         attendant.EparlimentID = sessionObj.EParliamentID;
-                        attendant.Type = 1;
+                        attendant.Type = DefaultAttendants[i].Type;
                         attendant.State = 1;
                         res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
                     }
                 }
             }
-            Response.Redirect("SpeakersAttendance.aspx");
+            Response.Redirect("SpeakersAttendance.aspx?sid=" + SessionIDCreated.ToString());
         }
 
         public Session fillValues()
         {
-            DateTime date = Convert.ToDateTime(txtDate.Text);
-            DateTime startTime = Convert.ToDateTime(txtStartTime.Text);
+            DateTime plannedStartDate = Convert.ToDateTime(txtDate.Text);
+            DateTime ActualStartTime = Convert.ToDateTime(txtStartTime.Text);
             string president = "مرزوق على الغانم";//txtPresident.Text;
             string place = "الكويت";
             int EParliamentID = int.Parse(txtEParliamentID.Text);
@@ -105,9 +105,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             string StageType = ddlStagetype.SelectedValue;
 
             Session sessionObj = new DAL.Session();
-            sessionObj.Date = date;
-            sessionObj.StartTime = startTime;
-            sessionObj.EndTime = startTime;
+            sessionObj.Date = plannedStartDate;
+            sessionObj.StartTime = plannedStartDate;
+            sessionObj.EndTime = ActualStartTime;
             sessionObj.Type = type;
             sessionObj.President = president;
             sessionObj.Place = place;
@@ -116,7 +116,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             sessionObj.Season = Season;
             sessionObj.Stage = Stage;
             sessionObj.StageType = StageType;
-            sessionObj.Serial = 1;
+            sessionObj.Serial = EParliamentID;
             sessionObj.SessionStatusID = (int)TayaIT.Enterprise.EMadbatah.Model.SessionStatus.New;
 
             sessionObj.Subject = subject;

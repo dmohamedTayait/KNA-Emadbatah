@@ -1,431 +1,504 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using TayaIT.Enterprise.EMadbatah.BLL;
-using TayaIT.Enterprise.EMadbatah.DAL;
 using System.Text;
-using TayaIT.Enterprise.EMadbatah.Config;
 using TayaIT.Enterprise.EMadbatah.Model;
-using System.IO;
+using TayaIT.Enterprise.EMadbatah.DAL;
 using System.Collections;
 using TayaIT.Enterprise.EMadbatah.Localization;
 using TayaIT.Enterprise.EMadbatah.Util;
-
-
-namespace TayaIT.Enterprise.EMadbatah.Web
+using System.Globalization;
+using System.Data.Objects.DataClasses;
+namespace TayaIT.Enterprise.EMadbatah.BLL
 {
-    public partial class Review : BasePage
+    public class SessionStartFacade
     {
-        public Hashtable tblStats = null;
-        int nRejected = -1;
-        int nModefiedAfterApprove = -1;
-        int nFixed = -1;
-        public int bChecked = 0;
-        public SessionDetails sd;
-        protected void Page_Load(object sender, EventArgs e)
+        // public static string madbatahHeader =
+        //    "<div style=\"text-align:center;direction:rtl;font-family:arial;font-face:arial;font-size:14pt;clear:both;\"><strong>جدول أعمال %sessionNum% <br>المعقودة يوم : %HijriDate% <br>الموافـــق :  %GeorgianDate%"
+        //    + "<br>ــــــــــــــــــــــــــــــــــ"
+        //   + "<br>(  الساعة %sessionTime%   )</strong></div>";
+
+
+        public static string madbatahHeader = " كان محددا لاجتماع مجلس الأمة بجلسته العادية العلنية تمام الساعة "
+            + "%sessionTime%"
+            + " "
+            + "من صباح يوم "
+            + "%hijriDate%"
+            + " ، "
+            + " الموافق "
+            + "%GeorgianDate%"
+            + " و فى تمام الساعة "
+            + "%sessionTime%"
+            + " حضر الى منصة الرئاسة "
+            + " %President% "
+            + " رئيس مجلس الأمة"
+            + ".";
+
+        public static string madbatahStartNotOnTime = "( أخرت الجلسة فى تمام الساعة "
+                + "%sessionTime%"
+                + " صباحا ثم عقد مجلس الأمة جلسته العادية العلنية فى تمام الساعة "
+                + "%sessionTime%"
+                + " من صباح يوم "
+                + "%hijriDate%"
+                + " ، "
+                + " الموافق "
+                + "%GeorgianDate%"
+                + ") برئاسة السيد"
+                + " %President% "
+                + " رئيس مجلس الأمة";
+
+        public static string madbatahTuesdayIntro = "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، تتتح الجلسة و تتلى اسماء الأعضاء ثم أسماء المعتذرين عن جلسة اليوم ثم أسماء الغائبين و المنصرفين عن الجلسة الماضية دون إذن أو اخطار .";
+
+        public static string madbatahWednesdayIntro = "بسم الله الرحمن الرحيم و الصلاة و السلام على رسول الله ، تتتح الجلسة و تتلى اسماء الأعضاء ثم أسماء المعتذرين عن جلسة اليوم ثم أسماء الغائبين و المنصرفين عن الجلسة الماضية دون إذن أو اخطار .";
+
+
+        public static string madbatahIntro = madbatahTuesdayIntro;
+
+        public static List<List<Attendant>> GetSessionAttendantOrderedByStatus(long sessionID, int sessionAttendantType)
         {
-            if (CurrentUser.Role == Model.UserRole.DataEntry)
-                Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.Unauthorized);
+            List<Attendant> sessionAttendants = new List<Attendant>();
+            List<Attendant> attendants = new List<Attendant>();
+            List<Attendant> attendantsWithinSession = new List<Attendant>();
+            List<Attendant> absenceAttendants = new List<Attendant>();
+            List<Attendant> abologyAttendants = new List<Attendant>();
+            List<Attendant> inMissionAttendants = new List<Attendant>();
+            List<List<Attendant>> allAttendants = new List<List<Attendant>>();
 
-            if (!Page.IsPostBack)
+            sessionAttendants = AttendantHelper.GetAttendantInSession(sessionID, sessionAttendantType);
+
+
+            foreach (Attendant attendant in sessionAttendants)
             {
-                //now the dataentry-reviewr role is using filereviewer privilages instead od session reviewer
-                isCurrentUserFileRev.Value = (CurrentUser.Role == UserRole.FileReviewer || CurrentUser.Role == UserRole.ReviewrDataEntry).ToString().ToLower();
-                currentUserID.Value = CurrentUser.ID.ToString();
-                long sessionId;
-                StringBuilder sb = new StringBuilder();
-                bool disableEditforNotReviewrAdmin = false;
-
-                if (SessionID != null && long.TryParse(SessionID, out sessionId))
+                switch ((Model.AttendantState)attendant.State)
                 {
-                    SessionIDHidden.Value = sessionId.ToString();
-                    Session s = SessionHelper.GetSessionByID(sessionId);
-                    tblStats = EMadbatahFacade.GetSessionStatistics(CurrentUser, s.ID);
-                    sd = EMadbatahFacade.GetSessionDetailsBySessionID(sessionId);
+                    case Model.AttendantState.Apology:
+                        abologyAttendants.Add(attendant);
+                        break;
+                    case Model.AttendantState.Absent:
+                        absenceAttendants.Add(attendant);
+                        break;
+                    case Model.AttendantState.Attended:
+                        attendants.Add(attendant);
+                        break;
+                    case Model.AttendantState.InMission:
+                        inMissionAttendants.Add(attendant);
+                        break;
+                    case Model.AttendantState.AttendWithinSession:
+                        attendantsWithinSession.Add(attendant);
+                        break;
+                }
+            }
+            allAttendants.Add(attendants); //بحضور السادة الاعضاء
+            allAttendants.Add(attendantsWithinSession); // حضر أثناء الجلسة
+            allAttendants.Add(abologyAttendants);//الغائبون بعذر
+            allAttendants.Add(abologyAttendants);// الغائبون بدون عذر
+            allAttendants.Add(inMissionAttendants);//مهمة
 
-                    if (CurrentUser.Role == UserRole.FileReviewer
-                        //now the dataentry-reviewr role is using filereviewer privilages instead od session reviewer
-                        || CurrentUser.Role == UserRole.ReviewrDataEntry)
+
+            return allAttendants;
+        }
+        public static SessionDetails GetSessionDetails(long sessionID)
+        {
+            return EMadbatahFacade.GetSessionDetailsBySessionID(sessionID);
+        }
+        public static List<AgendaSubItem> GetAgendaSubItemsbyAgendaID(long agendaItemID)
+        {
+            return AgendaHelper.GetAgendaSubItemsByAgendaID(agendaItemID);
+        }
+        //public static Hashtable GetSessionAgendaItems(long sessionID)
+        //{
+        //    return EMadbatahFacade.GetSessionBySessionID(sessionID).AgendaItems;
+        //    //((SessionAgendaItem)EMadbatahFacade.GetSessionBySessionID(sessionID).AgendaItems[0]).SubAgendaItems;
+        //}
+
+        //public static int UpdateSessionSetSessionStartID(long sessionID, long sessionStartID)
+        //{
+        //    return SessionHelper.UpdateSessionSetSessionStartID(sessionID, sessionStartID);
+        //}
+        //public static SessionStart AddSessionStart(string text, long userID)
+        //{
+        //    return SessionStartHelper.AddSessionStart(text, userID,false);
+        //}
+        //public static int UpdateSessionStart(long sessionStartID, string text)
+        //{
+        //    return SessionStartHelper.UpdateSessionStartText(sessionStartID, text);
+        //}
+        public static string GetAutomaticSessionStartText(long sessionID)
+        {
+
+
+            //new usama
+            // the session start naming of الإول الثاني الثالث will be based on the ItemOrder from AgendaTable
+
+
+            NumberingFormatter fomratterFemale = new NumberingFormatter(false);
+            NumberingFormatter fomratterMale = new NumberingFormatter(true);
+            Model.SessionDetails details = SessionStartFacade.GetSessionDetails(sessionID);
+
+            //calculate hijri date
+            //details.Date = details.Date.Subtract(new TimeSpan(1, 0, 0));
+            DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
+            //DateTime hijDate = details.Date.ToString("f", dateFormat);
+
+
+            string dayNameAr = details.Date.ToString("dddd", dateFormat); // LocalHelper.GetLocalizedString("strDay" + hijDate.DayOfWeek);
+            string monthNameAr = LocalHelper.GetLocalizedString("strMonth" + details.Date.Month);
+            string monthNameHijAr = details.Date.ToString("MMMM", dateFormat); //LocalHelper.GetLocalizedString("strHijMonth"+hijDate.Month);
+            string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
+            string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
+
+            /// We format the date structure to whatever we want - LAITH - 11/13/2005 1:05:39 PM -
+            //  dateFormat.ShortDatePattern = "dd/MM/yyyy";
+            //   return dateConv;//(dateConv.Date.ToString("f", dateFormat));
+
+            //for header
+            string sessionNum = details.Subject; //"الخامسة عشره";
+            string hijriDate = dayNameAr + " " + dayOfMonthNumHij + " " + monthNameHijAr + " سنة " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
+            string gDate = details.Date.Day + " " + monthNameAr + " سنة " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
+            string timeInHour = LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour) + " " + LocalHelper.GetLocalizedString("strTime" + details.Date.ToString("tt"));//"التاسعة صباحا";
+            string seasonType = details.StageType;// "العادي";
+            long seasonStage = details.Stage;// "الخامس";
+            string sessionSeason = details.Season + "";// "الرابع عشر";
+            string sessionHeader = madbatahHeader.Replace("%sessionNum%", sessionNum);
+            sessionHeader = sessionHeader.Replace("%HijriDate%", hijriDate);
+            sessionHeader = sessionHeader.Replace("%GeorgianDate%", gDate);
+            sessionHeader = sessionHeader.Replace("%sessionTime%", timeInHour);
+
+            //if (details.AgendaItems == null)
+            //    return "";
+            //for gadwal el a3mal
+            /*
+            Hashtable agendaItems = details.AgendaItems;
+            string gadawalA3mal = "";
+            int counter = 0;
+            foreach (DictionaryEntry Item in agendaItems)
+            {
+
+                SessionAgendaItem agendaItem = (SessionAgendaItem)Item.Value;
+                string eparliamentID = Item.Key.ToString();
+                //List<AgendaSubItem> subItems = SessionStartFacade.GetAgendaSubItemsbyAgendaID(agendaItem.ID);
+                List<SessionAgendaItem> subItems = agendaItem.SubAgendaItems;
+                string itemNum = "البند " + LocalHelper.GetLocalizedString("str" + (counter + 1)) + " :";
+                gadawalA3mal += "<strong>" + itemNum + agendaItem.Text + "</strong><br>";
+                if (subItems.Count > 0)
+                {
+                    for (int i = 0; i < subItems.Count; i++)
                     {
-                        var filesWithUser = from sfa in sd.SessionFiles
-                                            where (sfa.FileReviewrID == CurrentUser.ID)
-                                            select sfa;
-
-                        var freeFiles = from sfa in sd.SessionFiles
-                                        where (sfa.FileReviewrID == null)
-                                        select sfa;
-                         if ((freeFiles == null || freeFiles.Count<SessionAudioFile>() == 0) && filesWithUser != null && filesWithUser.Count<SessionAudioFile>() == 0)
-                        //if (freeFiles == null || freeFiles.Count<SessionAudioFile>() == 0)
-                        {
-                            ShowWarn(GetLocalizedString("strNoFreeFilesFound"));
-                            disableEditforNotReviewrAdmin = true;
-                        }
-                        else if (freeFiles.Count<SessionAudioFile>() == 1)
-                        {
-                            ShowInfo(GetLocalizedString("strFileCanBeTaken"));
-                        }
-                        else if (freeFiles.Count<SessionAudioFile>() > 1)
-                        {
-                            ShowInfo(GetLocalizedString("strFilesCanBeTaken"));
-                        }
+                        gadawalA3mal += (i + 1) + ".  " + subItems[i].Text + "<br>";
                     }
-                    //now the dataentry-reviewr role is using filereviewer privilages instead od session reviewer
-                    if (s.ReviewerID == null && !(CurrentUser.Role == UserRole.FileReviewer) && !(CurrentUser.Role == UserRole.ReviewrDataEntry))
-                        SessionHelper.UpdateSessionReviewer(s.ID, CurrentUser.ID);
-                    else if (CurrentUser.Role == UserRole.Admin &&
-                             s.ReviewerID != CurrentUser.ID)
-                    {
-                        ShowWarn(GetLocalizedString("strWrongReviewer"));
-                        //spnMsg.InnerText = GetLocalizedString("strWrongReviewer");
-                        disableEditforNotReviewrAdmin = true;
-                        //pnlContent.Visible = false;
-                        // return;
+                }
+                counter++;
+            }
+            */
+            //for ordered agenda as existing from editor
+            List<AgendaItem> agendaItems = SessionContentItemHelper.GetOrderedAgendaItemsBySessionID(sessionID);
 
-                    }
-                    else if (CurrentUser.Role != UserRole.Admin && s.ReviewerID != CurrentUser.ID && !(CurrentUser.Role == UserRole.FileReviewer || CurrentUser.Role == UserRole.ReviewrDataEntry)) // in case of reviewer or dataEntryReviewer
-                        {
-                            //ShowWarn(GetLocalizedString("strWrongReviewer"));
-                            //disableEditforNotReviewrAdmin = true;
-                            Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.Unauthorized);
-
-                        }
-
-                    //handle sessionstart
-
-                    SessionFile start = SessionStartFacade.GetSessionStartBySessionID(sessionId);
+            string gadawalA3mal = "<p style=\"text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">";
+            int counter = 1;
+            foreach (AgendaItem Item in agendaItems)
+            {
 
 
-                    var NewSessionFiles = from sf2 in sd.SessionFiles
-                                                   where (sf2.Status == Model.SessionFileStatus.New)
-                                                   select sf2;
-
-                    List<List<SessionContentItem>> allItems = SessionContentItemHelper.GetItemsBySessionIDGrouped(sessionId);
-
-                    if (NewSessionFiles.ToList<SessionAudioFile>().Count == sd.SessionFiles.Count &&
-                        ((Model.SessionFileStatus)start.Status) == Model.SessionFileStatus.New || allItems.Count == 0)
-                    {
-                        ShowWarn(GetLocalizedString("strSessionStillWithNoWork"));
-                        btnApproveSession.Style.Add("display", "none");
-                        btnFinalApproveSession.Style.Add("display", "none");
-                        madbatahContents.Style.Add("display", "none");
-                    }
-                    try
-                    {
-                        if (((Model.SessionFileStatus)start.Status) != Model.SessionFileStatus.New)
-                        {
-                            string reviewItem = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
-                                                   .Replace("<%SessionContentItemID%>", start.ID.ToString())
-                                                   .Replace("<%itemText%>", start.SessionStartText);
-                            if (disableEditforNotReviewrAdmin)
-                                reviewItem = reviewItem.Replace("<%isLocked%>", "lockeditem").Replace("<%title%>", "لا يحق لك التعديل .. يمكنك الاطلاع فقط");
-                            else if (((Model.SessionFileStatus)start.Status) == Model.SessionFileStatus.InProgress)
-                                reviewItem = reviewItem.Replace("<%isLocked%>", "lockeditem").Replace("<%title%>", "قيد التعديل الآن");
-                            else
-                                reviewItem = reviewItem.Replace("<%isLocked%>", "openeditem")
-                                                       .Replace("<%title%>", "");
-
-                            reviewItem = reviewItem.Replace("<%FileRevName%>", start.FileReviewer != null ? start.FileReviewer.FName : "لا يوجد")
-                           .Replace("<%FileName%>", "بداية المضبطة")
-                           .Replace("<%UserName%>", start.User.FName)
-                           .Replace("<%RevName%>", sd.ReviewerName);
-
-                            reviewItem = reviewItem.Replace("<%SessionFileID%>", start.ID.ToString()).Replace("<%RevNote%>", start.SessionStartReviewNote);
-                            reviewItem = reviewItem.Replace("<%IsSessionStart%>", "1");
-
-                            reviewItem = reviewItem.Replace("<%MP3FilePath%>", "");
-                            reviewItem = reviewItem.Replace("<%MP3FileStartTime%>", "");
-                            reviewItem = reviewItem.Replace("<%MP3FileEndTime%>", "");
-
-                            switch ((Model.SessionFileStatus)start.Status)
-                            {
-                                case Model.SessionFileStatus.SessionStartApproved: //approved
-                                    reviewItem = reviewItem.Replace("<%Color%>", "");
-                                    break;
-                                case Model.SessionFileStatus.SessionStartRejected: //rejected
-                                    reviewItem = reviewItem.Replace("<%Color%>", "reditem");
-                                    break;
-                                case Model.SessionFileStatus.SessionStartFixed: //fixed
-                                    reviewItem = reviewItem.Replace("<%Color%>", "greenitem");
-                                    break;
-                                case Model.SessionFileStatus.SessionStartModifiedAfterApprove: //modified
-                                    reviewItem = reviewItem.Replace("<%Color%>", "blueitem");
-                                    break;
-                            }
-                            sb.Append(reviewItem);
-
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        LogHelper.LogException(ex , "SessionID: "+ sessionId);
-
-                    }
+                EntityCollection<AgendaSubItem> subItems = Item.AgendaSubItems;
 
 
-                    sessionDate.InnerText = s.Date.ToString();
-                    //EMadbatahFacade.GetSessionName(s.Season,order ????
-                    sessionSerial.InnerText = s.Serial + "/" + s.Season + "/" + s.StageType;
+                //string itemNum = "البند " + LocalHelper.GetLocalizedString("str" + (counter + 1)) + " :";
 
-                    //List<SessionContentItem> items = ReviewerFacade.GetSessionContentItems(sessionId);
-
-
-                    List<long> WrittenAgendaItemWithGroupedSubItems = new List<long>();
-                    int pageNum = 0;
-                    int ii = 0;
-                    List<string> writtenAgendaItems = new List<string>();
-                    long lastSFID = 0;
-                    foreach (List<SessionContentItem> groupedItems in allItems)
-                    {
-                        AgendaItem curAgendaItem = groupedItems[0].AgendaItem;
-                        string originalName = curAgendaItem.Name;
-                        writtenAgendaItems.Add(curAgendaItem.Name);
-                        string updatedAgendaName = "";
-                        if (curAgendaItem.Name != "غير معرف")
-                        {
-                            updatedAgendaName = curAgendaItem.Name; ////usama new ordering
-
-                            string agendaItem = Application[Constants.HTMLTemplateFileNames.ReviewItemAgendaItem].ToString()
-                                                    .Replace("<%itemText%>", "* " + updatedAgendaName + ":");
-                            sb.Append(agendaItem);
-                        }
-                     
-                        foreach (SessionContentItem item in groupedItems)
-                        {
-                            if (lastSFID == 0)
-                                lastSFID = item.SessionFileID.Value;
-
-                            bool insertSeparator = false;
-                            if (lastSFID != item.SessionFileID.Value)
-                            {
-                                insertSeparator = true;
-                                lastSFID = item.SessionFileID.Value;
-                                sb.Append("<hr id=\"file_" + lastSFID + "\" />");
-                            }
+                //string itemNum = "البند " + LocalHelper.GetLocalizedString("str" + Item.Order) + " :"; ////usama new ordering
+                string itemNum = "البند " + LocalHelper.GetLocalizedString("str" + counter) + " :"; ////usama new ordering
 
 
-                            //sb.Append("<div class=\"popupoverlay\"></div>");
-                            /*
-                            foreach (SessionContentItem item in items)
-                            {*/
-
-                            if (!item.MergedWithPrevious.Value)//|| item.Attendant.Name == "غير معرف")
-                            {
-                                Attendant att = item.Attendant;
-                                string attName = MabatahCreatorFacade.GetAttendantTitle(att, sessionId);
-                                if (string.IsNullOrEmpty(attName))
-                                    attName = "غير معرف: ";
-                                string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
-                                                    .Replace("<%itemText%>", attName + ":");
-                                sb.Append(speaker);
-                            }
-
-                            string reviewItem = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
-                                                    .Replace("<%SessionContentItemID%>", item.ID.ToString())
-                                                    .Replace("<%itemText%>", item.Text);
-
-                            if (disableEditforNotReviewrAdmin)
-                                reviewItem = reviewItem.Replace("<%isLocked%>", "lockeditem").Replace("<%title%>", "لا يحق لك التعديل .. يمكنك الاطلاع فقط");
-                            else if (((Model.SessionFileStatus)item.SessionFile.Status) == Model.SessionFileStatus.InProgress)
-                                reviewItem = reviewItem.Replace("<%isLocked%>", "lockeditem")
-                                    .Replace("<%title%>", "قيد التعديل الآن");
-
-                            else if (CurrentUser.Role == UserRole.FileReviewer && item.SessionFile.FileReviewer != null && item.SessionFile.FileReviewerID != CurrentUser.ID)
-                                reviewItem = reviewItem.Replace("<%isLocked%>", "lockeditem").Replace("<%title%>", "لا يحق لك التعديل .. يمكنك الاطلاع فقط");
-                            else
-                                reviewItem = reviewItem.Replace("<%isLocked%>", "openeditem")
-                                    .Replace("<%title%>", "");
-
-
-                            reviewItem = reviewItem.Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
-                                .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
-                                .Replace("<%UserName%>", item.User == null ? "لا يوجد" : item.User.FName)
-                                .Replace("<%RevName%>", sd.ReviewerName);
-
-
-
-                            if (item.SessionFile.FileReviewerID != null)
-                                reviewItem = reviewItem.Replace("<%FileRevID%>", item.SessionFile.FileReviewer.ID.ToString());
-                            else
-                                reviewItem = reviewItem.Replace("<%FileRevID%>", "");
-
-                            reviewItem = reviewItem.Replace("<%SessionFileID%>", item.SessionFileID.ToString()).Replace("<%RevNote%>", item.ReviewerNote);
-
-                            string mp3FilePath = string.Format("{0}://{1}:{2}/", Request.Url.Scheme, Request.Url.Host, Request.Url.Port) + item.SessionFile.Name.Substring(1).Replace(@"\", "/");
-                            reviewItem = reviewItem.Replace("<%MP3FilePath%>", mp3FilePath);
-                            reviewItem = reviewItem.Replace("<%MP3FileStartTime%>", item.StartTime.ToString());
-                            reviewItem = reviewItem.Replace("<%MP3FileEndTime%>", item.EndTime.ToString());
-                            reviewItem = reviewItem.Replace("<%IsSessionStart%>", "0");
-
-                            switch ((Model.SessionContentItemStatus)item.StatusID)
-                            {
-                                case Model.SessionContentItemStatus.Approved: //approved
-                                    reviewItem = reviewItem.Replace("<%Color%>", "");
-                                    break;
-                                case Model.SessionContentItemStatus.Rejected: //rejected
-                                    reviewItem = reviewItem.Replace("<%Color%>", "reditem");
-                                    break;
-                                case Model.SessionContentItemStatus.Fixed: //fixed
-                                    reviewItem = reviewItem.Replace("<%Color%>", "greenitem");
-                                    break;
-                                case Model.SessionContentItemStatus.ModefiedAfterApprove: //modified
-                                    reviewItem = reviewItem.Replace("<%Color%>", "blueitem");
-                                    break;
-                            }
-                            sb.Append(reviewItem);
-
-                            //for comments
-                            if (!string.IsNullOrEmpty(item.CommentOnText))
-                            {
-                                string reviewItemComment = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
-                                       .Replace("<%SessionContentItemID%>", item.ID.ToString())
-                                       .Replace("<%itemText%>", item.CommentOnText)
-                                       .Replace("<%isLocked%>", "lockeditem")
-                                       .Replace("<%title%>", "هذا المقطع تعليق (للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) .. يمكنك الاطلاع فقط")
-                                       .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
-                                        .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
-                                        .Replace("<%UserName%>", item.User.FName)
-                                        .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تعليق");
-                                sb.Append(reviewItemComment);
-                            }
-                            //for footnote
-                            if (!string.IsNullOrEmpty(item.PageFooter))
-                            {
-                                string reviewFootNote = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
-                                        .Replace("<%SessionContentItemID%>", item.ID.ToString())
-                                        .Replace("<%itemText%>", item.PageFooter)
-                                        .Replace("<%isLocked%>", "lockeditem")
-                                        .Replace("<%title%>", "هذا المقطع تذييل صفحة (للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) .. يمكنك الاطلاع فقط")
-                                        .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
-                                        .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
-                                        .Replace("<%UserName%>", item.User.FName)
-                                        .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تذييل صفحة");
-                                sb.Append(reviewFootNote);
-                            }
-                            /*}*/
-                        }
-                    }
-                    madbatahContents.InnerHtml += sb.ToString();
-
-                    //isSessionStartDone//
-                    //is
-
-                    if (CurrentUser.Role == UserRole.ReviewrDataEntry)
-                        disableEditforNotReviewrAdmin = true;
-
-                    SessionFile sf = SessionStartHelper.GetSessionStartBySessionId(sessionId);
-
-                    bool IsSessionContainUndefinedAttendant = SessionContentItemHelper.DoesSessionContainsUndefinedAttendants(sessionId);
-                    if (IsSessionContainUndefinedAttendant)
-                    {
-                        string message = "لا يمكن ظهور الموافقة على الجلسة أو التصديق عليها في وجود أي مقطع لمتحدث غير معرف";
-                        message += "، لتعديلها يرجى فحص المقاطع التالية: ";
-                        List<SessionContentItem> undefAttContItems = SessionContentItemHelper.GetSessionContentItemsOfUndefinedAttendants(sessionId);
-                        int ctr=1;
-                        foreach(SessionContentItem item in undefAttContItems)
-                        {
-                            string toolTip = "الملف: " + new FileInfo(item.SessionFile.Name).Name+"<br/>";
-                            if (item.User != null)
-                                toolTip += "مدخل البيانات: " + item.User.FName;
-                            else
-                                toolTip += "مدخل البيانات: ";
-                            //toolTip += "مراجع الملف: " + item.FileReviewer.FName;
-
-                            message += "<a title=\"" + toolTip + "\" class=\"info\" href=\"EditSessionFile.aspx?scid=" + item.ID + "&sfid=" + item.SessionFileID + "&editmode=3&sid=" + sessionId + "\">" + ctr + "</a> , ";
-                            ctr++;
-                        }
-                        ShowWarn(message);
-                    }
-
-                   /* bool IsSessionContainUndefinedAgendaItem = SessionContentItemHelper.DoesSessionContainsUndefinedAgendaItem(sessionId);
-                    if (IsSessionContainUndefinedAgendaItem)
-                    {
-                        string message = "لا يمكن ظهور الموافقة على الجلسة أو التصديق عليها في وجود أي مقطع لبند غير معرف";
-                        message += "، لتعديلها يرجى فحص المقاطع التالية: ";
-                        List<SessionContentItem> undefAttContItems = SessionContentItemHelper.GetSessionContentItemsOfUndefinedAgendaItem(sessionId);
-                        int ctr = 1;
-                        foreach (SessionContentItem item in undefAttContItems)
-                        {
-                            string toolTip = "الملف: " + new FileInfo(item.SessionFile.Name).Name + "<br/>";
-                            if (item.User != null)
-                                toolTip += "مدخل البيانات: " + item.User.FName;
-                            else
-                                toolTip += "مدخل البيانات: ";
-                            //toolTip += "مراجع الملف: " + item.FileReviewer.FName;
-
-                            message += "<a title=\"" + toolTip + "\" class=\"info\" href=\"EditSessionFile.aspx?scid=" + item.ID + "&sfid=" + item.SessionFileID + "&editmode=3&sid=" + sessionId + "\">" + ctr + "</a> , ";
-                            ctr++;
-                        }
-
-                        ShowWarn(message);
-                    }*/
-
-                    Model.SessionStatus sessionStatus = (Model.SessionStatus) s.SessionStatusID;
-                    if(sessionStatus == Model.SessionStatus.New || 
-                        sessionStatus == Model.SessionStatus.InProgress ||
-                        sessionStatus == Model.SessionStatus.FinalApproved ||
-                        SessionContentItemHelper.GetSessionContentItemsBySessionIDAndNotStatusID(sessionId, (int)Model.SessionContentItemStatus.Approved).Count != 0 ||
-                        IsSessionContainUndefinedAttendant)
-                    {
-                        btnApproveSession.Style.Add("display", "none");
-                        btnFinalApproveSession.Style.Add("display", "none");
-                    }
-                    else if(sessionStatus == Model.SessionStatus.Completed)
-                    {
-                        btnApproveSession.Style.Add("display", "inline");
-                        btnFinalApproveSession.Style.Add("display", "none");
-                    }
-                    else if (sessionStatus == Model.SessionStatus.Approved)
-                    {
-                        btnApproveSession.Style.Add("display", "none");
-                        btnFinalApproveSession.Style.Add("display", "inline");
-                    }
+                //if (Item.Name.Contains("افتتاحية الجلسة ، وكلمة معالي رئيس المجلس"))
+                if (Item.IsCustom == true)//for handling eftta7eyet el magles
+                {
+                    gadawalA3mal += "<strong>" + Item.Name + "</strong><br>";
+                    counter--;
                 }
                 else
-                {
-                    ShowMainError(GetLocalizedString("strNoQueryStr"));      
-                }
+                    gadawalA3mal += "<strong>" + itemNum + Item.Name + "</strong><br>";
 
-                if (disableEditforNotReviewrAdmin)
+                if (subItems.Count > 0)
                 {
-                    //divSessionActionButtons.Visible = false;
-                    btnApproveSession.Style.Add("display", "none");
-                    btnFinalApproveSession.Style.Add("display", "none");
-                    //btnApproveSession.Visible = false;
-                    //btnFinalApproveSession.Visible = false;
+                    int i = 0;
+                    foreach (AgendaSubItem sub in subItems)
+                    {
+                        if (!string.IsNullOrEmpty(sub.QFrom) && !string.IsNullOrEmpty(sub.QTo))
+                            sub.Name = new StringBuilder().Append("سؤال موجه إلى معالي / ") + sub.QTo + "من سعادةالعضو /" + sub.QFrom + "حول \"" + sub.Name + "\".";
+                        gadawalA3mal += (i + 1) + ".  " + sub.Name + "<br>";
+                        i++;
+                    }
+                    //for (int i = 0; i < subItems.Count; i++)
+                    //{
+                    //    gadawalA3mal += (i + 1) + ".  " + subItems.[i].Name + "<br>";
+                    //}
                 }
+                counter++;
+            }
+            gadawalA3mal += "</p>";
+            //FOR session introduction
+            string sessionIntro = madbatahIntro.Replace("%sessionNum%", sessionNum);
+            sessionIntro = sessionIntro.Replace("%HijriDate%", hijriDate);
+            sessionIntro = sessionIntro.Replace("%GeorgianDate%", gDate);
+            sessionIntro = sessionIntro.Replace("%sessionTime%", timeInHour);
+            sessionIntro = sessionIntro.Replace("%sessionType%", seasonType);
+            sessionIntro = sessionIntro.Replace("%sessionSeason%", fomratterMale.getResultEnhanced(int.Parse(sessionSeason.Trim())));
+            sessionIntro = sessionIntro.Replace("%sessionStage%", fomratterMale.getResultEnhanced((int)seasonStage));
 
-               
+            sessionIntro = sessionIntro.Replace("%sessionPresident%", details.Presidnt);
+
+            //for attendance
+            List<SessionAttendant> attendance = details.Attendance;
+            string president = details.Presidnt;
+            DateTime date = details.Date;
+
+            List<SessionAttendant> apologies = new List<SessionAttendant>();
+            List<SessionAttendant> absents = new List<SessionAttendant>();
+            List<SessionAttendant> inMission = new List<SessionAttendant>();
+            List<SessionAttendant> secertairs = new List<SessionAttendant>();
+            List<SessionAttendant> attendingFromMajles = new List<SessionAttendant>();
+            List<SessionAttendant> attendingOutOfMajles = new List<SessionAttendant>();
+            List<SessionAttendant> attendingFromGovernment = new List<SessionAttendant>();
+            List<SessionAttendant> othersAttending = new List<SessionAttendant>();
+
+            foreach (SessionAttendant attendant in attendance)
+            {
+                switch (attendant.State)
+                {
+                    case Model.AttendantState.Apology:
+                        apologies.Add(attendant);
+                        break;
+                    case Model.AttendantState.Absent:
+                        absents.Add(attendant);
+                        break;
+                    case Model.AttendantState.Attended:
+                        switch (attendant.Type)
+                        {
+                            case Model.AttendantType.FromOutsideTheCouncil:
+                                attendingOutOfMajles.Add(attendant);
+                                break;
+                            case Model.AttendantType.FromTheCouncilMembers:
+                                attendingFromMajles.Add(attendant);
+                                break;
+                            case Model.AttendantType.GovernmentRepresentative:
+                                attendingFromGovernment.Add(attendant);
+                                break;
+                            case Model.AttendantType.Secretariat:
+                                secertairs.Add(attendant);
+                                break;
+                            case Model.AttendantType.NA:
+                                othersAttending.Add(attendant);
+                                break;
+                        }
+                        break;
+
+                    case Model.AttendantState.InMission:
+                        inMission.Add(attendant);
+                        break;
+
+                }
             }
 
-            
+            string introBody = "";
+            if (inMission.Count > 0)
+            {
+                introBody += "<div style=\"text-align:right;direction:rtl;font-family:arial;font-size:14pt;clear:both;\">";
+                introBody += "<strong>وقد اعتذر</strong> عن عدم حضور هذه الجلسة في مهمه رسميه كل من :";
+                introBody += "</div><br/>";
+                introBody += "<table align=\"center\"  width=\"100%\" style=\"text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">";
+                for (int i = 0; i < inMission.Count; i++)
+                {
+                    string tdTag = "<td style=\"text-align:right;direction:rtl;unicode-bidi:embed\" dir=\"RTL\" >";
+                    if (i == 0)
+                        tdTag = "<td width=\"50%\" style=\"text-align:right;direction:rtl;unicode-bidi:embed\" dir=\"RTL\" >";
+                    if (i % 2 == 0)
+                    {
+                        introBody += "<tr>";
+                        introBody += tdTag + (i + 1) + ". " + MabatahCreatorFacade.GetAttendantTitle(inMission[i], sessionID) + "</td>";
+                    }
+                    else
+                    {
+                        introBody += tdTag + (i + 1) + ". " + MabatahCreatorFacade.GetAttendantTitle(inMission[i], sessionID) + "</td>";
+                        introBody += "</tr>";
+                    }
+                }
+                if (inMission.Count % 2 != 0)
+                {
+                    introBody += "</tr>";
+                }
+                introBody += "</table>";
+            }
+            //introBody += "<br>";
+            if (apologies.Count > 0)
+            {
+                introBody += "<div style=\"text-align:right;direction:rtl;font-family:arial;font-size:14pt;clear:both;\">";
+                introBody += "<strong>وقد اعتذر</strong> عن عدم حضور هذه الجلسة كل من :";
+                introBody += "</div><br/>";
+                introBody += "<table align=\"center\" width=\"100%\" style=\"text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">";
+                for (int i = 0; i < apologies.Count; i++)
+                {
+                    string tdTag = "<td style=\"text-align:right;direction:rtl;unicode-bidi:embed\" dir=\"RTL\" >";
+                    if (i == 0)
+                        tdTag = "<td width=\"50%\" style=\"text-align:right;direction:rtl;unicode-bidi:embed\" dir=\"RTL\" >";
+                    if (i % 2 == 0)
+                    {
+                        introBody += "<tr>";
+                        introBody += tdTag + (i + 1) + ". " + MabatahCreatorFacade.GetAttendantTitle(apologies[i], sessionID) + "</td>";
+                    }
+                    else
+                    {
+                        introBody += tdTag + (i + 1) + ". " + MabatahCreatorFacade.GetAttendantTitle(apologies[i], sessionID) + "</td>";
+                        introBody += "</tr>";
+
+                    }
+                }
+                if (apologies.Count % 2 != 0)
+                {
+                    introBody += "</tr>";
+                }
+                introBody += "</table>";
+            }
+            //introBody += "<br>";
+            if (absents.Count > 0)
+            {
+                introBody += "<div style=\"text-align:right;direction:rtl;font-family:arial;font-size:14pt;clear:both;\">";
+                introBody += "<strong>وقد تغيب</strong> عن حضور هذه الجلسة :";
+                introBody += "</div><br/>";
+                introBody += "<table align=\"center\" width=\"100%\" style=\"text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">";
+                for (int i = 0; i < absents.Count; i++)
+                {
+                    string tdTag = "<td style=\"text-align:right;direction:rtl;unicode-bidi:embed\" dir=\"RTL\" >";
+                    if (i == 0)
+                        tdTag = "<td width=\"50%\" style=\"text-align:right;direction:rtl;unicode-bidi:embed\" dir=\"RTL\" >";
+                    if (i % 2 == 0)
+                    {
+                        introBody += "<tr>";
+                        introBody += tdTag + (i + 1) + ". " + MabatahCreatorFacade.GetAttendantTitle(absents[i], sessionID) + "</td>";
+                    }
+                    else
+                    {
+                        introBody += tdTag + (i + 1) + ". " + MabatahCreatorFacade.GetAttendantTitle(absents[i], sessionID) + "</td>";
+                        introBody += "</tr>";
+
+                    }
+                }
+                if (absents.Count % 2 != 0)
+                {
+                    introBody += "</tr>";
+                }
+                introBody += "</table>";
+            }
+            //introBody += "<br>";
+            if (attendingFromGovernment.Count > 0)
+            {
+                introBody += "<div style=\"text-align:right;direction:rtl;font-family:arial;font-size:14pt;clear:both;\">";
+                introBody += "<strong>وحضر</strong> هذه الجلسة كل من :";
+                introBody += "</div><br/>";
+                introBody += "<table align=\"right\"  width=\"100%\" style=\"text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">";
+                for (int i = 0; i < attendingFromGovernment.Count; i++)
+                {
+                    introBody += "<tr>";
+                    string tdTag = "<td style=\"text-align:right;direction:rtl;unicode-bidi:embed\" dir=\"RTL\" >";
+                    if (i == 0)
+                        tdTag = "<td width=\"50%\" style=\"text-align:right;direction:rtl;unicode-bidi:embed\" dir=\"RTL\" >";
+                    introBody += tdTag + (i + 1) + ". " + MabatahCreatorFacade.GetAttendantTitle(attendingFromGovernment[i], sessionID) + "</td>";
+                    introBody += tdTag + attendingFromGovernment[i].JobTitle + "</td>";
+                    introBody += "</tr>";
+                }
+                introBody += "</table>";
+            }
+            //introBody += "<br>";
+            if (attendingOutOfMajles.Count > 0)
+            {
+                introBody += "<div style=\"text-align:right;direction:rtl;font-family:arial;font-size:14pt;clear:both;\">";
+                introBody += "<strong>كما حضر</strong> الجلسة كل من :";
+
+                for (int i = 0; i < attendingOutOfMajles.Count; i++)
+                {
+                    introBody += MabatahCreatorFacade.GetAttendantTitle(attendingFromMajles[i], sessionID) + "." + attendingOutOfMajles[i].JobTitle + "،";
+                }
+                introBody += "</div>";
+            }
+            //introBody += "<br>";
+
+            //if (secertairs.Count > 0)
+            //{
+            //    introBody += "<p style=\"text-align:right; direction: rtl; font-family: arial; font-size: 14pt;\">";
+            //    introBody += "<strong>كما حضر</strong> الجلسة كل من :";
+
+            //    for (int i = 0; i < secertairs.Count; i++)
+            //    {
+            //        introBody += secertairs[i].Name + "–" + secertairs[i].JobTitle + "،";
+            //    }
+            //    introBody += "</p>";
+            //}
+
+            //introBody += "<br>";
+            if (secertairs.Count > 0)
+            {
+                introBody += "<div style=\"text-align:right;direction:rtl;font-family:arial;font-size:14pt;clear:both;\">";
+                introBody += "<strong>وتولى</strong> الأمانة العامة :";
+
+                for (int i = 0; i < secertairs.Count; i++)
+                {
+                    introBody += MabatahCreatorFacade.GetAttendantTitle(secertairs[i], sessionID) + " - " + secertairs[i].JobTitle + "،";
+                    //introBody += "</tr>";
+                }
+                introBody += "</div>";
+            }
+            //introBody += "<br>";
+            string madbatahStart = "<html style=\"direction: rtl; font-family: arial; font-size: 14pt;\">";
+            madbatahStart += "<body dir=\"rtl\"><font size=\"14\" face=\"arial\" >";
+            madbatahStart += /*"<p style=\"direction: rtl; font-family: arial; font-size: 14pt;\">" +*/ sessionHeader /*+"</p>"*/;
+            madbatahStart += gadawalA3mal;// +"<br/>";
+            madbatahStart += "<hr class=\"mceNonEditable\"/>";
+            madbatahStart += sessionIntro;
+            madbatahStart += introBody + "</font></body></html>";
+            return madbatahStart;
+        }
+        public static bool AddUpdateSessionStart(long sessionId, string sessionStartText, long userID, string startName)
+        {
+
+            //Session session = SessionHelper.GetSessionByID(sessionId);
+            SessionFile sessionStart = SessionStartHelper.GetSessionStartBySessionId(sessionId);
+            if (sessionStart == null)
+            {
+                DAL.SessionFile start = SessionStartHelper.AddSessionStart(sessionStartText, userID, sessionId, startName);
+                if (start != null)
+                    return true;
+                else
+                    return false;
+                //SessionStartFacade.UpdateSessionSetSessionStartID(sessionId, start.ID);
+            }
+            else
+            {
+                if (SessionStartHelper.UpdateSessionStartText(sessionStart.ID, sessionStartText, userID) > 0)
+                    return true;
+                else
+                    return false;
+            }
+
 
         }
 
-        //protected void approveBtn_Click(Object sender,
-        //                   EventArgs e)
-        //{
-        //    long sessionId;
-        //    if (SessionID != null && long.TryParse(SessionID, out sessionId))
-        //    {
-        //        ReviewerFacade.ApproveSession(sessionId);
-        //    }
-        //}
-
-        //protected void finalApproveBtn_Click(Object sender,
-        //                   EventArgs e)
-        //{
-        //    long sessionId;
-        //    if (SessionID != null && long.TryParse(SessionID, out sessionId))
-        //    {
-        //        ReviewerFacade.FinalApproveSession(sessionId);
-        //    }
-        //}
+        public static bool AddNewSessionStart(long sessionId, string sessionStartText, string startName)
+        {
 
 
-        
+            DAL.SessionFile start = SessionStartHelper.AddSessionStart(sessionStartText, sessionId, startName);
+            if (start != null)
+                return true;
+            else
+                return false;
+            //SessionStartFacade.UpdateSessionSetSessionStartID(sessionId, start.ID);
 
-}
+
+        }
+
+
+
+        public static SessionFile GetSessionStartBySessionID(long sessionID)
+        {
+            return SessionStartHelper.GetSessionStartBySessionId(sessionID);
+        }
+    }
 }

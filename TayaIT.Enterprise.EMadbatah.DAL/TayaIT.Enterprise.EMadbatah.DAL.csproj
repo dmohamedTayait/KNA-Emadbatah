@@ -47,6 +47,8 @@
     <Compile Include="AgendaHelper.cs" />
     <Compile Include="AttachmentHelper.cs" />
     <Compile Include="AttendantHelper.cs" />
+    <Compile Include="CommitteeHelper.cs" />
+    <Compile Include="DefaultAttendantHelper.cs" />
     <Compile Include="EMadbatahEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

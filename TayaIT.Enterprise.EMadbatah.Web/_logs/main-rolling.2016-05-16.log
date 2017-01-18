@@ -1,0 +1,752 @@
+----------------------------------------
+Timestamp: 5/15/2016 3:00:31 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(1,1,139,2)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(Int32 CommitteeID, Int32 DefaultAttendant, Int32 SessionID, Int32 AttendantStatus) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\CommitteeHelper.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/15/2016 3:00:32 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(1,2,139,0)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(Int32 CommitteeID, Int32 DefaultAttendant, Int32 SessionID, Int32 AttendantStatus) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\CommitteeHelper.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/15/2016 3:35:45 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(0,1,0,0)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(Int32 CommitteeID, Int32 DefaultAttendant, Int32 SessionID, Int32 AttendantStatus) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\CommitteeHelper.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/15/2016 3:35:45 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(0,2,0,0)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(Int32 CommitteeID, Int32 DefaultAttendant, Int32 SessionID, Int32 AttendantStatus) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\CommitteeHelper.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/15/2016 3:35:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(1,1,139,2)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(Int32 CommitteeID, Int32 DefaultAttendant, Int32 SessionID, Int32 AttendantStatus) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\CommitteeHelper.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/15/2016 3:35:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(1,2,139,0)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(Int32 CommitteeID, Int32 DefaultAttendant, Int32 SessionID, Int32 AttendantStatus) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\CommitteeHelper.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/15/2016 3:37:32 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(1,1,139,2)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(Int32 CommitteeID, Int32 DefaultAttendant, Int32 SessionID, Int32 AttendantStatus) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\CommitteeHelper.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/15/2016 3:39:30 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(1,2,139,0)  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.DAL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendant(Int32 CommitteeID, Int32 DefaultAttendant, Int32 SessionID, Int32 AttendantStatus) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\CommitteeHelper.cs:line 50</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:23:01 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem()  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem(AgendaItem agendaItem, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 49</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>String or binary data would be truncated.
+The statement has been terminated.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:24:32 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AddNewSessionContentItem(92,140,589)  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AddNewSessionContentItem(Int64 sessionFileID, Int64 sessionID, String item_text, Int32 attendantID, Int32 agendaItemID, Nullable`1 agendaSubItemID, Int64 userID, Int32 statusID, String commentOnText, String commentOnAttendant, String footer, Nullable`1 mergedWithPrev, Int32 fragmentOrderInXML, Single startTime, Single endTime, Single duration, Boolean ignored) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionContentItemHelper.cs:line 70</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The INSERT statement conflicted with the FOREIGN KEY constraint "FK_SessionContentItem_AgendaItem". The conflict occurred in database "Emadbatah", table "dbo.AgendaItem", column 'ID'.
+The statement has been terminated.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:25:07 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem()  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem(AgendaItem agendaItem, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 49</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>String or binary data would be truncated.
+The statement has been terminated.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:25:36 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AddNewSessionContentItem(92,140,589)  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AddNewSessionContentItem(Int64 sessionFileID, Int64 sessionID, String item_text, Int32 attendantID, Int32 agendaItemID, Nullable`1 agendaSubItemID, Int64 userID, Int32 statusID, String commentOnText, String commentOnAttendant, String footer, Nullable`1 mergedWithPrev, Int32 fragmentOrderInXML, Single startTime, Single endTime, Single duration, Boolean ignored) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionContentItemHelper.cs:line 70</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The INSERT statement conflicted with the FOREIGN KEY constraint "FK_SessionContentItem_AgendaItem". The conflict occurred in database "Emadbatah", table "dbo.AgendaItem", column 'ID'.
+The statement has been terminated.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:28:41 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem()  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.AddAgendaItem(AgendaItem agendaItem, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 49</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>String or binary data would be truncated.
+The statement has been terminated.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:28:50 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AddNewSessionContentItem(92,140,589)  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AddNewSessionContentItem(Int64 sessionFileID, Int64 sessionID, String item_text, Int32 attendantID, Int32 agendaItemID, Nullable`1 agendaSubItemID, Int64 userID, Int32 statusID, String commentOnText, String commentOnAttendant, String footer, Nullable`1 mergedWithPrev, Int32 fragmentOrderInXML, Single startTime, Single endTime, Single duration, Boolean ignored) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionContentItemHelper.cs:line 70</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The INSERT statement conflicted with the FOREIGN KEY constraint "FK_SessionContentItem_AgendaItem". The conflict occurred in database "Emadbatah", table "dbo.AgendaItem", column 'ID'.
+The statement has been terminated.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:28:50 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:28:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:28:52 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:28:55 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:29:17 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:29:17 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:29:33 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:30:12 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:30:13 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:30:14 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and nvarchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:32:36 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and varchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 12:35:15 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaByAgendaName(غير معرف)  - Priority: -1 - Title:An error occurred while executing the command definition. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
+   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at TayaIT.Enterprise.EMadbatah.DAL.AgendaHelper.GetAgendaItemByNameAndSessionID(String itemName, Int64 sessionID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\AgendaHelper.cs:line 348</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The data types text and varchar are incompatible in the equal to operator.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:43:56 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(140,/test/140/body.docx)  - Priority: -1 - Title:Cannot insert the OpenXmlElement "newChild" because it is part of a tree. 
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.OpenXmlCompositeElement.AppendChild[T](T newChild)
+   at DocumentFormat.OpenXml.OpenXmlElement.Append(OpenXmlElement[] newChildren)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MakeFooter() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1253
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.ApplyFooterToSectionProperties(SectionProperties sectionProps) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1169
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.ApplyHeaderAndFooter() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1124
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 157</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:43:58 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(140,/test/140/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:44:06 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(140,/test/140/body.docx)  - Priority: -1 - Title:Cannot insert the OpenXmlElement "newChild" because it is part of a tree. 
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.OpenXmlCompositeElement.AppendChild[T](T newChild)
+   at DocumentFormat.OpenXml.OpenXmlElement.Append(OpenXmlElement[] newChildren)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MakeFooter() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1253
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.ApplyFooterToSectionProperties(SectionProperties sectionProps) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1169
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.ApplyHeaderAndFooter() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1124
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 157</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:44:06 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(140,/test/140/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:45:05 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(140,/test/140/body.docx)  - Priority: -1 - Title:Cannot insert the OpenXmlElement "newChild" because it is part of a tree. 
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.OpenXmlCompositeElement.AppendChild[T](T newChild)
+   at DocumentFormat.OpenXml.OpenXmlElement.Append(OpenXmlElement[] newChildren)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MakeFooter() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1253
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.ApplyFooterToSectionProperties(SectionProperties sectionProps) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1169
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.ApplyHeaderAndFooter() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1124
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 157</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:45:06 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(140,/test/140/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:45:28 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(140,/test/140/body.docx)  - Priority: -1 - Title:The process cannot access the file 'C:\test\140\body.docx' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean useAsync)
+   at MS.Internal.IO.Zip.ZipArchive.OpenOnFile(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.ZipPackage..ctor(String path, FileMode mode, FileAccess access, FileShare share, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare, Boolean streaming)
+   at System.IO.Packaging.Package.Open(String path, FileMode packageMode, FileAccess packageAccess, FileShare packageShare)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPackage.CreateCore(String path)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type, Boolean autoSave)
+   at DocumentFormat.OpenXml.Packaging.WordprocessingDocument.Create(String path, WordprocessingDocumentType type)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker..ctor(String docPath, DocXmlParts docXmlParts, DocFileOperation fileOperation) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 85
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 154</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:45:28 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(140,/test/140/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:46:07 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(140,/test/140/body.docx)  - Priority: -1 - Title:Cannot insert the OpenXmlElement "newChild" because it is part of a tree. 
+
+Message: <SOURCE>DocumentFormat.OpenXml</SOURCE><STACKTRACE>   at DocumentFormat.OpenXml.OpenXmlCompositeElement.AppendChild[T](T newChild)
+   at DocumentFormat.OpenXml.OpenXmlElement.Append(OpenXmlElement[] newChildren)
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.MakeFooter() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1253
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.ApplyFooterToSectionProperties(SectionProperties sectionProps) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1169
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.ApplyHeaderAndFooter() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 1124
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 157</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/16/2016 2:46:08 PM
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(140,/test/140/)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 38</STACKTRACE>
+
+
+----------------------------------------

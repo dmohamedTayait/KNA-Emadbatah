@@ -20,12 +20,3 @@ E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debu
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.EmadbatahRes.resources
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.EmadbatahRes.ar.resources
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.csproj.GenerateResource.Cache
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
-E:\21-5\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb

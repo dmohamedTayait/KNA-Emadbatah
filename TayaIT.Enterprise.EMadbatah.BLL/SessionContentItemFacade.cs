@@ -10,18 +10,18 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
     public class SessionContentItemFacade
     {
 
-        public static long AddNewSessionContentItem(long sessionFileID, long sessionID, string item_text, int attendantID, int agendaItemID, int? agendaSubItemID, long userID, int statusID, string commentOnText, string commentOnAttendant, string footer, bool mergedWithPrev, int fragmentOrderInXML, float startTime, float endTime, float duration, bool ignored)
+        public static long AddNewSessionContentItem(long sessionFileID, long sessionID, string item_text, int attendantID, int agendaItemID, int? agendaSubItemID, long userID, int statusID, string commentOnText, string commentOnAttendant, string footer, bool mergedWithPrev, int fragmentOrderInXML, float startTime, float endTime, float duration, bool ignored,long? attachId)
         {
-            long id = SessionContentItemHelper.AddNewSessionContentItem(sessionFileID, sessionID, item_text, attendantID, agendaItemID, agendaSubItemID, userID, statusID, commentOnText, commentOnAttendant, footer, mergedWithPrev, fragmentOrderInXML, startTime, endTime, duration, ignored);
+            long id = SessionContentItemHelper.AddNewSessionContentItem(sessionFileID, sessionID, item_text, attendantID, agendaItemID, agendaSubItemID, userID, statusID, commentOnText, commentOnAttendant, footer, mergedWithPrev, fragmentOrderInXML, startTime, endTime, duration, ignored, attachId);
             return id;
         }
         public static SessionContentItem GetSessionContentItemByIdAndFragmentOrder(long sessionFileID, int fragmentOrderInXML)
         {
             return SessionContentItemHelper.GetSessionContentItemByIdAndFragmentOrder(sessionFileID, fragmentOrderInXML);
         }
-        public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID, long? agendaSubItemID, string commentsOnAttendant, string commentsOnText, string FooterText, Model.SessionContentItemStatus status, bool mergedWithPrev, bool ignored)
+        public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID, long? agendaSubItemID, string commentsOnAttendant, string commentsOnText, string FooterText, Model.SessionContentItemStatus status, bool mergedWithPrev, bool ignored, long attachID)
         {
-            return SessionContentItemHelper.UpdateSessionContentItem(sessionContentItemID, text, attendantID, agendaItemID, agendaSubItemID, commentsOnAttendant, commentsOnText, FooterText, (int)status, mergedWithPrev, ignored);
+            return SessionContentItemHelper.UpdateSessionContentItem(sessionContentItemID, text, attendantID, agendaItemID, agendaSubItemID, commentsOnAttendant, commentsOnText, FooterText, (int)status, mergedWithPrev, ignored, attachID);
         }
         
 

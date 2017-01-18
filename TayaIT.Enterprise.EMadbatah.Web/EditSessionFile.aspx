@@ -45,6 +45,7 @@
     <input type="hidden" id="endTime" runat="server" value="" class="hdendTime" />
     <input type="hidden" id="currentOrder" runat="server" value="" class="hdcurrentOrder" />
     <input type="hidden" name="agendaItemId" id="agendaItemId" value="" runat="server" class="agendaItemId" />
+    <input type="hidden" name="attachId" id="attachId" value="0" runat="server" class="attachId" />
     <div id="editSessionFile" class="grid_22 prefix_1 suffix_1">
         <div class="borderBD row">
             <div class="fr">
@@ -64,8 +65,10 @@
         <div class="row">
             <div class="row">
                 <div class="grid_22">
+                <div id="divAgenda" name="divAgenda" runat="server" class="divAgenda">
                    <h2>البند: </h2> <p class="agendaItemTxt"><%= agendaItemTxt%></p>
                     <br />
+                    </div>
                     <input name="" runat="server" id="btn_addNewAgendaItem" type="button" class="btn addingNewAgendaItem" value="اضافة بند جديد" />
                 </div>
                 <div class="clear"></div>
@@ -180,6 +183,9 @@
             <div class="row">
                 <textarea id="elm1" runat="server" name="elm1" rows="3" style="width: 100%" class="tinymce"></textarea>
             </div>
+            <div class="row divAttach" id="divAttach" runat="server" name="divAttach">
+                <span></span>
+            </div>
             <div class="row">
                 <div class="grid_11 alpha">
                     <div class="row">
@@ -228,8 +234,10 @@
                     <input id="Button1" class="btn " type="button" value="خطأ" onclick="return Button1_onclick()" />
                 </div>
                 <div>
-                    <input name="" runat="server" id="btnAddProcuder" type="button" class="btn finish btnAddProcuder"
+                    <input name="" runat="server" id="btnAddProcuder" type="button" class="btn btnAddProcuder"
                         value="اضافة اجراء" />
+                    <input name="" runat="server" id="btnAssignAttachToContentItem" type="button" class="btn btnAssignAttachToContentItem"
+                        value="اضافة مرفق" />
                 </div>
                 <div class="clear">
                 </div>
@@ -342,6 +350,35 @@
             <div class="clear">
             </div>
         </div>
+
+        <div class="reviewpopup_cont reviewpopup_cont4 graybg">
+            <div class="close_btn">
+            </div>
+            <div class="clear">
+            </div>
+            <div>
+                <h2><span class="red">*</span> المرفقات :</h2>
+            </div>
+            <div class="datacontainer inputcont datacontainer2">
+                <asp:RadioButtonList runat="server" ID="rdlattachments" AutoPostBack="false" CssClass="rdlattachments">
+                </asp:RadioButtonList>
+        
+            </div>
+            <div class="poppbtnscont fl">
+                <div class="fl">
+                    <input type="button" id="btnAddAttach" class="btnAddAttach" value="اضافة مرفق" />
+                    <div class="clear">
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+
+
+
         <div class="clear">
         </div>
       

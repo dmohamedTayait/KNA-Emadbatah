@@ -123,15 +123,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             if (lastContentItem == null) // load from xml
             {
-
-                //// set XML,MP3 file path
-                //string xmlFilePath = file.Name.ToLower().Replace(".mp3", ".trans.xml");
-                //string mp3FilePath = file.Name;
-                //MP3FilePath.Value = mp3FilePath;
-                //// parse XML file
-                //TransFile tf = new TransFile();
-                //tf = VecsysParser.ParseTransXml(xmlFilePath);
-                //List<Paragraph> p = VecsysParser.combineSegments(tf.SpeechSegmentList);
                 //// compose HTML spans from speech segments and set editor value
                 html = getHTML(p[FragOrder]);
                 current_session_info["PargraphStartTime"] = p[FragOrder].speechSegmentsList[0].stime;
@@ -141,19 +132,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
             else // load from DB
             {
-                
-
                 html = lastContentItem.Text;
                 current_session_info["PargraphStartTime"] = lastContentItem.StartTime;
                 current_session_info["PargraphEndTime"] = lastContentItem.EndTime;
                 hdSessionContentItemID.Value = tmpSessionContentItemID.ToString(); ;
                 startTime.Value = lastContentItem.StartTime.ToString();
                 endTime.Value = lastContentItem.EndTime.ToString();
-
             }
             // set editor text
             elm1.Value = html;
-
 
             //get prev item from db if exist
             if (FragOrder - 1 >= 0)
@@ -190,6 +177,21 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             li = new ListItem("-------- اختر المتحدث --------", "0");
             ddlSpeakers.Items.Insert(0, li);
 
+
+            string attachID = "";
+            string attachName = "";
+            List<TayaIT.Enterprise.EMadbatah.DAL.Attachement> attachmentLst = TayaIT.Enterprise.EMadbatah.DAL.AttachmentHelper.GetSessionAttachments(long.Parse(SessionID));
+            ListItem liAttach = new ListItem();
+            foreach (TayaIT.Enterprise.EMadbatah.DAL.Attachement attachobj in attachmentLst)
+            {
+                liAttach = new ListItem();
+                liAttach.Text = attachobj.Name.ToString();
+                liAttach.Value = attachobj.ID.ToString();
+                liAttach.Attributes.Add("title", attachobj.Name.ToString());
+                rdlattachments.Items.Add(liAttach);
+            }
+
+
            foreach (AgendaItem item in current_session.AgendaItems)
             {
                 ListItem liAgenda = new ListItem(item.Name, item.ID.ToString());
@@ -202,23 +204,38 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             if (lastContentItem != null)
             {
-                //ddlAgendaItems.SelectedValue = lastContentItem.AgendaItemID.ToString();
-
-
                 if (lastContentItem.AgendaItemID != null)
                 {
                     // btn_addNewAgendaItem.Style.Add("display", "none");
                     agendaItemTxt = lastContentItem.AgendaItem.Name;
                     agendaItemId.Value = lastContentItem.AgendaItem.ID.ToString();
+                    if (lastContentItem.AgendaItem.Name == "غير معرف")
+                        divAgenda.Style.Add("display", "none");
+                    else
+                        divAgenda.Style.Add("display", "");
                 }
                 else
                 {
                     agendaItemId.Value = lastContentItem.AgendaItem.ID.ToString();
                     btn_addNewAgendaItem.Style.Add("display", "");
                 }
-                //check for subitems
 
+                if (lastContentItem.AttachementID != null && lastContentItem.AttachementID != 0)
+                {
+                    Attachement attachObj = AttachmentHelper.GetAttachementByID((int)lastContentItem.AttachementID);
+                    attachName = attachObj.Name;
+                    attachId.Value = lastContentItem.AttachementID.ToString();
+                    divAttach.Style.Add("display", "");
+                    divAttach.InnerHtml = "<span>" + attachName + "</span>";
+                }
+                else
+                {
+                    attachId.Value = "0";
+                    divAttach.Style.Add("display", "none");
+                    divAttach.InnerHtml = "";
+                }
 
+               
 
                 ddlSpeakers.SelectedValue = lastContentItem.AttendantID.ToString();
                 txtSpeakerJob.Value = lastContentItem.CommentOnAttendant;//usama for job title
@@ -261,6 +278,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 AgendaItem sessionUnknownItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", current_session.ID);
                 agendaItemTxt = sessionUnknownItem.Name;
                 agendaItemId.Value = sessionUnknownItem.ID.ToString();
+
+
+                if (agendaItemTxt == "غير معرف")
+                    divAgenda.Style.Add("display", "none");
+                else
+                    divAgenda.Style.Add("display", "");
+
+                attachId.Value = "0";
+                divAttach.Style.Add("display", "none");
+                divAttach.InnerHtml = "";
             }
 
 
