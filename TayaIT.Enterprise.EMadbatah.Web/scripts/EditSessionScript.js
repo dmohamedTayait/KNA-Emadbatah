@@ -66,8 +66,8 @@ $(document).ready(function() {
         }
     });
     // remove checkbox selection
-    $(".sameAsPrevSpeaker").selected(false);
-    $(".chkIgnoredSegment").selected(false);
+  //  $(".sameAsPrevSpeaker").selected(false);
+   // $(".chkIgnoredSegment").selected(false);
 
     //usama march
     //$(".chkGroupSubAgendaItems").selected(false);
@@ -151,6 +151,7 @@ $(document).ready(function() {
             $("#MainContent_imgSpeakerAvatar").attr("src",prevSpeakerImgUrl);
             $("#MainContent_txtSpeakerJob").html(prevSpeakerJob);
             allInputs.attr('disabled', 'disabled');
+            $("#MainContent_ddlOtherTitles").attr('disabled', 'disabled');
             // remove all errors
             $('label.error').remove()
             $('.error').removeClass('error')
@@ -266,7 +267,7 @@ $(document).ready(function() {
                         $('#MainContent_ddlOtherTitles').val(0).removeAttr('disabled', 'disabled');
                         $('#MainContent_ddlCommittee').val(0).hide().removeAttr('disabled', 'disabled');
                         $('#MainContent_txtSpeakerOtherJob').val("").removeAttr('disabled', 'disabled');
-						if($("#MainContent_ddlSpeakers > option:selected").text() == "غير محدد"){
+						if($("#MainContent_ddlSpeakers > option:selected").text() == "غير محدد" || $(".sameAsPrevSpeaker").is(':checked')){
 						    $('#MainContent_ddlOtherTitles').val(0).attr('disabled', 'disabled');
                             $('#MainContent_ddlCommittee').val(0).hide().attr('disabled', 'disabled');
                             $('#MainContent_txtSpeakerOtherJob').val("").attr('disabled', 'disabled');
@@ -325,21 +326,10 @@ $(document).ready(function() {
             $("#jquery_jplayer_1").jPlayer("pause");
             //
             if (currentOrder.val() - 0 > prevFragOrder - 0) {
-                if (SameAsPrevSpeaker == false &&
-                    prevSpeakerIndex == SpeakerID && !$(".chkIgnoredSegment").is(':checked')) {
-                    if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
-
+                if (SameAsPrevSpeaker == false && prevSpeakerIndex == SpeakerID && !$(".chkIgnoredSegment").is(':checked')) {
                         $(".sameAsPrevSpeaker").attr('checked', 'checked');
                         allInputs.attr('disabled', 'disabled');
                         SameAsPrevSpeaker = true;
-                    } else {
-                        $("#MainContent_ddlSpeakers").val(0).trigger("change");
-                        $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
-                        allInputs.removeAttr('disabled');
-                        ed.setProgressState(0);
-                        $(".next").removeAttr("disabled");
-                        return;
-                    }
                 }
             }
             if (AgendaItemID != 0) {
@@ -361,7 +351,8 @@ $(document).ready(function() {
                         SpeakerJob: SpeakerJob,
                         Text: Text,
                         Comments: Comments,
-                        Footer: Footer
+                        Footer: Footer,
+                         lastItem:0
                     },
                     dataType: 'json',
                     success: function (response) {
@@ -607,7 +598,8 @@ $(document).ready(function() {
                     SpeakerJob: SpeakerJob,
                     Text: Text,
                     Comments: Comments,
-                    Footer: Footer
+                    Footer: Footer,
+                     lastItem:0
                 },
                 dataType: 'json',
                 success: function(response) {
@@ -786,7 +778,7 @@ $(document).ready(function() {
                 allInputs.add(".next").removeAttr('disabled');
                 $(".sameAsPrevSpeaker").attr("disabled", "disabled");
             } else if (response.ItemOrder == "last") {
-                $(".sameAsPrevSpeaker,.prev,.finish").add(allInputs).removeAttr("disabled");
+                $(".sameAsPrevSpeaker,.prev,.finish,.btnPreview").add(allInputs).removeAttr("disabled");
                 $(".next").attr("disabled", "disabled");
             } else {
                 $(".next,.prev").removeAttr("disabled");
@@ -848,8 +840,10 @@ $(document).ready(function() {
                     mode = $(".hdPageMode").val();
                 }
 
-                if(mode == 3)
+                if(mode == 3){
                   $('.finish').removeAttr('disabled');
+                  $('.btnPreview').removeAttr('disabled');
+                }
             }
 
             if ($("#MainContent_chkGroupSubAgendaItems").is(':checked'))
@@ -889,21 +883,12 @@ $(document).ready(function() {
             var Text = encodeURI($("#MainContent_elm1").attr("value"));
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
-
-            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') &&
-                prevSpeakerIndex == SpeakerID) {
-                if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
-
+            var lastItem =  $(".finish").is(":disabled") ? 0 : 1;
+            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') && prevSpeakerIndex == SpeakerID) {
                     $(".sameAsPrevSpeaker").attr('checked', 'checked');
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
                     SameAsPrevSpeaker = true;
-                } else {
-                    $("#MainContent_ddlSpeakers").val(0).trigger("change");
-                    $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
-                    ed.setProgressState(0);
-                    return;
                 }
-            }
              $("#btnSaveAndExit").attr("disabled", "disabled");
             if (AgendaItemID != 0) {
                 jQuery.ajax({
@@ -926,8 +911,8 @@ $(document).ready(function() {
                         Comments: Comments,
                         Footer: Footer,
                         editmode: mode,
-                        scid: sessionContentItem
-
+                        scid: sessionContentItem,
+                        lastItem: lastItem
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -937,7 +922,7 @@ $(document).ready(function() {
                                 window.location = "ReviewNotes.aspx?sid=" + sessionID;
                             else
                             if (mode == "3")
-                                window.location = "Review.aspx?sid=" + sessionID;
+                                window.location = "Review.aspx?sid=" + sessionID + "#scid_"+sessionContentItem;
                             else
                                 window.location = "default.aspx";
                         } else {
@@ -956,7 +941,7 @@ $(document).ready(function() {
         }
     });
 
-    // save and exit button onclick
+    // save only button onclick
     $(".btnSaveOnly").click(function() {
        // if ($("#editSessionFileForm").valid()) {
             var mode = "1";
@@ -992,21 +977,14 @@ $(document).ready(function() {
             var Footer = $("#MainContent_txtFooter").val();
 
             //$("#MainContent_ddlSpeakers option:contains(" + "أخرى" + ")").val() != SpeakerID &&
-            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') &&
-                prevSpeakerIndex == SpeakerID) {
-                if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
-
+            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') && prevSpeakerIndex == SpeakerID) {
                     $(".sameAsPrevSpeaker").attr('checked', 'checked');
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
                     SameAsPrevSpeaker = true;
-                } else {
-                    $("#MainContent_ddlSpeakers").val(0).trigger("change");
-                    $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
-                    ed.setProgressState(0);
-                    return;
-                }
-            }
-              $(".btnSaveOnly").attr("disabled", "disabled");
+               }
+
+           var lastItem =  $(".finish").is(":disabled") ? 0 : 1;
+           $(".btnSaveOnly").attr("disabled", "disabled");
             if (AgendaItemID != 0) {
                 jQuery.ajax({
                     cache: false,
@@ -1028,7 +1006,8 @@ $(document).ready(function() {
                         Comments: Comments,
                         Footer: Footer,
                         editmode: mode,
-                        scid: sessionContentItem
+                        scid: sessionContentItem,
+                        lastItem: lastItem
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -1084,10 +1063,104 @@ $(document).ready(function() {
         //}
     });
 
+     function getParameterByName(name) {
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+        // save only button onclick
+    $(".btnPreview").click(function() {
+            var mode = "1";
+            var sessionContentItem;
+            if ($(".hdPageMode").val().length == 0) {
+                mode = "1";
+            } else {
+                mode = $(".hdPageMode").val();
+                sessionContentItem = $(".hdSessionContentItemID").val();
+            }
+            var sessionID = $(".sessionID").val();
+            var AgendaItemID = $('.agendaItemId').val();
+            var AttachID = $('.attachId').val();
+            var VoteID = $('.voteId').val();
+   
+            var SpeakerID = $("#MainContent_ddlSpeakers").val();
+            SpeakerID = SpeakerID == 0 ?  $("#MainContent_ddlSpeakers option:contains(" + "غير محدد" + ")").attr('selected', 'selected').val() : SpeakerID;
+            SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
+   
+            var SpeakerName = $("#MainContent_txtNewSpeaker").val();
+            var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+            var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
+            var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
+            var Ignored = $(".chkIgnoredSegment").is(':checked');
+            var SpeakerJob = $("#MainContent_txtSpeakerOtherJob").val();
+            var Text = encodeURI($("#MainContent_elm1").attr("value"));
+            var Comments = $("#MainContent_txtComments").val();
+            var Footer = $("#MainContent_txtFooter").val();
+
+            //$("#MainContent_ddlSpeakers option:contains(" + "أخرى" + ")").val() != SpeakerID &&
+            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') && prevSpeakerIndex == SpeakerID) {
+                    $(".sameAsPrevSpeaker").attr('checked', 'checked');
+                    $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
+                    SameAsPrevSpeaker = true;
+               }
+
+           var lastItem =  $(".finish").is(":disabled") ? 0 : 1;
+           $(".btnPreview").attr("disabled", "disabled");
+            if (AgendaItemID != 0) {
+                jQuery.ajax({
+                    cache: false,
+                    type: 'post',
+                    url: 'EditSessionHandler.ashx',
+                    data: {
+                        funcname: 'SaveOnly',
+                        AgendaItemID: AgendaItemID,
+                        AttachID: AttachID,
+                        VoteID: VoteID,
+                        SpeakerID: SpeakerID,
+                        SpeakerName: SpeakerName,
+                        SameAsPrevSpeaker: SameAsPrevSpeaker,
+                        IsSessionPresident: IsSessionPresident,
+                        IsGroupSubAgendaItems: IsGroupSubAgendaItems,
+                        Ignored: Ignored,
+                        SpeakerJob: SpeakerJob,
+                        Text: Text,
+                        Comments: Comments,
+                        Footer: Footer,
+                        editmode: mode,
+                        scid: sessionContentItem,
+                        lastItem: lastItem
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.Message == "success") {
+                            $(".btnPreview").removeAttr("disabled");
+                            window.location = "PreReview.aspx?sfid="+getParameterByName("sfid") +"#scid_"+$(".hdSessionContentItemID").val();
+                        }else {
+                            alert("لقد حدث خطأ");
+                            $(".btnSaveOnly").removeAttr("disabled");
+                            allInputs.removeAttr('disabled');
+                        }
+                    },
+                    error: function() {
+                        alert("لقد حدث خطأ");
+                        $(".btnSaveOnly").removeAttr("disabled");
+                        allInputs.removeAttr('disabled');
+                    }
+                });
+            }
+        //}
+    });
+
     // finish: save and exit button onclick
     $(".finish").click(function() {
         if ($("#editSessionFileForm").valid()) {
-           
+             var mode = "1";
+            var sessionContentItem;
+            if ($(".hdPageMode").val().length == 0) {
+                mode = "1";
+            } else {
+                mode = $(".hdPageMode").val();
+                sessionContentItem = $(".hdSessionContentItemID").val();
+            }
             // var AgendaItemID = $("#MainContent_ddlAgendaItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaItems > option:selected").attr("value") : "";
             // var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
             var AgendaItemID = $('.agendaItemId').val();
@@ -1105,21 +1178,12 @@ $(document).ready(function() {
             var Comments = $("#MainContent_txtComments").val();
             var Footer = $("#MainContent_txtFooter").val();
             var sessionID = $(".sessionID").val();
-
-            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') &&
-                prevSpeakerIndex == SpeakerID) {
-                if (confirm('لقد اخترت نفس بيانات المتحدث السابق، هل تريد دمج هذا النص مع سابقه ؟')) {
-
-                    $(".sameAsPrevSpeaker").attr('checked', 'checked');
+            var lastItem =  $(".finish").is(":disabled") ? 0 : 1;
+            if (SameAsPrevSpeaker == false && !$(".chkIgnoredSegment").is(':checked') && prevSpeakerIndex == SpeakerID) {
+                     $(".sameAsPrevSpeaker").attr('checked', 'checked');
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
                     SameAsPrevSpeaker = true;
-                } else {
-                    $("#MainContent_ddlSpeakers").val(0).trigger("change");
-                    $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
-                    ed.setProgressState(0);
-                    return;
-                }
-            }
+               }
              $(".finish").attr("disabled", "disabled");
             if (AgendaItemID != 0) {
                 jQuery.ajax({
@@ -1141,12 +1205,19 @@ $(document).ready(function() {
                         Text: Text,
                         Comments: Comments,
                         Footer: Footer,
-                        sid: sessionID
+                        sid: sessionID,
+                        lastItem: lastItem
                     },
                     dataType: 'json',
                     success: function(response) {
                         if (response.Message == "success") {
-                            window.location = "default.aspx";
+                            if (mode == "2")
+                                window.location = "ReviewNotes.aspx?sid=" + sessionID;
+                            else
+                            if (mode == "3")
+                                window.location = "Review.aspx?sid=" + sessionID + "#scid_"+sessionContentItem;
+                            else
+                                window.location = "default.aspx";
                         } else {
                             alert("لقد حدث خطأ");
 
@@ -1429,6 +1500,9 @@ $(document).ready(function() {
                 }).bind('keydown', 'alt+k', function() {
                     // previous page
                     $(".btn.finish").trigger('click')
+                }).bind('keydown', 'alt+u', function() {
+                    // previous page
+                    $(".btn.btnPreview").trigger('click')
                 }).bind('keydown', 'alt+a', function() {
                     // play & pause player
                     if (AudioPlayer.data("jPlayer").status.paused) {
@@ -1442,7 +1516,7 @@ $(document).ready(function() {
                 }).bind('keydown', 'alt+j', function() {
                     // next page
                     $(".btn.next").trigger('click')
-                }).bind('keydown', 'alt+b', function() {
+                }).bind('keydown', 'alt+i', function() {
                     // next x seconds
                     $('.jp-audio .next-jp-xseconds').trigger('click')
                 }).bind('keydown', 'alt+o', function() {

@@ -60,8 +60,9 @@
                     <input name="" type="button" id="btnSaveOnly" runat="server" class="btn inputBlock mb-5 btnSaveOnly btn_editsession" value="حفظ" />
                     <input name="" type="button" id="btnSaveAndExit" class="btn inputBlock mb-5 btnSaveAndExit btn_editsession" value="حفظ و خروج" />
                     <input name="" type="button" id="various1" data-div="#inline1" class="btn inputBlock mb-5 btn_editsession" value="عودة للنص الأصلى" />
-                    <div class="h2" style="margin-top: 15px;"> <input name="chkIgnoredSegment" id="chkIgnoredSegment" runat="server" class="chkIgnoredSegment" type="checkbox" value="" />
-                   <label for="chkIgnoredSegment">تجاهل هذا المقطع</label></div>
+                    <input name="" runat="server" disabled="disabled" id="btnPreview" type="button" class="btn inputBlock mb-5 btnPreview btn_editsession" value="عرض الملف كاملا" />
+                    <div class="h2" style="margin-top: 15px;"> <input name="chkIgnoredSegment" id="chkIgnoredSegment" runat="server" class="chkIgnoredSegment" type="checkbox" value=""/>
+                    <label for="chkIgnoredSegment">تجاهل هذا المقطع</label></div>
                    
                    <%-- <input id="Button1" class="btn inputBlock mb-5" type="button" value="خطأ" onclick="return Button1_onclick()" />--%>
                 </div>

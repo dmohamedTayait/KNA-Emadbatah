@@ -667,7 +667,9 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             switch (textDirection)
             {
                 case ParagrapJustification.RTL:
-                    justification.Val = JustificationValues.Right;
+                    //justification.Val = JustificationValues.Right;
+                    justification.Val = JustificationValues.LowKashida;
+                    paragraphProp.Append(biDi1);
                     break;
                 case ParagrapJustification.LTR:
                     justification.Val = JustificationValues.Left;

@@ -49,6 +49,9 @@ namespace TayaIT.Enterprise.EMadbatah.Config
 
             public string AJAX_FUNCTION_NAME { get { return "funcname"; } }
 
+            public string LAST_SEGMENT { get { return "lastItem"; } }
+            public string EDIT_FILE_OWNER { get { return "editfileowner"; } }
+
             //for Admin
             public string USER_NAME { get { return "username"; } }
             public string USER_EMAIL { get { return "useremail"; } }

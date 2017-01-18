@@ -161,6 +161,7 @@
     <EntitySetMapping Name="SessionFiles">
       <EntityTypeMapping TypeName="EMadbatahModel.SessionFile">
         <MappingFragment StoreEntitySet="SessionFile">
+          <ScalarProperty Name="IsLastSegment" ColumnName="IsLastSegment" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="FileError" ColumnName="FileError" />
           <ScalarProperty Name="FileReviewerID" ColumnName="FileReviewerID" />

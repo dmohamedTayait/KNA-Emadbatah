@@ -599,6 +599,43 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
         }
 
+
+        public static List<SessionContentItem> GetSessionContentItemsBySessionFileID(long sessionFileID)
+        {
+            try
+            {
+                //List<List<SessionContentItem>> toRet = new List<List<SessionContentItem>>();
+                List<SessionContentItem> tempRet = new List<SessionContentItem>();
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    List<SessionContentItem> sessionContentItems = context.SessionContentItems.Where(c => c.SessionFileID == sessionFileID).OrderBy(c => c.FragOrderInXml).ToList<SessionContentItem>();
+
+                    foreach (SessionContentItem it in sessionContentItems)
+                    {
+                        it.AgendaItem = it.AgendaItem;
+                        it.Attendant = it.Attendant;
+                        it.Reviewer = it.Reviewer;
+                        it.User = it.User;
+                        it.SessionFile.FileReviewer = it.SessionFile.FileReviewer;
+                        it.SessionFile = it.SessionFile;
+
+                        if (!it.Ignored.Value)
+                            tempRet.Add(it);
+                    }
+
+
+                    return tempRet;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.GetSessionContentItemsBySessionFileID(" + sessionFileID + ")");
+                return null;
+            }
+
+        }
+
+
         public static List<List<SessionContentItem>> GetItemsBySessionIDGroupedBySessionFile(long sessionID)
         {
             try
@@ -1288,7 +1325,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     if (updated_session_content_item != null)
                     {
                         updated_session_content_item.Text = text== null ? updated_session_content_item.Text: text;
-                        updated_session_content_item.CreatedDate = DateTime.Now;
+                        updated_session_content_item.UpdateDate = DateTime.Now;
                     }
                     int res = context.SaveChanges();
                     return res;
@@ -1322,7 +1359,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
             catch (Exception ex)
             {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.UpdateSessionContentItemText(" + sessionContentItemID + ")");
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.UpdateSessionContentItemAgendaItemID(" + sessionContentItemID + ")");
                 return -1;
             }
         }

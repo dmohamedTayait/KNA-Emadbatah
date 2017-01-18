@@ -335,7 +335,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 foreach (SessionFile sf in sessionFiles)
                 {
                     if (sf.IsActive == 1)
-                        sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.FileReviewer.FName, (DateTime)sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,(int)sf.IsActive));
+                        sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.FileReviewer.FName, (DateTime)sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,(int)sf.IsActive,(int)sf.IsLastSegment));
                 }
 
                 SessionDetails detail = GetSessionDetailsFromSessionObj(session);
@@ -794,7 +794,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             sf.FileReviewerID,
                             (sf.FileReviewer != null) ? sf.FileReviewer.FName : null,
                             (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,
-                            (int)sf.IsActive));
+                            (int)sf.IsActive,
+                            (int)sf.IsLastSegment));
                     }
                 }
             }

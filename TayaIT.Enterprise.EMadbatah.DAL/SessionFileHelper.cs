@@ -20,8 +20,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         Name = name,
                         DurationSecs = durationSec,
                         Order = order,
-                        IsActive = 1
-                        
+                        IsActive = 1,
+                        IsLastSegment = 0
                     };
                     context.SessionFiles.AddObject(file);
                     context.SaveChanges();
@@ -54,11 +54,12 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                                 Order = sf.Order,
                                 SessionID = sf.SessionID,
                                 Status = sf.Status,
-                                IsActive = 1
+                                IsActive = sf.IsActive,
+                                IsLastSegment = sf.IsLastSegment
                             });
                         }
                     }
-
+ 
                     context.SaveChanges();
                     return true;
                 }
@@ -424,6 +425,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+
+        public static int UpdateSessionFileLastSegmentFlag(long sessionFileID)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    SessionFile updatedSessionFile = context.SessionFiles.FirstOrDefault(c => c.ID == sessionFileID);
+                    if (updatedSessionFile != null)
+                    {
+                        updatedSessionFile.IsLastSegment = 1;
+                        int res = context.SaveChanges();
+                        return res;
+                    }
+                    else
+                        return -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.UpdateSessionFileLastSegmentFlag(" + sessionFileID + ")");
+                return -1; ;
+            }
+        }
 
         public static int UpdateSessionFileModifiedDate(long sessionFileID, DateTime ModifiedDate)
         {

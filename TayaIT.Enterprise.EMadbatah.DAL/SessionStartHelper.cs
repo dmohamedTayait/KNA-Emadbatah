@@ -47,7 +47,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         LastModefied = DateTime.Now,
                         Name = startName,
                         Status = 3,
-                        IsActive = 1
+                        IsActive = 1,
+                        IsLastSegment= 0
                     };
                     context.SessionFiles.AddObject(session_start_item);
                     int result = context.SaveChanges();
@@ -76,7 +77,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         SessionID = sessionID,
                         Name = startName,
                         Status = 1,
-                        IsActive = 1
+                        IsActive = 1,
+                        IsLastSegment = 0
                     };
                     context.SessionFiles.AddObject(session_start_item);
                     int result = context.SaveChanges();

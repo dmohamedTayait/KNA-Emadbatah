@@ -241,6 +241,7 @@
                                                         <a href="EditSessionFile.aspx?sfid=<%=saf.ID%>&sid=<%=saf.SessionID%>">[استكمال التعديل]</a><%}
                                                                                 else
                                                                                 {%><br />
+                                                                               
                                                         <a href="SessionStart.aspx?sid=<%=saf.SessionID%>">[استكمال التعديل]</a><%}
                                                                             }
                                                                             break;
@@ -263,8 +264,19 @@
                                                                                             default:
                                                                                                 break;
                                                                     }
+                                                                    
+                                                                     if ((saf.UserID == CurrentUser.ID || saf.UserID == null))
+                                                                        {
+                                                                            if(saf.IsLastSegment == 1 && !saf.IsSessionStart)
+                                                                            {%>
+                                                                            <br />
+                                                                           <a href="PreReview.aspx?sfid=<%=saf.ID%>">[مراجعة الملف]</a>
+                                                                           <% }
+                                                                        }
                                                                 }
                                                         %>
+
+
                                                     </td>
                                                     <td title="<%=sessionFileOwnerName%>">
                                                         <span>
@@ -286,7 +298,7 @@
                                                             </div>
                                                         </div>
                                                         <%} %>
-                                                        <% if(!saf.IsSessionStart)   {   %>
+                                                        <% if(CurrentUser.Role == UserRole.Admin && !saf.IsSessionStart)   {   %>
                                                             <div class="removeFile" style="cursor:pointer;color:Red;font-weight:bold">حذف الملف</div>
                                                         <%} %>
                                                     </td>

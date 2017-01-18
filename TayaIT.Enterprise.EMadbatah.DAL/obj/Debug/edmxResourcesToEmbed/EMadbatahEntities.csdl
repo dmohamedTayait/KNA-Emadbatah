@@ -345,6 +345,7 @@
     <NavigationProperty Name="FileReviewer" Relationship="EMadbatahModel.FK_SessionFile_FileReviewer" FromRole="SessionFile" ToRole="User" />
     <Property Type="Int32" Name="FileError" />
     <Property Type="Int32" Name="IsActive" />
+    <Property Type="Int32" Name="IsLastSegment" />
   </EntityType>
   <EntityType Name="SessionFileStatus">
     <Key>

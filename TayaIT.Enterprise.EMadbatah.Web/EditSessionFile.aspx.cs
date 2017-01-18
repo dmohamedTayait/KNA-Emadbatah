@@ -111,6 +111,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 SessionContentItem currContItem = SessionContentItemHelper.GetSessionContentItemById(long.Parse(SessionContentItemID));
                 FragOrder = currContItem.FragOrderInXml;
             }
+
+            if (currentPageMode == EditorPageMode.Edit && SessionContentItemID != null)
+            {
+                SessionContentItem currContItem = SessionContentItemHelper.GetSessionContentItemById(long.Parse(SessionContentItemID));
+                FragOrder = currContItem.FragOrderInXml;
+            }
             //ibrahim: need to know how many fargments are there in the file and this will be done once
             // set XML,MP3 file path
             string xmlFilePath = Context.Server.MapPath("~") + file.Name.ToLower().Replace(".mp3", ".trans.xml");
@@ -151,7 +157,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 html = lastContentItem.Text;
                 current_session_info["PargraphStartTime"] = lastContentItem.StartTime;
                 current_session_info["PargraphEndTime"] = lastContentItem.EndTime;
-                hdSessionContentItemID.Value = tmpSessionContentItemID.ToString(); ;
+                hdSessionContentItemID.Value = lastContentItem.ID.ToString();//tmpSessionContentItemID.ToString(); ;
                 startTime.Value = lastContentItem.StartTime.ToString();
                 endTime.Value = lastContentItem.EndTime.ToString();
             }
@@ -304,8 +310,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 else
                     isSessionPresident.Attributes.Add("checked", "checked");
 
-                 if (lastContentItem.Ignored == null && lastContentItem.Ignored == false)
-                    chkIgnoredSegment.Attributes.Remove("checked");
+                if (lastContentItem.Ignored == null || lastContentItem.Ignored == false)
+                    // chkIgnoredSegment.Attributes.Remove("checked");
+                    chkIgnoredSegment.Checked = false;
                 else
                     chkIgnoredSegment.Attributes.Add("checked", "checked");
 
@@ -386,8 +393,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 if (FragOrder >= p.Count - 1)
                 {
                     btnFinish.Attributes.Remove("disabled");
+                    btnPreview.Attributes.Remove("disabled");
                     btnNext.Attributes.Add("disabled", "disabled");
                     btnFinish.Attributes.CssStyle.Add("display", "inline");
+                    btnPreview.Attributes.CssStyle.Add("display", "inline");
                 }
                 //else
                 //    if(FragOrder > 0 )
@@ -406,6 +415,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 btnPrev.Attributes.Remove("disabled");
                 btnFinish.Attributes.Remove("disabled");
                 btnFinish.Attributes.CssStyle.Add("display", "inline");
+                btnPreview.Attributes.Remove("disabled");
+                btnPreview.Attributes.CssStyle.Add("display", "inline");
                
                 if (FragOrder == 0)//FragOrder == 0 || 
                 {
@@ -432,8 +443,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 if (FragOrder >= p.Count - 1)
                 {
                     btnFinish.Attributes.Remove("disabled");
+                    btnPreview.Attributes.Remove("disabled");
                     btnNext.Attributes.Add("disabled", "disabled");
                     btnFinish.Attributes.CssStyle.Add("display", "inline");
+                    btnPreview.Attributes.CssStyle.Add("display", "inline");
                 }
 
             }
@@ -442,7 +455,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             {
                 btnFinish.Attributes.Remove("disabled");
                 btnFinish.Attributes.CssStyle.Add("display", "inline");
-
+                btnPreview.Attributes.Remove("disabled");
+                btnPreview.Attributes.CssStyle.Add("display", "inline");
             }
             bool isReEdit=false;
             if (ReEdit != null && bool.TryParse(ReEdit, out isReEdit))
@@ -451,6 +465,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 {
                     btnFinish.Attributes.Remove("disabled");
                     btnFinish.Attributes.CssStyle.Add("display", "inline");
+                    btnPreview.Attributes.Remove("disabled");
+                    btnPreview.Attributes.CssStyle.Add("display", "inline");
                 }
 
             }
@@ -458,6 +474,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             {
                 btnFinish.Attributes.Remove("disabled");
                 btnFinish.Attributes.CssStyle.Add("display", "inline");
+                btnPreview.Attributes.Remove("disabled");
+                btnPreview.Attributes.CssStyle.Add("display", "inline");
             }
 
             /*if (currentPageMode != EditorPageMode.Edit)

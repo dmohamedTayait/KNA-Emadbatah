@@ -90,6 +90,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             GetSpeakersList,
             SaveSessionContentItem,
             UpdateSessionFileStatusCompleted,
+            UpdateCompletedSessionFileStatusCompleted,
             SplitItem,
             GetSpeakerJobTitle,
             GetSpeakerJobTitleAndAvatar

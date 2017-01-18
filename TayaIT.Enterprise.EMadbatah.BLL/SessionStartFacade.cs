@@ -137,7 +137,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
            DefaultAttendant att = DefaultAttendantHelper.GetAttendantById(details.PresidentID);
            if (att != null)
            {
-               president = att.AttendantTitle + " " + att.Name;
+               president = att.AttendantTitle + " " + att.LongName;
                if (att.Type == (int)Model.AttendantType.President)
                    presidentTitle = "رئيس مجلس الأمة";
                else if (att.Type != (int)Model.AttendantType.President && att.JobTitle != null)

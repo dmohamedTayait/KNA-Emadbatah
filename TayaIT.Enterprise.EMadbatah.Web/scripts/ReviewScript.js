@@ -255,9 +255,16 @@ $(document).ready(function () {
 
 
             $('#IsSessionStartHidden').val($(this).attr('data-isSessionStart'));
-
+            mode = 3;
+            sfid = $(this).attr('data-sfid');
+            sid = getParameterByName('sid');
+            if (window.location.pathname.toLowerCase().indexOf("prereview") != -1) {
+                mode = 1;
+                sfid = getParameterByName('sfid');
+                sid = $('.SessionIDHidden').val();
+            }
             if ($('#IsSessionStartHidden').val() == "0")
-                $("#lnkMoreEditOptions").attr('style', 'display:block').attr('href', 'EditSessionFile.aspx?scid=' + $(this).attr('data-scid') + '&sfid=' + $(this).attr('data-sfid') + '&editmode=3&sid=' + getParameterByName('sid'));
+                $("#lnkMoreEditOptions").attr('style', 'display:block').attr('href', 'EditSessionFile.aspx?scid=' + $(this).attr('data-scid') + '&sfid=' + sfid + '&editmode=' + mode + '&sid=' + sid);
             else
                 $("#lnkMoreEditOptions").attr('style', 'display:none');
 
@@ -525,6 +532,86 @@ $(document).ready(function () {
         $(".popupoverlay").hide();
         $(".reviewpopup_cont").hide();
     });
+
+    $('#saveForDataEntry').click(function () {
+        $('.absLoad.loading').show();
+        //var ed = $('.reviewpopup_cont')
+        // Do you ajax call here, window.setTimeout fakes ajax call
+        //ed.setProgressState(1); // Show progress
+        lastEditedDiv.attr("data-revnote", $('#note').val())
+
+        var calledFuncName = 'UpdateSessionContentItemText';
+        var calledHandlerName = 'ReviewerHandler.ashx';
+        if ($('#IsSessionStartHidden').val() == '1') {
+            calledFuncName = 'SaveSessionStart';
+            calledHandlerName = 'SessionStartHandler.ashx';
+        }
+
+        jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: calledHandlerName, //'ReviewerHandler.ashx',
+            data: {
+                funcname: calledFuncName,
+                scid: $('#SessionContentItemIDHidden').val(), //used ofr item,
+                sid: $('#MainContent_SessionIDHidden').val(), //used ofr start
+                sfid: $('#SessionContentItemIDHidden').val(), //used ofr start
+                contentitemtext: htmlEncode($("textarea.tinymce").val()), //used ofr start and item
+                reviewernote: $('#note').val(), //used ofr start and item
+                editfileowner: $('#MainContent_currentUserID').val()
+            },
+            success: function (response) {
+                if (response != '1') {
+                    alert('لقد حدث خطأ');
+
+                    //ed.setProgressState(0); // Hide progress
+                    //ed.setContent(html);
+                } else {
+                    $('#note').val("");
+                    lastEditedDiv.html($("textarea.tinymce").html());
+                    //lastEditedDiv.val($("textarea.tinymce").html());
+                }
+                $('.absLoad.loading').hide();
+            },
+            error: function () {
+                $('.absLoad.loading').hide();
+            }
+        });
+        // close popup
+        $.fancybox.close()
+        $(".popupoverlay").hide();
+        $(".reviewpopup_cont").hide();
+    });
+    function getParameterByName(name) {
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+    // finish: save and exit button onclick
+    $(".btnfinishSF").click(function () {
+        var sessionID = $(".sessionID").val();
+        jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: 'EditSessionHandler.ashx',
+            data: {
+                funcname: 'UpdateCompletedSessionFileStatusCompleted',
+                sid: $('#MainContent_SessionIDHidden').val(), //used ofr start
+                sfid: getParameterByName("sfid")
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response == "true") {
+                    window.location = "default.aspx";
+                } else {
+                    alert("لقد حدث خطأ");
+                }
+            },
+            error: function () {
+                alert("لقد حدث خطأ");
+            }
+        });
+    });
+
 
     $('.btnApproveSession').click(function () {
 

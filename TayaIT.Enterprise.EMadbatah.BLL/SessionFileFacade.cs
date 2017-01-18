@@ -20,7 +20,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             {
                 foreach (SessionFile sf in sessionFiles)
                 {
-                    sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.FileReviewer.FName, (DateTime)sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,(int)sf.IsActive));
+                    sessionAudioFiles.Add(new SessionAudioFile(sf.ID, (long)sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, sf.FileReviewer.FName, (DateTime)sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,(int)sf.IsActive,(int)sf.IsLastSegment));
                 }
 
                 return sessionAudioFiles;
@@ -33,7 +33,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         {
             SessionFile sf = new SessionFile();
             sf = SessionFileHelper.GetSessionFileByID(sessionFileID);
-            return new SessionAudioFile(sf.ID, sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, (sf.FileReviewer == null ? null : sf.FileReviewer.FName), sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,(int)sf.IsActive);
+            return new SessionAudioFile(sf.ID, sf.UserID, sf.SessionID, sf.Name, sf.LastInsertedFragNumInXml, sf.Order, sf.DurationSecs, (Model.SessionFileStatus)sf.Status, (sf.FileReviewer == null ? null : sf.FileReviewer.FName), sf.LastModefied, sf.FileReviewer == null ? null : sf.FileReviewer.Email, sf.IsSessionStart, sf.SessionStartText, sf.FileReviewerID, (sf.FileReviewer != null) ? sf.FileReviewer.FName : null, (sf.FileReviewer != null) ? sf.FileReviewer.Email : null,(int)sf.IsActive,(int)sf.IsLastSegment);
         }
         public static bool LockSessionFile(long sessionFileID, long userID, bool isAdmin)
         {
@@ -57,7 +57,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     Order = file.Order,
                     Status = (int)file.Status,
                     SessionID = sessionID,
-                    IsActive = 1
+                    IsActive = file.IsActive,
+                    IsLastSegment = file.IsLastSegment
                 });
             }
             

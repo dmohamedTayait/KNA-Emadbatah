@@ -550,6 +550,27 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             }
                             break;
                         }
+                    case WebFunctions.EditWizard.UpdateCompletedSessionFileStatusCompleted:
+                        {
+                            long sessionID, sessionFileID;
+                          
+                            if (SessionID != null && long.TryParse(SessionID, out sessionID) && SessionFileID != null && long.TryParse(SessionFileID, out sessionFileID))
+                            {
+                                SessionFileHelper.UpdateSessionFileStatus(sessionFileID, (int)Model.SessionFileStatus.Completed, null);
+                                SessionDetails sd = EMadbatahFacade.GetSessionDetailsBySessionID(sessionID);
+                                var notCompletedSessionFiles = from sf in sd.SessionFiles
+                                                               where ((sf.ID != sessionFileID) &&
+                                                                      (sf.Status != Model.SessionFileStatus.Completed))
+                                                               select sf;
+
+                                if (notCompletedSessionFiles.ToList<SessionAudioFile>().Count == 0)
+                                {
+                                    EMadbatahFacade.UpdateSessionStatus(sessionID, Model.SessionStatus.Completed);
+                                }
+                            }
+                            jsonStringOut = SerializeObjectInJSON("true");//SerializeObjectInJSON(SaveAndExit(out currentSession));
+                            break;
+                        }
                     case WebFunctions.EditWizard.SplitItem:
                         {
                             long currentFragOrder = -1;
@@ -800,6 +821,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                     else
                         SessionFileHelper.UpdateSessionFileModifiedDate(Session_File_ID, DateTime.Now);
                     //SessionFileHelper.UpdateSessionFileStatus(Session_File_ID, (int)Model.SessionFileStatus.Completed);
+
+                    //update segment last order flag
+                    if (LastSegment != null && int.Parse(LastSegment) == 1)
+                        SessionFileHelper.UpdateSessionFileLastSegmentFlag(Session_File_ID);
 
                     int editMode = 0;
                     if (EditPageMode != null && int.TryParse(EditPageMode, out editMode))

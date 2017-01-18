@@ -1,0 +1,122 @@
+----------------------------------------
+Timestamp: 9/20/2016 12:39:21 PM
+
+Category: SessionID: 189  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_id5chscx</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/20/2016 12:39:22 PM
+
+Category: SessionID: 189  - Priority: -1 - Title:Object reference not set to an instance of an object.
+
+Message: <SOURCE>App_Web_id5chscx</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.Web.Review.Page_Load(Object sender, EventArgs e) in e:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Web\Review.aspx.cs:line 117</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/20/2016 5:31:09 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AddNewSessionContentItem(138,209,748)  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.AddNewSessionContentItem(Int64 sessionFileID, Int64 sessionID, String item_text, Int32 attendantID, Int32 agendaItemID, Nullable`1 agendaSubItemID, Int64 userID, Int32 statusID, String commentOnText, String commentOnAttendant, String footer, Nullable`1 mergedWithPrev, Int32 fragmentOrderInXML, Single startTime, Single endTime, Single duration, Boolean ignored, Nullable`1 attachID, Nullable`1 voteID, Int32 isSessionPresident) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionContentItemHelper.cs:line 72</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The INSERT statement conflicted with the FOREIGN KEY constraint "FK_SessionContentItem_Attendant". The conflict occurred in database "Emadbatah", table "dbo.Attendant", column 'ID'.
+The statement has been terminated.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/21/2016 11:53:39 AM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessions(0,10)  - Priority: -1 - Title:An error occurred while reading from the store provider's data reader. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()
+   at System.Data.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Objects.DataClasses.RelatedEnd.Merge[TEntity](IEnumerable`1 collection, MergeOption mergeOption, Boolean setIsLoaded)
+   at System.Data.Objects.DataClasses.EntityCollection`1.Load(List`1 collection, MergeOption mergeOption)
+   at System.Data.Objects.DataClasses.EntityCollection`1.Load(MergeOption mergeOption)
+   at System.Data.Objects.DataClasses.RelatedEnd.Load()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessions(Int32 pageNo, Int32 count, Int32 statusCode, Boolean checkEquality) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 231</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.HasMoreRows()
+   at System.Data.SqlClient.SqlDataReader.ReadInternal(Boolean setTimeout)
+   at System.Data.SqlClient.SqlDataReader.Read()
+   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/21/2016 11:53:39 AM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionStartHelper.AddSessionStart()  - Priority: -1 - Title:An error occurred while updating the entries. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionStartHelper.AddSessionStart(String sessionStartText, Int64 sessionID, String startName) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionStartHelper.cs:line 84</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>Violation of UNIQUE KEY constraint 'IX_SessionFile'. Cannot insert duplicate key in object 'dbo.SessionFile'.
+The statement has been terminated.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 9/21/2016 12:09:02 PM
+
+Category: TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessions(0,10)  - Priority: -1 - Title:An error occurred while reading from the store provider's data reader. See the inner exception for details.
+
+Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()
+   at System.Data.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()
+   at System.Data.Objects.DataClasses.RelatedEnd.Merge[TEntity](IEnumerable`1 collection, MergeOption mergeOption, Boolean setIsLoaded)
+   at System.Data.Objects.DataClasses.EntityCollection`1.Load(List`1 collection, MergeOption mergeOption)
+   at System.Data.Objects.DataClasses.EntityCollection`1.Load(MergeOption mergeOption)
+   at System.Data.Objects.DataClasses.RelatedEnd.Load()
+   at TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessions(Int32 pageNo, Int32 count, Int32 statusCode, Boolean checkEquality) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\SessionHelper.cs:line 231</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.HasMoreRows()
+   at System.Data.SqlClient.SqlDataReader.ReadInternal(Boolean setTimeout)
+   at System.Data.SqlClient.SqlDataReader.Read()
+   at System.Data.Common.Internal.Materialization.Shaper`1.StoreRead()</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------

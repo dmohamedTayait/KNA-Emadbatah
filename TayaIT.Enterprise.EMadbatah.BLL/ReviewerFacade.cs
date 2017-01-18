@@ -21,9 +21,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         {
             return SessionContentItemHelper.UpdateSessionContentItemStatus(sessionContentItemId, (int)Model.SessionContentItemStatus.Rejected, note, user.ID, (user.Role == UserRole.FileReviewer));
         }
-        public static int UpdateSessionContentItemText(long sessionContentItemId, string text, long reviewerUserID, string reviewerNote)
+        public static int UpdateSessionContentItemText(long sessionContentItemId, string text, long reviewerUserID, string reviewerNote,string userId)
         {
-            return SessionContentItemHelper.UpdateSessionContentItemForReviewer(sessionContentItemId, text,reviewerUserID,reviewerNote);
+            if (userId == "")
+                return SessionContentItemHelper.UpdateSessionContentItemForReviewer(sessionContentItemId, text, reviewerUserID, reviewerNote);
+            else return SessionContentItemHelper.UpdateSessionContentItemText(sessionContentItemId, text);
         }
         public static bool ApproveSession(long sessionId)
         {

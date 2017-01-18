@@ -76,6 +76,7 @@ $(document).ready(function () {
                 error: function () {
                     spnMessage.text("لقد حدث خطأ");
                     $('.absLoad.loading').hide();
+                    $('.btnConfirm').removeAttr('disabled');
                 }
             });
         }
@@ -156,17 +157,17 @@ $(document).ready(function () {
             success: function (response) {
                 if (response == 'true') {
                     $("tr [data-id=" + sessionFileID + "]").animate({
-    opacity: 0.25,
-    left: "+=50",
-    height: "toggle"
-}, 2000, function() {
-    $(this).remove();
-});
+                        opacity: 0.25,
+                        left: "+=50",
+                        height: "toggle"
+                    }, 2000, function () {
+                        $(this).remove();
+                    });
 
 
-                  
+
                     alert("تم الحذف بنجاح");
-                   
+
                 }
             },
             error: function () {

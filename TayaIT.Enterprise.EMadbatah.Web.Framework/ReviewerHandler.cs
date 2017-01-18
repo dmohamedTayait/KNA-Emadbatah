@@ -211,7 +211,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         case WebFunctions.ReviewFunctions.UpdateSessionContentItemText:
                             if (SessionContentItemID != null && long.TryParse(SessionContentItemID, out sessionContentItemId) && SessionContentItemText !=null)
                             {
-                                int res = ReviewerFacade.UpdateSessionContentItemText(sessionContentItemId, System.Web.HttpUtility.HtmlDecode(SessionContentItemText), CurrentUser.ID, ReviewerNote);
+                                int res = ReviewerFacade.UpdateSessionContentItemText(sessionContentItemId, System.Web.HttpUtility.HtmlDecode(SessionContentItemText), CurrentUser.ID, ReviewerNote, EditFileOwner == null ? "" : EditFileOwner);
                                 jsonStringOut = SerializeObjectInJSON(res);
                             }
                             break;

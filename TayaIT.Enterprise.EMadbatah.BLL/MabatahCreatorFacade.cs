@@ -348,8 +348,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             j++;
 
 
-                            if (!sessionItem.MergedWithPrevious.Value)
-                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                            /*if (!sessionItem.MergedWithPrevious.Value)
+                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");*/
 
                            
                             if (!string.IsNullOrEmpty(sessionItem.CommentOnText))
@@ -409,37 +409,39 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
         }
 
-        public static void WriteAttendantInWord(SessionContentItem contentItem,Attendant att,WordprocessingWorker doc)
+        public static void WriteAttendantInWord(SessionContentItem contentItem, Attendant att, WordprocessingWorker doc)
         {
-
-            string attFullPresentationName = "";
-            if ((Model.AttendantType)att.Type == Model.AttendantType.President)
+            if (att.Type != (int)Model.AttendantType.UnAssigned)
             {
-                doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-            }
-            else
-            {
-                if (contentItem.IsSessionPresident == 1)
+                string attFullPresentationName = "";
+                if ((Model.AttendantType)att.Type == Model.AttendantType.President)
                 {
-                    doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                    if (att.AttendantTitle == null)
-                        attFullPresentationName = "السيد " + att.ShortName.Trim();
-                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
-                    attFullPresentationName = "( " + attFullPresentationName;
-                    if (att.Type != 3)
-                        attFullPresentationName = attFullPresentationName + ")";
-                    doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                    if (att.Type == 3)
-                        doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    doc.AddParagraph("السيد الرئيـــــــــــــــــــــــــــس :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
                 }
                 else
                 {
-                    if (att.AttendantTitle == null)
-                        attFullPresentationName = "السيد " + att.ShortName.Trim();
-                    else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
-                    doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                    if (att.Type == 3)
-                        doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    if (contentItem.IsSessionPresident == 1)
+                    {
+                        doc.AddParagraph("السيد رئيـس الجلســـــــــــــــــــــــة :", ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                        if (att.AttendantTitle == null)
+                            attFullPresentationName = "السيد " + att.ShortName.Trim();
+                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
+                        attFullPresentationName = "( " + attFullPresentationName;
+                        if (att.Type != 3)
+                            attFullPresentationName = attFullPresentationName + ")";
+                        doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        if (att.Type == 3)
+                            doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    }
+                    else
+                    {
+                        if (att.AttendantTitle == null)
+                            attFullPresentationName = "السيد " + att.ShortName.Trim();
+                        else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
+                        doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
+                        if (att.Type == 3)
+                            doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    }
                 }
             }
         }

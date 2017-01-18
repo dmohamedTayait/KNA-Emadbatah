@@ -79,7 +79,7 @@ textarea.fitAll {
 .smallbtn 
 {
     background-image:url('../images/btn-bg.png');
-    padding: 10px;
+    padding: 6px;
     border:1px solid #fff;
     cursor: pointer;
     font-size: 11pt;
@@ -1730,4 +1730,8 @@ span.revFilelock {
     overflow:hidden;
     height: 208px;
     text-align:center;
+}
+.sc-hr
+{
+    border:0px !important;
 }

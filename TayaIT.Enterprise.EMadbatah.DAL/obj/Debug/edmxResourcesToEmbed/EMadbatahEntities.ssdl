@@ -375,6 +375,7 @@
     <Property Name="FileReviewerID" Type="bigint" />
     <Property Name="FileError" Type="int" />
     <Property Name="IsActive" Type="int" />
+    <Property Name="IsLastSegment" Type="int" />
   </EntityType>
   <EntityType Name="SessionFileStatus">
     <Key>

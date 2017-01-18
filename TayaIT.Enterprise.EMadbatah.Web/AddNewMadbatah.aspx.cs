@@ -22,8 +22,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-           TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137, "/test/137/", "");
-             //string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(155);
+          // TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(198, "/test/198/", "");
+             string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(155);
 
             string htmlText = "<span>test span</span> <span>test span2</span> test betweeen line<p procedure-id>test div</p>test between line2<p procedure-id>test div2</p>";
             Regex regex = new Regex(@"<p procedure-id[^>]*?>(.*?)</p>", RegexOptions.IgnorePatternWhitespace);

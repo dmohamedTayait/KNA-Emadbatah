@@ -172,6 +172,22 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
              }
          }
 
+         public string LastSegment
+         {
+             get
+             {
+                 return WebHelper.GetQSValue(Constants.QSKeyNames.LAST_SEGMENT, _context);
+             }
+         }
+
+         public string EditFileOwner
+         {
+             get
+             {
+                 return WebHelper.GetQSValue(Constants.QSKeyNames.EDIT_FILE_OWNER, _context);
+             }
+         }
+
          public string AjaxFunctionName
          {
              get
