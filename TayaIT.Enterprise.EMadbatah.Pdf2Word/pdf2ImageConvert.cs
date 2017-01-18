@@ -19,6 +19,8 @@ namespace TayaIT.Enterprise.EMadbatah.Pdf2Word
         {
             //String pdfFilePath = "Madbtah.pdf";
             int pagenos = getNumberOfPdfPages(pdfFilePath);
+            if(pagenos < 1)
+                pagenos = GetPDFPageCount(pdfFilePath);
             convert(pdfFilePath, pagenos);
         }
 

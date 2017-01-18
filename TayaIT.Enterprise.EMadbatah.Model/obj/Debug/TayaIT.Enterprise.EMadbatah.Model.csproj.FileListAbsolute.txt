@@ -12,3 +12,7 @@ I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterpri
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb

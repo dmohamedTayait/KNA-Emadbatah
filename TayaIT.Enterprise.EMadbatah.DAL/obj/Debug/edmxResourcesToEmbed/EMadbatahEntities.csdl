@@ -206,7 +206,6 @@
     <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="NameInWord" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -728,7 +727,6 @@
     <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Type="String" Name="NameInWord" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_Attendant_DefaultAttendant">
     <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />

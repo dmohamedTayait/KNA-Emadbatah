@@ -199,7 +199,6 @@
     <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
     <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
     <Property Name="LongName" Type="nvarchar" MaxLength="500" />
-    <Property Name="NameInWord" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -247,7 +246,6 @@
     <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
     <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
     <Property Name="LongName" Type="nvarchar" MaxLength="500" />
-    <Property Name="NameInWord" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="MadbatahFilesStatus">
     <Key>

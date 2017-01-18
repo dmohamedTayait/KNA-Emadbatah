@@ -29,3 +29,12 @@ I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.E
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.EmadbatahRes.resources
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.EmadbatahRes.ar.resources
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.csproj.GenerateResource.Cache
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb

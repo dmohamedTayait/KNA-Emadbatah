@@ -31,3 +31,12 @@ I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.O
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.csprojResolveAssemblyReference.cache
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.xml
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.csprojResolveAssemblyReference.cache
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb

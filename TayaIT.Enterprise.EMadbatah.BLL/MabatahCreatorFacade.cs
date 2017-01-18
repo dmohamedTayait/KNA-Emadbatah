@@ -49,11 +49,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     throw new Exception("Index with Attachment Creation Failed.");
 
                 //Speakers Index
-                int speakerSize = MabatahCreatorFacade.CreateSpeakersIndex(speakersIndex,
-                  coverSize + sessionStartSize + indexSize - 1, //2 for att cover + speakers cover
-                  ServerMapPath, SessionWorkingDir + "indexSpeakers.docx");
+                int speakerSize = 0;
+                 speakerSize = MabatahCreatorFacade.CreateSpeakersIndex(speakersIndex, speakerSize, ServerMapPath, SessionWorkingDir + "indexSpeakers.docx");
                 if (speakerSize == -1)
                     throw new Exception("Speakers Index Creation Failed.");
+
+                MabatahCreatorFacade.CreateMadbatahIndex(index, SessionWorkingDir, indexSize + speakerSize + 2, bodySize, SessionWorkingDir + "indexDoc.docx", ServerMapPath, details);
+                MabatahCreatorFacade.CreateSpeakersIndex(speakersIndex, indexSize + speakerSize + 2, ServerMapPath, SessionWorkingDir + "indexSpeakers.docx");
 
                 //Merga All Generated Files
                 List<string> mergeList = new List<string>();
@@ -113,7 +115,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
             NumberingFormatter fomratterFemale = new NumberingFormatter(false);
             NumberingFormatter fomratterMale = new NumberingFormatter(true);
-            string sessionName = details.Type + " / " + details.EparlimentID.ToString();//EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
+            string sessionName = details.EparlimentID.ToString() + " / " + details.Type; //EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
 
             string timeInHour = "الساعة ";
             timeInHour += LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour);
@@ -274,15 +276,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 k++;
                                 if (contentItem.AttachementID != null)
                                 {
+                                    string attachName = "";
                                     Attachement attach = AttachmentHelper.GetAttachementByID(int.Parse(contentItem.AttachementID.ToString()));
-                                    System.IO.File.WriteAllBytes(SessionWorkingDir + attach.Name, attach.FileContent);
-                                    FileInfo fInfo = new FileInfo(SessionWorkingDir + attach.Name);
+                                    attachName = "attach_" + attach.ID.ToString() + ".pdf";
+                                    System.IO.File.WriteAllBytes(SessionWorkingDir + attachName, attach.FileContent);
+                                    FileInfo fInfo = new FileInfo(SessionWorkingDir + attachName);
 
                                     if (fInfo.Extension.ToLower().Equals(".pdf"))
                                     {
-                                        String pdfFilePath = SessionWorkingDir + attach.Name;
+                                        String pdfFilePath = SessionWorkingDir + attachName;
                                         pdf2ImageConvert.convertPdfFile(pdfFilePath);
-                                        string wordAttFilePath = SessionWorkingDir + attach.Name.ToLower().Replace(".pdf", ".pdf.docx");
+                                        string wordAttFilePath = SessionWorkingDir + attachName.ToLower().Replace(".pdf", ".pdf.docx");
                                         string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, "")).OrderBy(p => new FileInfo(p).CreationTime).ToArray(); ;
 
                                         // doc.AddParagraph(contentItemAsText.Replace("&nbsp;", " "), ParagraphStyle.NormalArabic, ParagrapJustification.Both, false, "");
@@ -544,7 +548,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                   + "<br/>"
                   + " </tr><tr><table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingBold; font-size: 14pt;' align='center' cellpadding='5' cellspacing='0'>"
                   + " <tr>"
-                  + "   <th style='border:2px solid #000;width:50px'>م</th>"
+                  + "   <th style='border:2px solid #000'>م</th>"
                   + "   <th style='border:2px solid #000'>الموضوع</th>"
                   + "   <th style='border:2px solid #000'>الصفحات</th>"
                   + " </tr>";
@@ -552,11 +556,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 int i = 1, j = 1;
                 string indx = "";
-                string emptyRowBold = "<tr style=\"font-family: UsedFont;font-size: 14pt;\"><td style='border:2px solid #000;width:50px'>ItemNum</td><td style='text-align:right;border:2px solid #000'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
+                string emptyRowBold = "<tr><td style='border:2px solid #000;font-family: AdvertisingBold;font-size: 14pt;'>ItemNum</td><td style='text-align:right;border:2px solid #000;font-family: UsedFont;font-size: 14pt !important;'>ItemName</td><td style='border:2px solid #000;font-family: AdvertisingBold;font-size: 14pt;'>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
-                string toBeReplaced = emptyRowBold.Replace("ItemNum", "1").Replace("ItemName", "<strong> - أسماء السادة الأعضاء</strong>").Replace("PageNum", "1").Replace("UsedFont", "AdvertisingBold");
+                string toBeReplaced = emptyRowBold.Replace("ItemNum", "1").Replace("ItemName", "- أسماء السادة الأعضاء").Replace("PageNum",( indexSize + 1).ToString()).Replace("UsedFont", "AdvertisingBold");
                 sb.Append(toBeReplaced);
 
                 foreach (MadbatahIndexItem item in index)
@@ -568,7 +572,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     name = item.Name;
                     pageNum = item.PageNum.ToString();
                     string[] pageNums = pageNum.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                    pageNum = pageNums[0];
+                    pageNum = (int.Parse(pageNums[0]) + indexSize).ToString();
                     if (item.IsIndexed == 1)
                     {
                         j++;
@@ -579,7 +583,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         indx = "";
                         font = "AdvertisingMedium";
                     }
-                    toBeReplaced = emptyRowBold.Replace("ItemNum", indx).Replace("ItemName", name).Replace("PageNum", pageNum).Replace("UsedFont", font);
+                    toBeReplaced = emptyRowBold.Replace("ItemNum", indx).Replace("ItemName", " - " + name).Replace("PageNum", pageNum).Replace("UsedFont", font);
                     sb.Append(toBeReplaced);
                 }
 
@@ -616,13 +620,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     <br><br>
                     <table border='1' style='width:100%; border:2px solid #000; border-collapse:collapse; text-align:center; direction: rtl; font-family: AdvertisingBold; font-size: 14pt;' align='center' cellpadding='3' cellspacing='0'>
                         <tr>
-                            <th style='border:2px solid #000'>اسم المتحدث</th>
+                            <th style='border:2px solid #000;width:75%'>اسم المتحدث</th>
                             <th style='border:2px solid #000'>رقم الصفحة</th>
                         </tr>";
             
 
                 int i = 1;
-                string emptyRowBold = "<tr><td style='text-align:right;border:2px solid #000'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
+                string emptyRowBold = "<tr><td style='text-align:right;border:2px solid #000;;width:75%'>ItemName</td><td style='border:2px solid #000'>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
@@ -650,6 +654,15 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 int stats = 0;
                 HTMLtoDOCX hd = new HTMLtoDOCX();
                 hd.CreateFileFromHTML(sb.ToString(), outPath);
+
+                DocXmlParts xmlFilesPaths = WordprocessingWorker.GetDocParts(ServerMapPath + "\\resources\\");
+
+                using (WordprocessingWorker doc = new WordprocessingWorker(outPath, xmlFilesPaths, DocFileOperation.Open))
+                {
+                    WordprocessingWorker doctmp = doc;
+                    stats = doc.CountPagesUsingOpenXML(doc, outPath, xmlFilesPaths, ServerMapPath, out doctmp);//CountPagesUsingOpenXML(DocumentType.DOCX, folderPath + att.Name);
+                    doctmp.Dispose();
+                }
                 return stats;
             }
             catch (Exception ex)

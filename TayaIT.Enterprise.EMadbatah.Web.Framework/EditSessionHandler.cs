@@ -721,7 +721,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         newAtt.State = (int)Model.AttendantState.Attended;
                         newAtt.ShortName = SpeakerName;
                         newAtt.LongName = SpeakerName;
-                        newAtt.NameInWord = SpeakerName;
+                       // newAtt.NameInWord = SpeakerName;
                         AttendantHelper.AddNewSessionAttendant(newAtt, session.ID, out SpeakerID);
                     }
 

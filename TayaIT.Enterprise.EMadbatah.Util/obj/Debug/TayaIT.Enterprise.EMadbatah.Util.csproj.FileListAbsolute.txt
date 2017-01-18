@@ -45,3 +45,12 @@ I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practi
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.csprojResolveAssemblyReference.cache
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
 I:\KNA-Madbatah\5-10\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.csprojResolveAssemblyReference.cache
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb

@@ -1,5 +1,5 @@
 ----------------------------------------
-Timestamp: 10/5/2016 12:30:35 PM
+Timestamp: 08/10/2016 01:18:19 م
 
 Category: approve session  - Priority: -1 - Title:b4 send mail
 
@@ -7,7 +7,7 @@ Message: b4 send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 12:30:36 PM
+Timestamp: 08/10/2016 01:18:20 م
 
 Category: approve session  - Priority: -1 - Title:after send mail
 
@@ -15,7 +15,7 @@ Message: after send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 12:30:36 PM
+Timestamp: 08/10/2016 01:18:20 م
 
 Category: approve session  - Priority: -1 - Title:thread1
 
@@ -23,7 +23,7 @@ Message: thread1
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 12:30:36 PM
+Timestamp: 08/10/2016 01:18:20 م
 
 Category: approve session  - Priority: -1 - Title:start thread
 
@@ -31,20 +31,7 @@ Message: start thread
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 12:36:36 PM
-
-Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
-
-Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
-   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
-   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
-   at System.Net.Mail.SmtpClient.Send(MailMessage message)
-   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 1:35:46 PM
+Timestamp: 08/10/2016 01:23:12 م
 
 Category: approve session  - Priority: -1 - Title:b4 send mail
 
@@ -52,7 +39,7 @@ Message: b4 send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 1:35:47 PM
+Timestamp: 08/10/2016 01:23:12 م
 
 Category: approve session  - Priority: -1 - Title:after send mail
 
@@ -60,7 +47,7 @@ Message: after send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 1:35:47 PM
+Timestamp: 08/10/2016 01:23:12 م
 
 Category: approve session  - Priority: -1 - Title:thread1
 
@@ -68,7 +55,7 @@ Message: thread1
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 1:35:47 PM
+Timestamp: 08/10/2016 01:23:12 م
 
 Category: approve session  - Priority: -1 - Title:start thread
 
@@ -76,20 +63,125 @@ Message: start thread
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 1:41:02 PM
+Timestamp: 08/10/2016 01:23:42 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(137,E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\\Files\137\bodyDoc.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 770
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 745
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.WriteAttendantInWord(SessionContentItem contentItem, Attendant att, WordprocessingWorker doc) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 443
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 254</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:23:42 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137,E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\\Files\137\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 43</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:23:42 م
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:23:44 م
 
 Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
 
 Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
-   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
-   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, MailAddress from, Boolean allowUnicode)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, Boolean allowUnicode, SmtpFailedRecipientException& exception)
    at System.Net.Mail.SmtpClient.Send(MailMessage message)
    at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:02:28 PM
+Timestamp: 08/10/2016 01:23:44 م
+
+Category: SessionID:   - Priority: -1 - Title:The process cannot access the file 'الرسائل الواردة.pdf' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound)
+   at System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   at System.IO.Directory.Delete(String path, Boolean recursive)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1134</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:23:44 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(137,E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\\Files\137\bodyDoc.docx)  - Priority: -1 - Title:Cannot access part because parent package was closed.
+
+Message: <SOURCE>WindowsBase</SOURCE><STACKTRACE>   at System.IO.Packaging.PackagePart.ThrowIfParentContainerClosed()
+   at System.IO.Packaging.PackagePart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.Packaging.OpenXmlPart.GetStream(FileMode mode)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.SaveToPart(OpenXmlPart openXmlPart)
+   at DocumentFormat.OpenXml.OpenXmlPartRootElement.Save()
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.Save() in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 770
+   at TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordprocessingWorker.AddParagraph(String paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, Boolean appendFootNote, String footNoteText) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\WordprocessingWorker.cs:line 745
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.WriteAttendantInWord(SessionContentItem contentItem, Attendant att, WordprocessingWorker doc) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 427
+   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(Int64 sessionID, String outFilePath, String SessionWorkingDir, String ServerMapPath, SessionDetails details, List`1& index, List`1& speakersIndex) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 254</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:23:49 م
+
+Category: TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(137,E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\\Files\137\)  - Priority: -1 - Title:Madbatah Body Creation Failed.
+
+Message: <SOURCE>TayaIT.Enterprise.EMadbatah.BLL</SOURCE><STACKTRACE>   at TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(Int64 sessionID, String SessionWorkingDir, String ServerMapPath) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\MabatahCreatorFacade.cs:line 43</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:23:49 م
+
+Category: ReviewerHandler  - Priority: -1 - Title:show error something went wrong when creating the Madbatah Word/pdf
+
+Message: show error something went wrong when creating the Madbatah Word/pdf
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:23:50 م
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, MailAddress from, Boolean allowUnicode)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, Boolean allowUnicode, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:23:50 م
+
+Category: SessionID:   - Priority: -1 - Title:The process cannot access the file 'الرسائل الواردة.pdf' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.Directory.DeleteHelper(String fullPath, String userPath, Boolean recursive, Boolean throwOnTopLevelDirectoryNotFound)
+   at System.IO.Directory.Delete(String fullPath, String userPath, Boolean recursive, Boolean checkHost)
+   at System.IO.Directory.Delete(String path, Boolean recursive)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1134</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:25:01 م
 
 Category: approve session  - Priority: -1 - Title:b4 send mail
 
@@ -97,7 +189,7 @@ Message: b4 send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:02:30 PM
+Timestamp: 08/10/2016 01:25:01 م
 
 Category: approve session  - Priority: -1 - Title:after send mail
 
@@ -105,7 +197,7 @@ Message: after send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:02:30 PM
+Timestamp: 08/10/2016 01:25:01 م
 
 Category: approve session  - Priority: -1 - Title:thread1
 
@@ -113,7 +205,7 @@ Message: thread1
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:02:30 PM
+Timestamp: 08/10/2016 01:25:01 م
 
 Category: approve session  - Priority: -1 - Title:start thread
 
@@ -121,33 +213,42 @@ Message: start thread
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:07:43 PM
+Timestamp: 08/10/2016 01:29:56 م
+
+Category: ReviewerHandler  - Priority: -1 - Title:PDF creation failed
+
+Message: PDF creation failed
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:29:58 م
 
 Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
 
 Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
-   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
-   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, MailAddress from, Boolean allowUnicode)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, Boolean allowUnicode, SmtpFailedRecipientException& exception)
    at System.Net.Mail.SmtpClient.Send(MailMessage message)
    at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:24:59 PM
+Timestamp: 08/10/2016 01:29:58 م
 
-Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+Category: SessionID:   - Priority: -1 - Title:Could not find file 'E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\Files\137\137.pdf'.
 
-Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
-   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
-   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
-   at System.Net.Mail.SmtpClient.Send(MailMessage message)
-   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   at System.IO.File.ReadAllBytes(String path)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1072</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:29:39 PM
+Timestamp: 08/10/2016 01:30:38 م
 
 Category: approve session  - Priority: -1 - Title:b4 send mail
 
@@ -155,7 +256,7 @@ Message: b4 send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:29:39 PM
+Timestamp: 08/10/2016 01:30:38 م
 
 Category: approve session  - Priority: -1 - Title:after send mail
 
@@ -163,7 +264,7 @@ Message: after send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:29:39 PM
+Timestamp: 08/10/2016 01:30:38 م
 
 Category: approve session  - Priority: -1 - Title:thread1
 
@@ -171,7 +272,7 @@ Message: thread1
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:29:39 PM
+Timestamp: 08/10/2016 01:30:38 م
 
 Category: approve session  - Priority: -1 - Title:start thread
 
@@ -179,20 +280,42 @@ Message: start thread
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:33:37 PM
+Timestamp: 08/10/2016 01:36:40 م
+
+Category: ReviewerHandler  - Priority: -1 - Title:PDF creation failed
+
+Message: PDF creation failed
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:36:42 م
 
 Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
 
 Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
-   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
-   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, MailAddress from, Boolean allowUnicode)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, Boolean allowUnicode, SmtpFailedRecipientException& exception)
    at System.Net.Mail.SmtpClient.Send(MailMessage message)
    at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:38:28 PM
+Timestamp: 08/10/2016 01:36:42 م
+
+Category: SessionID:   - Priority: -1 - Title:Could not find file 'E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\Files\137\137.pdf'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   at System.IO.File.ReadAllBytes(String path)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1072</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:37:43 م
 
 Category: approve session  - Priority: -1 - Title:b4 send mail
 
@@ -200,7 +323,7 @@ Message: b4 send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:38:29 PM
+Timestamp: 08/10/2016 01:37:44 م
 
 Category: approve session  - Priority: -1 - Title:after send mail
 
@@ -208,7 +331,7 @@ Message: after send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:38:29 PM
+Timestamp: 08/10/2016 01:37:44 م
 
 Category: approve session  - Priority: -1 - Title:thread1
 
@@ -216,7 +339,7 @@ Message: thread1
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 2:38:29 PM
+Timestamp: 08/10/2016 01:37:44 م
 
 Category: approve session  - Priority: -1 - Title:start thread
 
@@ -224,413 +347,26 @@ Message: start thread
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 3:13:49 PM
+Timestamp: 08/10/2016 01:42:24 م
 
-Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+Category: ReviewerHandler  - Priority: -1 - Title:PDF creation failed
 
-Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
-   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
-   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
-   at System.Net.Mail.SmtpClient.Send(MailMessage message)
-   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+Message: PDF creation failed
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:42:24 م
+
+Category: SessionID:   - Priority: -1 - Title:Access is denied
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Diagnostics.Process.Kill()
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.HandleMadbatahCreationError(SessionDetails details, FileVersion fileVersion, EMadbatahUser threadUser, HttpContext threadContext) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1169
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1069</STACKTRACE>
 
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 3:35:49 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(DEVELOP\dmohamed)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(String userDomainName) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 179</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
-   at System.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity)
-   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
-   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
-   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
-   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
-   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
-   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(Usama Nada)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(String name, Int64 roleID, String domainUserName, String email, Boolean status) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 17</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(-1)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(Int64 userID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 159</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(DEVELOP\dmohamed)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(String userDomainName) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 179</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(Usama Nada)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(String name, Int64 roleID, String domainUserName, String email, Boolean status) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 17</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(-1)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(Int64 userID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 159</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(DEVELOP\dmohamed)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(String userDomainName) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 179</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(Usama Nada)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(String name, Int64 roleID, String domainUserName, String email, Boolean status) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 17</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(-1)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(Int64 userID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 159</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:50 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(DEVELOP\dmohamed)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(String userDomainName) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 179</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:51 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(Usama Nada)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(String name, Int64 roleID, String domainUserName, String email, Boolean status) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 17</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:35:51 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(-1)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(Int64 userID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 159</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:49:30 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(DEVELOP\dmohamed)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByDomainName(String userDomainName) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 179</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
-   at System.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity)
-   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
-   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
-   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
-   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
-   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
-   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:49:45 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(Usama Nada)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__3[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.Count[TSource](IQueryable`1 source)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.AddNewUser(String name, Int64 roleID, String domainUserName, String email, Boolean status) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 17</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
-   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
-   at System.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, Boolean encrypt, Boolean trustServerCert, Boolean integratedSecurity)
-   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
-   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
-   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
-   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
-   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
-   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 3:49:45 PM
-
-Category: TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(-1)  - Priority: -1 - Title:The underlying provider failed on Open.
-
-Message: <SOURCE>System.Data.Entity</SOURCE><STACKTRACE>   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
-   at System.Data.EntityClient.EntityConnection.Open()
-   at System.Data.Objects.ObjectContext.EnsureConnection()
-   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
-   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.<GetElementFunction>b__1[TResult](IEnumerable`1 sequence)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.ExecuteSingle[TResult](IEnumerable`1 query, Expression queryRoot)
-   at System.Data.Objects.ELinq.ObjectQueryProvider.System.Linq.IQueryProvider.Execute[S](Expression expression)
-   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
-   at TayaIT.Enterprise.EMadbatah.DAL.UserHelper.GetUserByID(Int64 userID) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.DAL\UserHelper.cs:line 159</STACKTRACE>
-<INNEREXCEPTION><INNERMESSAGE>A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: Named Pipes Provider, error: 40 - Could not open a connection to SQL Server)</INNERMESSAGE><SOURCE>.Net SqlClient Data Provider</SOURCE><STACKTRACE>   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
-   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
-   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
-   at System.Data.SqlClient.SqlConnection.Open()
-   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)</STACKTRACE></INNEREXCEPTION>
-
-
-----------------------------------------
-----------------------------------------
-Timestamp: 10/5/2016 4:37:10 PM
+Timestamp: 08/10/2016 01:47:01 م
 
 Category: approve session  - Priority: -1 - Title:b4 send mail
 
@@ -638,7 +374,7 @@ Message: b4 send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 4:37:10 PM
+Timestamp: 08/10/2016 01:47:01 م
 
 Category: approve session  - Priority: -1 - Title:after send mail
 
@@ -646,7 +382,7 @@ Message: after send mail
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 4:37:10 PM
+Timestamp: 08/10/2016 01:47:01 م
 
 Category: approve session  - Priority: -1 - Title:thread1
 
@@ -654,7 +390,7 @@ Message: thread1
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 4:37:10 PM
+Timestamp: 08/10/2016 01:47:01 م
 
 Category: approve session  - Priority: -1 - Title:start thread
 
@@ -662,15 +398,155 @@ Message: start thread
 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 10/5/2016 4:42:23 PM
+Timestamp: 08/10/2016 01:51:10 م
+
+Category: ReviewerHandler  - Priority: -1 - Title:PDF creation failed
+
+Message: PDF creation failed
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:51:11 م
 
 Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
 
 Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
-   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, String from)
-   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, SmtpFailedRecipientException& exception)
+   at System.Net.Mail.MailCommand.Send(SmtpConnection conn, Byte[] command, MailAddress from, Boolean allowUnicode)
+   at System.Net.Mail.SmtpTransport.SendMail(MailAddress sender, MailAddressCollection recipients, String deliveryNotify, Boolean allowUnicode, SmtpFailedRecipientException& exception)
    at System.Net.Mail.SmtpClient.Send(MailMessage message)
    at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 01:51:11 م
+
+Category: SessionID:   - Priority: -1 - Title:Could not find file 'E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\Files\137\137.pdf'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   at System.IO.File.ReadAllBytes(String path)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1072</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:51:25 م
+
+Category: approve session  - Priority: -1 - Title:b4 send mail
+
+Message: b4 send mail
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:51:25 م
+
+Category: approve session  - Priority: -1 - Title:after send mail
+
+Message: after send mail
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:51:25 م
+
+Category: approve session  - Priority: -1 - Title:thread1
+
+Message: thread1
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:51:25 م
+
+Category: approve session  - Priority: -1 - Title:start thread
+
+Message: start thread
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:56:06 م
+
+Category: ReviewerHandler  - Priority: -1 - Title:PDF creation failed
+
+Message: PDF creation failed
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:56:20 م
+
+Category: TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail()  - Priority: -1 - Title:Failure sending mail.
+
+Message: <SOURCE>System</SOURCE><STACKTRACE>   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at TayaIT.Enterprise.EMadbatah.Util.Web.MailUtility.SendMail(Email email) in E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util.Web\MailUtility.cs:line 53</STACKTRACE>
+<INNEREXCEPTION><INNERMESSAGE>The remote name could not be resolved: 'smtp.gmail.com'</INNERMESSAGE><SOURCE>System</SOURCE><STACKTRACE>   at System.Net.ServicePoint.GetConnection(PooledStream PooledStream, Object owner, Boolean async, IPAddress& address, Socket& abortSocket, Socket& abortSocket6)
+   at System.Net.PooledStream.Activate(Object owningObject, Boolean async, GeneralAsyncDelegate asyncCallback)
+   at System.Net.PooledStream.Activate(Object owningObject, GeneralAsyncDelegate asyncCallback)
+   at System.Net.ConnectionPool.GetConnection(Object owningObject, GeneralAsyncDelegate asyncCallback, Int32 creationTimeout)
+   at System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpTransport.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpClient.GetConnection()
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)</STACKTRACE></INNEREXCEPTION>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:56:20 م
+
+Category: SessionID:   - Priority: -1 - Title:Could not find file 'E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\Files\137\137.pdf'.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   at System.IO.File.ReadAllBytes(String path)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1072</STACKTRACE>
+
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:59:34 م
+
+Category: approve session  - Priority: -1 - Title:b4 send mail
+
+Message: b4 send mail
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:59:34 م
+
+Category: approve session  - Priority: -1 - Title:after send mail
+
+Message: after send mail
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:59:34 م
+
+Category: approve session  - Priority: -1 - Title:thread1
+
+Message: thread1
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 02:59:34 م
+
+Category: approve session  - Priority: -1 - Title:start thread
+
+Message: start thread
+
+----------------------------------------
+----------------------------------------
+Timestamp: 08/10/2016 03:04:21 م
+
+Category: SessionID:   - Priority: -1 - Title:The process cannot access the file 'E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.Web\Files\137\137.docx' because it is being used by another process.
+
+Message: <SOURCE>mscorlib</SOURCE><STACKTRACE>   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   at System.IO.File.ReadAllBytes(String path)
+   at TayaIT.Enterprise.EMadbatah.BLL.EMadbatahFacade.CreateMadbatahFiles(Object threadParams) in E:\Dina\5-10\TayaIT.Enterprise.EMadbatah.BLL\EMadbatahFacade.cs:line 1062</STACKTRACE>
 
 
 ----------------------------------------

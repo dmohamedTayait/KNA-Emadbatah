@@ -26,7 +26,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 EMadbatahEntities context = new EMadbatahEntities();
                 List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).OrderBy(x => x.OrderByAttendantType).Where(cc => cc.Type != (int)Model.AttendantType.UnAssigned && cc.Type != (int)Model.AttendantType.CountryPresidentFamily).ToList();
                 ddlPresident.DataSource = DefaultAttendants;
-                ddlPresident.DataTextField = "Name";
+                ddlPresident.DataTextField = "LongName";
                 ddlPresident.DataValueField = "ID";
                 ddlPresident.DataBind();
             }
@@ -126,7 +126,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             attendant.State = 1;
             attendant.ShortName = defAtt.ShortName;
             attendant.LongName = defAtt.LongName;
-            attendant.NameInWord = defAtt.NameInWord;
+           // attendant.NameInWord = defAtt.NameInWord;
             return attendant;
         }
     }

@@ -222,7 +222,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="اسم العضو">
                                     <ItemTemplate>
-                                        <asp:Label runat="server" ID="lblFName" Text='<%# string.Format("{0} {1}", Eval("AttendantTitle ") ,Eval("Name"))%>'></asp:Label></ItemTemplate>
+                                        <asp:Label runat="server" ID="lblFName" Text='<%# string.Format("{0} {1}", Eval("AttendantTitle ") ,Eval("LongName"))%>'></asp:Label></ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="<span class='space-st1' style='color:red'>غائب</span><span class='space-st1' style='color:green'>غائب بعذر</span><span class='space-st1' style='width:200px !important'>غائب بعذر (مهمة رسمية )</span>">
                                     <ItemTemplate>
