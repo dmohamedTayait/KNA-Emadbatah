@@ -421,7 +421,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
 
             string testUser = "Develop\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
-            CurrentUser =  EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
+            CurrentUser = EMadbatahFacade.GetUserByUserID(138); //EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
 /*
           //  CurrentUser = EMadbatahFacade.GetUserByUserID(17);
 

@@ -29,14 +29,3 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\Tay
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\bin\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\ResolveAssemblyReference.cache
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.EmadbatahRes.resources
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.EmadbatahRes.ar.resources
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\GenerateResource.read.1.tlog
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\GenerateResource.write.1.tlog
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\ar\TayaIT.Enterprise.EMadbatah.Localization.resources.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Localization\obj\Debug\TayaIT.Enterprise.EMadbatah.Localization.pdb

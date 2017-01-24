@@ -13,8 +13,3 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Ent
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.csprojResolveAssemblyReference.cache
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\ResolveAssemblyReference.cache
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
