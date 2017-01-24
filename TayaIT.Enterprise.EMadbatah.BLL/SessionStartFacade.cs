@@ -284,24 +284,33 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                  lstInMissioneDefAtt.Add(defAtt);
                          }
                          commNameStr = "";
+
+                         string dateFormatted = FormatDate((DateTime)scommobj.CreatedAt);
+                         if (scomms.Count == 1)
+                         {
+                             commNameStr += comm.CommitteeName + " جلسة " + scommobj.CommitteeName + " " + dateFormatted + " " + scommobj.AddedDetails.ToString();
+                         }
+                         else
+                         {
+                             if (ctr == 0)
+                             {
+                                 commNameStr += comm.CommitteeName + " جلسة " + scommobj.CommitteeName + " بتاريخ " + dateFormatted + " " + scommobj.AddedDetails.ToString();
+                             }
+                             else
+                             {
+                                 commNameStr += " جلسة " + scommobj.CommitteeName + " بتاريخ " + dateFormatted + " " + scommobj.AddedDetails.ToString();
+                             }
+                         }
+
                          if (ctr == 0)
                          {
                             // Util.NumberingFormatter nf = new NumberingFormatter(true);
                              i++;
-                             commNameStr = LocalHelper.GetLocalizedString("str" + (i) + "_tanween");
-                             commNameStr += " : ";
+                             commNameStr = LocalHelper.GetLocalizedString("str" + (i) + "_tanween") + " : " + commNameStr;
                              ctr++;
                          }
-                         string dateFormatted = FormatDate((DateTime)scommobj.CreatedAt);
-                         if (scomms.Count == 1)
-                         {
-                             commNameStr += comm.CommitteeName + " جلسة " + scommobj.CommitteeName + " "  + dateFormatted + " " + scommobj.AddedDetails.ToString();
-                         }
-                         else
-                         {
-                             commNameStr += comm.CommitteeName +  " جلسة " + scommobj.CommitteeName  + " بتاريخ" + dateFormatted + " " + scommobj.AddedDetails.ToString();
-                         }
-                        body += "<p style='" + basicPStyle + textunderline + textRight + "'>" + commNameStr + "</p>";
+
+                        body += "<p style='" + basicPStyle + textunderline + textRight + "'>" + commNameStr + " : " + "</p>";
                         body += emptyParag;
                         body += writeAttendantNFile(abologizeAttendantTitle, lstInMissioneDefAtt, lstAbologizeDefAtt);
                         body += writeAttendantNFile(absentAttendantTitle, lstAbsenceDefAtt);
@@ -321,11 +330,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
         public static string FormatDate(DateTime date)
         {
-            int day = date.Day;
-            int month = date.Month;
-            int year = date.Year;
+            DateTime fdate = new DateTime(date.Year, date.Month, date.Day);
+            string s = fdate.ToString("d/M/yyyy", CultureInfo.InvariantCulture);
 
-            return day.ToString() + "//" + month.ToString() + "//" + year.ToString() + "م";
+            return s + "  م";
         }
 
         public static string writeAttendantNFile(string head, List<Attendant> attendants)
