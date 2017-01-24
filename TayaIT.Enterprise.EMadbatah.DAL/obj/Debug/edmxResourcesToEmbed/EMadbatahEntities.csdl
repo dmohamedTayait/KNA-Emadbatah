@@ -148,6 +148,15 @@
       <End Role="Session" EntitySet="Sessions" />
       <End Role="SessionCommittee" EntitySet="SessionCommittees" />
     </AssociationSet>
+    <EntitySet Name="SessionCommitteeAttendants" EntityType="EMadbatahModel.SessionCommitteeAttendant" />
+    <AssociationSet Name="FK_SessionCommitteeAttendant_Attendant" Association="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant">
+      <End Role="Attendant" EntitySet="Attendants" />
+      <End Role="SessionCommitteeAttendant" EntitySet="SessionCommitteeAttendants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SessionCommitteeAttendant_SessionCommittee" Association="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee">
+      <End Role="SessionCommittee" EntitySet="SessionCommittees" />
+      <End Role="SessionCommitteeAttendant" EntitySet="SessionCommitteeAttendants" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AgendaItem">
     <Key>
@@ -218,6 +227,7 @@
     <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="DateTime" Name="CreatedAt" />
+    <NavigationProperty Name="SessionCommitteeAttendants" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant" FromRole="Attendant" ToRole="SessionCommitteeAttendant" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -835,6 +845,7 @@
     <Property Type="String" Name="AddedDetails" MaxLength="2000" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Committee" Relationship="EMadbatahModel.FK_SessionCommittee_Committee" FromRole="SessionCommittee" ToRole="Committee" />
     <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_SessionCommittee_Session" FromRole="SessionCommittee" ToRole="Session" />
+    <NavigationProperty Name="SessionCommitteeAttendants" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee" FromRole="SessionCommittee" ToRole="SessionCommitteeAttendant" />
   </EntityType>
   <Association Name="FK_SessionCommittee_Committee">
     <End Type="EMadbatahModel.Committee" Role="Committee" Multiplicity="0..1" />
@@ -857,6 +868,41 @@
       </Principal>
       <Dependent Role="SessionCommittee">
         <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SessionCommitteeAttendant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int64" Name="AttendantID" />
+    <Property Type="Int32" Name="Status" />
+    <Property Type="Int64" Name="SessionCommitteeID" />
+    <NavigationProperty Name="Attendant" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant" FromRole="SessionCommitteeAttendant" ToRole="Attendant" />
+    <NavigationProperty Name="SessionCommittee" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee" FromRole="SessionCommitteeAttendant" ToRole="SessionCommittee" />
+  </EntityType>
+  <Association Name="FK_SessionCommitteeAttendant_Attendant">
+    <End Type="EMadbatahModel.Attendant" Role="Attendant" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.SessionCommitteeAttendant" Role="SessionCommitteeAttendant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attendant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionCommitteeAttendant">
+        <PropertyRef Name="AttendantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SessionCommitteeAttendant_SessionCommittee">
+    <End Type="EMadbatahModel.SessionCommittee" Role="SessionCommittee" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.SessionCommitteeAttendant" Role="SessionCommitteeAttendant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SessionCommittee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionCommitteeAttendant">
+        <PropertyRef Name="SessionCommitteeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

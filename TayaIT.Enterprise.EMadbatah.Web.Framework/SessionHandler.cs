@@ -168,7 +168,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             List<SessionAudioFile> filesThatAlreadyExist = new List<SessionAudioFile>();
                             int speakerAdded = 0;
                             string mp3FolderPath = sd.MP3FolderPath;
-                            string sessionFilesPath = _context.Server.MapPath("~") + "\\SessionFiles\\" + sd.EparlimentID;
+                            string sessionFilesPath = _context.Server.MapPath("~") + "\\SessionFiles\\" + sd.SessionID;
 
                             if (!Directory.Exists(mp3FolderPath))
                             {
@@ -268,7 +268,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             DirectoryInfo mp3DirInfo = new DirectoryInfo(mp3Path);
                             DirectoryInfo xmlDirInfo = new DirectoryInfo(xmlPath);
                             //int count = 0;
-                            string sessionFilesPath = _context.Server.MapPath("~") + "\\SessionFiles\\" + eparID;
+                            string sessionFilesPath = _context.Server.MapPath("~") + "\\SessionFiles\\" + sd.SessionID;
 
                             //check if XML files count == mp3 files count
                             FileInfo[] mp3Files = mp3DirInfo.GetFiles();
@@ -327,7 +327,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         //here insert new session start
                                         string decodedSessionStartHTML = SessionStartFacade.GetAutomaticSessionStartText(sessionID);
                                         
-                                        if (SessionStartFacade.AddNewSessionStart(sessionID, decodedSessionStartHTML, " بداية المضبطة " + sd.Serial))
+                                        if (SessionStartFacade.AddNewSessionStart(sessionID, decodedSessionStartHTML, " بداية المضبطة " + sd.SessionID))
                                         {
                                             var result = new { Sucess = true, Message = "" };
                                             jsonStringOut = SerializeObjectInJSON(result);
@@ -452,7 +452,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             newFileName.Replace(".mp3", ".trans.xml"));
                         xmlFileExist = true;
                     }
-                    string fileNameToSaveInDB = "\\SessionFiles\\" + eparID + "\\" + new FileInfo(file.FullName).Name;
+                    string fileNameToSaveInDB = "\\SessionFiles\\" + SessionID + "\\" + new FileInfo(file.FullName).Name;
 
                     long mp3FileDuration = FileHelper.GetMP3FileDurationAsLong(file.FullName); // calculate duration
                     SessionAudioFile saf = new SessionAudioFile(sessionID, fileNameToSaveInDB, order, mp3FileDuration, SessionFileStatus.New);

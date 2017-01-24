@@ -109,6 +109,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             GetProcedures
         }
 
+        public enum CommitteeFunctions
+        {
+            AddSessionCommittee,
+            DeleteSessionCommittee,
+            GetSessionCommAtt
+        }
+
         public enum VotingFunctions
         {
             GetSessionVotes

@@ -226,7 +226,7 @@ $(document).ready(function () {
     $('.Dellink').live('click', function (e) {
         var button = $(this)
         var parentLI = button.parents('li')
-        var answer = confirm("هل أنت متأكد أنك تريد الحذف ؟");
+        var answer = confirm(" هل أنت متأكد أنك تريد الحذف ؟");
 
         var uid = parentLI.attr("data-id");
         if (answer) {

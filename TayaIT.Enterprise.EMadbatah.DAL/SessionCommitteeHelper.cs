@@ -8,13 +8,13 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 {
     public class SessionCommitteeHelper
     {
-        public static List<SessionCommittee> GetSessionCommitteeBySessionIDAndCommitteeID(long sessionID,long committeeID)
+        public static List<SessionCommittee> GetSessionCommitteeBySessionIDAndCommitteeID(long sessionID, long committeeID)
         {
             try
             {
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                    List<SessionCommittee> SessionCommittees = context.SessionCommittees.Where(c => c.SessionID == sessionID && c.SessionID == committeeID).Select(c => c).ToList();
+                    List<SessionCommittee> SessionCommittees = context.SessionCommittees.Where(c => c.SessionID == sessionID && c.CommitteeID == committeeID).Select(c => c).ToList();
                     return SessionCommittees;
                 }
             }
@@ -43,50 +43,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static int UpdateCommitteeStatusById(long comm_id, int status)
+        public static int DeleteSessionCommittee(long scomm_id)
         {
             try
             {
-                Committee commForUpdate = null;
+                SessionCommittee commForDelete = null;
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                    commForUpdate = context.Committees.FirstOrDefault(c => c.ID == comm_id);
-                    if (commForUpdate != null)
-                    {
-                        commForUpdate.Status = status;
-                    }
-
+                    commForDelete = context.SessionCommittees.FirstOrDefault(c => c.ID == scomm_id);
+                    context.DeleteObject(commForDelete);
                     return context.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeById(" + comm_id + "," + status.ToString() + ")");
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.DeleteSessionCommittee(" + scomm_id.ToString() + ")");
                 return 0;
             }
         }
 
-        public static int UpdateCommitteeById(long comm_id, string commName)
+        public int SaveSessionCommitteeAttendance(long attID,long scommId,long status)
         {
-            try
-            {
-                Committee commForUpdate = null;
-                using (EMadbatahEntities context = new EMadbatahEntities())
-                {
-                    commForUpdate = context.Committees.FirstOrDefault(c => c.ID == comm_id);
-                    if (commForUpdate != null)
-                    {
-                        commForUpdate.CommitteeName = commName;
-                    }
-
-                    return context.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeById(" + comm_id + "," + commName + ")");
-                return 0;
-            }
+            return 0;
         }
     }
 }

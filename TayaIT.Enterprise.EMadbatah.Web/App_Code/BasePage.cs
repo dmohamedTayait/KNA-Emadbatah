@@ -420,8 +420,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             WindowsIdentity id2 = (WindowsIdentity)this.Request.LogonUserIdentity;
 
 
-            string testUser = "ALOMMAH2006\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
-            CurrentUser = EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
+            string testUser = "Develop\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
+            CurrentUser =  EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
 /*
           //  CurrentUser = EMadbatahFacade.GetUserByUserID(17);
 

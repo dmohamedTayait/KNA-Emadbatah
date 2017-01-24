@@ -38,6 +38,11 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string SESSION_ATTENDANT_TITLE_ID { get { return "s_att_title_id"; } }
             public string ATTENDANT_ID_EParliment { get { return "epattid"; } }
 
+            public string SESSION_COMMITTEE_ID { get { return "scommid"; } }
+            public string SESSION_COMMITTEE_NAME { get { return "commname"; } }
+            public string SESSION_COMM_CREATEDAT { get { return "scommcreatedat"; } }
+            public string SESSION_COMM_ADDED_DETAILS { get { return "scommdetails"; } }
+
             public string AGENDA_ITEM_ID { get { return "agid"; } }
             public string AGENDA_ITEM_ID_EParliment { get { return "epagid"; } }
 

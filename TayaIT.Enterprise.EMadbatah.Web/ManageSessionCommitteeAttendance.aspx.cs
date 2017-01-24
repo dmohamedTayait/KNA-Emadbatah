@@ -30,98 +30,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     ddlSessions.Items.Add(liNew);
                 }
 
-                List<Committee> Committees = CommitteeHelper.GetAllCommittee();
-                ListItem liNewCommittee = new ListItem("-- اختر --", "0");
-                ddlCommittee.Items.Insert(0, liNewCommittee);
-                foreach (Committee committeeObj in Committees)
-                {
-                    liNewCommittee = new ListItem("( " + committeeObj.CommitteeName.ToString() + ")", committeeObj.ID.ToString());
-                    ddlCommittee.Items.Add(liNewCommittee);
-                }
-
-                // Get All DefaultAttendants and bind them to GV
-                List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants(false);
-                GVDefaultAttendants.DataSource = DefaultAttendants;
-                GVDefaultAttendants.DataBind();
             }
-        }
-
-        protected void ddlCommittee_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lblInfo1.Visible = false;
-            lblInfo2.Visible = false;
-            List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants(false);
-            GVDefaultAttendants.DataSource = DefaultAttendants;
-            GVDefaultAttendants.DataBind();
-        }
-
-        protected void GVDefaultAttendants_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            int CommitteeSelected = int.Parse(ddlCommittee.SelectedValue);
-
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                Int64 DefaultAttendantID = (Int64)DataBinder.Eval(e.Row.DataItem, "ID");
-
-                int SessionId = int.Parse(ddlSessions.SelectedValue);
-                List<CommitteeAttendant> CommitteeAttendantt = CommitteeHelper.GetCommitteeByCommitteeIDAndSessionID(CommitteeSelected, DefaultAttendantID, SessionId);
-
-                RadioButtonList rb = (RadioButtonList)e.Row.FindControl("RBLAttendantStates");
-                if (CommitteeAttendantt.Count != 0)
-                {
-                    txtDate.Text = CommitteeAttendantt[0].CommitteeDate.ToString();
-                    if (rb.Items.FindByValue(CommitteeAttendantt[0].AttendantStatus.ToString()) != null)
-                    {
-                        rb.Items.FindByValue(CommitteeAttendantt[0].AttendantStatus.ToString()).Selected = true;
-                    }
-                }
-            }
-        }
-
-        protected void btnShow_Click(object sender, EventArgs e)
-        {
-            lblInfo1.Visible = false;
-            lblInfo2.Visible = false;
-            List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants(false);
-            GVDefaultAttendants.DataSource = DefaultAttendants;
-            GVDefaultAttendants.DataBind();
-        }
-
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            int SessionId = int.Parse(ddlSessions.SelectedValue);
-            DateTime committeeDate = DateTime.Parse(txtDate.Text);
-            foreach (GridViewRow item in GVDefaultAttendants.Rows)
-            {
-                int CommitteeSelected = int.Parse(ddlCommittee.SelectedValue);
-
-                HiddenField HFID = item.Cells[0].FindControl("HFID") as HiddenField;
-                int DefaultAttendantId = int.Parse(HFID.Value);
-
-                RadioButtonList rdlist = item.Cells[2].FindControl("RBLAttendantStates") as RadioButtonList;
-
-                int AttendantStatus = 0;
-                if (rdlist.SelectedItem != null)
-                {
-                    AttendantStatus = int.Parse(rdlist.SelectedValue);
-                }
-
-                int result = CommitteeHelper.UpdateCommitteeAttendant(CommitteeSelected, DefaultAttendantId, SessionId, AttendantStatus, committeeDate);
-            }
-
-            lblInfo1.Text = "تم الحفظ بنجاح";
-            lblInfo1.Visible = true;
-            lblInfo2.Text = "تم الحفظ بنجاح";
-            lblInfo2.Visible = true;
         }
 
         protected void ddlSessions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblInfo1.Visible = false;
-            lblInfo2.Visible = false;
-            List<DefaultAttendant> DefaultAttendants = DefaultAttendantHelper.GetAllDefaultAttendants(false);
-            GVDefaultAttendants.DataSource = DefaultAttendants;
-            GVDefaultAttendants.DataBind();
+            if (!string.IsNullOrEmpty(ddlSessions.SelectedValue))
+            {
+                Response.Redirect("ManageSessionCommitteeAttendance.aspx?sid=" + ddlSessions.SelectedValue);
+            }
         }
+
     }
 }

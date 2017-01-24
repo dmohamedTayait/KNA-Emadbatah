@@ -555,6 +555,55 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
         }
 
+        public static List<SessionContentItem> GetItemsBySessionIDOrderedBySessionFile(long sessionID)
+        {
+            try
+            {
+                List<List<SessionContentItem>> toRet = new List<List<SessionContentItem>>();
+                List<SessionContentItem> tempRet = new List<SessionContentItem>();
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    var sessionFiles =
+                        from sf in context.SessionFiles
+                        orderby sf.Order
+                        where sf.SessionID == sessionID && sf.IsActive == 1
+                        select sf;
+
+                    foreach (SessionFile file in sessionFiles.ToList<SessionFile>())
+                    {
+                        var sessionContentItems =
+                            from sci in file.SessionContentItems
+                            orderby sci.FragOrderInXml
+                            select sci;
+
+                        foreach (SessionContentItem it in sessionContentItems)
+                        {
+                            it.AgendaItem = it.AgendaItem;
+                            it.AgendaSubItem = it.AgendaSubItem;
+                            it.Attendant = it.Attendant;
+                            it.Reviewer = it.Reviewer;
+                            it.User = it.User;
+                            it.SessionFile.FileReviewer = it.SessionFile.FileReviewer;
+                            if (it.User == null)
+                            {
+                                ;
+                            }
+                            it.SessionFile = it.SessionFile;
+
+                            if (!it.Ignored.Value)
+                                tempRet.Add(it);
+                        }
+                    }
+                    return tempRet;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.GetSessionContentItemsBySessionID(" + sessionID + ")");
+                return null;
+            }
+        }
+
         public static List<SessionContentItem> GetItemsBySessionID(long sessionID)
         {
             try

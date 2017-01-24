@@ -111,6 +111,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             {
                 SessionContentItem currContItem = SessionContentItemHelper.GetSessionContentItemById(long.Parse(SessionContentItemID));
                 FragOrder = currContItem.FragOrderInXml;
+                btnSaveOnly.Attributes.Add("disbaled", "disbaled");
+                btnSaveAndExit.Attributes.Add("disbaled", "disbaled");
             }
 
             if (currentPageMode == EditorPageMode.Edit && SessionContentItemID != null)

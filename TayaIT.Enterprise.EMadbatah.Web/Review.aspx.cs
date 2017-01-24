@@ -167,6 +167,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     int ii = 0;
                     List<string> writtenAgendaItems = new List<string>();
                     long lastSFID = 0;
+                    long currentSpeaker = 0;
+                    long prevSpeaker = 0;
                     foreach (List<SessionContentItem> groupedItems in allItems)
                     {
                        foreach (SessionContentItem item in groupedItems)
@@ -193,10 +195,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                 lastSFID = item.SessionFileID.Value;
                                 sb.Append("<hr id=\"file_" + lastSFID + "\" />");
                             }
-
-                            if (!item.MergedWithPrevious.Value)
+                            currentSpeaker = item.AttendantID;
+                            if (currentSpeaker != prevSpeaker)//if (!item.MergedWithPrevious.Value)
                             {
                                 Attendant att = item.Attendant;
+                                prevSpeaker = att.ID;
+
 
                                 if (att.Type != (int)Model.AttendantType.UnAssigned)
                                 {
@@ -222,12 +226,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                                 attFullPresentationName = "السيد " + att.ShortName.Trim();
                                             else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
                                             attFullPresentationName = "( " + attFullPresentationName;
-                                            if (att.Type != 3)
+                                            if (String.IsNullOrEmpty(att.JobTitle))
                                                 attFullPresentationName = attFullPresentationName + ")";
-                                            if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle))
+
+                                            if (!String.IsNullOrEmpty(att.JobTitle))
                                                 job2 = "    " + att.JobTitle + ")";
-                                            if (!String.IsNullOrEmpty(item.CommentOnAttendant))
-                                                job2 = "(" + item.CommentOnAttendant + " )";
+                                            else job2 = " )";
                                             string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
                                                             .Replace("<%itemText%>", name)
                                                             .Replace("<%speakerJob%>", attFullPresentationName)
@@ -237,17 +241,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                         else
                                         {
                                             if (att.AttendantTitle == null)
-                                                attFullPresentationName = "السيد " + att.ShortName.Trim() + " : ";
-                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim() + " : ";
-                                            if (string.IsNullOrEmpty(item.CommentOnAttendant))
-                                            {
-                                                if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle))
-                                                    job = "( " + att.JobTitle + " )";
-                                            }
-                                            else
-                                            {
-                                                job = "   ( " + item.CommentOnAttendant + " )";
-                                            }
+                                                attFullPresentationName = "السيد " + att.Name.Trim();
+                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                            if (!String.IsNullOrEmpty(att.JobTitle))
+                                                job = att.JobTitle;
+                                            if (!string.IsNullOrEmpty(item.CommentOnAttendant))
+                                                job2 = "    " + item.CommentOnAttendant;
 
                                             string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
                                                      .Replace("<%itemText%>", attFullPresentationName)

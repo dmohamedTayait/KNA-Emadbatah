@@ -116,6 +116,14 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 if (loadStyles)
                     InitializeDocumentStyles();
             }
+            SectionProperties sectionProps = new SectionProperties();
+            PageMargin pageMargin = new PageMargin() { Top = 1440, Right = (UInt32Value)1440U, Bottom = 1440, Left = (UInt32Value)1440U, Header = (UInt32Value)288U, Footer = (UInt32Value)288U, Gutter = (UInt32Value)0U };
+            PageSize pageSize = new PageSize() { Width = (UInt32Value)11908U, Height = (UInt32Value)16833U };
+            //Spacing space = new Spacing (){ 
+            sectionProps.Append(pageMargin);
+            sectionProps.Append(pageSize);
+            _docMainPart.Document.Body.Append(sectionProps);
+
             //_docMainPart.Document = new Document();
             //_body = new Body();
             //InitializeDocumentPartsFromXml();
@@ -143,6 +151,13 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 Open(docPath);
             }
 
+            SectionProperties sectionProps = new SectionProperties();
+            PageMargin pageMargin = new PageMargin() { Top = 1440, Right = (UInt32Value)1440U, Bottom = 1440, Left = (UInt32Value)1440U, Header = (UInt32Value)288U, Footer = (UInt32Value)288U, Gutter = (UInt32Value)0U };
+            PageSize pageSize = new PageSize() { Width = (UInt32Value)11908U, Height = (UInt32Value)16833U };
+            //Spacing space = new Spacing (){ 
+            sectionProps.Append(pageMargin);
+            sectionProps.Append(pageSize);
+            _docMainPart.Document.Body.Append(sectionProps);
 
 
         }
@@ -155,7 +170,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             xmlFilesPaths.CoreFilePropertiesPart = resfolderpath + "core.xml";
             xmlFilesPaths.EndNotes = resfolderpath + "endnotes.xml";
             xmlFilesPaths.FilePropPartPath = resfolderpath + "app.xml";
-            xmlFilesPaths.FontTablePart = resfolderpath + "fontTable.xml";
+           // xmlFilesPaths.FontTablePart = resfolderpath + "fontTable.xml";
             xmlFilesPaths.FooterPartPath = resfolderpath + "footer1.xml";
             xmlFilesPaths.HeaderPartPath = resfolderpath + "header.xml";
             xmlFilesPaths.FootnotesPart = resfolderpath + "footnotes.xml";
@@ -589,6 +604,21 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     runNormalTextProp.Append(fontComplexNormalTextSize);
                     runNormalTextProp.Append(rightToLeftText);
                     run.Append(runNormalTextProp);
+                    break;
+                case ParagraphStyle.Footer:
+                    RunProperties runFooterProp = new RunProperties();
+                    RunFonts runFooterFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold", AsciiTheme = ThemeFontValues.MinorBidi, HighAnsiTheme = ThemeFontValues.MinorBidi };
+                    FontSize fontFooterSize = new FontSize() { Val = "18" };
+                    FontSizeComplexScript fontComplexFooterSize = new FontSizeComplexScript() { Val = "28" };
+                    RightToLeftText rightToLeftFooterText = new RightToLeftText();
+                    //BiDi biDi1 = new BiDi();
+                    //Languages languages = new Languages() { EastAsia = "ar-SA", Bidi = "ar-SA" };
+
+                    runFooterProp.Append(runFooterFonts);
+                    runFooterProp.Append(fontFooterSize);
+                    runFooterProp.Append(fontComplexFooterSize);
+                    runFooterProp.Append(rightToLeftFooterText);
+                    run.Append(runFooterProp);
                     break;
                 case ParagraphStyle.ParagraphItalic:
                     RunProperties runParagraphItalicTextProp = new RunProperties();
@@ -1178,7 +1208,22 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             styleFootNoteTitle.Append(runFootNoteTextProp);
 
 
+            RunProperties runFooterTextProp = new RunProperties();
+            RunFonts runFooterTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
+            FontSize fontFooterTextSize = new FontSize() { Val = "18" };
+            FontSizeComplexScript fontFooterComplexScriptSize = new FontSizeComplexScript() { Val = "18" };
+            RightToLeftText rtlTextFooter = new RightToLeftText();
+            runFootNoteTextProp.Append(runFooterTextFonts);
+            runFootNoteTextProp.Append(fontFooterTextSize);
+            runFootNoteTextProp.Append(fontFooterComplexScriptSize);
+            runFootNoteTextProp.Append(rtlTextFooter);
 
+            Style styleFooterTitle = new Style();
+            styleFooterTitle.StyleId = "Footer";
+            styleFooterTitle.Append(new Name() { Val = "Taya Madbatah Footer Text" });
+            styleFooterTitle.Append(new BasedOn() { Val = "Normal" });
+            styleFooterTitle.Append(new NextParagraphStyle() { Val = "Normal" });
+            styleFooterTitle.Append(runFooterTextProp);
 
             // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
             RunProperties runParagraphBoldItalicTextProp = new RunProperties();
@@ -1316,8 +1361,9 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             _docStylePart.Styles.Append(styleUnderlineParagraphTitle);
             _docStylePart.Styles.Append(styleParagraphTitleItalic);
             _docStylePart.Styles.Append(styleParagraphTitleBoldItalic);
-            _docStylePart.Styles.Append(styleTableGrid);
+          //  _docStylePart.Styles.Append(styleTableGrid);
             _docStylePart.Styles.Append(styleFootNoteTitle);
+            _docStylePart.Styles.Append(styleFooterTitle);
             //_docStylePart.Styles.Append(styleFootNote);
             _docStylePart.Styles.Save();
 
@@ -1585,41 +1631,41 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         {
             Footer footer = new Footer();
 
-            ParagraphProperties paragraphProperties = new ParagraphProperties(
-                            new ParagraphStyleId() { Val = "Footer" },
+            ParagraphProperties paragraphProperties = new ParagraphProperties(new RightToLeftText(),
+                            new ParagraphStyleId() { Val = "Footer" }, new RunProperties(new RightToLeftText()),
                             new Tabs(
                                 new TabStop() { Val = TabStopValues.Clear, Position = 4320 },
                                 new TabStop() { Val = TabStopValues.Clear, Position = 8640 },
                                 new TabStop() { Val = TabStopValues.Center, Position = 4820 },
                                 new TabStop() { Val = TabStopValues.Right, Position = 6639 }));
 
-            paragraphProperties.ParagraphStyleId = new ParagraphStyleId() { Val = ParagraphStyle.NormalArabic.ToString() }; 
+            paragraphProperties.ParagraphStyleId = new ParagraphStyleId() { Val = ParagraphStyle.Footer.ToString() }; 
 
             Paragraph paragraph = new Paragraph(
 
                         paragraphProperties,
                         new Run(
-                            new FieldChar() { FieldCharType = FieldCharValues.Begin }),
+                            new FieldChar() { FieldCharType = FieldCharValues.Begin }, new RunProperties(new RightToLeftText())),
                         new Run(
-                            new FieldCode(" TITLE   \\* MERGEFORMAT ") { Space = SpaceProcessingModeValues.Preserve }
+                            new FieldCode(" TITLE   \\* MERGEFORMAT ") { Space = SpaceProcessingModeValues.Preserve }, new RunProperties(new RightToLeftText())
                         ),
                         new Run(
-                            new FieldChar() { FieldCharType = FieldCharValues.End }),
+                            new FieldChar() { FieldCharType = FieldCharValues.End }, new RunProperties(new RightToLeftText())),
                         new Run(
-                            new Text(" - ") { Space = SpaceProcessingModeValues.Preserve }
+                            new Text(" - ") { Space = SpaceProcessingModeValues.Preserve }, new RunProperties(new RightToLeftText())
                         ),
                         new SimpleField(
                             new Run(
                                 new RunProperties(
-                                    new NoProof()),
+                                    new NoProof(), new RightToLeftText()),
                                 new Text("1")
                             )
                         ) { Instruction = " PAGE   \\* MERGEFORMAT " },
                         new Run(
-                            new Text(" - ") { Space = SpaceProcessingModeValues.Preserve }
+                            new Text(" - ") { Space = SpaceProcessingModeValues.Preserve }, new RunProperties(new RightToLeftText())
                         ),
                         new Run(
-                            new Text(" الأمانة العامة لمجلس الأمة | قطاع الجلسات | إدارة المضابط ") { Space = SpaceProcessingModeValues.Preserve }
+                            new Text(" الأمانة العامة لمجلس الأمة | قطاع الجلسات | إدارة المضابط ") { Space = SpaceProcessingModeValues.Preserve }, new RunProperties(new RightToLeftText())
                         )
                     );
 

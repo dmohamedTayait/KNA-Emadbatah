@@ -47,10 +47,22 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             {
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
+
                     Attachement attachment = context.Attachements.FirstOrDefault(c => c.ID == attachementID);
+                    List<SessionContentItem> scLst = context.SessionContentItems.Where(c => c.AttachementID == attachementID).ToList();
+
+                    foreach (SessionContentItem scItem in scLst)
+                    {
+                        scItem.AttachementID = null;
+                    }
+
+                    context.SaveChanges();
+
                     context.DeleteObject(attachment);
                     int res = context.SaveChanges();
+
                     return res;
+
                 }
             }
             catch (Exception ex)

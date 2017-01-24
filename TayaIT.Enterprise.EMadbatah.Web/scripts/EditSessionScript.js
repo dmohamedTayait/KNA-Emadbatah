@@ -544,6 +544,36 @@ $(document).ready(function() {
       //  }
     }
 
+        // split function
+    function splitActionForManagePoint(selectedHtml){
+            // vars
+            var currentFileID = getParameterByName("sfid");
+            // call the ajax call
+            jQuery.ajax({
+                cache: false,
+                type: 'post',
+                url: 'EditSessionHandler.ashx',
+                data: {
+                    funcname: 'SplitItem',
+                    FRAGORDER: $(".hdcurrentOrder").val(),
+                    XMLPATH: $(".hdxmlFilePath").val(),
+                    SPLITTEDTEXT: htmlEncode(selectedHtml),
+                    sfid: currentFileID,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    // next action
+                    $(".next").removeAttr("disabled").triggerHandler('click');
+                },
+                error: function() {
+                    alert("لقد حدث خطأ");
+
+                    ed.setProgressState(0);
+                    $(".prev").removeAttr("disabled");
+                }
+            });
+     }
+
     // previous button onclick
     $(".prev").click(function() {
         //if ($("#editSessionFileForm").valid()) {
@@ -647,7 +677,12 @@ $(document).ready(function() {
     }
     // bind data to controls
     function BindData(response,prevOrNext) {
-
+    var isIgnored = 0
+        if(prevOrNext == 1)
+        {
+        isIgnored = $(".chkIgnoredSegment").is(':checked') ? 1 : 0
+        }
+    
         if (response.ItemOrder == "last") {
             $('#MainContent_btnNext').attr('disabled', 'disabled');
         }
@@ -800,6 +835,7 @@ $(document).ready(function() {
                 $('.chkIgnoredSegment').removeAttr('checked');
             }
 
+           
             // alert('response.IsGroupSubAgendaItems ' + response.IsGroupSubAgendaItems);
 
             //usama march                
@@ -842,7 +878,10 @@ $(document).ready(function() {
                 $('.sameAsPrevSpeaker').removeAttr('checked');
                 $('.isSessionPresident').removeAttr('checked');
                 $('.chkIgnoredSegment').removeAttr('checked');
-                mode = 1;
+               
+            }
+
+             mode = 1;
                 if ($(".hdPageMode").val().length == 0) {
                     mode = "1";
                 } else {
@@ -852,7 +891,16 @@ $(document).ready(function() {
                 if(mode == 3){
                   $('.finish').removeAttr('disabled');
                   $('.btnPreview').removeAttr('disabled');
+
+                  $('.btnSaveOnly').attr('disabled', 'disabled');
+                  $('.btnSaveAndExit').attr('disabled', 'disabled');
                 }
+             if(prevOrNext == 1 && isIgnored == 1)
+            {
+             $(".sameAsPrevSpeaker").attr("disabled", "disabled");
+            }
+            else {
+            $(".sameAsPrevSpeaker").removeAttr("disabled"); 
             }
 
             if ($("#MainContent_chkGroupSubAgendaItems").is(':checked'))
@@ -864,7 +912,7 @@ $(document).ready(function() {
         }
     }
     // save and exit button onclick
-    $("#btnSaveAndExit").click(function() {
+    $(".btnSaveAndExit").click(function() {
         if ($("#editSessionFileForm").valid()) {
             var mode = "1";
             var sessionContentItem;
@@ -898,7 +946,7 @@ $(document).ready(function() {
                     $("#MainContent_ddlAgendaItems,#MainContent_ddlAgendaSubItems,#MainContent_ddlSpeakers,#MainContent_txtSpeakerJob,#specialBranch").attr('disabled', 'disabled');
                     SameAsPrevSpeaker = true;
                 }
-             $("#btnSaveAndExit").attr("disabled", "disabled");
+             $(".btnSaveAndExit").attr("disabled", "disabled");
             if (AgendaItemID != 0) {
                 jQuery.ajax({
                     cache: false,
@@ -926,7 +974,7 @@ $(document).ready(function() {
                     dataType: 'json',
                     success: function(response) {
                         if (response.Message == "success") {
-                            $("btnSaveAndExit").removeAttr("disabled");
+                            $(".btnSaveAndExit").removeAttr("disabled");
                             if (mode == "2")
                                 window.location = "ReviewNotes.aspx?sid=" + sessionID;
                             else
@@ -1802,6 +1850,51 @@ $(document).ready(function() {
 
         }
     });
+
+     // add procuder button
+    $(".btnAddManagePoint").click(function(e) {
+        $(".sameAsPrevSpeaker").removeAttr('checked');
+        $('.ddlSpeakersClone').empty();
+        $('#MainContent_ddlSpeakers option').clone().appendTo('.ddlSpeakersClone');
+        $(".ddlSpeakersClone").val("0");
+        $(".ddlSpeakersClone option:contains(" + "غير محدد" + ")").remove();
+        $(".ddlSpeakersClone option:contains(" + "أخرى" + ")").remove();
+
+        // show the popup
+        $(".popupoverlay").show();
+        $(".reviewpopup_cont6").show();
+        e.preventDefault();
+    });
+    // add procuder yes button
+    $(".btnSaveManagePoint").click(function(e) {
+
+    if($(".ddlSpeakersClone").val() != 0){
+
+       //set the speaker
+       $("#MainContent_ddlSpeakers option[value='" + $(".ddlSpeakersClone").val() + "']").attr("selected", "selected");
+       $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
+
+       // set the editor
+        var ed1 = $('#MainContent_elm1').tinymce();
+        var htmlContent = ed1.getContent();
+        var clone = $('<div>').append(htmlContent)
+        clone.find('span').removeClass('highlight editable hover');
+        
+    
+        // bind the new value
+        $('#MainContent_elm1').val("<span data-stime='" + startTime.val() +  "'>السيد الرئيس</span>");
+         // add to the undo manager
+        $('#MainContent_elm1').tinymce().undoManager.add();
+
+        splitActionForManagePoint(clone.html());
+        // close the popup
+        $(".popupoverlay").hide();
+        $(".reviewpopup_cont6").hide();
+        e.preventDefault();
+        }else alert("من فضلك اختر المتحدث");
+    });
+
+    //
     // add procuder button
     $(".btnAddProcuder").click(function(e) {
         // get the editors
