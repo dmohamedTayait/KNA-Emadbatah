@@ -34,6 +34,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string NEW_SESSION_XML_FOLDER_PATH { get { return "sxfp"; } }
 
             public string ATTENDANT_ID { get { return "attid"; } }
+            public string COMMITTEE_ID { get { return "commid"; } }
             public string SESSION_ATTENDANT_TITLE_ID { get { return "s_att_title_id"; } }
             public string ATTENDANT_ID_EParliment { get { return "epattid"; } }
 
@@ -46,6 +47,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string SESSION_CONTENT_ITEM_ID { get { return "scid"; } }
 
             public string PROCEDURE_TYPE_ID { get { return "proctypeid"; } }
+            public string PROCEDURE_ID { get { return "procid"; } }
 
             public string AJAX_FUNCTION_NAME { get { return "funcname"; } }
 
@@ -169,6 +171,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public const string FILE_LIST_DATAENTRY = "FilesListForDataEntry.htm";
             public const string Add_New_User_WinRow = "AddNewUserWinRow.htm";
             public const string EMadbatahUserRow = "EMadbatahUserRow.htm";
+            public const string CommitteeRow = "CommitteeRow.htm";
             public const string ReviewNotesFileInfo = "ReviewNotesFileInfo.htm";
             public const string ReviewNotesFileNotes = "ReviewNotesFileNotes.htm";
             public const string ReviewNotesFileNoteItem = "ReviewNotesFileNoteItem.htm";

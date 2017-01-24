@@ -42,6 +42,7 @@
     <EntitySetMapping Name="Attendants">
       <EntityTypeMapping TypeName="EMadbatahModel.Attendant">
         <MappingFragment StoreEntitySet="Attendant">
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
           <ScalarProperty Name="LongName" ColumnName="LongName" />
           <ScalarProperty Name="ShortName" ColumnName="ShortName" />
           <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
@@ -248,6 +249,7 @@
     <EntitySetMapping Name="Committees">
       <EntityTypeMapping TypeName="EMadbatahModel.Committee">
         <MappingFragment StoreEntitySet="Committee">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="CommitteeName" ColumnName="CommitteeName" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
@@ -256,6 +258,7 @@
     <EntitySetMapping Name="CommitteeAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.CommitteeAttendant">
         <MappingFragment StoreEntitySet="CommitteeAttendant">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="CommitteeDate" ColumnName="CommitteeDate" />
           <ScalarProperty Name="AttendantStatus" ColumnName="AttendantStatus" />
           <ScalarProperty Name="SessionID" ColumnName="SessionID" />
@@ -268,6 +271,8 @@
     <EntitySetMapping Name="DefaultAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
         <MappingFragment StoreEntitySet="DefaultAttendant">
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="LongName" ColumnName="LongName" />
           <ScalarProperty Name="ShortName" ColumnName="ShortName" />
           <ScalarProperty Name="AttendantAvatar" ColumnName="AttendantAvatar" />
@@ -276,6 +281,24 @@
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Seasons">
+      <EntityTypeMapping TypeName="EMadbatahModel.Season">
+        <MappingFragment StoreEntitySet="Season">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SeasonName" ColumnName="SeasonName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stages">
+      <EntityTypeMapping TypeName="EMadbatahModel.Stage">
+        <MappingFragment StoreEntitySet="Stage">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="StageName" ColumnName="StageName" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

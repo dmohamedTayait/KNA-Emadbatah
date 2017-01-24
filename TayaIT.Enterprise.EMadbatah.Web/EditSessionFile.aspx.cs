@@ -202,7 +202,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             //bind Speakers Drop Down List
             ListItem li;
             long unAssignedId = 0;
-            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag).OrderBy(s => s.LongName))
+            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName))
             {
                 ListItem liAttendant = new ListItem(item.LongName, item.ID.ToString());
                 ddlSpeakers.Items.Add(liAttendant);

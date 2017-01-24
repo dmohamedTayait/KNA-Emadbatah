@@ -209,5 +209,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
              get { return AppConfig.GetInstance().EmailServerSettings; }
          }
 
+         public string ProcedureTypeID
+         {
+             get
+             {
+                 return WebHelper.GetQSValue(Constants.QSKeyNames.PROCEDURE_TYPE_ID, _context);
+             }
+         }
     }
 }

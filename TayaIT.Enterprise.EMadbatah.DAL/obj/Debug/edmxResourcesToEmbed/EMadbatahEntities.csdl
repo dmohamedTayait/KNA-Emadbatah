@@ -137,6 +137,8 @@
       <End Role="Attachement" EntitySet="Attachements" />
       <End Role="SessionContentItem" EntitySet="SessionContentItems" />
     </AssociationSet>
+    <EntitySet Name="Seasons" EntityType="EMadbatahModel.Season" />
+    <EntitySet Name="Stages" EntityType="EMadbatahModel.Stage" />
   </EntityContainer>
   <EntityType Name="AgendaItem">
     <Key>
@@ -206,6 +208,7 @@
     <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreatedAt" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -698,6 +701,7 @@
     <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="CommitteeName" MaxLength="500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="Committee" ToRole="CommitteeAttendant" />
+    <Property Type="Int32" Name="Status" />
   </EntityType>
   <EntityType Name="CommitteeAttendant">
     <Key>
@@ -712,6 +716,7 @@
     <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="CommitteeAttendant" ToRole="DefaultAttendant" />
     <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_CommitteeAttendant_Session" FromRole="CommitteeAttendant" ToRole="Session" />
     <Property Type="DateTime" Name="CommitteeDate" />
+    <Property Type="Int32" Name="Status" />
   </EntityType>
   <EntityType Name="DefaultAttendant">
     <Key>
@@ -728,6 +733,8 @@
     <Property Type="String" Name="AttendantAvatar" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Status" />
+    <Property Type="DateTime" Name="CreatedAt" />
   </EntityType>
   <Association Name="FK_Attendant_DefaultAttendant">
     <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
@@ -789,4 +796,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Season">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="SeasonName" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Status" />
+  </EntityType>
+  <EntityType Name="Stage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="StageName" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Status" />
+  </EntityType>
 </Schema>

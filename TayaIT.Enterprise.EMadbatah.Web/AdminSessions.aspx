@@ -129,7 +129,7 @@
                     {
                         string sessionDate = session.Date.Date.ToShortDateString();
                         string sessionDateHijri = session.DateHijri.ToString();
-                        string sessionName = "( " + session.EparlimentID.ToString() + " / " + session.Type + " ) ";//EMadbatahFacade.GetSessionName(session.Season, session.Stage, session.Serial);//"[ د /" + session.Stage + "ف /" + session.Season + " " + session.Serial + " ]";
+                        string sessionName = "( " + session.EparlimentID.ToString() + " / " + session.Type + " ) ";
                         string sessionStatus = GetLocalizedString("strSessionStatus" + session.Status.ToString());
 
                         int nRejected = 0;

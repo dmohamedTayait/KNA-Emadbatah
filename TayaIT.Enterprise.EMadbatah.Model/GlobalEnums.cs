@@ -92,6 +92,12 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         CountryPresidentFamily = 9
     }
 
+    public enum AttendantStatus
+    {
+        Active = 1,
+        Deleted = 2
+    }
+
     public enum AttendantTitle
     {
         M3alyPresident = 1,

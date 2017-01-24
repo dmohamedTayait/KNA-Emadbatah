@@ -233,8 +233,7 @@ public partial class Tester : BasePage
                     if (SessionHelper.UpdateSessionWordAndPdfFiles(sessionID, wordDoc, pdfDoc) > 0)
                     {
 
-                        string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
-
+                        string sessionName = details.EparlimentID + "-" + details.Type;
                         emailData.Add("<%SessionName%>", sessionName);
                         emailData.Add("<%SessionDate%>", details.Date.ToShortDateString());
                         emailData.Add("<%RevName%>", CurrentUser.Name);

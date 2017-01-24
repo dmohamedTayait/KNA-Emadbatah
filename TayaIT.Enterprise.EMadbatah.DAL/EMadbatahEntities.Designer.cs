@@ -417,6 +417,38 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
         private ObjectSet<DefaultAttendant> _DefaultAttendants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Season> Seasons
+        {
+            get
+            {
+                if ((_Seasons == null))
+                {
+                    _Seasons = base.CreateObjectSet<Season>("Seasons");
+                }
+                return _Seasons;
+            }
+        }
+        private ObjectSet<Season> _Seasons;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Stage> Stages
+        {
+            get
+            {
+                if ((_Stages == null))
+                {
+                    _Stages = base.CreateObjectSet<Stage>("Stages");
+                }
+                return _Stages;
+            }
+        }
+        private ObjectSet<Stage> _Stages;
 
         #endregion
         #region AddTo Methods
@@ -579,6 +611,22 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         public void AddToDefaultAttendants(DefaultAttendant defaultAttendant)
         {
             base.AddObject("DefaultAttendants", defaultAttendant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Seasons EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSeasons(Season season)
+        {
+            base.AddObject("Seasons", season);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Stages EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToStages(Stage stage)
+        {
+            base.AddObject("Stages", stage);
         }
 
         #endregion
@@ -1827,6 +1875,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _LongName;
         partial void OnLongNameChanging(global::System.String value);
         partial void OnLongNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedAt;
+        partial void OnCreatedAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedAtChanged();
 
         #endregion
     
@@ -2303,6 +2375,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _CommitteeName;
         partial void OnCommitteeNameChanging(global::System.String value);
         partial void OnCommitteeNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                OnStatusChanging(value);
+                ReportPropertyChanging("Status");
+                _Status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Status");
+                OnStatusChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Status;
+        partial void OnStatusChanging(Nullable<global::System.Int32> value);
+        partial void OnStatusChanged();
 
         #endregion
     
@@ -2503,6 +2599,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.DateTime> _CommitteeDate;
         partial void OnCommitteeDateChanging(Nullable<global::System.DateTime> value);
         partial void OnCommitteeDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                OnStatusChanging(value);
+                ReportPropertyChanging("Status");
+                _Status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Status");
+                OnStatusChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Status;
+        partial void OnStatusChanging(Nullable<global::System.Int32> value);
+        partial void OnStatusChanged();
 
         #endregion
     
@@ -2867,6 +2987,54 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private global::System.String _LongName;
         partial void OnLongNameChanging(global::System.String value);
         partial void OnLongNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                OnStatusChanging(value);
+                ReportPropertyChanging("Status");
+                _Status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Status");
+                OnStatusChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Status;
+        partial void OnStatusChanging(Nullable<global::System.Int32> value);
+        partial void OnStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedAt;
+        partial void OnCreatedAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedAtChanged();
 
         #endregion
     
@@ -3401,6 +3569,109 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="Season")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Season : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Season object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Season CreateSeason(global::System.Int64 id)
+        {
+            Season season = new Season();
+            season.ID = id;
+            return season;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SeasonName
+        {
+            get
+            {
+                return _SeasonName;
+            }
+            set
+            {
+                OnSeasonNameChanging(value);
+                ReportPropertyChanging("SeasonName");
+                _SeasonName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SeasonName");
+                OnSeasonNameChanged();
+            }
+        }
+        private global::System.String _SeasonName;
+        partial void OnSeasonNameChanging(global::System.String value);
+        partial void OnSeasonNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                OnStatusChanging(value);
+                ReportPropertyChanging("Status");
+                _Status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Status");
+                OnStatusChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Status;
+        partial void OnStatusChanging(Nullable<global::System.Int32> value);
+        partial void OnStatusChanged();
+
+        #endregion
+    
     }
     
     /// <summary>
@@ -6323,6 +6594,109 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="Stage")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Stage : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Stage object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Stage CreateStage(global::System.Int64 id)
+        {
+            Stage stage = new Stage();
+            stage.ID = id;
+            return stage;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String StageName
+        {
+            get
+            {
+                return _StageName;
+            }
+            set
+            {
+                OnStageNameChanging(value);
+                ReportPropertyChanging("StageName");
+                _StageName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("StageName");
+                OnStageNameChanged();
+            }
+        }
+        private global::System.String _StageName;
+        partial void OnStageNameChanging(global::System.String value);
+        partial void OnStageNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Status
+        {
+            get
+            {
+                return _Status;
+            }
+            set
+            {
+                OnStatusChanging(value);
+                ReportPropertyChanging("Status");
+                _Status = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Status");
+                OnStatusChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Status;
+        partial void OnStatusChanging(Nullable<global::System.Int32> value);
+        partial void OnStatusChanged();
+
+        #endregion
+    
     }
     
     /// <summary>

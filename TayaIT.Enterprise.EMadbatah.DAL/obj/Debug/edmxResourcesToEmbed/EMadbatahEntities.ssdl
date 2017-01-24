@@ -14,6 +14,7 @@
     <EntitySet Name="Procedure" EntityType="EMadbatahModel.Store.Procedure" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProcedureType" EntityType="EMadbatahModel.Store.ProcedureType" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Role" EntityType="EMadbatahModel.Store.Role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Season" EntityType="EMadbatahModel.Store.Season" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Session" EntityType="EMadbatahModel.Store.Session" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionAttendant" EntityType="EMadbatahModel.Store.SessionAttendant" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionContentItem" EntityType="EMadbatahModel.Store.SessionContentItem" store:Type="Tables" Schema="dbo" />
@@ -21,6 +22,7 @@
     <EntitySet Name="SessionFile" EntityType="EMadbatahModel.Store.SessionFile" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionFileStatus" EntityType="EMadbatahModel.Store.SessionFileStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionStatus" EntityType="EMadbatahModel.Store.SessionStatus" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Stage" EntityType="EMadbatahModel.Store.Stage" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User" EntityType="EMadbatahModel.Store.User" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_AgendaItem_Session" Association="EMadbatahModel.Store.FK_AgendaItem_Session">
       <End Role="Session" EntitySet="Session" />
@@ -199,6 +201,7 @@
     <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
     <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
     <Property Name="LongName" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreatedAt" Type="datetime" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -221,6 +224,7 @@
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="CommitteeName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="CommitteeAttendant">
     <Key>
@@ -232,6 +236,7 @@
     <Property Name="SessionID" Type="bigint" />
     <Property Name="AttendantStatus" Type="int" />
     <Property Name="CommitteeDate" Type="datetime" />
+    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="DefaultAttendant">
     <Key>
@@ -246,6 +251,8 @@
     <Property Name="AttendantAvatar" Type="nvarchar" MaxLength="500" />
     <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
     <Property Name="LongName" Type="nvarchar" MaxLength="500" />
+    <Property Name="Status" Type="int" />
+    <Property Name="CreatedAt" Type="datetime" />
   </EntityType>
   <EntityType Name="MadbatahFilesStatus">
     <Key>
@@ -276,6 +283,14 @@
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" />
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Season">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SeasonName" Type="nvarchar" MaxLength="300" />
+    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="Session">
     <Key>
@@ -391,6 +406,14 @@
     </Key>
     <Property Name="ID" Type="int" Nullable="false" />
     <Property Name="Name" Type="varchar" Nullable="false" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Stage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StageName" Type="nvarchar" MaxLength="300" />
+    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="User">
     <Key>

@@ -268,7 +268,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (att.Name != "غير معرف")
                     {
                         body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl;font-family:AdvertisingBold; text-justify:justify;'>" + "   - " + att.Name.Trim() + "</td></tr>";
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative && !String.IsNullOrEmpty(att.JobTitle.Trim()))
                             body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: center;font-family:AdvertisingBold;padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
                     }
                 }
@@ -292,7 +292,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     {
                         attStr = "   - " + att.Name.Trim();
                         body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative && !String.IsNullOrEmpty(att.JobTitle.Trim()))
                             body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: center;font-family:AdvertisingBold;padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
                     }
                 }
@@ -320,7 +320,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         attStr = "   - " + att.Name.Trim();
                         attStr += " (مهمة رسمية ) ";
                         body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative && !String.IsNullOrEmpty(att.JobTitle.Trim()))
                             body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: center;font-family:AdvertisingBold; padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
                     }
                 }
@@ -330,7 +330,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     {
                         attStr = "   - " + att.Name.Trim();
                         body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: right;font-family:AdvertisingBold; text-justify:kashida;'>" + attStr + "</td></tr>";
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative && !String.IsNullOrEmpty(att.JobTitle.Trim()))
                             body += "<tr><td style='font-size:14pt;line-height:150%;direction:rtl; text-align: center;font-family:AdvertisingBold; padding-right:5%;padding-left:5%'>" + "        (" + att.JobTitle.Trim() + ")" + "</td></tr>";
                     }
                 }

@@ -531,14 +531,14 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 case ParagraphStyle.ParagraphTitle:
                     RunProperties runParagraphTitleTextProp = new RunProperties();
                     RunFonts runParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
-                    Bold bold = new Bold();
-                    BoldComplexScript boldComplexScript = new BoldComplexScript();
+                //    Bold bold = new Bold();
+                //    BoldComplexScript boldComplexScript = new BoldComplexScript();
                     FontSize fontParagraphTitleTextSize = new FontSize() { Val = "28" };
                     FontSizeComplexScript fontParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
                     RightToLeftText rtlTextParagraphTitle = new RightToLeftText();
                     runParagraphTitleTextProp.Append(runParagraphTitleTextFonts);
-                    runParagraphTitleTextProp.Append(bold);
-                    runParagraphTitleTextProp.Append(boldComplexScript);
+                  //  runParagraphTitleTextProp.Append(bold);
+                  //  runParagraphTitleTextProp.Append(boldComplexScript);
                     runParagraphTitleTextProp.Append(fontParagraphTitleTextSize);
                     runParagraphTitleTextProp.Append(fontParagraphTitleComplexScriptSize);
                     runParagraphTitleTextProp.Append(rtlTextParagraphTitle);
@@ -560,16 +560,16 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 case ParagraphStyle.UnderLineParagraphTitle:
                     RunProperties runUnderlineParagraphTitleTextProp = new RunProperties();
                     RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
-                    Bold Underlinebold = new Bold();
+                 //   Bold Underlinebold = new Bold();
                     Underline underline = new Underline() { Val = DocumentFormat.OpenXml.Wordprocessing.UnderlineValues.Single };
-                    BoldComplexScript boldUnderlineComplexScript = new BoldComplexScript();
+                 //   BoldComplexScript boldUnderlineComplexScript = new BoldComplexScript();
                     FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "28" };
                     FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
                     RightToLeftText rtlUnderlineTextParagraphTitle = new RightToLeftText();
                     runUnderlineParagraphTitleTextProp.Append(runUnderlineParagraphTitleTextFonts);
-                    runUnderlineParagraphTitleTextProp.Append(Underlinebold);
+                  //  runUnderlineParagraphTitleTextProp.Append(Underlinebold);
                     runUnderlineParagraphTitleTextProp.Append(underline);
-                    runUnderlineParagraphTitleTextProp.Append(boldUnderlineComplexScript);
+                  //  runUnderlineParagraphTitleTextProp.Append(boldUnderlineComplexScript);
                     runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleTextSize);
                     runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleComplexScriptSize);
                     runUnderlineParagraphTitleTextProp.Append(rtlUnderlineTextParagraphTitle);
@@ -742,15 +742,18 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 elements.Add(
                 new Run(
                     new RunProperties(new FootnotePosition() { Val = FootnotePositionValues.BeneathText },
-                        new RunStyle() { Val = "NormalArabic" }),
+                        new VerticalTextAlignment() { Val = VerticalPositionValues.Superscript },
+                        new FontSizeComplexScript() { Val = "24" },
+                        new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" },
+                        new RightToLeftText()),
                     reference)
                 );
 
 
 
-
-                paragraph.Append(elements);
                 paragraph.Append(run);
+                paragraph.Append(elements);
+                
               
                 _docMainPart.Document.Body.Append(paragraph);
 
@@ -807,14 +810,15 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             foreach (string paragraphTxt in paragraphTextArr)
             {
                 string paragraphText = System.Web.HttpUtility.HtmlDecode(paragraphTxt).Replace(";psbn&", " ").Replace("&nbsp;", " ");
-                Run run = new Run(new Text(paragraphText+" ") { Space = SpaceProcessingModeValues.Preserve });
+                Run run = new Run(new Text(paragraphText + " ") { Space = SpaceProcessingModeValues.Preserve });
+               
 
 
                 if (i<footNoteTextArr.Count && !String.IsNullOrEmpty(footNoteTextArr[i]))
                 {
                     string footNoteText = footNoteTextArr[i];
-                    FootnoteEndnoteReferenceType reference = new FootnoteReference() { Id = AddFootnoteReference(footNoteText) };
-
+                    FootnoteReference reference = new FootnoteReference() { Id = AddFootnoteReference(footNoteText + " .")};
+                   
                     List<OpenXmlElement> elements = new List<OpenXmlElement>();
                     elements.Add(
                     new Run(
@@ -822,13 +826,13 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                             new VerticalTextAlignment() { Val = VerticalPositionValues.Superscript },
                             new FontSizeComplexScript() { Val = "24" },
                             new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" },
-                            new RunStyle() { Val = "FootNote" }),
+                            new RightToLeftText ()),
                         reference)
                     );
 
-
-                    paragraph.Append(elements);
                     paragraph.Append(run);
+                    paragraph.Append(elements);
+                   
                 }
                 else
                 {
@@ -837,6 +841,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 i++;
             }
             _docMainPart.Document.Body.Append(paragraph);
+
             Save();
         }
 
@@ -860,7 +865,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     _docMainPart = _currentDoc.AddMainDocumentPart();
                 if (_docMainPart.Document == null)
                     _docMainPart.Document = MakeEmpyDocument();
-
+              
                 _docMainPart.Document.Save();
             }
         }
@@ -1115,14 +1120,14 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             RunFonts runUnderlineParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
           //  Bold Underlinebold = new Bold();
             Underline underline = new Underline() { Val = DocumentFormat.OpenXml.Wordprocessing.UnderlineValues.Single };
-            BoldComplexScript UnderlineboldComplexScript = new BoldComplexScript();
+          //  BoldComplexScript UnderlineboldComplexScript = new BoldComplexScript();
             FontSize fontUnderlineParagraphTitleTextSize = new FontSize() { Val = "28" };
             FontSizeComplexScript fontUnderlineParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
             RightToLeftText UnderlinertlTextParagraphTitle = new RightToLeftText();
             runUnderlineParagraphTitleTextProp.Append(runUnderlineParagraphTitleTextFonts);
           //  runUnderlineParagraphTitleTextProp.Append(Underlinebold);
             runUnderlineParagraphTitleTextProp.Append(underline);
-            runUnderlineParagraphTitleTextProp.Append(UnderlineboldComplexScript);
+          //  runUnderlineParagraphTitleTextProp.Append(UnderlineboldComplexScript);
             runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleTextSize);
             runUnderlineParagraphTitleTextProp.Append(fontUnderlineParagraphTitleComplexScriptSize);
             runUnderlineParagraphTitleTextProp.Append(UnderlinertlTextParagraphTitle);
@@ -1160,18 +1165,16 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             styleParagraphTitleItalic.Append(runParagraphItalicTextProp);
 
 
-
-
             RunProperties runFootNoteTextProp = new RunProperties();
             RunFonts runFootNoteTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
-            FontSize fontFootNoteTextSize = new FontSize() { Val = "20" };
-            FontSizeComplexScript fontFootNoteComplexScriptSize = new FontSizeComplexScript() { Val = "24" };
-           
+            FontSize fontFootNoteTextSize = new FontSize() { Val = "22" };
+            FontSizeComplexScript fontFootNoteComplexScriptSize = new FontSizeComplexScript() { Val = "22" };
             RightToLeftText rtlTextFootNote = new RightToLeftText();
             runFootNoteTextProp.Append(runFootNoteTextFonts);
             runFootNoteTextProp.Append(fontFootNoteTextSize);
             runFootNoteTextProp.Append(fontFootNoteComplexScriptSize);
             runFootNoteTextProp.Append(rtlTextFootNote);
+           
             Style styleFootNoteTitle = new Style();
             styleFootNoteTitle.StyleId = "FootNote";
             styleFootNoteTitle.Append(new Name() { Val = "Taya Madbatah FootNote Text" });
@@ -1216,16 +1219,16 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             RunProperties runTableParagraphTitleTextProp = new RunProperties();
             RunFonts runTableParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
-            Bold Tablebold = new Bold();
-            BoldComplexScript TableBoldComplexScript = new BoldComplexScript();
+           // Bold Tablebold = new Bold();
+           // BoldComplexScript TableBoldComplexScript = new BoldComplexScript();
             FontSize fontTableParagraphTitleTextSize = new FontSize() { Val = "28" };
             FontSizeComplexScript fontTableParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "28" };
             RightToLeftText TableRtlTextParagraphTitle = new RightToLeftText();
             Justification justification = new Justification();
             justification.Val = JustificationValues.Right;
             runTableParagraphTitleTextProp.Append(runTableParagraphTitleTextFonts);
-            runTableParagraphTitleTextProp.Append(Tablebold);
-            runTableParagraphTitleTextProp.Append(TableBoldComplexScript);
+          //  runTableParagraphTitleTextProp.Append(Tablebold);
+          //  runTableParagraphTitleTextProp.Append(TableBoldComplexScript);
             runTableParagraphTitleTextProp.Append(fontTableParagraphTitleTextSize);
             runTableParagraphTitleTextProp.Append(fontTableParagraphTitleComplexScriptSize);
             runTableParagraphTitleTextProp.Append(TableRtlTextParagraphTitle);
@@ -1319,7 +1322,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             _docStylePart.Styles.Append(styleParagraphTitleItalic);
             _docStylePart.Styles.Append(styleParagraphTitleBoldItalic);
             _docStylePart.Styles.Append(styleTableGrid);
-            //_docStylePart.Styles.Append(styleFootNoteRef);
+            _docStylePart.Styles.Append(styleFootNoteTitle);
             //_docStylePart.Styles.Append(styleFootNote);
             _docStylePart.Styles.Save();
 
@@ -1951,17 +1954,17 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 new Footnotes(
                     new Footnote(
                         new Paragraph(
-                            new ParagraphProperties(
+                            new ParagraphProperties( new ParagraphStyleId() { Val = "FootNote" }, new Justification() { Val = JustificationValues.Right },
                                 new SpacingBetweenLines() { After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }),
-                            new Run(
+                            new Run(new RightToLeftText(),
                                 new SeparatorMark())
                         )
                     ) { Type = FootnoteEndnoteValues.Separator, Id = -1 },
                     new Footnote(
                         new Paragraph(
-                            new ParagraphProperties(
+                            new ParagraphProperties(new ParagraphStyleId() { Val = "FootNote" }, new Justification() { Val = JustificationValues.Right },
                                 new SpacingBetweenLines() { After = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }),
-                            new Run(
+                            new Run(new RightToLeftText(),
                                 new ContinuationSeparatorMark())
                         )
                     ) { Type = FootnoteEndnoteValues.ContinuationSeparator, Id = 0 }).Save(fpart);
@@ -1983,10 +1986,10 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             fpart.Footnotes.Append(
                 new Footnote(
                     new Paragraph(
-                        new ParagraphProperties(
-                            new ParagraphStyleId() { Val = "Normal" }),//htmlStyles.GetStyle("footnote text", false) }),
+                        new ParagraphProperties(new Justification() { Val = JustificationValues.Right },
+                            new ParagraphStyleId() { Val = "FootNote" }),//htmlStyles.GetStyle("footnote text", false) }),
                         markerRun = new Run(
-                            new RunProperties(
+                            new RunProperties(new RightToLeftText(),
                                 new RunStyle() { Val = "Normal" }),//htmlStyles.GetStyle("footnote reference", true) }),
                             new FootnoteReferenceMark()),
                         new Run(

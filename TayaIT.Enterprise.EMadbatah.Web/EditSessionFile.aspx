@@ -77,17 +77,21 @@
                     <div class="clear"></div>
                 </div>
                 <div id="divAgenda" name="divAgenda" runat="server" class="divAgenda mb-50 row">
-
-                  <div class="grid_2 h2" style="margin-right:20px">
+                <table>
+                <tr>
+                <td> <div class="h2" style="margin-right:20px;width: 80px;">
                                 <span class="red">*</span> البند:
-                            </div>
-                    <p class="agendaItemTxt">
+                            </div></td>
+                <td><p class="agendaItemTxt" style="margin-right: 20px;width:650px">
                         <%= agendaItemTxt%>
-                    </p>
-
-                     <span class="agendaItemIsIndexed" style="display:none">
+                    </p></td>
+                <td><a href="javascript:void(0)" class="removeAgendaItem h2" style="margin-right:30px;">حذف الفهرس</a></td>
+                <td> <span class="agendaItemIsIndexed" style="display:none">
                         <%= agendaItemIsIndexed%>
-                    </span>
+                    </span></td>
+                </tr>
+                </table>
+           
                 </div>
                 <!--<div class="row">
             <div class="grid_3">

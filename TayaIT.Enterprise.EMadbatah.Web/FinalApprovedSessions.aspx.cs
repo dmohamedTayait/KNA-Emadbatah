@@ -116,7 +116,6 @@ public partial class FinalApprovedSessions : BasePage
     {
         selectVecsysFolders.Items.Clear();
         //if it is new from database we show selection and confirm from vecsys path
-        //string sessionPath = Path.Combine(AppConfig.GetInstance().VecSysServerPath, sd.Season.ToString(), sd.Stage.ToString());
         string mp3AudioServerPath = AppConfig.GetInstance().AudioServerPath;
         string xmlPath = AppConfig.GetInstance().VecSysServerPath;
 

@@ -149,6 +149,20 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
         }
 
+        public string CommitteeID
+        {
+            get
+            {
+                string val = Context.Request.QueryString[Constants.QSKeyNames.COMMITTEE_ID];
+                if (!string.IsNullOrEmpty(val) && val.Trim() != string.Empty)
+                {
+                    return val;
+                }
+                else
+                    return null;
+            }
+        }
+
         public string AttendantIDEParliment
         {
             get
@@ -303,6 +317,34 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
         }
 
+        public string ProcedureID
+        {
+            get
+            {
+                string val = Context.Request.QueryString[Constants.QSKeyNames.SESSION_ID];
+                if (!string.IsNullOrEmpty(val) && val.Trim() != string.Empty)
+                {
+                    return val;
+                }
+                else
+                    return null;
+            }
+        }
+
+        public string ProcedureTypeID
+        {
+            get
+            {
+                string val = Context.Request.QueryString[Constants.QSKeyNames.PROCEDURE_TYPE_ID];
+                if (!string.IsNullOrEmpty(val) && val.Trim() != string.Empty)
+                {
+                    return val;
+                }
+                else
+                    return null;
+            }
+        }
+
         public Label ErrorMessagePlace
         {
             get
@@ -380,6 +422,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             string testUser = "DEVELOP\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
             CurrentUser = EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
+
+          //  CurrentUser = EMadbatahFacade.GetUserByUserID(17);
 
             CurrentDomain = id.Name.Split('\\')[0].ToLower();
 

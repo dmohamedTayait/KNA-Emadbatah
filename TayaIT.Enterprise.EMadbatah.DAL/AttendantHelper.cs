@@ -402,7 +402,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             {
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                    List<Attendant> attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 &&  ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).ToList();
+                    List<Attendant> attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
                     return attendantsInTime;
                 }
             }
@@ -427,12 +427,12 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         {
                             Attendant attObj = AttendantHelper.GetAttendantByDefaultAttendantId(long.Parse(sessionObj.PresidentID.ToString()));
                             sessionPresidentID = attObj.ID;
-                            attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Type != 9 && ww.DefaultAttendantID != sessionObj.PresidentID && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.LongName).ToList();
+                            attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Type != 9 && ww.DefaultAttendantID != sessionObj.PresidentID && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
                         }
                     }
                     else
                     {
-                        attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Type != 9 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.LongName).ToList();
+                        attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Type != 9 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
                     }
                     return attendantsInTime;
                 }

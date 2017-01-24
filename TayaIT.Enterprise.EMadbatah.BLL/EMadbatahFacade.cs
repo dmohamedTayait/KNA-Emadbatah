@@ -951,9 +951,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                             if (ret > 0)
                             {
-                                string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
-
-                                emailData.Add("<%SessionName%>", sessionName);
+                                emailData.Add("<%SessionName%>", details.EparlimentID.ToString() + "-" + details.Type);
                                 emailData.Add("<%SessionDate%>", details.Date.ToShortDateString());
                                 emailData.Add("<%RevName%>", threadUser.Name);
                                 switch (fileVersion)
@@ -1090,9 +1088,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         Directory.Delete(folderPath, true);
                                 }
                                 catch { }
-                                string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
-
-                                emailData.Add("<%SessionName%>", sessionName);
+                                emailData.Add("<%SessionName%>", details.EparlimentID.ToString() + "-" + details.Type);
                                 emailData.Add("<%SessionDate%>", details.Date.ToShortDateString());
                                 emailData.Add("<%RevName%>", threadUser.Name);
                                 switch (fileVersion)
@@ -1169,10 +1165,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     thisproc.Kill();
                 }
             }
-
-            string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
             Hashtable failEmailData = new Hashtable();
-            failEmailData.Add("<%SessionName%>", sessionName);
+            failEmailData.Add("<%SessionName%>", details.EparlimentID.ToString() + "-" + details.Type);
             failEmailData.Add("<%SessionDate%>", details.Date.ToShortDateString());
 
             switch (fileVersion)

@@ -120,14 +120,6 @@
             </div>
             <div class="grid_8">
                 <asp:DropDownList ID="ddlSeason" runat="server" CssClass="inputBlock">
-                    <asp:ListItem Value="0">-- اختر --</asp:ListItem>
-                    <asp:ListItem Value="14">الرابع عشر</asp:ListItem>
-                    <asp:ListItem Value="15">الخامس عشر</asp:ListItem>
-                    <asp:ListItem Value="16">السادس عشر</asp:ListItem>
-                    <asp:ListItem Value="17">السابع عشر</asp:ListItem>
-                    <asp:ListItem Value="18">الثامن عشر</asp:ListItem>
-                    <asp:ListItem Value="19">التاسع عشر</asp:ListItem>
-                    <asp:ListItem Value="20">العشرون</asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div class="clear">
@@ -141,12 +133,6 @@
             </div>
             <div class="grid_8">
                 <asp:DropDownList ID="ddlStage" runat="server" CssClass="inputBlock">
-                    <asp:ListItem Value="0">-- اختر --</asp:ListItem>
-                    <asp:ListItem Value="1">الاول</asp:ListItem>
-                    <asp:ListItem Value="2">الثاني</asp:ListItem>
-                    <asp:ListItem Value="3">الثالث</asp:ListItem>
-                    <asp:ListItem Value="4">الرابع</asp:ListItem>
-                    <asp:ListItem Value="5">الخامس التكميلي</asp:ListItem>
                 </asp:DropDownList>
             </div>
             <div class="grid_3">

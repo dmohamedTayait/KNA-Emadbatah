@@ -219,13 +219,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                             name = "السيد رئيـس الجلســـــــــــــــــــــــة :";
 
                                             if (att.AttendantTitle == null)
-                                                attFullPresentationName = "السيد " + att.Name.Trim();
-                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
+                                                attFullPresentationName = "السيد " + att.ShortName.Trim();
+                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
                                             attFullPresentationName = "( " + attFullPresentationName;
                                             if (att.Type != 3)
                                                 attFullPresentationName = attFullPresentationName + ")";
-                                            if (att.Type == 3)
+                                            if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle))
                                                 job2 = "    " + att.JobTitle + ")";
+                                            else if (!String.IsNullOrEmpty(item.CommentOnAttendant))
+                                                job2 = "(" + item.CommentOnAttendant + " )";
                                             string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
                                                             .Replace("<%itemText%>", name)
                                                             .Replace("<%speakerJob%>", attFullPresentationName)
@@ -235,11 +237,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                         else
                                         {
                                             if (att.AttendantTitle == null)
-                                                attFullPresentationName = "السيد " + att.Name.Trim() + " : ";
-                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim() + " : ";
+                                                attFullPresentationName = "السيد " + att.ShortName.Trim() + " : ";
+                                            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim() + " : ";
                                             if (string.IsNullOrEmpty(item.CommentOnAttendant))
                                             {
-                                                if (att.Type == 3)
+                                                if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle))
                                                     job = "( " + att.JobTitle + " )";
                                             }
                                             else
@@ -254,6 +256,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                             sb.Append(speaker);
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
+                                                       .Replace("<%itemText%>", "تم اسناد هذه الفقرة الى :" + att.Name)
+                                                       .Replace("<%speakerJob%>", "")
+                                                       .Replace("<%speakerJob2%>", "");
+                                    sb.Append(speaker);
                                 }
                                 ////////////////////////////////
                             }

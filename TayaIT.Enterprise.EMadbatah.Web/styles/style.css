@@ -614,7 +614,7 @@ header#header a.currentuser {
 }
 /* Admin Home Page */
 .toolsbox {
-    width: 790px;
+   
     margin: 0px auto;
 }
 .adminhomebutton {
@@ -635,10 +635,10 @@ header#header a.currentuser {
     margin-right: 15px;
     font-size: 10pt;
 }
-.adminhomebutton.setting_icon,
+.adminhomebutton.setting_icon,.adminhomebutton.session_icon,
 .adminhomebutton.user_icon,
 .adminhomebutton.create_ico {
-    margin-left: 80px;
+    margin-left: 70px;
 }
 .adminhomebutton.create_ico a {
     background: url("../images/create_ico.png") no-repeat;
@@ -1509,7 +1509,7 @@ span.revFilelock {
     width: 63px;
     font-weight: bold;
 }
-.addnewusercont a.AddNewUserWin {
+.addnewusercont a.AddNewUserWin,.addnewusercont a.AddNewCommittee {
     display: block;
     font-size: 130%;
     text-align: center;

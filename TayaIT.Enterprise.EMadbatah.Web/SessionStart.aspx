@@ -155,7 +155,7 @@
                                                                     if (currentSessionId != -1)
                                                                   {
                                                                       SessionDetails sd = EMadbatahFacade.GetSessionBySessionID(currentSessionId);
-                                                                      sessionName = sd.EparlimentID.ToString() + " / " + sd.Type;//EMadbatahFacade.GetSessionName(sd.Season, sd.Stage, sd.Serial);
+                                                                      sessionName = sd.EparlimentID.ToString() + " / " + sd.Type;
                                                                       sessionDate = sd.Date.Date.ToShortDateString();
                        
                                                                   }%>

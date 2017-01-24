@@ -22,7 +22,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-           TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(254, "/test/254/", "");
+            TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(261, "/test/261/", "");
           //   string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(155);
 
             string htmlText = "<span>test span</span> <span>test span2</span> test betweeen line<p procedure-id>test div</p>test between line2<p procedure-id>test div2</p>";

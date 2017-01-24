@@ -48,6 +48,7 @@
     <Compile Include="AttachmentHelper.cs" />
     <Compile Include="AttendantHelper.cs" />
     <Compile Include="CommitteeHelper.cs" />
+    <Compile Include="SeasonHelper.cs" />
     <Compile Include="DefaultAttendantHelper.cs" />
     <Compile Include="EMadbatahEntities.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -68,6 +69,9 @@
     <Compile Include="SessionFileHelper.cs" />
     <Compile Include="SessionHelper.cs" />
     <Compile Include="SessionStartHelper.cs" />
+    <Compile Include="StageHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UserHelper.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -67,25 +67,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 File.Copy(SessionWorkingDir + "MadbatahcoverDoc.docx", SessionWorkingDir + sessionID + ".docx", true);
                 WordprocessingWorker.MergeWithAltChunk(SessionWorkingDir + sessionID + ".docx", mergeList.ToArray());
 
-
-
-                //List<byte[]> docs = new List<byte[]>();
-                //foreach (string file in mergeList)
-                //    docs.Add(File.ReadAllBytes(file));
-
-                //File.WriteAllBytes(SessionWorkingDir + "merged.docx", WordprocessingWorker.OpenAndCombine(docs));
-                //WordMerger.MergeDocs(mergeList.ToArray(), SessionWorkingDir + sessionID + ".docx", true);
-
-                //PdfMaker.ConvertDocxToPdf(SessionWorkingDir, ServerMapPath, SessionWorkingDir + sessionID + ".docx", SessionWorkingDir + sessionID + ".pdf");
-                //doc = new WordDocument();
-                //doc.Open(SessionWorkingDir + sessionID + ".doc");
-
-                //string sessionSerial = EMadbatahFacade.GetSessionNameForWord(13, details.Stage, details.Season);
-                //doc.InsertPageNumInFooterWithSessionNum(sessionSerial);//"5/5/14");
-                //Console.WriteLine(index.Count.ToString());
-                //doc.SaveDocument();
-                //doc.Quit();
-
                 return true;
             }
             catch (Exception ex)
@@ -115,7 +96,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
             NumberingFormatter fomratterFemale = new NumberingFormatter(false);
             NumberingFormatter fomratterMale = new NumberingFormatter(true);
-            string sessionName = details.EparlimentID.ToString() + " / " + details.Type; //EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
+            string sessionName = details.EparlimentID.ToString() + " / " + details.Type;
 
             string timeInHour = "الساعة ";
             timeInHour += LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour);
@@ -134,9 +115,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             sb.Append("<root>");
 
             sb.Append("<Name>").Append(sessionName).Append("</Name>");
-            sb.Append("<Season>").Append(fomratterMale.getResultEnhanced((int)details.Season)).Append("</Season>");
+            sb.Append("<Season>").Append(SeasonHelper.GetSeasonByID(details.Season)).Append("</Season>");
             sb.Append("<StageType>").Append("ال" + details.StageType).Append("</StageType>");
-            sb.Append("<Stage>").Append(fomratterMale.getResultEnhanced((int)details.Stage)).Append("</Stage>");
+            sb.Append("<Stage>").Append(StageHelper.GetStageByID(details.Stage)).Append("</Stage>");//fomratterMale.getResultEnhanced((int)details.Stage)
             sb.Append("<Subject>").Append(details.Subject).Append("</Subject>");
             sb.Append("<DateHijri>").Append(hijriDate).Append("</DateHijri>");
             sb.Append("<DateMilady>").Append(gDate).Append("</DateMilady>");
@@ -174,6 +155,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     doc.DocHeaderString = "ــــــــــــــــــــ        " + details.EparlimentID.ToString() + " / " + details.Type + "        ــــــــــــــــــــ";
                     doc.ApplyHeaderAndFooter();
 
+                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+
                     index = new List<MadbatahIndexItem>();
                     speakersIndex = new List<SpeakersIndexItem>();
                     List<string> writtenAgendaItems = new List<string>();
@@ -195,7 +178,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                         pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                         int ctr = 0;
-                       
+
                         List<List<SessionContentItem>> speakerGroup = new List<List<SessionContentItem>>();
                         List<SessionContentItem> newGroup = GroupSpeakerSimilarArticles(groupedItems, out speakerGroup);
                         List<SessionContentItem> contentItemGrp = new List<SessionContentItem>();
@@ -246,7 +229,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         Attendant att = sessionItem.Attendant;
                                         if (att.Type != (int)Model.AttendantType.UnAssigned)
                                         {
-                                           // WriteAttendantInWord(sessionItem, att, doc);
+                                            // WriteAttendantInWord(sessionItem, att, doc);
 
                                             if (att.Type == (int)Model.AttendantType.FromTheCouncilMembers)
                                             {
@@ -278,8 +261,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         pdf2ImageConvert.convertPdfFile(pdfFilePath);
                                         string wordAttFilePath = SessionWorkingDir + attachName.ToLower().Replace(".pdf", ".pdf.docx");
                                         string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, "")).OrderBy(p => new FileInfo(p).CreationTime).ToArray(); ;
-                                                                          
-                                        WriteParagraphInWord(sessionItem, contentItemAsText, doc,contentItemGrp);
+
+                                        WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp);
                                         text = "";
                                         contentItemAsText = "";
                                         contentItemGrp.Clear();
@@ -395,7 +378,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         if (att.Type != 3)
                             attFullPresentationName = attFullPresentationName + ")";
                         doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (att.Type == 3)
+                        if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle.Trim()))
                             doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                     else
@@ -404,14 +387,14 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             attFullPresentationName = "السيد " + att.ShortName.Trim() + " : ";
                         else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim() + " : ";
                         doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (att.Type == 3)
+                        if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle.Trim()))
                             doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                 }
             }
         }
 
-        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc,List<SessionContentItem> grp,bool ttt)
+        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc, List<SessionContentItem> grp, bool ttt)
         {
             string[] p = new string[] { };
             string[] paragraphs = GetParagraphsArr(contentItemAsText, out p);
@@ -428,12 +411,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     myCollection2.Add(sessionItem.PageFooter);
                     if (pp != 0)
                         WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
-                    if(sessionItem.PageFooter != "")
+                    if (sessionItem.PageFooter != "")
                         doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
                     else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                 }
-               
+
 
                 if (pp < p.Length)
                 {
@@ -477,19 +460,21 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         string parag = "";
                         for (int pp = 0; pp < paragraphs.Length; pp++)
                         {
-                            parag = TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim();
-                            if (parag != "")
+                            parag += TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim();
+                            myCollection.Add(TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " "));
+                            if (paragraphs.Length != 1 && pp < p.Length)
                             {
-                                myCollection.Add(parag.Replace("&nbsp;", " "));
-                                if (paragraphs.Length != 1 && pp < p.Length)
+                                if (parag.Trim() != "")
                                 {
                                     WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
                                     doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
                                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                                     myCollection.Clear();
                                     myCollection2.Clear();
+                                    parag = "";
                                 }
                             }
+
 
 
                             if (pp < p.Length)
@@ -924,7 +909,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (att.Name != "غير معرف")
                     {
                         doc.AddParagraph(" - " + att.Name.Trim(), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative && !String.IsNullOrEmpty(att.JobTitle.Trim()))
                             doc.AddParagraph("        (" + att.JobTitle.Trim() + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                 }
@@ -943,7 +928,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (att.Name != "غير معرف")
                     {
                         doc.AddParagraph(" - " + att.Name.Trim(), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative)
+                        if (att.Type == (int)Model.AttendantType.GovernmentRepresentative && !String.IsNullOrEmpty(att.JobTitle.Trim()))
                             doc.AddParagraph("        (" + att.JobTitle.Trim() + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                 }
@@ -1179,104 +1164,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             BottomMargin bottomMargin1 = new BottomMargin() { Width = "500", Type = TableWidthUnitValues.Pct };
 
             TableCellRightMargin tableCellRightMargin1 = new TableCellRightMargin() { Width = 108, Type = TableWidthValues.Dxa };*/
-        }
-
-
-        public static void CreateMadbatahStart2(Model.SessionDetails details, string outStartPath, string ServerMapPath)
-        {
-
-            File.Copy(ServerMapPath + "\\docs\\templates\\madbatahStart-template.docx", outStartPath, true);
-            //for dates 
-            //Model.SessionDetails details = SessionStartFacade.GetSessionDetails(sessionID);
-
-            //calculate hijri date
-            //details.Date = details.Date.Subtract(new TimeSpan(1, 0, 0));
-            DateTimeFormatInfo dateFormat = Util.DateUtils.ConvertDateCalendar(details.Date, Util.CalendarTypes.Hijri, "en-us");
-            //DateTime hijDate = details.Date.ToString("f", dateFormat);
-
-
-            string dayNameAr = details.Date.ToString("dddd", dateFormat); // LocalHelper.GetLocalizedString("strDay" + hijDate.DayOfWeek);
-            string monthNameAr = LocalHelper.GetLocalizedString("strMonth" + details.Date.Month);
-            string monthNameHijAr = details.Date.ToString("MMMM", dateFormat); //LocalHelper.GetLocalizedString("strHijMonth"+hijDate.Month);
-            string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
-            string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
-
-            /// We format the date structure to whatever we want - LAITH - 11/13/2005 1:05:39 PM -
-            //  dateFormat.ShortDatePattern = "dd/MM/yyyy";
-            //   return dateConv;//(dateConv.Date.ToString("f", dateFormat));
-
-            //for header
-            string sessionNum = details.Subject; //"الخامسة عشره";
-            string hijriDate = dayNameAr + " " + dayOfMonthNumHij + " " + monthNameHijAr + " سنة " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
-            string gDate = details.Date.Day + " " + monthNameAr + " سنة " + details.Date.Year + " م "; //"22 يونيو سنة 2010 م";
-            string timeInHour = LocalHelper.GetLocalizedString("strHour" + details.StartTime.Hour) + " " + LocalHelper.GetLocalizedString("strTime" + details.Date.ToString("tt"));//"التاسعة صباحا";
-            string seasonType = details.StageType;// "العادي";
-            long seasonStage = details.Stage;// "الخامس";
-            string sessionSeason = details.Season + "";// "الرابع عشر";
-
-            NumberingFormatter fomratterFemale = new NumberingFormatter(false);
-            NumberingFormatter fomratterMale = new NumberingFormatter(true);
-            string sessionName = EMadbatahFacade.GetSessionName(details.Season, details.Stage, details.Serial);
-
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("<root>");
-            sb.Append("<SessionNum>").Append(sessionNum).Append("</SessionNum>");
-            sb.Append("<HijriDate>").Append(hijriDate).Append("</HijriDate>");
-            sb.Append("<GeorgianDate>").Append(gDate).Append("</GeorgianDate>");
-            sb.Append("<sessionTime>").Append(timeInHour).Append("</sessionTime>");
-            sb.Append("<SessionNum>").Append(sessionNum).Append("</SessionNum>");
-            sb.Append("<SessionNum>").Append(sessionNum).Append("</SessionNum>");
-            sb.Append("<SessionNum>").Append(sessionNum).Append("</SessionNum>");
-            sb.Append("<SessionNum>").Append(sessionNum).Append("</SessionNum>");
-
-            sb.Append("<SessionNum>").Append(sessionName).Append("</SessionNum>");
-            sb.Append("<Season>").Append(fomratterMale.getResultEnhanced((int)details.Season)).Append("</Season>");
-            sb.Append("<StageType>").Append(details.StageType).Append("</StageType>");
-            sb.Append("<Stage>").Append(fomratterMale.getResultEnhanced((int)details.Stage)).Append("</Stage>");
-            sb.Append("<Subject>").Append(details.Subject).Append("</Subject>");
-            sb.Append("<DateHijri>").Append(hijriDate).Append("</DateHijri>");
-            sb.Append("<DateMilady>").Append(gDate).Append("</DateMilady>");
-            sb.Append("</root>");
-
-
-            string xmlToReplace = @" <root>
-                      <SessionNum>" + sessionName + @"</SessionNum>
-                      <HijriDate>" + hijriDate + @"</HijriDate>
-                      <GeorgianDate>" + gDate + @"</GeorgianDate>
-                      <sessionTime>" + timeInHour + @"</sessionTime>
-                      <Table Name='AgendaItem'>
-                        <Field Name='AgendaItem' />
-                      </Table>
-                    <Header>
-                    <SessionNum>SessionNum</SessionNum>
-                    <sessionType>sessionType</sessionType>
-                    <sessionStage>sessionStage</sessionStage>
-                    <sessionTime>sessionTime</sessionTime>
-                      <HijriDate>HijriDate</HijriDate>
-                      <GeorgianDate>GeorgianDate</GeorgianDate>
-                    <sessionPresident>sessionPresident</sessionPresident>
-                    </Header>
-                      <Table Name='ApologiesAtt'>
-                        <Field Name='ApologiesAtt1' />
-                        <Field Name='ApologiesAtt2' />
-                      </Table>
-                      <Table Name='AbsentAtt'>
-                        <Field Name='AbsentAtt1' />
-                        <Field Name='AbsentAtt2' />
-                      </Table>
-
-                      <Table Name='attFromGov'>
-                        <Field Name='attFromGov' />
-                        <Field Name='attFromGovTitle' />
-                      </Table>
-                    <attendingOutOfMajles>attendingOutOfMajles</attendingOutOfMajles>
-                    <secertairs>secertairs</secertairs>
-                </root>";
-
-            XElement contentControlValues = XElement.Parse(xmlToReplace);
-            WordTemplateHandler.replaceCustomXML(outStartPath, xmlToReplace);
-            WordTemplateHandler.replaceTableXmlContents(outStartPath, contentControlValues);
         }
 
         public static int CreateMadbatahIndexWithAttachment(List<MadbatahIndexItem> index, List<Attachement> attachments,
@@ -1747,217 +1634,5 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
 
         }
-        /*
-        public static void CreateMadbatah(long sessionID, string outFilePath)
-        {
-            Model.SessionDetails details = SessionStartFacade.GetSessionDetails(sessionID);
-            List<SessionContentItem> items = ReviewerFacade.GetSessionContentItems(sessionID);
-
-            WordDocument doc = new WordDocument();
-            doc.CreateNew();
-            BasicFormat format = new BasicFormat();
-            format.align = Alignment.Right;
-            format.textStyle = TextStyle.Bold;
-            doc.InsertPageNumInFooterWithSessionNum(details.Subject + "/" + details.Stage + "/" + details.Season);//"5/5/14");
-
-            List<MadbatahIndexItem> index = new List<MadbatahIndexItem>();
-            List<SpeakersIndexItem> speakersIndex = new List<SpeakersIndexItem>();
-
-            int pageNum = 0;
-            foreach (SessionAgendaItem item in details.AgendaItems.Values)
-            {
-                //if (item.IsCustom.Value)
-                //{
-                //    continue;
-                //}
-                if (item.Order == 0 || item.IsCustom.Value)
-                {
-                    var list = from it in items
-                               orderby it.FragOrderInXml
-                               where it.AgendaItemID == item.ID 
-                               select it;
-
-                    pageNum = doc.GetCurrentPageNumber();
-                    index.Add(new MadbatahIndexItem("", item.Text, pageNum, true));
-                    foreach (SessionContentItem sessionItem in list)
-                    {
-                        pageNum = doc.GetCurrentPageNumber();
-                        if (!sessionItem.MergedWithPrevious.Value)
-                        {
-                            Attendant att = sessionItem.Attendant;
-                            format.textStyle = TextStyle.Bold;
-                            format.align = Alignment.Right;
-                            doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                            speakersIndex.Add(new SpeakersIndexItem(att.Name, pageNum));
-                            if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
-                            {
-                                doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                            }
-
-                            doc.insertBreakLine(1);
-                        }
-                        format.textStyle = TextStyle.Normal;
-                        format.align = Alignment.Right;
-                        doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                        if (string.IsNullOrEmpty(sessionItem.PageFooter))
-                            doc.AddFooteNote(sessionItem.PageFooter);
-
-                        //if(sessionItem.PageFooter
-
-                        doc.insertBreakLine(1);
-
-                        if (!string.IsNullOrEmpty(sessionItem.CommentOnText))
-                        {
-                            format.align = Alignment.Center;
-                            format.textStyle = TextStyle.Normal;
-                            doc.insertText("(" + sessionItem.CommentOnText + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                            doc.insertBreakLine(1);
-                        }
-                        
-                    }
-                    
-                    continue;
-
-                }
-                format.textStyle = TextStyle.Bold;
-                format.align = Alignment.Right;
-                pageNum = doc.GetCurrentPageNumber();
-                doc.insertText("* "+item.Text+":", 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                index.Add(new MadbatahIndexItem("",item.Text,pageNum,true));
-                doc.insertBreakLine(1);
-
-                
-                if (item.SubAgendaItems.Count == 0)
-                {
-                    var list = from it in items
-                               orderby it.FragOrderInXml
-                               where it.AgendaItemID == item.ID
-                               select it;
-
-                    foreach (SessionContentItem sessionItem in list)
-                    {
-                        pageNum = doc.GetCurrentPageNumber();
-                        if (!sessionItem.MergedWithPrevious.Value)
-                        {
-                            Attendant att = sessionItem.Attendant;
-                            format.textStyle = TextStyle.Bold;
-                            format.align = Alignment.Right;
-                            doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                            speakersIndex.Add(new SpeakersIndexItem(att.Name, pageNum));
-                            if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
-                            {
-                                doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                            }
-
-                            doc.insertBreakLine(1);
-                        }
-                        format.textStyle = TextStyle.Normal;
-                        format.align = Alignment.Right;
-                        doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                        if (string.IsNullOrEmpty(sessionItem.PageFooter))
-                            doc.AddFooteNote(sessionItem.PageFooter);
-
-                        //if(sessionItem.PageFooter
-
-                        doc.insertBreakLine(1);
-
-                        if (!string.IsNullOrEmpty(sessionItem.CommentOnText))
-                        {
-                            format.align = Alignment.Center;
-                            format.textStyle = TextStyle.Normal;
-                            doc.insertText("(" + sessionItem.CommentOnText + ")", 14, format, FontColor.Black, TextFont.AdvertisingMedium);
-                            doc.insertBreakLine(1);
-                        }
-                    }
-                }
-                else
-                {
-                    foreach (SessionAgendaItem subItem in item.SubAgendaItems)
-                    {
-                        format.textStyle = TextStyle.Normal;
-                        format.align = Alignment.Right;
-                        pageNum = doc.GetCurrentPageNumber();
-                        doc.insertText("- " + subItem.Text + ":", 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                        index.Add(new MadbatahIndexItem("",subItem.Text ,pageNum,false));
-                        doc.insertBreakLine(1);
-
-                        var list = from it in items
-                                   orderby it.FragOrderInXml
-                                   where it.AgendaItemID == item.ID && it.AgendaSubItemID == subItem.ID
-                                   select it;
-
-                        foreach (SessionContentItem sessionItem in list)
-                        {
-                            pageNum = doc.GetCurrentPageNumber();
-                            if (!sessionItem.MergedWithPrevious.Value)
-                            {
-                                Attendant att = sessionItem.Attendant;
-                                format.textStyle = TextStyle.Bold;
-                                format.align = Alignment.Right;
-                                doc.insertText(att.Name, 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                                speakersIndex.Add(new SpeakersIndexItem(att.Name, pageNum));
-                                if (!string.IsNullOrEmpty(sessionItem.CommentOnAttendant))
-                                {
-                                    doc.insertText("(" + sessionItem.CommentOnAttendant + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                                }
-
-                                doc.insertBreakLine(1);
-                            }
-                            format.textStyle = TextStyle.Normal;
-                            format.align = Alignment.Right;
-                            doc.insertText(sessionItem.Text, 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                            if (string.IsNullOrEmpty(sessionItem.PageFooter))
-                                doc.AddFooteNote(sessionItem.PageFooter);
-
-                            //if(sessionItem.PageFooter
-
-                            doc.insertBreakLine(1);
-
-                            if (!string.IsNullOrEmpty(sessionItem.CommentOnText))
-                            {
-                                format.align = Alignment.Center;
-                                format.textStyle = TextStyle.Normal;
-                                doc.insertText("(" + sessionItem.CommentOnText + ")", 14, format, FontColor.Black, TextFont.AdvertisingBold);
-                                doc.insertBreakLine(1);
-                            }
-                        }
-                    }
-                }
-            }
-            doc.SaveDocument(outFilePath);
-            doc.Quit();
-        }
-        */
-        //public static List<SessionContentItem> MergeSessionContentItems(List<SessionContentItem> list)
-        //{
-        //    List<SessionContentItem> newItems = new List<SessionContentItem>();
-
-        //    foreach (SessionContentItem item in list)
-        //    {
-        //        if (item.MergedWithID == null)
-        //            newItems.Add(item);
-        //        else
-        //        {
-        //            newItems[newItems.Count - 1] = MergeTwoItems(newItems[newItems.Count - 1], item);
-        //        }
-        //    }
-        //    return newItems;
-        //}
-
-        //public static SessionContentItem MergeTwoItems(SessionContentItem first, SessionContentItem second)
-        //{
-
-        //    if (!string.IsNullOrEmpty(first.CommentOnText))
-        //    {
-        //        first.Text += "\r\n" + first.CommentOnText;
-        //    }
-
-        //    first.CommentOnText = second.CommentOnText;
-        //    first.Text += second.Text;
-
-        //    first.PageFooter += second.PageFooter;
-
-        //    return first;
-        //}
     }
 }

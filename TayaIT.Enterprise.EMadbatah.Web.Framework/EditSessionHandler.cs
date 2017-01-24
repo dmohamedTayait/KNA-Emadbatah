@@ -311,7 +311,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                   int prevItemOrderID = FragOrder - 1;
                                   // check current user privellge
                                   SessionAudioFile file = SessionFileFacade.GetSessionFilesByID(Session_File_ID);
-                                  if (CurrentUser.ID == file.UserID)
+                                  if (CurrentUser.ID == file.UserID || (CurrentUser.ID != file.UserID && CurrentUser.Role != UserRole.DataEntry))//CurrentUser.ID == file.FileReviewrID)
                                   {
                                       result["Message"] = "success";
                                       // load item from DB or xml
@@ -513,7 +513,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 int currentItemOrderID = FragOrder;
                                 // check current user privellge
                                 SessionAudioFile file = SessionFileFacade.GetSessionFilesByID(Session_File_ID);
-                                if (CurrentUser.ID == file.UserID)
+                                if (CurrentUser.ID == file.UserID || (CurrentUser.ID != file.UserID && CurrentUser.Role != UserRole.DataEntry))//CurrentUser.ID == file.FileReviewrID)
                                 {
                                     result["Message"] = "success";
                                     // load item from DB

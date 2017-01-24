@@ -24,11 +24,27 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             if (!Page.IsPostBack)
             {
                 EMadbatahEntities context = new EMadbatahEntities();
-                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).OrderBy(x => x.OrderByAttendantType).Where(cc => cc.Type != (int)Model.AttendantType.UnAssigned && cc.Type != (int)Model.AttendantType.CountryPresidentFamily).ToList();
+                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).OrderBy(x => x.OrderByAttendantType).Where(cc => cc.Type != (int)Model.AttendantType.UnAssigned && cc.Type != (int)Model.AttendantType.CountryPresidentFamily && cc.Status == (int)Model.AttendantStatus.Active).ToList();
                 ddlPresident.DataSource = DefaultAttendants;
                 ddlPresident.DataTextField = "LongName";
                 ddlPresident.DataValueField = "ID";
                 ddlPresident.DataBind();
+
+                List<Stage> stagesLst = StageHelper.GetStages();
+                ddlStage.DataSource = stagesLst;
+                ddlStage.DataTextField = "StageName";
+                ddlStage.DataValueField = "ID";
+                ddlStage.DataBind();
+                ListItem liStage = new ListItem("-- اختر --", "0");
+                ddlStage.Items.Insert(0, liStage);
+
+                List<Season> SeasonsLst = SeasonHelper.GetSeasons();
+                ddlSeason.DataSource = SeasonsLst;
+                ddlSeason.DataTextField = "SeasonName";
+                ddlSeason.DataValueField = "ID";
+                ddlSeason.DataBind();
+                ListItem liSeason = new ListItem("-- اختر --", "0");
+                ddlSeason.Items.Insert(0, liSeason);
             }
         }
 
@@ -42,7 +58,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             if (SessionIDCreated != -1)
             {
                 EMadbatahEntities context = new EMadbatahEntities();
-                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).ToList();
+                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).Where(aa => aa.Status == (int)AttendantStatus.Active).ToList();
 
                 if (CBSessionStart.Checked)
                 {
@@ -126,6 +142,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             attendant.State = 1;
             attendant.ShortName = defAtt.ShortName;
             attendant.LongName = defAtt.LongName;
+            attendant.CreatedAt = defAtt.CreatedAt;
            // attendant.NameInWord = defAtt.NameInWord;
             return attendant;
         }

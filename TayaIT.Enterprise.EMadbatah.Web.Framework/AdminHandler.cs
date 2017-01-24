@@ -430,7 +430,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         EMadbatahUser newRev = EMadbatahFacade.GetUserByUserID(revID);
                                         if (sd.ReviewerID == null)
                                         {
-                                            emailData.Add("<%SessionName%>", EMadbatahFacade.GetSessionName(sd.Season, sd.Stage, sd.Serial));
+                                            emailData.Add("<%SessionName%>", sd.EparlimentID.ToString() + "-" + sd.Type);
                                             emailData.Add("<%SessionDate%>", sd.Date.Date.ToShortDateString());
                                             emailData.Add("<%AdminName%>", CurrentUser.Name);
                                              
@@ -441,7 +441,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                             //EMAIL ReAssignSessionRev
                                             EMadbatahUser oldRev = EMadbatahFacade.GetUserByUserID((long)sd.ReviewerID);
 
-                                            emailData.Add("<%SessionName%>", EMadbatahFacade.GetSessionName(sd.Season, sd.Stage, sd.Serial));
+                                            emailData.Add("<%SessionName%>", sd.EparlimentID.ToString() + "-" + sd.Type);
                                             emailData.Add("<%SessionDate%>", sd.Date.Date.ToShortDateString());
                                             emailData.Add("<%AdminName%>", CurrentUser.Name);
                                             emailData.Add("<%OldUserName%>", sd.ReviewerName);
@@ -477,7 +477,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                     if (res)
                                     {
                                         SessionDetails sd = EMadbatahFacade.GetSessionBySessionID(sessionID);
-                                        emailData.Add("<%SessionName%>", EMadbatahFacade.GetSessionName(sd.Season, sd.Stage, sd.Serial));
+                                        emailData.Add("<%SessionName%>", sd.EparlimentID.ToString() + "-" + sd.Type);
                                         emailData.Add("<%SessionDate%>", sd.Date.Date.ToShortDateString());
                                         emailData.Add("<%AdminName%>", CurrentUser.Name);
                                         

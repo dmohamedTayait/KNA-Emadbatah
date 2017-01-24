@@ -101,10 +101,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                         else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
                                         attFullPresentationName = "( " + attFullPresentationName;
 
-                                        if (att.Type != 3)
+                                       /* if (att.Type != 3)
                                             attFullPresentationName = "    " + item.CommentOnAttendant + ")";
                                         if (att.Type == 3)
+                                            job2 = "    " + att.JobTitle + ")";*/
+
+                                        if (att.Type != 3)
+                                            attFullPresentationName = attFullPresentationName + ")";
+                                        if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle))
                                             job2 = "    " + att.JobTitle + ")";
+                                        else job2 = " )";
                                       
                                         string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
                                                   .Replace("<%itemText%>", name)
@@ -134,6 +140,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                         sb.Append(speaker);
                                     }
                                 }
+                            }
+                            else
+                            {
+                                string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
+                                                   .Replace("<%itemText%>", "تم اسناد هذه الفقرة الى :" + att.Name)
+                                                   .Replace("<%speakerJob%>", "")
+                                                   .Replace("<%speakerJob2%>", "");
+                                sb.Append(speaker);
                             }
                         }
 

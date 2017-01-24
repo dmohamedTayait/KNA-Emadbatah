@@ -47,7 +47,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 //Hashtable emailData = new Hashtable();
                                 //string toEmail = CurrentUser.Email;
                                 //string toUserName = CurrentUser.Name;
-                                //string sessionName = EMadbatahFacade.GetSessionName(sd.Season, sd.Stage, sd.Serial);
+                                //string sessionName = sd.EparlimentID.ToString() +"-" + sd.Type;
                                 //string sessionDateStr = sd.Date.Date.ToShortDateString();
                                 //emailData.Add("<%SessionName%>", sessionName);
                                 //emailData.Add("<%SessionDate%>", sessionDateStr);

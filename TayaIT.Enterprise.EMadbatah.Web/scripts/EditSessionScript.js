@@ -1865,6 +1865,14 @@ $(document).ready(function() {
        e.preventDefault();
     });
 
+    $(".removeAgendaItem").click(function(e) {
+       $(".agendaItemId").val($(".unAssignedAgendaId").val());
+       $('.divAgenda').hide();
+       $('.agendaItemTxt').html('');
+       $('.agendaItemIsIndexed').html('0');
+       e.preventDefault();
+    });
+
     function loadSessionVotes() {
         var voteId = $(".voteId").val();
         $('.rdlvotes').empty();
