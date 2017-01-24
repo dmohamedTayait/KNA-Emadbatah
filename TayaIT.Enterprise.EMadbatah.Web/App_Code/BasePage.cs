@@ -420,9 +420,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             WindowsIdentity id2 = (WindowsIdentity)this.Request.LogonUserIdentity;
 
 
-            string testUser = "DEVELOP\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
+            string testUser = "ALOMMAH2006\\dmohamed";//id.Name.ToLower();\\"Develop\\noha";
             CurrentUser = EMadbatahFacade.GetUserByDomainUserName(testUser);// EMadbatahFacade.GetUserByUserID(92);// //id.Name.ToLower());
-
+/*
           //  CurrentUser = EMadbatahFacade.GetUserByUserID(17);
 
             CurrentDomain = id.Name.Split('\\')[0].ToLower();
@@ -461,7 +461,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 else if (!CurrentUser.IsActive)
                     Response.Redirect(Constants.PageNames.ERROR_PAGE + "?" + Constants.QSKeyNames.ERROR_TYPE + "=" + (int)ErrorType.UserinActive);
             }
-
+            */
             DisablePageCaching();
 
 

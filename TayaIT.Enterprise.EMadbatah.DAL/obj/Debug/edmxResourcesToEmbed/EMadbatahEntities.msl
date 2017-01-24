@@ -303,5 +303,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SessionCommittees">
+      <EntityTypeMapping TypeName="EMadbatahModel.SessionCommittee">
+        <MappingFragment StoreEntitySet="SessionCommittee">
+          <ScalarProperty Name="AddedDetails" ColumnName="AddedDetails" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="CommitteeName" ColumnName="CommitteeName" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="CommitteeID" ColumnName="CommitteeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

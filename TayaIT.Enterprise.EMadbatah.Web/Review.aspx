@@ -3,7 +3,6 @@
 
 <%@ Import Namespace="TayaIT.Enterprise.EMadbatah.Model" %>
 <%@ Import Namespace="TayaIT.Enterprise.EMadbatah.DAL" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="Server">
     <script type="text/javascript" src="scripts/jquery.hotkeys.js"></script>
     <script type="text/javascript" src="scripts/tiny_mce/jquery.tinymce.js"></script>
@@ -39,138 +38,183 @@
                                     // you can add some processing to the AJAX call
                                     return false;
                                 }
-                                </script>
+    </script>
     <div class="reviewcontainer" id="maintable1">
-     <div class="row">
-     <div class="grid_4 h2">للذهاب / الموافقة على الملف:</div>
-    
-     <table class="table deftable h2" border="0" cellspacing="0" cellpadding="0" >
+        <div class="row">
+            <div class="grid_4 h2">
+                للذهاب / الموافقة على الملف:</div>
+            <table class="table deftable h2" border="0" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
                         <th class="column column4">
-                        اسم الملف
+                            اسم الملف
                         </th>
                         <th class="column column5">
                             الحالة
                         </th>
-                        <th class="column column5">حالة المراجعة</th>
-
+                        <th class="column column5">
+                            حالة المراجعة
+                        </th>
                         <th class="column column4">
-                        اسم الملف
+                            اسم الملف
                         </th>
                         <th class="column column5">
                             الحالة
                         </th>
-                        <th class="column column5">حالة المراجعة</th>
-
+                        <th class="column column5">
+                            حالة المراجعة
+                        </th>
                         <th class="column column4">
-                        اسم الملف
+                            اسم الملف
                         </th>
                         <th class="column column5">
                             الحالة
                         </th>
-                        <th class="column column5">حالة المراجعة</th>
-                        </tr>
-                         </thead>
+                        <th class="column column5">
+                            حالة المراجعة
+                        </th>
+                    </tr>
+                </thead>
                 <tbody>
-                 <% int loop = 0;
-                    int filesLen = sd.SessionFiles.Where(c => c.IsSessionStart != true  && c.IsActive == 1).Count();
-                    int div = filesLen / 3;
-                    int assumedFilesLen = 3 * div;
-                    int rem = filesLen % 3;
-                    List<SessionAudioFile> firstArr = sd.SessionFiles.Where(c => c.IsSessionStart != true && c.IsActive == 1).ToList();
-                    for (int i = 0; i < filesLen - rem; i = i + 3)
-                    //     foreach (SessionAudioFile s in sd.SessionFiles)
-                    {%>
-                 <tr class="tbrow tbrowNew tbrowID1">
-                  <% SessionAudioFile s = firstArr[i];%>
-
-                   <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
-                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%></td>
-                    <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
-                       {
-                           if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
-                           {   %>
-                                 <td  class="column column5"><a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
-                          <% }
+                    <% int loop = 0;
+                       int filesLen = sd.SessionFiles.Where(c => c.IsSessionStart != true && c.IsActive == 1).Count();
+                       int div = filesLen / 3;
+                       int assumedFilesLen = 3 * div;
+                       int rem = filesLen % 3;
+                       List<SessionAudioFile> firstArr = sd.SessionFiles.Where(c => c.IsSessionStart != true && c.IsActive == 1).ToList();
+                       for (int i = 0; i < filesLen - rem; i = i + 3)
+                       //     foreach (SessionAudioFile s in sd.SessionFiles)
+                       {%>
+                    <tr class="tbrow tbrowNew tbrowID1">
+                        <% SessionAudioFile s = firstArr[i];%>
+                        <td class="column column5">
+                            <a class="gotofile" href="#file_<%=s.ID%>">
+                                <%=System.IO.Path.GetFileName(s.Name)%></a>
+                        </td>
+                        <td class="column column5">
+                            <%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%>
+                        </td>
+                        <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
+                           {
+                               if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
+                               {   %>
+                        <td class="column column5">
+                            <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a>
+                            <br />
+                        </td>
+                        <% }
                            else
                            {%>
-                                   <td  class="column column5"> <span style="color:Green"> موافق عليه</span><br /></td>
-                     <%}
+                        <td class="column column5">
+                            <span style="color: Green">موافق عليه</span><br />
+                        </td>
+                        <%}
                        }
-                       else
-                       {%>
-                      <td  class="column column5"> </td>
-                      <%} %>
-                    <% s = firstArr[i + 1];%>
-                     <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
-                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%></td>
-                     <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
-                        {
-                            if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
-                            {   %>
-                   <td  class="column column5">   <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
-                   <% }
+                           else
+                           {%>
+                        <td class="column column5">
+                        </td>
+                        <%} %>
+                        <% s = firstArr[i + 1];%>
+                        <td class="column column5">
+                            <a class="gotofile" href="#file_<%=s.ID%>">
+                                <%=System.IO.Path.GetFileName(s.Name)%></a>
+                        </td>
+                        <td class="column column5">
+                            <%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%>
+                        </td>
+                        <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
+                           {
+                               if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
+                               {   %>
+                        <td class="column column5">
+                            <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a>
+                            <br />
+                        </td>
+                        <% }
                             else
                             {%>
-                                   <td  class="column column5"> <span style="color:Green"> موافق عليه</span><br /></td>
-                     <%}
+                        <td class="column column5">
+                            <span style="color: Green">موافق عليه</span><br />
+                        </td>
+                        <%}
                         }
-                        else
-                        {%>
-                      <td  class="column column5"> </td>
-                      <%} %>
-                    <% s = firstArr[i + 2];%>
-                     <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
-                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%></td>
-                   <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
-                      {
-                          if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
-                          {   %>
-                   <td  class="column column5">   <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
-                    <% }
+                           else
+                           {%>
+                        <td class="column column5">
+                        </td>
+                        <%} %>
+                        <% s = firstArr[i + 2];%>
+                        <td class="column column5">
+                            <a class="gotofile" href="#file_<%=s.ID%>">
+                                <%=System.IO.Path.GetFileName(s.Name)%></a>
+                        </td>
+                        <td class="column column5">
+                            <%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%>
+                        </td>
+                        <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
+                           {
+                               if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
+                               {   %>
+                        <td class="column column5">
+                            <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a>
+                            <br />
+                        </td>
+                        <% }
                           else
                           {%>
-                                   <td  class="column column5"> <span style="color:Green"> موافق عليه</span><br /></td>
-                     <%}
+                        <td class="column column5">
+                            <span style="color: Green">موافق عليه</span><br />
+                        </td>
+                        <%}
                       }
-                      else
-                      {%>
-                      <td  class="column column5"> </td>
-                      <%} %>
-                </tr>
-                <% }%>
-
-               <% if(rem > 0) {%>
-                <tr class="tbrow tbrowNew tbrowID1">
-                 <% for (int i = 0; i < filesLen - assumedFilesLen; i++)
-                    {
-                        SessionAudioFile s = firstArr[assumedFilesLen + i];%>
-                  <td class="column column5"><a class="gotofile" href="#file_<%=s.ID%>"><%=System.IO.Path.GetFileName(s.Name)%></a></td>
-                   <td class="column column5"><%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%></td>
-                   <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
-                      {
-                          if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
-                          {   %>
-                   <td  class="column column5">   <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a> <br /></td>
-                   <% }
+                           else
+                           {%>
+                        <td class="column column5">
+                        </td>
+                        <%} %>
+                    </tr>
+                    <% }%>
+                    <% if (rem > 0)
+                       {%>
+                    <tr class="tbrow tbrowNew tbrowID1">
+                        <% for (int i = 0; i < filesLen - assumedFilesLen; i++)
+                           {
+                               SessionAudioFile s = firstArr[assumedFilesLen + i];%>
+                        <td class="column column5">
+                            <a class="gotofile" href="#file_<%=s.ID%>">
+                                <%=System.IO.Path.GetFileName(s.Name)%></a>
+                        </td>
+                        <td class="column column5">
+                            <%= GetLocalizedString("strSessionFileStatus" + s.Status.ToString())%>
+                        </td>
+                        <% if (s.Status == TayaIT.Enterprise.EMadbatah.Model.SessionFileStatus.Completed)
+                           {
+                               if (SessionContentItemHelper.GetFileSessionContentItemsStatusNotByStatusID(s.ID, 1) > 0)
+                               {   %>
+                        <td class="column column5">
+                            <a class="approveSessionFile" data-fileid="<%=s.ID%>" href="#file_<%=s.ID%>">موافقة</a>
+                            <br />
+                        </td>
+                        <% }
                           else
                           {%>
-                                   <td  class="column column5"><span style="color:Green"> موافق عليه</span><br /></td>
-                     <%}
+                        <td class="column column5">
+                            <span style="color: Green">موافق عليه</span><br />
+                        </td>
+                        <%}
                       }
-                      else
-                      {%>
-                      <td  class="column column5"> </td>
-                      <%} %>
-                 </tr>
-                 <% }%>
-                <% }%>
-
-                  </tbody>
+                           else
+                           {%>
+                        <td class="column column5">
+                        </td>
+                        <%} %>
+                    </tr>
+                    <% }%>
+                    <% }%>
+                </tbody>
             </table>
         </div>
-
         <!--reviewmaincontent start-->
         <div class="reviewmaincontent">
             <asp:Panel ID="pnlContent" runat="server">
@@ -182,7 +226,7 @@
                 </div>
                 <div class="graybg relpos">
                     <!--popupdiv start-->
-                    <div class="reviewpopup_cont graybg" style="height:400px ! important">
+                    <div class="reviewpopup_cont graybg" style="height: 400px ! important">
                         <div class="close_btn">
                         </div>
                         <div class="clear">
@@ -212,7 +256,8 @@
                         <div class="clear">
                         </div>
                         <div class="datacontainer inputcont">
-                            <textarea id="elm1" name="elm1" rows="15" style="width: 100%;height:300px !important" runat="server" class="tinymce"></textarea>
+                            <textarea id="elm1" name="elm1" rows="15" style="width: 100%; height: 300px !important"
+                                runat="server" class="tinymce"></textarea>
                             <script type="text/javascript">
                                 try {
                                     // tinymce
@@ -394,12 +439,15 @@
                             <li>
                                 <div class="black_box">
                                 </div>
-                                <div class="desc">النصوص <strong>الموافق عليها</strong></div>
+                                <div class="desc">
+                                    النصوص <strong>الموافق عليها</strong></div>
                             </li>
                             <li>
                                 <div class="red_box">
                                 </div>
-                                <div class="desc">النصوص <strong>المرفوضة</strong> <span>(</span> <span id="spnRejectCount"><%=tblStats != null ? tblStats[(int)TayaIT.Enterprise.EMadbatah.Model.SessionContentItemStatus.Rejected].ToString() : ""%></span>
+                                <div class="desc">
+                                    النصوص <strong>المرفوضة</strong> <span>(</span> <span id="spnRejectCount">
+                                        <%=tblStats != null ? tblStats[(int)TayaIT.Enterprise.EMadbatah.Model.SessionContentItemStatus.Rejected].ToString() : ""%></span>
                                     <span>)</span>
                                 </div>
                             </li>
@@ -407,21 +455,22 @@
                                 <div class="green_box">
                                 </div>
                                 <div class="desc">
-                                    النصوص <strong>المعدلة</strong> <span>(</span> <span id="spnFixCount"><%=tblStats != null ? tblStats[(int)TayaIT.Enterprise.EMadbatah.Model.SessionContentItemStatus.Fixed].ToString() : ""%></span><span>)</span>
+                                    النصوص <strong>المعدلة</strong> <span>(</span> <span id="spnFixCount">
+                                        <%=tblStats != null ? tblStats[(int)TayaIT.Enterprise.EMadbatah.Model.SessionContentItemStatus.Fixed].ToString() : ""%></span><span>)</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="blue_box">
                                 </div>
                                 <div class="desc">
-                                    النصوص <strong>المعدلة بعد الموافقة</strong> <span>(</span> <span id="spnModAfterApprove"><%=tblStats != null ? tblStats[(int)TayaIT.Enterprise.EMadbatah.Model.SessionContentItemStatus.ModefiedAfterApprove].ToString() : ""%></span><span>)</span>
+                                    النصوص <strong>المعدلة بعد الموافقة</strong> <span>(</span> <span id="spnModAfterApprove">
+                                        <%=tblStats != null ? tblStats[(int)TayaIT.Enterprise.EMadbatah.Model.SessionContentItemStatus.ModefiedAfterApprove].ToString() : ""%></span><span>)</span>
                                 </div>
                             </li>
                         </ul>
                         <div class="clear">
                         </div>
                     </div>
-                    
                     <!--topheader_cont end-->
                     <div class="review_actionbtns prefix_15">
                         <form id="Form1" runat="server">
@@ -434,7 +483,7 @@
                                 <div class="fl">
                                     <input type="button" runat="server" id="btnFinalApproveSession" class="btnFinalApproveSession def_btn"
                                         value="تصديق" />
-                                 </div>
+                                </div>
                                 <div class="clear">
                                 </div>
                             </div>
@@ -447,21 +496,13 @@
         </div>
         <!--reviewmaincontent end-->
         <div id="divToolTip" class="divToolTip">
-        الملف : 
-            <span id="spnToolTipFileName"></span>
+            الملف : <span id="spnToolTipFileName"></span>
             <br />
-
-            مدخل البيانات : 
-            <span id="spnToolTipUserName"></span>
+            مدخل البيانات : <span id="spnToolTipUserName"></span>
             <br />
-
-            مراجع الملف : 
-            <span id="spnToolTipFileRevName"></span>
-           <br />
-            
-            مراجع الجلسة : 
-            <span id="spnToolTipRevName"></span>
-
+            مراجع الملف : <span id="spnToolTipFileRevName"></span>
+            <br />
+            مراجع الجلسة : <span id="spnToolTipRevName"></span>
         </div>
     </div>
     <div class="clear">

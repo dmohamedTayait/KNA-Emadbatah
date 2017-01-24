@@ -120,7 +120,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             defAttobj.ShortName = textAttShortName;
             defAttobj.Status = 1;
             defAttobj.Type = textAttType;
-
+            defAttobj.CreatedAt = DateTime.Now;
             DefaultAttendantHelper.AddNewDefaultAttendant(defAttobj);
 
             gvbind();

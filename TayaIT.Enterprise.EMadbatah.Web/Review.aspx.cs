@@ -226,7 +226,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                                 attFullPresentationName = attFullPresentationName + ")";
                                             if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle))
                                                 job2 = "    " + att.JobTitle + ")";
-                                            else if (!String.IsNullOrEmpty(item.CommentOnAttendant))
+                                            if (!String.IsNullOrEmpty(item.CommentOnAttendant))
                                                 job2 = "(" + item.CommentOnAttendant + " )";
                                             string speaker = Application[Constants.HTMLTemplateFileNames.ReviewItemSpeaker].ToString()
                                                             .Replace("<%itemText%>", name)

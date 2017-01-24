@@ -41,7 +41,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TayaIT.Enterprise.EMadbatah
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "18000"
+		VWDPort = "12000"
 		VWDDynamicPort = "false"
 		VWDVirtualPath = "/"
 	EndProjectSection

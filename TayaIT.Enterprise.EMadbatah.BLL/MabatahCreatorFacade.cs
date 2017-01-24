@@ -176,7 +176,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     foreach (List<SessionContentItem> groupedItems in allItems)
                     {
 
-                        pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
+                     //   pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                         int ctr = 0;
 
                         List<List<SessionContentItem>> speakerGroup = new List<List<SessionContentItem>>();
@@ -203,10 +203,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 if (!doc.IsOpen)
                                     doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open);
 
-                                pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
+                              
                                 AgendaItem updatedAgenda = contentItem.AgendaItem;
                                 if (updatedAgenda.Name != "غير معرف")
-                                {
+                                { 
+                                    pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                                     int ind = index.FindIndex(curIndexItem => curIndexItem.ID == updatedAgenda.ID);
                                     if (ind == -1)
                                     {
@@ -244,7 +245,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
 
                                 text += " " + contentItem.Text.ToLower().Trim();
-                                contentItemAsText = text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!");
+                                contentItemAsText = text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!");
                                 contentItemGrp.Add(contentItem);
                                 k++;
                                 if (contentItem.AttachementID != null)
@@ -334,7 +335,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                             }
 
-                        }
+                        }///loop sessionitem
                     }
 
 
@@ -378,8 +379,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         if (att.Type != 3)
                             attFullPresentationName = attFullPresentationName + ")";
                         doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle.Trim()))
+                        if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle))
                             doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
+                            doc.AddParagraph("(" + contentItem.CommentOnAttendant.Trim() + " )", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                     else
                     {
@@ -387,8 +390,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             attFullPresentationName = "السيد " + att.ShortName.Trim() + " : ";
                         else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim() + " : ";
                         doc.AddParagraph(attFullPresentationName, ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.RTL, false, "");
-                        if (att.Type == 3 && !String.IsNullOrEmpty(att.JobTitle.Trim()))
+                        if (!String.IsNullOrEmpty(att.JobTitle))
                             doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                        if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
+                            doc.AddParagraph("    (" + contentItem.CommentOnAttendant.Trim() + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                 }
             }
@@ -447,20 +452,22 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 List<string> myCollection = new List<string>();
                 List<string> myCollection2 = new List<string>();
                 string fullparag = "";
+                string parag = "";
+                string proc = "";
                 for (int i = 0; i < grp.Count; i++)
                 {
                     fullparag = TextHelper.StripHTML(grp[i].Text.Replace("#!#!#!", " ").ToLower()).Trim();
                     string[] p = new string[] { };
-                    string[] paragraphs = GetParagraphsArr(grp[i].Text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!"), out p);
+                    string[] paragraphs = GetParagraphsArr(grp[i].Text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!"), out p);
                     string[] procedureArr = new string[] { };
 
                     if (fullparag != "")
                     {
                         myCollection2.Add(grp[i].PageFooter);
-                        string parag = "";
+                      
                         for (int pp = 0; pp < paragraphs.Length; pp++)
                         {
-                            parag += TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim();
+                            parag += TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " ");
                             myCollection.Add(TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " "));
                             if (paragraphs.Length != 1 && pp < p.Length)
                             {
@@ -479,11 +486,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                             if (pp < p.Length)
                             {
-                                parag = TextHelper.StripHTML(p[pp].ToString()).Trim();
-                                if (parag != "")
+                                proc = TextHelper.StripHTML(p[pp].ToString()).Trim();
+                                if (proc != "")
                                 {
                                     string[] sep = new string[1] { "#!#!#!" };
-                                    procedureArr = parag.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                                    procedureArr = proc.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                                     ParagrapJustification align = ParagrapJustification.RTL;
                                     if (p[pp].ToString().IndexOf("center") > 0)
                                         align = ParagrapJustification.Center;
@@ -501,9 +508,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 }
                 if (myCollection.Count > 0)
                 {
-                    WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
-                    doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
-                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    string lastparag = "";
+                    for (int x = 0; x < myCollection.Count; x++)
+                    {
+                        lastparag += myCollection[x].Replace("&nbsp;", " ");
+                    }
+                    if (lastparag.Trim() != "")
+                    {
+                        WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
+                        doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
+                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    }
                     myCollection.Clear();
                     myCollection2.Clear();
                 }
@@ -582,7 +597,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 int i = 1, j = 1;
                 string indx = "";
-                string emptyRowBold = "<tr><td style='border:2px solid #000;font-family: AdvertisingBold;font-size: 14pt;'>ItemNum</td><td style='text-align:right;border:2px solid #000;font-family: UsedFont;font-size: 14pt !important;'>ItemName</td><td style='border:2px solid #000;font-family: AdvertisingBold;font-size: 14pt;'>PageNum</td></tr>";
+                string emptyRowBold = "<tr><td style='border:2px solid #000;font-family: AdvertisingBold;font-size: 14pt;'>ItemNum</td><td style='text-align:right;border:2px solid #000;font-family: UsedFont;font-size: 14pt !important;'><p style='width:200px'>ItemName</p></td><td style='border:2px solid #000;font-family: AdvertisingBold;font-size: 14pt;'>PageNum</td></tr>";
                 StringBuilder sb = new StringBuilder();
                 sb.Append(indexHeader);
 
@@ -705,6 +720,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             List<List<SessionContentItem>> speakerSessionContentItem = new List<List<SessionContentItem>>();
             speakerContentItem = new List<List<SessionContentItem>>();
             int i = 0;
+            long speakerID = 0, nextSpeakerID = 0;
             foreach (SessionContentItem item in groupedItems)
             {
                 if (newGroup.Count == 0)
@@ -713,9 +729,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     newGroup.Add(item);
                     newSpeaker.Add(item);
                     speakerContentItem.Add(newSpeaker);
+                    speakerID = item.AttendantID;
+                    nextSpeakerID = item.AttendantID;
                 }
                 else
-                    if (item.MergedWithPrevious == true)
+                {
+                    nextSpeakerID = item.AttendantID;
+                    if (nextSpeakerID == speakerID)
                     {
                         newSpeaker.Add(item);
                         speakerContentItem[i] = newSpeaker;
@@ -744,9 +764,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         newSpeaker.Add(item);
                         speakerContentItem.Add(newSpeaker);
                         newGroup.Add(item);
+                        speakerID = item.AttendantID;
+                        nextSpeakerID = item.AttendantID;
                         i++;
                     }
-
+                }
             }
             return newGroup;
         }

@@ -262,7 +262,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             if (attendants.Count > 0)
             {
                 body += "<div style='font-size:14pt;line-height:150%;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
-                body += "<table style='width:58%;'>";
+                body += "<table style='width:58%;page-break-inside:avoid'>";
                 foreach (Attendant att in attendants)
                 {
                     if (att.Name != "غير معرف")
@@ -285,7 +285,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             if (attendants.Count > 0)
             {
                 body += "<div style='font-size:14pt;line-height:150%;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
-                body += "<table style='width:58%'>";
+                body += "<table style='width:58%';page-break-inside:avoid>";
                 foreach (DefaultAttendant att in attendants)
                 {
                     if (att.Name != "غير معرف")
@@ -312,7 +312,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 if (attendants2.Count > 0)
                     width = "80";
                 body += "<div style='font-size:14pt;line-height:150%;direction:rtl;text-decoration:underline; text-align: right;font-family:AdvertisingBold'>" + head + "</div>";
-                body += "<table style='width:"+width+"%;' >";
+                body += "<table style='width:" + width + "%;page-break-inside:avoid'>";
                 foreach (DefaultAttendant att in attendants2)
                 {
                     if (att.Name != "غير معرف")

@@ -749,12 +749,9 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     reference)
                 );
 
-
-
-                paragraph.Append(run);
                 paragraph.Append(elements);
-                
-              
+                paragraph.Append(run);
+               
                 _docMainPart.Document.Body.Append(paragraph);
 
             }
@@ -811,14 +808,14 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             {
                 string paragraphText = System.Web.HttpUtility.HtmlDecode(paragraphTxt).Replace(";psbn&", " ").Replace("&nbsp;", " ");
                 Run run = new Run(new Text(paragraphText + " ") { Space = SpaceProcessingModeValues.Preserve });
-               
 
 
-                if (i<footNoteTextArr.Count && !String.IsNullOrEmpty(footNoteTextArr[i]))
+
+                if (i < footNoteTextArr.Count && !String.IsNullOrEmpty(footNoteTextArr[i]))
                 {
                     string footNoteText = footNoteTextArr[i];
-                    FootnoteReference reference = new FootnoteReference() { Id = AddFootnoteReference(footNoteText + " .")};
-                   
+                    FootnoteReference reference = new FootnoteReference() { Id = AddFootnoteReference(footNoteText + " .") };
+
                     List<OpenXmlElement> elements = new List<OpenXmlElement>();
                     elements.Add(
                     new Run(
@@ -826,13 +823,11 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                             new VerticalTextAlignment() { Val = VerticalPositionValues.Superscript },
                             new FontSizeComplexScript() { Val = "24" },
                             new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" },
-                            new RightToLeftText ()),
+                            new RightToLeftText()),
                         reference)
                     );
-
-                    paragraph.Append(run);
                     paragraph.Append(elements);
-                   
+                    paragraph.Append(run);
                 }
                 else
                 {

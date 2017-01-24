@@ -48,6 +48,7 @@
     <Compile Include="AttachmentHelper.cs" />
     <Compile Include="AttendantHelper.cs" />
     <Compile Include="CommitteeHelper.cs" />
+    <Compile Include="SessionCommitteeHelper.cs" />
     <Compile Include="SeasonHelper.cs" />
     <Compile Include="DefaultAttendantHelper.cs" />
     <Compile Include="EMadbatahEntities.Designer.cs">

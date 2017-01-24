@@ -8,12 +8,13 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.ComponentModel;
+using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Data.EntityClient;
-using System.ComponentModel;
-using System.Xml.Serialization;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -47,6 +48,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionContentItem_Attachement", "Attachement", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attachement), "SessionContentItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionContentItem), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionCommittee_Committee", "Committee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Committee), "SessionCommittee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommittee), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionCommittee_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "SessionCommittee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommittee), true)]
 
 #endregion
 
@@ -449,8 +452,25 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
         private ObjectSet<Stage> _Stages;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SessionCommittee> SessionCommittees
+        {
+            get
+            {
+                if ((_SessionCommittees == null))
+                {
+                    _SessionCommittees = base.CreateObjectSet<SessionCommittee>("SessionCommittees");
+                }
+                return _SessionCommittees;
+            }
+        }
+        private ObjectSet<SessionCommittee> _SessionCommittees;
 
         #endregion
+
         #region AddTo Methods
     
         /// <summary>
@@ -628,13 +648,21 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         {
             base.AddObject("Stages", stage);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SessionCommittees EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSessionCommittees(SessionCommittee sessionCommittee)
+        {
+            base.AddObject("SessionCommittees", sessionCommittee);
+        }
 
         #endregion
+
     }
-    
 
     #endregion
-    
+
     #region Entities
     
     /// <summary>
@@ -661,6 +689,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -835,6 +864,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnIsIndexedChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -921,6 +951,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -949,6 +980,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1123,6 +1155,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnIsCustomChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1187,6 +1220,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1221,6 +1255,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1371,6 +1406,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnFileContentChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -1435,6 +1471,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -1463,6 +1500,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -1901,6 +1939,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnCreatedAtChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2063,6 +2102,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2089,6 +2129,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2167,6 +2208,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnArNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2193,6 +2235,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2219,6 +2262,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2273,6 +2317,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2299,6 +2344,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2323,6 +2369,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2401,6 +2448,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnStatusChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2425,8 +2473,31 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommittee_Committee", "SessionCommittee")]
+        public EntityCollection<SessionCommittee> SessionCommittees
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SessionCommittee>("EMadbatahModel.FK_SessionCommittee_Committee", "SessionCommittee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionCommittee>("EMadbatahModel.FK_SessionCommittee_Committee", "SessionCommittee", value);
+                }
+            }
+        }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2451,6 +2522,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -2625,6 +2697,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnStatusChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -2743,6 +2816,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -2767,6 +2841,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3037,6 +3112,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnCreatedAtChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3085,6 +3161,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3111,6 +3188,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3165,6 +3243,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3191,6 +3270,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3215,6 +3295,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3293,6 +3374,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnProcedureTypeIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3335,6 +3417,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3359,6 +3442,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3437,6 +3521,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnProcedureTypeOrderChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3463,6 +3548,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3489,6 +3575,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3543,6 +3630,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -3569,6 +3657,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -3593,6 +3682,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -3671,6 +3761,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnStatusChanged();
 
         #endregion
+
     
     }
     
@@ -3710,6 +3801,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -4292,6 +4384,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnPresidentIDChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -4502,8 +4595,288 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommittee_Session", "SessionCommittee")]
+        public EntityCollection<SessionCommittee> SessionCommittees
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SessionCommittee>("EMadbatahModel.FK_SessionCommittee_Session", "SessionCommittee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionCommittee>("EMadbatahModel.FK_SessionCommittee_Session", "SessionCommittee", value);
+                }
+            }
+        }
 
         #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="SessionCommittee")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SessionCommittee : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SessionCommittee object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static SessionCommittee CreateSessionCommittee(global::System.Int64 id)
+        {
+            SessionCommittee sessionCommittee = new SessionCommittee();
+            sessionCommittee.ID = id;
+            return sessionCommittee;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> CommitteeID
+        {
+            get
+            {
+                return _CommitteeID;
+            }
+            set
+            {
+                OnCommitteeIDChanging(value);
+                ReportPropertyChanging("CommitteeID");
+                _CommitteeID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CommitteeID");
+                OnCommitteeIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _CommitteeID;
+        partial void OnCommitteeIDChanging(Nullable<global::System.Int64> value);
+        partial void OnCommitteeIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> SessionID
+        {
+            get
+            {
+                return _SessionID;
+            }
+            set
+            {
+                OnSessionIDChanging(value);
+                ReportPropertyChanging("SessionID");
+                _SessionID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SessionID");
+                OnSessionIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _SessionID;
+        partial void OnSessionIDChanging(Nullable<global::System.Int64> value);
+        partial void OnSessionIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CommitteeName
+        {
+            get
+            {
+                return _CommitteeName;
+            }
+            set
+            {
+                OnCommitteeNameChanging(value);
+                ReportPropertyChanging("CommitteeName");
+                _CommitteeName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CommitteeName");
+                OnCommitteeNameChanged();
+            }
+        }
+        private global::System.String _CommitteeName;
+        partial void OnCommitteeNameChanging(global::System.String value);
+        partial void OnCommitteeNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedAt;
+        partial void OnCreatedAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AddedDetails
+        {
+            get
+            {
+                return _AddedDetails;
+            }
+            set
+            {
+                OnAddedDetailsChanging(value);
+                ReportPropertyChanging("AddedDetails");
+                _AddedDetails = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AddedDetails");
+                OnAddedDetailsChanged();
+            }
+        }
+        private global::System.String _AddedDetails;
+        partial void OnAddedDetailsChanging(global::System.String value);
+        partial void OnAddedDetailsChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommittee_Committee", "Committee")]
+        public Committee Committee
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Committee>("EMadbatahModel.FK_SessionCommittee_Committee", "Committee").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Committee>("EMadbatahModel.FK_SessionCommittee_Committee", "Committee").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Committee> CommitteeReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Committee>("EMadbatahModel.FK_SessionCommittee_Committee", "Committee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Committee>("EMadbatahModel.FK_SessionCommittee_Committee", "Committee", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommittee_Session", "Session")]
+        public Session Session
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_SessionCommittee_Session", "Session").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_SessionCommittee_Session", "Session").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Session> SessionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_SessionCommittee_Session", "Session");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Session>("EMadbatahModel.FK_SessionCommittee_Session", "Session", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -4546,6 +4919,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5224,6 +5598,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnOriginalStartTimeChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5608,6 +5983,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5634,6 +6010,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -5688,6 +6065,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -5714,6 +6092,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -5752,6 +6131,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6166,6 +6546,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnIsLastSegmentChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6382,6 +6763,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6408,6 +6790,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6462,6 +6845,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6488,6 +6872,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6514,6 +6899,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6568,6 +6954,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnNameChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -6594,6 +6981,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
     
     /// <summary>
@@ -6618,6 +7006,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6696,6 +7085,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnStatusChanged();
 
         #endregion
+
     
     }
     
@@ -6731,6 +7121,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
         #region Primitive Properties
     
         /// <summary>
@@ -6905,6 +7296,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         partial void OnDeletedChanged();
 
         #endregion
+
     
         #region Navigation Properties
     
@@ -7079,8 +7471,10 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         #endregion
+
     }
 
     #endregion
+
     
 }

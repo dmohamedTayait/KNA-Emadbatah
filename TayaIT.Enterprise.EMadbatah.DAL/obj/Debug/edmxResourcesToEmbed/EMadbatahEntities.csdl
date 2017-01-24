@@ -139,6 +139,15 @@
     </AssociationSet>
     <EntitySet Name="Seasons" EntityType="EMadbatahModel.Season" />
     <EntitySet Name="Stages" EntityType="EMadbatahModel.Stage" />
+    <EntitySet Name="SessionCommittees" EntityType="EMadbatahModel.SessionCommittee" />
+    <AssociationSet Name="FK_SessionCommittee_Committee" Association="EMadbatahModel.FK_SessionCommittee_Committee">
+      <End Role="Committee" EntitySet="Committees" />
+      <End Role="SessionCommittee" EntitySet="SessionCommittees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SessionCommittee_Session" Association="EMadbatahModel.FK_SessionCommittee_Session">
+      <End Role="Session" EntitySet="Sessions" />
+      <End Role="SessionCommittee" EntitySet="SessionCommittees" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="AgendaItem">
     <Key>
@@ -271,6 +280,7 @@
     <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Session" FromRole="Session" ToRole="CommitteeAttendant" />
     <Property Type="Int32" Name="SessionStartFlag" />
     <Property Type="Int32" Name="PresidentID" />
+    <NavigationProperty Name="SessionCommittees" Relationship="EMadbatahModel.FK_SessionCommittee_Session" FromRole="Session" ToRole="SessionCommittee" />
   </EntityType>
   <EntityType Name="SessionContentItem">
     <Key>
@@ -702,6 +712,7 @@
     <Property Type="String" Name="CommitteeName" MaxLength="500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="Committee" ToRole="CommitteeAttendant" />
     <Property Type="Int32" Name="Status" />
+    <NavigationProperty Name="SessionCommittees" Relationship="EMadbatahModel.FK_SessionCommittee_Committee" FromRole="Committee" ToRole="SessionCommittee" />
   </EntityType>
   <EntityType Name="CommitteeAttendant">
     <Key>
@@ -812,4 +823,41 @@
     <Property Type="String" Name="StageName" MaxLength="300" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="Status" />
   </EntityType>
+  <EntityType Name="SessionCommittee">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="CommitteeID" />
+    <Property Type="Int64" Name="SessionID" />
+    <Property Type="String" Name="CommitteeName" MaxLength="700" FixedLength="false" Unicode="true" />
+    <Property Type="DateTime" Name="CreatedAt" />
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="AddedDetails" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Committee" Relationship="EMadbatahModel.FK_SessionCommittee_Committee" FromRole="SessionCommittee" ToRole="Committee" />
+    <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_SessionCommittee_Session" FromRole="SessionCommittee" ToRole="Session" />
+  </EntityType>
+  <Association Name="FK_SessionCommittee_Committee">
+    <End Type="EMadbatahModel.Committee" Role="Committee" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.SessionCommittee" Role="SessionCommittee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Committee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionCommittee">
+        <PropertyRef Name="CommitteeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SessionCommittee_Session">
+    <End Type="EMadbatahModel.Session" Role="Session" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.SessionCommittee" Role="SessionCommittee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionCommittee">
+        <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

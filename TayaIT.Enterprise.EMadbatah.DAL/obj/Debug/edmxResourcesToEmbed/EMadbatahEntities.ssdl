@@ -17,6 +17,7 @@
     <EntitySet Name="Season" EntityType="EMadbatahModel.Store.Season" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Session" EntityType="EMadbatahModel.Store.Session" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionAttendant" EntityType="EMadbatahModel.Store.SessionAttendant" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SessionCommittee" EntityType="EMadbatahModel.Store.SessionCommittee" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionContentItem" EntityType="EMadbatahModel.Store.SessionContentItem" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionContentItemStatus" EntityType="EMadbatahModel.Store.SessionContentItemStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionFile" EntityType="EMadbatahModel.Store.SessionFile" store:Type="Tables" Schema="dbo" />
@@ -79,6 +80,14 @@
     <AssociationSet Name="FK_SessionAttendant_Session" Association="EMadbatahModel.Store.FK_SessionAttendant_Session">
       <End Role="Session" EntitySet="Session" />
       <End Role="SessionAttendant" EntitySet="SessionAttendant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SessionCommittee_Committee" Association="EMadbatahModel.Store.FK_SessionCommittee_Committee">
+      <End Role="Committee" EntitySet="Committee" />
+      <End Role="SessionCommittee" EntitySet="SessionCommittee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SessionCommittee_Session" Association="EMadbatahModel.Store.FK_SessionCommittee_Session">
+      <End Role="Session" EntitySet="Session" />
+      <End Role="SessionCommittee" EntitySet="SessionCommittee" />
     </AssociationSet>
     <AssociationSet Name="FK_SessionContentItem_AgendaItem" Association="EMadbatahModel.Store.FK_SessionContentItem_AgendaItem">
       <End Role="AgendaItem" EntitySet="AgendaItem" />
@@ -330,6 +339,17 @@
     <Property Name="AttendantID" Type="bigint" Nullable="false" />
     <Property Name="AttendantTitleID" Type="bigint" />
     <Property Name="ID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="SessionCommittee">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="CommitteeID" Type="bigint" />
+    <Property Name="SessionID" Type="bigint" />
+    <Property Name="CommitteeName" Type="nvarchar" MaxLength="700" />
+    <Property Name="CreatedAt" Type="datetime" />
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AddedDetails" Type="nvarchar" MaxLength="2000" />
   </EntityType>
   <EntityType Name="SessionContentItem">
     <Key>
@@ -601,6 +621,30 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="SessionAttendant">
+        <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SessionCommittee_Committee">
+    <End Role="Committee" Type="EMadbatahModel.Store.Committee" Multiplicity="0..1" />
+    <End Role="SessionCommittee" Type="EMadbatahModel.Store.SessionCommittee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Committee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionCommittee">
+        <PropertyRef Name="CommitteeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SessionCommittee_Session">
+    <End Role="Session" Type="EMadbatahModel.Store.Session" Multiplicity="0..1" />
+    <End Role="SessionCommittee" Type="EMadbatahModel.Store.SessionCommittee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionCommittee">
         <PropertyRef Name="SessionID" />
       </Dependent>
     </ReferentialConstraint>

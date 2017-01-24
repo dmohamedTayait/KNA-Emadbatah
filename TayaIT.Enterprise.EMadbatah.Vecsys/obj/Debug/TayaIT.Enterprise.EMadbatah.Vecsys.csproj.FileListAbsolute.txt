@@ -12,3 +12,10 @@ E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\bin\Debug\Taya
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\obj\Debug\ResolveAssemblyReference.cache
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\obj\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.dll
 E:\KNA-Emabdatah\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\obj\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.pdb
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\bin\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\bin\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.pdb
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\obj\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\obj\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.dll
+C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Vecsys\obj\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.pdb

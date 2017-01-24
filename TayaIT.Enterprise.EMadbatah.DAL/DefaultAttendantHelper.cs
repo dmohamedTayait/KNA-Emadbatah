@@ -129,6 +129,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         attendantForUpdate.Name = name;
                         attendantForUpdate.ShortName = shortName;
                         attendantForUpdate.Type = type;
+                      //  attendantForUpdate.CreatedAt = DateTime.Now;
                     }
                     return context.SaveChanges();
                 }
@@ -157,6 +158,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         attendantForUpdate.Name = name;
                         attendantForUpdate.ShortName = shortName;
                         attendantForUpdate.Type = type;
+                      //  attendantForUpdate.CreatedAt = DateTime.Now;
                     }
                     return context.SaveChanges();
                 }

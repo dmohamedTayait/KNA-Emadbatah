@@ -64,7 +64,7 @@
                 </div>
                 <div class="Ntitle">
                     <span>من فضلك قم باختيار اسماء أعضاء
-                        <%= CommitteeName%>:</span><a href="ManageProcedureTypes.aspx" style="float: left">عودة
+                        <%= CommitteeName%>:</span><a href="ManageCommittees.aspx" style="float: left">عودة
                             لقائمة اللجان</a></div>
             </div>
             </div>
