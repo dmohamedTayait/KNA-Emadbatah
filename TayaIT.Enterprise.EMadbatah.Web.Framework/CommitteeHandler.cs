@@ -62,11 +62,19 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         if (CommitteeID != null && long.TryParse(CommitteeID, out commId))
                         {
                             List<CommitteeAttendant> commAttlst = CommitteeHelper.GetCommiteeAttendanceByCommitteeID(long.Parse(CommitteeID));
-                          
+                            List<SessionCommitteeAttendant> scommAttLst = SessionCommitteeHelper.GetSessionCommitteeAttendance(long.Parse(SessionCommitteeID));
                             DefaultAttendant att = new DefaultAttendant();
                             foreach (CommitteeAttendant commAtt in commAttlst)
                             {
+
                                 DefaultAttendant tempAtt = DefaultAttendantHelper.GetAttendantById((long)commAtt.DefaultAttendantID);
+
+                                SessionCommitteeAttendant tt = scommAttLst.FirstOrDefault(c => c.DefaultAttendantID == (long)commAtt.DefaultAttendantID && c.SessionCommitteeID == long.Parse(SessionCommitteeID));
+
+                                int tmpStatus = 0;
+                                if (tt != null)
+                                    tmpStatus = (int)tt.Status;
+                                att = new DefaultAttendant();
                                 att.ID = tempAtt.ID;
                                 att.Name = tempAtt.Name;
                                 att.JobTitle = tempAtt.JobTitle;
@@ -74,11 +82,26 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 att.ShortName = tempAtt.ShortName;
                                 att.LongName = tempAtt.LongName;
                                 att.AttendantTitle = tempAtt.AttendantTitle;
-                                att.Status = tempAtt.Status;
+                                att.Status = tmpStatus;
                                 defAttlst.Add(att);
                             }
                         }
                         jsonStringOut = SerializeObjectInJSON(defAttlst);
+                        break;
+                    case WebFunctions.CommitteeFunctions.TakeSessionCommAttendance:
+                        if (JsonStr != null && SessionCommitteeID != null)
+                        {
+                            List<SessionCommitteeAttendant> sCommAttlst = serializer.Deserialize<List<SessionCommitteeAttendant>>(JsonStr);
+                            foreach (SessionCommitteeAttendant sCommAtt in sCommAttlst)
+                            {
+                                SessionCommitteeAttendant sCommAttTemp = new SessionCommitteeAttendant();
+                                sCommAttTemp.Status = sCommAtt.Status;
+                                sCommAttTemp.DefaultAttendantID = sCommAtt.DefaultAttendantID;
+                                sCommAttTemp.SessionCommitteeID = long.Parse(SessionCommitteeID);
+                                SessionCommitteeHelper.SaveSessionCommitteeAttendance(sCommAttTemp);
+                            }
+                        }
+                        jsonStringOut = SerializeObjectInJSON(JsonStr);
                         break;
                 }
 
@@ -97,6 +120,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             get
             {
                 return WebHelper.GetQSValue(Constants.QSKeyNames.COMMITTEE_ID, _context);                
+            }
+        }
+
+        public string JsonStr
+        {
+            get
+            {
+                return WebHelper.GetQSValue(Constants.QSKeyNames.JSON_STR, _context);
             }
         }
 

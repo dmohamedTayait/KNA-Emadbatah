@@ -58,10 +58,6 @@
       <End Role="DefaultAttendant" EntitySet="DefaultAttendant" />
       <End Role="CommitteeAttendant" EntitySet="CommitteeAttendant" />
     </AssociationSet>
-    <AssociationSet Name="FK_CommitteeAttendant_Session" Association="EMadbatahModel.Store.FK_CommitteeAttendant_Session">
-      <End Role="Session" EntitySet="Session" />
-      <End Role="CommitteeAttendant" EntitySet="CommitteeAttendant" />
-    </AssociationSet>
     <AssociationSet Name="FK_Procedure_ProcedureType" Association="EMadbatahModel.Store.FK_Procedure_ProcedureType">
       <End Role="ProcedureType" EntitySet="ProcedureType" />
       <End Role="Procedure" EntitySet="Procedure" />
@@ -90,8 +86,8 @@
       <End Role="Session" EntitySet="Session" />
       <End Role="SessionCommittee" EntitySet="SessionCommittee" />
     </AssociationSet>
-    <AssociationSet Name="FK_SessionCommitteeAttendant_Attendant" Association="EMadbatahModel.Store.FK_SessionCommitteeAttendant_Attendant">
-      <End Role="Attendant" EntitySet="Attendant" />
+    <AssociationSet Name="FK_SessionCommitteeAttendant_DefaultAttendant" Association="EMadbatahModel.Store.FK_SessionCommitteeAttendant_DefaultAttendant">
+      <End Role="DefaultAttendant" EntitySet="DefaultAttendant" />
       <End Role="SessionCommitteeAttendant" EntitySet="SessionCommitteeAttendant" />
     </AssociationSet>
     <AssociationSet Name="FK_SessionCommitteeAttendant_SessionCommittee" Association="EMadbatahModel.Store.FK_SessionCommitteeAttendant_SessionCommittee">
@@ -251,9 +247,6 @@
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="CommitteeID" Type="bigint" />
     <Property Name="DefaultAttendantID" Type="bigint" />
-    <Property Name="SessionID" Type="bigint" />
-    <Property Name="AttendantStatus" Type="int" />
-    <Property Name="CommitteeDate" Type="datetime" />
     <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="DefaultAttendant">
@@ -365,7 +358,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="AttendantID" Type="bigint" />
+    <Property Name="DefaultAttendantID" Type="bigint" />
     <Property Name="Status" Type="int" />
     <Property Name="SessionCommitteeID" Type="bigint" />
   </EntityType>
@@ -567,18 +560,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CommitteeAttendant_Session">
-    <End Role="Session" Type="EMadbatahModel.Store.Session" Multiplicity="0..1" />
-    <End Role="CommitteeAttendant" Type="EMadbatahModel.Store.CommitteeAttendant" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Session">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CommitteeAttendant">
-        <PropertyRef Name="SessionID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Procedure_ProcedureType">
     <End Role="ProcedureType" Type="EMadbatahModel.Store.ProcedureType" Multiplicity="0..1" />
     <End Role="Procedure" Type="EMadbatahModel.Store.Procedure" Multiplicity="*" />
@@ -667,15 +648,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SessionCommitteeAttendant_Attendant">
-    <End Role="Attendant" Type="EMadbatahModel.Store.Attendant" Multiplicity="0..1" />
+  <Association Name="FK_SessionCommitteeAttendant_DefaultAttendant">
+    <End Role="DefaultAttendant" Type="EMadbatahModel.Store.DefaultAttendant" Multiplicity="0..1" />
     <End Role="SessionCommitteeAttendant" Type="EMadbatahModel.Store.SessionCommitteeAttendant" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Attendant">
+      <Principal Role="DefaultAttendant">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="SessionCommitteeAttendant">
-        <PropertyRef Name="AttendantID" />
+        <PropertyRef Name="DefaultAttendantID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

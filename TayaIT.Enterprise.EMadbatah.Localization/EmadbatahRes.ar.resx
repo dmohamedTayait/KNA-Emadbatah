@@ -528,4 +528,34 @@
   <data name="str40" xml:space="preserve">
     <value>الاربعون</value>
   </data>
+  <data name="str10_tanween1" xml:space="preserve">
+    <value>عاشراً</value>
+  </data>
+  <data name="str1_tanween" xml:space="preserve">
+    <value>أولاً</value>
+  </data>
+  <data name="str2_tanween" xml:space="preserve">
+    <value>ثانياً</value>
+  </data>
+  <data name="str3_tanween" xml:space="preserve">
+    <value>ثالثاً</value>
+  </data>
+  <data name="str4_tanween" xml:space="preserve">
+    <value>رابعاً</value>
+  </data>
+  <data name="str5_tanween" xml:space="preserve">
+    <value>خامساً</value>
+  </data>
+  <data name="str6_tanween" xml:space="preserve">
+    <value>سادساً</value>
+  </data>
+  <data name="str7_tanween" xml:space="preserve">
+    <value>سابعاً</value>
+  </data>
+  <data name="str8_tanween" xml:space="preserve">
+    <value>ثامناً</value>
+  </data>
+  <data name="str9_tanween" xml:space="preserve">
+    <value>تاسعاً</value>
+  </data>
 </root>

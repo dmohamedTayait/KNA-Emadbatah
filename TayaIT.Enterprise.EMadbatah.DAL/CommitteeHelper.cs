@@ -186,7 +186,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
 
-        public static List<List<DefaultAttendant>> GetSessionCommiteeAttendance(long CommitteeID, long SessionID)
+       /*  public static List<List<DefaultAttendant>> GetSessionCommiteeAttendance(long CommitteeID, long SessionID)
         {
             List<DefaultAttendant> attAbologyLst = new List<DefaultAttendant>();
             List<DefaultAttendant> attMissionLst = new List<DefaultAttendant>();
@@ -231,7 +231,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static int UpdateCommitteeAttendant(int CommitteeID, int DefaultAttendant, int SessionID, int AttendantStatus, DateTime CommitteeDate)
+       public static int UpdateCommitteeAttendant(int CommitteeID, int DefaultAttendant, int SessionID, int AttendantStatus, DateTime CommitteeDate)
         {
             try
             {
@@ -265,7 +265,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1;
             }
         }
-
+        
         public static List<CommitteeAttendant> GetCommitteeByCommitteeIDAndSessionID(int CommitteeID, Int64 DefaultAttendantID, int SessionID)
         {
             try
@@ -282,7 +282,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.GetCommitteeByCommitteeIDAndSessionID()");
                 return null;
             }
-        }
+        }*/
 
     }
 }

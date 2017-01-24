@@ -51,6 +51,11 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
                     commForDelete = context.SessionCommittees.FirstOrDefault(c => c.ID == scomm_id);
+                    List<SessionCommitteeAttendant> lst = context.SessionCommitteeAttendants.Where(c => c.SessionCommitteeID == scomm_id).ToList();
+                    foreach (SessionCommitteeAttendant sCommAtt in lst)
+                    {
+                        context.DeleteObject(sCommAtt);
+                    }
                     context.DeleteObject(commForDelete);
                     return context.SaveChanges();
                 }
@@ -62,9 +67,56 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public int SaveSessionCommitteeAttendance(long attID,long scommId,long status)
+        public static long SaveSessionCommitteeAttendance(SessionCommitteeAttendant scommAtt)
         {
-            return 0;
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    SessionCommitteeAttendant SessionCommitteeAtt = context.SessionCommitteeAttendants.Where(c => c.SessionCommitteeID == scommAtt.SessionCommitteeID && c.DefaultAttendantID == scommAtt.DefaultAttendantID).Select(c => c).FirstOrDefault();
+                    if (SessionCommitteeAtt != null)
+                    {
+                        if (scommAtt.Status == 0)
+                        {
+                            context.DeleteObject(SessionCommitteeAtt);
+                        }
+                        else
+                        {
+                            SessionCommitteeAtt.Status = scommAtt.Status;
+                        }
+                    }
+                    else
+                    {
+                        if (scommAtt.Status != 0)
+                        {
+                            context.SessionCommitteeAttendants.AddObject(scommAtt);
+                        }
+                    }
+                    return context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionCommitteeHelper.AddSessionCommittee(sessionCommObj)");
+                return 0;
+            }
+        }
+
+        public static List<SessionCommitteeAttendant> GetSessionCommitteeAttendance(long scommAttID)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    List<SessionCommitteeAttendant> SessionCommitteeAttLst = context.SessionCommitteeAttendants.Where(c => c.SessionCommitteeID == scommAttID).Select(c => c).ToList();
+                    return SessionCommitteeAttLst;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionCommitteeHelper.AddSessionCommittee(sessionCommObj)");
+                return null;
+            }
         }
     }
 }

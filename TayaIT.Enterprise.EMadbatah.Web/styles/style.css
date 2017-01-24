@@ -1078,6 +1078,10 @@ span.revFilelock {
     height: 9px;
     padding: 0 0 0 5px;
 }
+.brownitem {
+    color: #c38f04;
+   /* background: none repeat scroll 0 0 transparent;*/
+}
 .greenitem {
     color: #49a642;
     background: none repeat scroll 0 0 transparent;

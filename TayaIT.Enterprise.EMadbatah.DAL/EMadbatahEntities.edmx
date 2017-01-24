@@ -63,10 +63,6 @@
             <End Role="DefaultAttendant" EntitySet="DefaultAttendant" />
             <End Role="CommitteeAttendant" EntitySet="CommitteeAttendant" />
           </AssociationSet>
-          <AssociationSet Name="FK_CommitteeAttendant_Session" Association="EMadbatahModel.Store.FK_CommitteeAttendant_Session">
-            <End Role="Session" EntitySet="Session" />
-            <End Role="CommitteeAttendant" EntitySet="CommitteeAttendant" />
-          </AssociationSet>
           <AssociationSet Name="FK_Procedure_ProcedureType" Association="EMadbatahModel.Store.FK_Procedure_ProcedureType">
             <End Role="ProcedureType" EntitySet="ProcedureType" />
             <End Role="Procedure" EntitySet="Procedure" />
@@ -95,8 +91,8 @@
             <End Role="Session" EntitySet="Session" />
             <End Role="SessionCommittee" EntitySet="SessionCommittee" />
           </AssociationSet>
-          <AssociationSet Name="FK_SessionCommitteeAttendant_Attendant" Association="EMadbatahModel.Store.FK_SessionCommitteeAttendant_Attendant">
-            <End Role="Attendant" EntitySet="Attendant" />
+          <AssociationSet Name="FK_SessionCommitteeAttendant_DefaultAttendant" Association="EMadbatahModel.Store.FK_SessionCommitteeAttendant_DefaultAttendant">
+            <End Role="DefaultAttendant" EntitySet="DefaultAttendant" />
             <End Role="SessionCommitteeAttendant" EntitySet="SessionCommitteeAttendant" />
           </AssociationSet>
           <AssociationSet Name="FK_SessionCommitteeAttendant_SessionCommittee" Association="EMadbatahModel.Store.FK_SessionCommitteeAttendant_SessionCommittee">
@@ -256,9 +252,6 @@
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CommitteeID" Type="bigint" />
           <Property Name="DefaultAttendantID" Type="bigint" />
-          <Property Name="SessionID" Type="bigint" />
-          <Property Name="AttendantStatus" Type="int" />
-          <Property Name="CommitteeDate" Type="datetime" />
           <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="DefaultAttendant">
@@ -370,7 +363,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="AttendantID" Type="bigint" />
+          <Property Name="DefaultAttendantID" Type="bigint" />
           <Property Name="Status" Type="int" />
           <Property Name="SessionCommitteeID" Type="bigint" />
         </EntityType>
@@ -572,18 +565,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CommitteeAttendant_Session">
-          <End Role="Session" Type="EMadbatahModel.Store.Session" Multiplicity="0..1" />
-          <End Role="CommitteeAttendant" Type="EMadbatahModel.Store.CommitteeAttendant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Session">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CommitteeAttendant">
-              <PropertyRef Name="SessionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Procedure_ProcedureType">
           <End Role="ProcedureType" Type="EMadbatahModel.Store.ProcedureType" Multiplicity="0..1" />
           <End Role="Procedure" Type="EMadbatahModel.Store.Procedure" Multiplicity="*" />
@@ -672,15 +653,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SessionCommitteeAttendant_Attendant">
-          <End Role="Attendant" Type="EMadbatahModel.Store.Attendant" Multiplicity="0..1" />
+        <Association Name="FK_SessionCommitteeAttendant_DefaultAttendant">
+          <End Role="DefaultAttendant" Type="EMadbatahModel.Store.DefaultAttendant" Multiplicity="0..1" />
           <End Role="SessionCommitteeAttendant" Type="EMadbatahModel.Store.SessionCommitteeAttendant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Attendant">
+            <Principal Role="DefaultAttendant">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="SessionCommitteeAttendant">
-              <PropertyRef Name="AttendantID" />
+              <PropertyRef Name="DefaultAttendantID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1013,23 +994,10 @@
             <End EntitySet="Procedures" Role="Procedure" />
           </AssociationSet>
           <EntitySet Name="Committees" EntityType="EMadbatahModel.Committee" />
-          <EntitySet Name="CommitteeAttendants" EntityType="EMadbatahModel.CommitteeAttendant" />
           <EntitySet Name="DefaultAttendants" EntityType="EMadbatahModel.DefaultAttendant" />
           <AssociationSet Name="FK_Attendant_DefaultAttendant" Association="EMadbatahModel.FK_Attendant_DefaultAttendant">
             <End Role="DefaultAttendant" EntitySet="DefaultAttendants" />
             <End Role="Attendant" EntitySet="Attendants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CommitteeAttendant_Committee" Association="EMadbatahModel.FK_CommitteeAttendant_Committee">
-            <End Role="Committee" EntitySet="Committees" />
-            <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CommitteeAttendant_DefaultAttendant" Association="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant">
-            <End Role="DefaultAttendant" EntitySet="DefaultAttendants" />
-            <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CommitteeAttendant_Session" Association="EMadbatahModel.FK_CommitteeAttendant_Session">
-            <End Role="Session" EntitySet="Sessions" />
-            <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
           </AssociationSet>
           <AssociationSet Name="FK_SessionContentItem_Attachement" Association="EMadbatahModel.FK_SessionContentItem_Attachement">
             <End Role="Attachement" EntitySet="Attachements" />
@@ -1047,13 +1015,22 @@
             <End Role="SessionCommittee" EntitySet="SessionCommittees" />
           </AssociationSet>
           <EntitySet Name="SessionCommitteeAttendants" EntityType="EMadbatahModel.SessionCommitteeAttendant" />
-          <AssociationSet Name="FK_SessionCommitteeAttendant_Attendant" Association="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant">
-            <End Role="Attendant" EntitySet="Attendants" />
+          <AssociationSet Name="FK_SessionCommitteeAttendant_DefaultAttendant" Association="EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant">
+            <End Role="DefaultAttendant" EntitySet="DefaultAttendants" />
             <End Role="SessionCommitteeAttendant" EntitySet="SessionCommitteeAttendants" />
           </AssociationSet>
           <AssociationSet Name="FK_SessionCommitteeAttendant_SessionCommittee" Association="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee">
             <End Role="SessionCommittee" EntitySet="SessionCommittees" />
             <End Role="SessionCommitteeAttendant" EntitySet="SessionCommitteeAttendants" />
+          </AssociationSet>
+          <EntitySet Name="CommitteeAttendants" EntityType="EMadbatahModel.CommitteeAttendant" />
+          <AssociationSet Name="FK_CommitteeAttendant_Committee" Association="EMadbatahModel.FK_CommitteeAttendant_Committee">
+            <End Role="Committee" EntitySet="Committees" />
+            <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommitteeAttendant_DefaultAttendant" Association="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant">
+            <End Role="DefaultAttendant" EntitySet="DefaultAttendants" />
+            <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AgendaItem">
@@ -1125,7 +1102,6 @@
           <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="CreatedAt" />
-          <NavigationProperty Name="SessionCommitteeAttendants" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant" FromRole="Attendant" ToRole="SessionCommitteeAttendant" />
         </EntityType>
         <EntityType Name="AttendantState">
           <Key>
@@ -1185,7 +1161,6 @@
           <NavigationProperty Name="MadbatahFilesStatus" Relationship="EMadbatahModel.FK_Session_MadbatahFilesStatus" FromRole="Session" ToRole="MadbatahFilesStatu" />
           <Property Type="String" Name="MP3FolderPath" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Checker" />
-          <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Session" FromRole="Session" ToRole="CommitteeAttendant" />
           <Property Type="Int32" Name="SessionStartFlag" />
           <Property Type="Int32" Name="PresidentID" />
           <NavigationProperty Name="SessionCommittees" Relationship="EMadbatahModel.FK_SessionCommittee_Session" FromRole="Session" ToRole="SessionCommittee" />
@@ -1618,24 +1593,9 @@
           </Key>
           <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="CommitteeName" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="Committee" ToRole="CommitteeAttendant" />
           <Property Type="Int32" Name="Status" />
           <NavigationProperty Name="SessionCommittees" Relationship="EMadbatahModel.FK_SessionCommittee_Committee" FromRole="Committee" ToRole="SessionCommittee" />
-        </EntityType>
-        <EntityType Name="CommitteeAttendant">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Type="Int64" Name="ID" Nullable="false" />
-          <Property Type="Int64" Name="CommitteeID" />
-          <Property Type="Int64" Name="DefaultAttendantID" />
-          <Property Type="Int64" Name="SessionID" />
-          <Property Type="Int32" Name="AttendantStatus" />
-          <NavigationProperty Name="Committee" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="CommitteeAttendant" ToRole="Committee" />
-          <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="CommitteeAttendant" ToRole="DefaultAttendant" />
-          <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_CommitteeAttendant_Session" FromRole="CommitteeAttendant" ToRole="Session" />
-          <Property Type="DateTime" Name="CommitteeDate" />
-          <Property Type="Int32" Name="Status" />
+          <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="Committee" ToRole="CommitteeAttendant" />
         </EntityType>
         <EntityType Name="DefaultAttendant">
           <Key>
@@ -1645,7 +1605,6 @@
           <Property Type="String" Name="Name" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="JobTitle" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Attendants" Relationship="EMadbatahModel.FK_Attendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="Attendant" />
-          <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="CommitteeAttendant" />
           <Property Type="Int32" Name="Type" />
           <Property Type="String" Name="AttendantTitle" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="OrderByAttendantType" />
@@ -1654,6 +1613,8 @@
           <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="Status" />
           <Property Type="DateTime" Name="CreatedAt" />
+          <NavigationProperty Name="SessionCommitteeAttendants" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="SessionCommitteeAttendant" />
+          <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="CommitteeAttendant" />
         </EntityType>
         <Association Name="FK_Attendant_DefaultAttendant">
           <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
@@ -1664,42 +1625,6 @@
             </Principal>
             <Dependent Role="Attendant">
               <PropertyRef Name="DefaultAttendantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CommitteeAttendant_Committee">
-          <End Type="EMadbatahModel.Committee" Role="Committee" Multiplicity="0..1" />
-          <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Committee">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CommitteeAttendant">
-              <PropertyRef Name="CommitteeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CommitteeAttendant_DefaultAttendant">
-          <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
-          <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DefaultAttendant">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CommitteeAttendant">
-              <PropertyRef Name="DefaultAttendantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CommitteeAttendant_Session">
-          <End Type="EMadbatahModel.Session" Role="Session" Multiplicity="0..1" />
-          <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Session">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CommitteeAttendant">
-              <PropertyRef Name="SessionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1774,21 +1699,21 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int64" Name="AttendantID" />
+          <Property Type="Int64" Name="DefaultAttendantID" />
           <Property Type="Int32" Name="Status" />
           <Property Type="Int64" Name="SessionCommitteeID" />
-          <NavigationProperty Name="Attendant" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant" FromRole="SessionCommitteeAttendant" ToRole="Attendant" />
+          <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant" FromRole="SessionCommitteeAttendant" ToRole="DefaultAttendant" />
           <NavigationProperty Name="SessionCommittee" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee" FromRole="SessionCommitteeAttendant" ToRole="SessionCommittee" />
         </EntityType>
-        <Association Name="FK_SessionCommitteeAttendant_Attendant">
-          <End Type="EMadbatahModel.Attendant" Role="Attendant" Multiplicity="0..1" />
+        <Association Name="FK_SessionCommitteeAttendant_DefaultAttendant">
+          <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
           <End Type="EMadbatahModel.SessionCommitteeAttendant" Role="SessionCommitteeAttendant" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Attendant">
+            <Principal Role="DefaultAttendant">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="SessionCommitteeAttendant">
-              <PropertyRef Name="AttendantID" />
+              <PropertyRef Name="DefaultAttendantID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1801,6 +1726,41 @@
             </Principal>
             <Dependent Role="SessionCommitteeAttendant">
               <PropertyRef Name="SessionCommitteeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CommitteeAttendant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="CommitteeID" />
+          <Property Type="Int64" Name="DefaultAttendantID" />
+          <Property Type="Int32" Name="Status" />
+          <NavigationProperty Name="Committee" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="CommitteeAttendant" ToRole="Committee" />
+          <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="CommitteeAttendant" ToRole="DefaultAttendant" />
+        </EntityType>
+        <Association Name="FK_CommitteeAttendant_Committee">
+          <End Type="EMadbatahModel.Committee" Role="Committee" Multiplicity="0..1" />
+          <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Committee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CommitteeAttendant">
+              <PropertyRef Name="CommitteeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CommitteeAttendant_DefaultAttendant">
+          <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
+          <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DefaultAttendant">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CommitteeAttendant">
+              <PropertyRef Name="DefaultAttendantID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2008,19 +1968,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CommitteeAttendants">
-            <EntityTypeMapping TypeName="EMadbatahModel.CommitteeAttendant">
-              <MappingFragment StoreEntitySet="CommitteeAttendant">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="CommitteeDate" ColumnName="CommitteeDate" />
-                <ScalarProperty Name="AttendantStatus" ColumnName="AttendantStatus" />
-                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
-                <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
-                <ScalarProperty Name="CommitteeID" ColumnName="CommitteeID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DefaultAttendants">
             <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
               <MappingFragment StoreEntitySet="DefaultAttendant">
@@ -2073,7 +2020,17 @@
               <MappingFragment StoreEntitySet="SessionCommitteeAttendant">
                 <ScalarProperty Name="SessionCommitteeID" ColumnName="SessionCommitteeID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="AttendantID" ColumnName="AttendantID" />
+                <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CommitteeAttendants">
+            <EntityTypeMapping TypeName="EMadbatahModel.CommitteeAttendant">
+              <MappingFragment StoreEntitySet="CommitteeAttendant">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
+                <ScalarProperty Name="CommitteeID" ColumnName="CommitteeID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2134,17 +2091,15 @@
           <ConnectorPoint PointX="9" PointY="10.346669857019204" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_Attachement_Session" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.9843755000000005" PointY="14.48337890625" />
-          <ConnectorPoint PointX="5.9843755000000005" PointY="15.125" />
+          <ConnectorPoint PointX="5.953123" PointY="14.319031575520834" />
+          <ConnectorPoint PointX="5.953123" PointY="15.125" />
           <ConnectorPoint PointX="6.635416666666667" PointY="15.125" />
           <ConnectorPoint PointX="6.802083333333333" PointY="15.125" />
           <ConnectorPoint PointX="6.875" PointY="15.125" />
-          <ConnectorPoint PointX="6.875" PointY="16.45512364316977" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="16.45512364316977" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="16.45512364316977" />
-          <ConnectorPoint PointX="7.7916691666666669" PointY="16.45512364316977" />
-          <ConnectorPoint PointX="7.9583358333333329" PointY="16.45512364316977" />
-          <ConnectorPoint PointX="9.375" PointY="16.45512364316977" />
+          <ConnectorPoint PointX="6.875" PointY="16.431073774300032" />
+          <ConnectorPoint PointX="7.7682297916666663" PointY="16.431073774300032" />
+          <ConnectorPoint PointX="7.9348964583333323" PointY="16.431073774300032" />
+          <ConnectorPoint PointX="9.375" PointY="16.431073774300032" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_Attendant_AttendantState" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="10.921153157552084" />
@@ -2173,7 +2128,7 @@
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_User_Role" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="15.901479492187502" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="15.9014794921875" />
+          <ConnectorPoint PointX="4.791666666666667" PointY="15.901479492187502" />
           <ConnectorPoint PointX="4.958333333333333" PointY="15.901479492187502" />
           <ConnectorPoint PointX="5.125" PointY="15.901479492187502" />
         </AssociationConnector>
@@ -2205,13 +2160,11 @@
           <ConnectorPoint PointX="10.5" PointY="10.905836303868895" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_Reviewer" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.625" PointY="16.769095996074025" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="16.769095996074025" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="16.769095996074025" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="16.769095996074025" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="16.769095996074025" />
-          <ConnectorPoint PointX="7.8750025" PointY="16.769095996074025" />
-          <ConnectorPoint PointX="7.8750025" PointY="15.305115559895832" />
+          <ConnectorPoint PointX="6.625" PointY="16.732974781674542" />
+          <ConnectorPoint PointX="6.635416666666667" PointY="16.732974781674542" />
+          <ConnectorPoint PointX="6.802083333333333" PointY="16.732974781674542" />
+          <ConnectorPoint PointX="7.8515631249999993" PointY="16.732974781674542" />
+          <ConnectorPoint PointX="7.8515631249999993" PointY="15.305115559895832" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_SessionContentItemStatus" ManuallyRouted="false">
           <ConnectorPoint PointX="6.75" PointY="6.6164459050480762" />
@@ -2226,29 +2179,27 @@
           <ConnectorPoint PointX="9" PointY="12.685551116333011" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_User" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.625" PointY="15.767776324159353" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="15.767776324159351" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="15.767776324159353" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="15.767776324159353" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="15.767776324159353" />
-          <ConnectorPoint PointX="7.65624875" PointY="15.767776324159353" />
-          <ConnectorPoint PointX="7.65624875" PointY="15.305115559895832" />
+          <ConnectorPoint PointX="6.625" PointY="15.754388700668741" />
+          <ConnectorPoint PointX="6.635416666666667" PointY="15.75438870066874" />
+          <ConnectorPoint PointX="6.958333333333333" PointY="15.754388700668741" />
+          <ConnectorPoint PointX="7.6445290625" PointY="15.754388700668741" />
+          <ConnectorPoint PointX="7.6445290625" PointY="15.305115559895832" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionFile_SessionFileStatus" ManuallyRouted="false">
           <ConnectorPoint PointX="9.75" PointY="18.8389794921875" />
-          <ConnectorPoint PointX="11.5058596875" PointY="18.8389794921875" />
-          <ConnectorPoint PointX="11.5058596875" PointY="13.964905598958334" />
+          <ConnectorPoint PointX="11.282714921875" PointY="18.8389794921875" />
+          <ConnectorPoint PointX="11.282714921875" PointY="13.964905598958334" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionFile_User" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.625" PointY="17.855671804957616" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="17.855671804957616" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="17.855671804957616" />
-          <ConnectorPoint PointX="11.199381588541666" PointY="17.855671804957616" />
-          <ConnectorPoint PointX="11.366048255208334" PointY="17.855671804957616" />
-          <ConnectorPoint PointX="11.534954108072915" PointY="17.855671804957616" />
-          <ConnectorPoint PointX="11.701620774739583" PointY="17.855671804957616" />
-          <ConnectorPoint PointX="11.813964921875" PointY="17.855671804957616" />
-          <ConnectorPoint PointX="11.813964921875" PointY="13.964905598958334" />
+          <ConnectorPoint PointX="6.625" PointY="17.755099434187411" />
+          <ConnectorPoint PointX="6.635416666666667" PointY="17.755099434187411" />
+          <ConnectorPoint PointX="6.802083333333333" PointY="17.755099434187411" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="17.755099434187411" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="17.755099434187411" />
+          <ConnectorPoint PointX="11.199381588541666" PointY="17.755099434187411" />
+          <ConnectorPoint PointX="11.366048255208334" PointY="17.755099434187411" />
+          <ConnectorPoint PointX="11.77453994140625" PointY="17.755099434187411" />
+          <ConnectorPoint PointX="11.77453994140625" PointY="13.964905598958334" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.SessionAttendant" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="11.971455387920674" />
@@ -2263,32 +2214,28 @@
           <ConnectorPoint PointX="5.25" PointY="9.0264794921875016" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionFile_Reviewer" >
-          <ConnectorPoint PointX="6.625" PointY="17.097531446733413" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="17.097531446733413" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="17.097531446733413" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="17.097531446733413" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="17.097531446733413" />
-          <ConnectorPoint PointX="11.0788549609375" PointY="17.097531446733413" />
+          <ConnectorPoint PointX="6.625" PointY="17.059039126834449" />
+          <ConnectorPoint PointX="6.635416666666667" PointY="17.059039126834449" />
+          <ConnectorPoint PointX="6.802083333333333" PointY="17.059039126834449" />
+          <ConnectorPoint PointX="11.0788549609375" PointY="17.059039126834449" />
           <ConnectorPoint PointX="11.0788549609375" PointY="13.964905598958334" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_FileReviewer" >
-          <ConnectorPoint PointX="6.625" PointY="16.142702483664557" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="16.142702483664557" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="16.142702483664557" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="16.142702483664557" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="16.142702483664557" />
-          <ConnectorPoint PointX="7.7916691666666669" PointY="16.142702483664557" />
-          <ConnectorPoint PointX="7.9583358333333329" PointY="16.142702483664557" />
-          <ConnectorPoint PointX="8.06250375" PointY="16.142702483664557" />
-          <ConnectorPoint PointX="8.06250375" PointY="15.305115559895832" />
+          <ConnectorPoint PointX="6.625" PointY="16.129172766925521" />
+          <ConnectorPoint PointX="6.635416666666667" PointY="16.129172766925521" />
+          <ConnectorPoint PointX="6.958333333333333" PointY="16.129172766925521" />
+          <ConnectorPoint PointX="7.7682297916666663" PointY="16.129172766925521" />
+          <ConnectorPoint PointX="7.9348964583333323" PointY="16.129172766925521" />
+          <ConnectorPoint PointX="8.0507840625" PointY="16.129172766925521" />
+          <ConnectorPoint PointX="8.0507840625" PointY="15.305115559895832" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionFile_FileReviewer" >
-          <ConnectorPoint PointX="6.625" PointY="17.404440028324316" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="17.404440028324316" />
-          <ConnectorPoint PointX="6.802083333333333" PointY="17.404440028324316" />
-          <ConnectorPoint PointX="11.199381588541666" PointY="17.404440028324316" />
-          <ConnectorPoint PointX="11.366048255208334" PointY="17.404440028324316" />
-          <ConnectorPoint PointX="11.4865748828125" PointY="17.404440028324316" />
+          <ConnectorPoint PointX="6.625" PointY="17.385193868374834" />
+          <ConnectorPoint PointX="6.635416666666667" PointY="17.385193868374834" />
+          <ConnectorPoint PointX="6.802083333333333" PointY="17.385193868374834" />
+          <ConnectorPoint PointX="11.199381588541666" PointY="17.385193868374834" />
+          <ConnectorPoint PointX="11.366048255208334" PointY="17.385193868374834" />
+          <ConnectorPoint PointX="11.4865748828125" PointY="17.385193868374834" />
           <ConnectorPoint PointX="11.4865748828125" PointY="13.964905598958334" />
         </AssociationConnector>
         <EntityTypeShape EntityType="EMadbatahModel.Procedure" PointX="3.375" PointY="0.75" Width="1.5" Height="1.5956835937500031" />
@@ -2298,124 +2245,61 @@
           <ConnectorPoint PointX="4.875" PointY="1.5189925130208337" />
         </AssociationConnector>
         <EntityTypeShape EntityType="EMadbatahModel.Committee" Width="1.5" PointX="10.25" PointY="20.75" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="EMadbatahModel.CommitteeAttendant" Width="1.5" PointX="12.5" PointY="15.25" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="EMadbatahModel.DefaultAttendant" Width="1.5" PointX="0.75" PointY="12.375" Height="3.1340950520833335" />
         <AssociationConnector Association="EMadbatahModel.FK_Attendant_DefaultAttendant" >
-          <ConnectorPoint PointX="2.25" PointY="13.37712646484375" />
-          <ConnectorPoint PointX="2.6979166666666665" PointY="13.37712646484375" />
-          <ConnectorPoint PointX="2.8645833333333335" PointY="13.665686590332033" />
-          <ConnectorPoint PointX="3" PointY="13.665686590332033" />
-        </AssociationConnector>
-        <AssociationConnector Association="EMadbatahModel.FK_CommitteeAttendant_Committee" >
-          <ConnectorPoint PointX="11.62792984375" PointY="20.75" />
-          <ConnectorPoint PointX="11.62792984375" PointY="17.648843609915232" />
-          <ConnectorPoint PointX="12.5" PointY="17.648843609915232" />
-        </AssociationConnector>
-        <AssociationConnector Association="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" >
-          <ConnectorPoint PointX="1.5" PointY="15.446432291666666" />
-          <ConnectorPoint PointX="1.5" PointY="16.677958984375003" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="16.677958984375003" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="16.677958984375003" />
-          <ConnectorPoint PointX="4.875" PointY="16.677958984375003" />
-          <ConnectorPoint PointX="4.875" PointY="15.25" />
-          <ConnectorPoint PointX="6.635416666666667" PointY="15.249999999999998" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="15.25" />
-          <ConnectorPoint PointX="7.041666666666667" PointY="15.25" />
-          <ConnectorPoint PointX="7.208333333333333" PointY="15.25" />
-          <ConnectorPoint PointX="7.25" PointY="15.25" />
-          <ConnectorPoint PointX="7.25" PointY="17.249695638020835" />
-          <ConnectorPoint PointX="11.199381588541666" PointY="17.249695638020835" />
-          <ConnectorPoint PointX="11.366048255208334" PointY="17.249695638020835" />
-          <ConnectorPoint PointX="11.403241549479166" PointY="17.249695638020835" />
-          <ConnectorPoint PointX="11.569908216145834" PointY="17.249695638020835" />
-          <ConnectorPoint PointX="11.730631588541666" PointY="17.249695638020835" />
-          <ConnectorPoint PointX="11.897298255208334" PointY="17.249695638020835" />
-          <ConnectorPoint PointX="11.366534895833334" PointY="17.249695638020835" />
-          <ConnectorPoint PointX="11.366534895833334" PointY="16.401955581950876" />
-          <ConnectorPoint PointX="11.422526354166665" PointY="16.401955581950876" />
-          <ConnectorPoint PointX="11.422526354166665" PointY="16.999695638020835" />
-          <ConnectorPoint PointX="11.589193020833333" PointY="16.999695638020835" />
-          <ConnectorPoint PointX="11.589193020833333" PointY="16.999695638020835" />
-          <ConnectorPoint PointX="11.700849010416667" PointY="16.999695638020835" />
-          <ConnectorPoint PointX="11.700849010416667" PointY="16.999695638020835" />
-          <ConnectorPoint PointX="11.867515677083334" PointY="16.999695638020835" />
-          <ConnectorPoint PointX="11.867515677083334" PointY="16.999695638020835" />
-          <ConnectorPoint PointX="12.125" PointY="16.999695638020835" />
-          <ConnectorPoint PointX="12.125" PointY="16.418169804957621" />
-          <ConnectorPoint PointX="12.5" PointY="16.418169804957621" />
-        </AssociationConnector>
-        <AssociationConnector Association="EMadbatahModel.FK_CommitteeAttendant_Session" >
-          <ConnectorPoint PointX="6.75" PointY="11.212192220476222" />
-          <ConnectorPoint PointX="7.125" PointY="11.212192220476222" />
-          <ConnectorPoint PointX="7.125" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="7.166666666666667" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="7.333333333333333" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="7.6041679166666674" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="7.7708345833333334" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="7.7916691666666669" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="7.9583358333333329" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="7.9791704166666664" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="8.1458370833333333" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="9.125" PointY="15.555115559895832" />
-          <ConnectorPoint PointX="9.125" PointY="14.25" />
-          <ConnectorPoint PointX="10.995764947916667" PointY="14.25" />
-          <ConnectorPoint PointX="11.162431614583335" PointY="14.25" />
-          <ConnectorPoint PointX="11.199868229166667" PointY="14.25" />
-          <ConnectorPoint PointX="11.366534895833334" PointY="14.25" />
-          <ConnectorPoint PointX="11.422526354166665" PointY="14.25" />
-          <ConnectorPoint PointX="11.589193020833333" PointY="14.25" />
-          <ConnectorPoint PointX="11.700849010416667" PointY="14.25" />
-          <ConnectorPoint PointX="11.867515677083334" PointY="14.25" />
-          <ConnectorPoint PointX="12.999999500000001" PointY="14.25" />
-          <ConnectorPoint PointX="12.999999500000001" PointY="15.25" />
+          <ConnectorPoint PointX="2.25" PointY="13.294952799479166" />
+          <ConnectorPoint PointX="3" PointY="13.294952799479166" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionContentItem_Attachement" >
           <ConnectorPoint PointX="9.375" PointY="14.902557779947916" />
-          <ConnectorPoint PointX="9.2083333333333339" PointY="14.902557779947916" />
-          <ConnectorPoint PointX="9.0416666666666661" PointY="14.902557779947916" />
           <ConnectorPoint PointX="9" PointY="14.902557779947916" />
         </AssociationConnector>
         <EntityTypeShape EntityType="EMadbatahModel.Season" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937500102" />
         <EntityTypeShape EntityType="EMadbatahModel.Stage" Width="1.5" PointX="9.75" PointY="0.75" Height="1.5956835937500102" />
         <EntityTypeShape EntityType="EMadbatahModel.SessionCommittee" Width="1.5" PointX="2.375" PointY="17" Height="2.2496956380208388" />
         <AssociationConnector Association="EMadbatahModel.FK_SessionCommittee_Committee" >
-          <ConnectorPoint PointX="10.25" PointY="21.995077311197925" />
-          <ConnectorPoint PointX="3.125" PointY="21.995077311197925" />
+          <ConnectorPoint PointX="10.25" PointY="22.182577311197925" />
+          <ConnectorPoint PointX="3.125" PointY="22.182577311197925" />
           <ConnectorPoint PointX="3.125" PointY="19.414042968750003" />
         </AssociationConnector>
         <AssociationConnector Association="EMadbatahModel.FK_SessionCommittee_Session" >
-          <ConnectorPoint PointX="6.71875" PointY="14.48337890625" />
-          <ConnectorPoint PointX="6.71875" PointY="19.043661295572921" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="19.043661295572921" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="19.043661295572921" />
-          <ConnectorPoint PointX="3.875" PointY="19.043661295572921" />
+          <ConnectorPoint PointX="6.71875" PointY="14.319031575520834" />
+          <ConnectorPoint PointX="6.71875" PointY="18.918750969589126" />
+          <ConnectorPoint PointX="3.875" PointY="18.918750969589126" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="EMadbatahModel.SessionCommitteeAttendant" Width="1.5" PointX="5.25" PointY="19.5" Height="1.9210009765625102" />
-        <AssociationConnector Association="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant">
-          <ConnectorPoint PointX="3.75" PointY="9.5" />
-          <ConnectorPoint PointX="3.75" PointY="8.8029589843750031" />
-          <ConnectorPoint PointX="4.635416666666667" PointY="8.8029589843750014" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="8.8029589843750031" />
-          <ConnectorPoint PointX="5" PointY="8.8029589843750031" />
-          <ConnectorPoint PointX="5" PointY="5" />
-          <ConnectorPoint PointX="5.625" PointY="5" />
-          <ConnectorPoint PointX="5.625" PointY="3.46050048828125" />
-          <ConnectorPoint PointX="5.875" PointY="3.46050048828125" />
-          <ConnectorPoint PointX="3.75" PointY="14.3792529296875" />
-          <ConnectorPoint PointX="3.75" PointY="14.75" />
-          <ConnectorPoint PointX="4.75" PointY="14.75" />
-          <ConnectorPoint PointX="4.75" PointY="20.460500488281255" />
-          <ConnectorPoint PointX="5.25" PointY="20.460500488281255" />
+        <EntityTypeShape EntityType="EMadbatahModel.SessionCommitteeAttendant" Width="1.5" PointX="4.625" PointY="19.875" Height="1.9210009765625102" />
+        <AssociationConnector Association="EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant" >
+          <ConnectorPoint PointX="1.5" PointY="15.610779622395834" />
+          <ConnectorPoint PointX="1.5" PointY="20.835500488281255" />
+          <ConnectorPoint PointX="3.0416666666666665" PointY="20.835500488281255" />
+          <ConnectorPoint PointX="3.2083333333333335" PointY="20.835500488281255" />
+          <ConnectorPoint PointX="4.625" PointY="20.835500488281255" />
         </AssociationConnector>
-        <AssociationConnector Association="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee">
-          <ConnectorPoint PointX="2.78125" PointY="17" />
-          <ConnectorPoint PointX="2.78125" PointY="2.90625" />
-          <ConnectorPoint PointX="5.875" PointY="2.90625" />
+        <AssociationConnector Association="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee" >
           <ConnectorPoint PointX="3.875" PointY="19.260104632161458" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="19.260104632161458" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="19.260104632161458" />
-          <ConnectorPoint PointX="6.703125" PointY="19.260104632161458" />
-          <ConnectorPoint PointX="6.703125" PointY="19.5" />
+          <ConnectorPoint PointX="4.84375" PointY="19.260104632161458" />
+          <ConnectorPoint PointX="4.84375" PointY="19.875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="EMadbatahModel.CommitteeAttendant" Width="1.5" PointX="12.5" PointY="16.5" Height="1.9210009765625102" />
+        <AssociationConnector Association="EMadbatahModel.FK_CommitteeAttendant_Committee" >
+          <ConnectorPoint PointX="11.618287441406249" PointY="20.75" />
+          <ConnectorPoint PointX="11.618287441406249" PointY="18.088050205374962" />
+          <ConnectorPoint PointX="12.5" PointY="18.088050205374962" />
+        </AssociationConnector>
+        <AssociationConnector Association="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" >
+          <ConnectorPoint PointX="1.9062519999999998" PointY="15.610779622395834" />
+          <ConnectorPoint PointX="1.9062519999999998" PointY="16.75" />
+          <ConnectorPoint PointX="4.875" PointY="16.75" />
+          <ConnectorPoint PointX="4.875" PointY="18.735779622395839" />
+          <ConnectorPoint PointX="6.635416666666667" PointY="18.735779622395839" />
+          <ConnectorPoint PointX="6.802083333333333" PointY="18.735779622395839" />
+          <ConnectorPoint PointX="8" PointY="18.735779622395839" />
+          <ConnectorPoint PointX="8" PointY="17.570146651281121" />
+          <ConnectorPoint PointX="11.199381588541666" PointY="17.570146651281121" />
+          <ConnectorPoint PointX="11.366048255208334" PointY="17.570146651281121" />
+          <ConnectorPoint PointX="11.691206608072916" PointY="17.570146651281121" />
+          <ConnectorPoint PointX="11.857873274739584" PointY="17.570146651281121" />
+          <ConnectorPoint PointX="12.5" PointY="17.570146651281121" />
         </AssociationConnector>
         </Diagram>
     </Diagrams>

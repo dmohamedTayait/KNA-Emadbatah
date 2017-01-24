@@ -120,6 +120,8 @@ $(document).ready(function () {
 
     function att_init() {
         $("a.aPopupTakeSessionCommAtt").click(function (e) {
+            var scommid = $(this).attr("scommid");
+            $(".txtSCommID").val(scommid);
             jQuery.ajax({
                 cache: false,
                 type: 'post',
@@ -127,22 +129,26 @@ $(document).ready(function () {
                 data: {
                     funcname: 'GetSessionCommAtt',
                     sid: $(this).attr("sid"),
-                    commid: $(this).attr("commid")
+                    commid: $(this).attr("commid"),
+                    scommid: scommid
                 },
                 dataType: 'json',
                 success: function (response) {
 
                     tbl = $("#tbl_Att_Status");
-                    tr = "<tr id=\"trAttID\">" +
-                "<td style=\"padding-right: 10px;\"><span>AttName</span></td>" +
-                "<td> <input type=\"radio\" name=\"rdAttID\" value='2' class='radio_list'/></td>" +
-                "<td> <input type=\"radio\" name=\"rdAttID\" value='3' class='radio_list'/></td>" +
-                "<td> <input type=\"radio\" name=\"rdAttID\" value='3' class='radio_list'/> </td>" +
-                "</tr>";
+                    $("#tbl_Att_Status .dataTr").remove();
+                    tr = "<tr id=\"trAttID\" class='dataTr'>" +
+                            "<td style=\"padding-right: 10px;\"><span>AttName</span></td>" +
+                            "<td><input type=\"radio\" id=\"rdAttID\" name=\"rdAttID\" value='0' class='radio_list'/></td>" +
+                            "<td><input type=\"radio\" id=\"rdAttID\" name=\"rdAttID\" value='2' class='radio_list'/></td>" +
+                            "<td><input type=\"radio\" id=\"rdAttID\" name=\"rdAttID\" value='3' class='radio_list'/></td>" +
+                            "<td><input type=\"radio\" id=\"rdAttID\" name=\"rdAttID\" value='4' class='radio_list'/></td>" +
+                         "</tr>";
                     var tmpTr = "";
                     for (i = 0; i < response.length; i++) {
-                        tmpTr = tr.replace("AttID", response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].LongName);
+                        tmpTr = tr.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].LongName);
                         tbl.append(tmpTr);
+                        $("input:radio[name='rd" + response[i].ID + "']", tbl).filter('[value="' + response[i].Status + '"]').prop('checked', true);
                     }
 
                     $(".popupoverlay").show();
@@ -156,39 +162,40 @@ $(document).ready(function () {
     }
 
     $(".btnAddSessionCommAtt").click(function (e) {
+        tbl = $("#tbl_Att_Status");
+        var rows = $('tr.dataTr', tbl);
+        jsonObj = [];
+
+        rows.each(function () {
+            var id = $(this).attr("id").replace("tr", "");
+            var status = 0;
+            if ($("input:radio[name='rd" + id + "']:checked").val()) {
+                status = $("input:radio[name='rd" + id + "']:checked").val();
+            }
+
+            item = {}
+            item["DefaultAttendantID"] = id;
+            item["status"] = status;
+
+            jsonObj.push(item);
+        });
+
+        console.log(jsonObj);
+
         jQuery.ajax({
             cache: false,
             type: 'post',
             url: 'CommitteeHandler.ashx',
             data: {
-                funcname: 'GetSessionCommAtt',
-                sid: $(this).attr("sid"),
-                commid: $(this).attr("commid")
+                funcname: 'TakeSessionCommAttendance',
+                json_str: JSON.stringify(jsonObj),
+                scommid: $(".txtSCommID").val()
             },
             dataType: 'json',
             success: function (response) {
 
-                tbl = $("#tbl_Att_Status");
-                tr = "<tr id=\"trAttID\">" +
-                "<td style=\"padding-right: 10px;\"><span>AttName</span></td>" +
-                "<td> <input type=\"radio\" name=\"rdAttID\" value='2' class='radio_list' rd2/></td>" +
-                "<td> <input type=\"radio\" name=\"rdAttID\" value='3' class='radio_list' rd3/></td>" +
-                "<td> <input type=\"radio\" name=\"rdAttID\" value='3' class='radio_list' rd4/> </td>" +
-                "</tr>";
-                var tmpTr = "";
-                for (i = 0; i < response.length; i++) {
-                    tmpTr = tr.replace("AttID", response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].LongName);
-                    if (response[i].status == "2")
-                        tmpTr = tmpTr.replace("rd2", "checked").replace("rd3", "").replace("rd4", "")
-                    if (response[i].status == "3")
-                        tmpTr = tmpTr.replace("rd3", "checked").replace("rd2", "").replace("rd4", "")
-                    if (response[i].status == "4")
-                        tmpTr = tmpTr.replace("rd4", "checked").replace("rd2", "").replace("rd3", "")
-                    tbl.append(tmpTr);
-                }
-
-                $(".popupoverlay").show();
-                $(".popupAttendant").show();
+                $(".popupoverlay").hide();
+                $(".popupAttendant").hide();
                 e.preventDefault();
             },
             error: function (response) { }

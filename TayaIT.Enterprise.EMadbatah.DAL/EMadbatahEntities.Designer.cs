@@ -44,14 +44,13 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionFile_FileReviewer", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.User), "SessionFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionFile), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Procedure_ProcedureType", "ProcedureType", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.ProcedureType), "Procedure", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Procedure), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Attendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "Attendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attendant), true)]
-[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_Committee", "Committee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Committee), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
-[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
-[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionContentItem_Attachement", "Attachement", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attachement), "SessionContentItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionContentItem), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionCommittee_Committee", "Committee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Committee), "SessionCommittee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommittee), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionCommittee_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "SessionCommittee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommittee), true)]
-[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionCommitteeAttendant_Attendant", "Attendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attendant), "SessionCommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommitteeAttendant), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionCommitteeAttendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "SessionCommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionCommitteeAttendant_SessionCommittee", "SessionCommittee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommittee), "SessionCommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommitteeAttendant), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_Committee", "Committee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Committee), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 
 #endregion
 
@@ -394,22 +393,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<CommitteeAttendant> CommitteeAttendants
-        {
-            get
-            {
-                if ((_CommitteeAttendants == null))
-                {
-                    _CommitteeAttendants = base.CreateObjectSet<CommitteeAttendant>("CommitteeAttendants");
-                }
-                return _CommitteeAttendants;
-            }
-        }
-        private ObjectSet<CommitteeAttendant> _CommitteeAttendants;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<DefaultAttendant> DefaultAttendants
         {
             get
@@ -486,6 +469,22 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
         private ObjectSet<SessionCommitteeAttendant> _SessionCommitteeAttendants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<CommitteeAttendant> CommitteeAttendants
+        {
+            get
+            {
+                if ((_CommitteeAttendants == null))
+                {
+                    _CommitteeAttendants = base.CreateObjectSet<CommitteeAttendant>("CommitteeAttendants");
+                }
+                return _CommitteeAttendants;
+            }
+        }
+        private ObjectSet<CommitteeAttendant> _CommitteeAttendants;
 
         #endregion
 
@@ -636,14 +635,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the CommitteeAttendants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToCommitteeAttendants(CommitteeAttendant committeeAttendant)
-        {
-            base.AddObject("CommitteeAttendants", committeeAttendant);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the DefaultAttendants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToDefaultAttendants(DefaultAttendant defaultAttendant)
@@ -681,6 +672,14 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         public void AddToSessionCommitteeAttendants(SessionCommitteeAttendant sessionCommitteeAttendant)
         {
             base.AddObject("SessionCommitteeAttendants", sessionCommitteeAttendant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the CommitteeAttendants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCommitteeAttendants(CommitteeAttendant committeeAttendant)
+        {
+            base.AddObject("CommitteeAttendants", committeeAttendant);
         }
 
         #endregion
@@ -2126,28 +2125,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommitteeAttendant_Attendant", "SessionCommitteeAttendant")]
-        public EntityCollection<SessionCommitteeAttendant> SessionCommitteeAttendants
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SessionCommitteeAttendant>("EMadbatahModel.FK_SessionCommitteeAttendant_Attendant", "SessionCommitteeAttendant");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionCommitteeAttendant>("EMadbatahModel.FK_SessionCommitteeAttendant_Attendant", "SessionCommitteeAttendant", value);
-                }
-            }
-        }
 
         #endregion
 
@@ -2506,28 +2483,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_CommitteeAttendant_Committee", "CommitteeAttendant")]
-        public EntityCollection<CommitteeAttendant> CommitteeAttendants
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CommitteeAttendant>("EMadbatahModel.FK_CommitteeAttendant_Committee", "CommitteeAttendant");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CommitteeAttendant>("EMadbatahModel.FK_CommitteeAttendant_Committee", "CommitteeAttendant", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommittee_Committee", "SessionCommittee")]
         public EntityCollection<SessionCommittee> SessionCommittees
         {
@@ -2540,6 +2495,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionCommittee>("EMadbatahModel.FK_SessionCommittee_Committee", "SessionCommittee", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_CommitteeAttendant_Committee", "CommitteeAttendant")]
+        public EntityCollection<CommitteeAttendant> CommitteeAttendants
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CommitteeAttendant>("EMadbatahModel.FK_CommitteeAttendant_Committee", "CommitteeAttendant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CommitteeAttendant>("EMadbatahModel.FK_CommitteeAttendant_Committee", "CommitteeAttendant", value);
                 }
             }
         }
@@ -2653,78 +2630,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> SessionID
-        {
-            get
-            {
-                return _SessionID;
-            }
-            set
-            {
-                OnSessionIDChanging(value);
-                ReportPropertyChanging("SessionID");
-                _SessionID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("SessionID");
-                OnSessionIDChanged();
-            }
-        }
-        private Nullable<global::System.Int64> _SessionID;
-        partial void OnSessionIDChanging(Nullable<global::System.Int64> value);
-        partial void OnSessionIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> AttendantStatus
-        {
-            get
-            {
-                return _AttendantStatus;
-            }
-            set
-            {
-                OnAttendantStatusChanging(value);
-                ReportPropertyChanging("AttendantStatus");
-                _AttendantStatus = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AttendantStatus");
-                OnAttendantStatusChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _AttendantStatus;
-        partial void OnAttendantStatusChanging(Nullable<global::System.Int32> value);
-        partial void OnAttendantStatusChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> CommitteeDate
-        {
-            get
-            {
-                return _CommitteeDate;
-            }
-            set
-            {
-                OnCommitteeDateChanging(value);
-                ReportPropertyChanging("CommitteeDate");
-                _CommitteeDate = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CommitteeDate");
-                OnCommitteeDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _CommitteeDate;
-        partial void OnCommitteeDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnCommitteeDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
         public Nullable<global::System.Int32> Status
         {
             get
@@ -2821,44 +2726,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DefaultAttendant>("EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant", "DefaultAttendant", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_CommitteeAttendant_Session", "Session")]
-        public Session Session
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_CommitteeAttendant_Session", "Session").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_CommitteeAttendant_Session", "Session").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Session> SessionReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_CommitteeAttendant_Session", "Session");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Session>("EMadbatahModel.FK_CommitteeAttendant_Session", "Session", value);
                 }
             }
         }
@@ -3182,6 +3049,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Attendant>("EMadbatahModel.FK_Attendant_DefaultAttendant", "Attendant", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommitteeAttendant_DefaultAttendant", "SessionCommitteeAttendant")]
+        public EntityCollection<SessionCommitteeAttendant> SessionCommitteeAttendants
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SessionCommitteeAttendant>("EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant", "SessionCommitteeAttendant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionCommitteeAttendant>("EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant", "SessionCommitteeAttendant", value);
                 }
             }
         }
@@ -4628,28 +4517,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_CommitteeAttendant_Session", "CommitteeAttendant")]
-        public EntityCollection<CommitteeAttendant> CommitteeAttendants
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<CommitteeAttendant>("EMadbatahModel.FK_CommitteeAttendant_Session", "CommitteeAttendant");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<CommitteeAttendant>("EMadbatahModel.FK_CommitteeAttendant_Session", "CommitteeAttendant", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommittee_Session", "SessionCommittee")]
         public EntityCollection<SessionCommittee> SessionCommittees
         {
@@ -5006,24 +4873,24 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int64> AttendantID
+        public Nullable<global::System.Int64> DefaultAttendantID
         {
             get
             {
-                return _AttendantID;
+                return _DefaultAttendantID;
             }
             set
             {
-                OnAttendantIDChanging(value);
-                ReportPropertyChanging("AttendantID");
-                _AttendantID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AttendantID");
-                OnAttendantIDChanged();
+                OnDefaultAttendantIDChanging(value);
+                ReportPropertyChanging("DefaultAttendantID");
+                _DefaultAttendantID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DefaultAttendantID");
+                OnDefaultAttendantIDChanged();
             }
         }
-        private Nullable<global::System.Int64> _AttendantID;
-        partial void OnAttendantIDChanging(Nullable<global::System.Int64> value);
-        partial void OnAttendantIDChanged();
+        private Nullable<global::System.Int64> _DefaultAttendantID;
+        partial void OnDefaultAttendantIDChanging(Nullable<global::System.Int64> value);
+        partial void OnDefaultAttendantIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5084,16 +4951,16 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommitteeAttendant_Attendant", "Attendant")]
-        public Attendant Attendant
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionCommitteeAttendant_DefaultAttendant", "DefaultAttendant")]
+        public DefaultAttendant DefaultAttendant
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_SessionCommitteeAttendant_Attendant", "Attendant").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DefaultAttendant>("EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant", "DefaultAttendant").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_SessionCommitteeAttendant_Attendant", "Attendant").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DefaultAttendant>("EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant", "DefaultAttendant").Value = value;
             }
         }
         /// <summary>
@@ -5101,17 +4968,17 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<Attendant> AttendantReference
+        public EntityReference<DefaultAttendant> DefaultAttendantReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_SessionCommitteeAttendant_Attendant", "Attendant");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DefaultAttendant>("EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant", "DefaultAttendant");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Attendant>("EMadbatahModel.FK_SessionCommitteeAttendant_Attendant", "Attendant", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DefaultAttendant>("EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant", "DefaultAttendant", value);
                 }
             }
         }

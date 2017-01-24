@@ -238,7 +238,7 @@ $(document).ready(function () {
             });
 
 
-            if (lastEditedDiv.hasClass('reditem') || lastEditedDiv.hasClass('blueitem') || lastEditedDiv.hasClass('greenitem')) {
+            if (lastEditedDiv.hasClass('reditem') || lastEditedDiv.hasClass('blueitem') || lastEditedDiv.hasClass('greenitem') || lastEditedDiv.hasClass('brownitem')) {
                 $('#approve').show();
             } else {
 
@@ -352,6 +352,8 @@ $(document).ready(function () {
                         } else if (lastEditedDiv.hasClass('blueitem')) {
                             $('#spnModAfterApprove').text(parseInt($('#spnModAfterApprove').text()) - 1);
                             lastEditedDiv.removeClass("blueitem");
+                        } else if (lastEditedDiv.hasClass('brownitem')) {
+                            lastEditedDiv.removeClass("brownitem");
                         }
 
                         if ((parseInt($('#spnRejectCount').text()) == 0) &&

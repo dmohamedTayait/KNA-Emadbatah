@@ -34,7 +34,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static List<DefaultAttendant> GetAllDefaultAttendants(int type)
+        public static List<DefaultAttendant> GetDefaultAttendantsByTypeID(int type)
         {
             try
             {

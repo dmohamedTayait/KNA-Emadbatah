@@ -70,8 +70,8 @@
             </div>
             <div class="clear">
             </div>
-            <div class="grid_22">
-                <asp:CheckBoxList ID="chbDefAttlst" runat="server" RepeatColumns="5" CssClass="chbDefAttlst">
+            <div class="grid_24">
+                <asp:CheckBoxList ID="chbDefAttlst" runat="server" RepeatColumns="5" CssClass="chbDefAttlst" style="width:100%">
                 </asp:CheckBoxList>
             </div>
             <div class="clear">

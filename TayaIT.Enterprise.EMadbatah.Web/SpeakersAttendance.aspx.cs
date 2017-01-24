@@ -96,7 +96,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             Session SessionSelected = ee.Sessions.Where(aaaa => aaaa.ID == SessionID).Select(a => a).FirstOrDefault();
 
             Session sessionObj = SessionHelper.GetSessionByID(SessionID);
-            MP3FolderPath.Value = sessionObj.EParliamentID.ToString();
+            MP3FolderPath.Value = sessionObj.ID.ToString();
             DateTime time = (DateTime)sessionObj.StartTime;
             MP3FilePath.Value = string.Format("{0}://{1}:{2}/", Request.Url.Scheme, Request.Url.Host, Request.Url.Port) + "SessionFiles/";
             string day = time.Day.ToString();

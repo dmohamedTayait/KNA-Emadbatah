@@ -811,7 +811,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         else
                             agendaSubItemInt = null; 
 
-                        int status = (int)Model.SessionContentItemStatus.Approved;
+                        int status = (int)Model.SessionContentItemStatus.DataEntryApproved;
                         if ((int)SpeakerID == (int)Model.AttendantType.UnKnown)
                             status = (int)Model.SessionContentItemStatus.Rejected;
 

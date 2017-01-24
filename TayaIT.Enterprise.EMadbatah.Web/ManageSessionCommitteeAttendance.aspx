@@ -96,6 +96,15 @@
             margin-bottom: 10px;
             display:none;
         }
+        .popupoverlay
+        {
+                z-index: 600;
+        }
+        .reviewpopup_cont
+        {
+            z-index: 1000;
+            height:auto;
+        }
     </style>
     <form id="form1" runat="server">
     <div class="grid_22">
@@ -269,13 +278,13 @@
                     </div>
                     <div class="datacontainer inputcont datacontainer3 attendantCont">
                         <table id="tbl_Att_Status" class="table h1">
-                        <tr><th style="padding-right: 10px;">اسماء الأعضاء</th><th style="color:Red">غائب</th><th style="color:green">غائب بعذر</th><th>غائب بعذر(مهمة رسمية) </th></tr>
+                        <tr><th style="padding-right: 10px;">اسماء الأعضاء</th><th style="color:black">حاضر</th><th style="color:Red">غائب</th><th style="color:green">غائب بعذر</th><th>غائب بعذر(مهمة رسمية) </th></tr>
                         
                         </table>
-
                     </div>
                     <div class="poppbtnscont fl">
                         <div class="fl" style="margin: 10px">
+                            <input type="hidden" name="txtSCommID" class="txtSCommID" />
                             <input type="button" id="Button1" class="btnAddSessionCommAtt btn" value="حفظ" />
                             <div class="clear">
                             </div>

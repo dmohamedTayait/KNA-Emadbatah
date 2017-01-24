@@ -35,6 +35,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
 
             public string ATTENDANT_ID { get { return "attid"; } }
             public string COMMITTEE_ID { get { return "commid"; } }
+            public string JSON_STR { get { return "json_str"; } }
             public string SESSION_ATTENDANT_TITLE_ID { get { return "s_att_title_id"; } }
             public string ATTENDANT_ID_EParliment { get { return "epattid"; } }
 

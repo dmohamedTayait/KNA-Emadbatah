@@ -14,7 +14,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
     public abstract class BaseHandler : IHttpHandler, IRequiresSessionState 
     {
         public HttpContext _context = null;
-        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        public JavaScriptSerializer serializer = new JavaScriptSerializer();
 
         protected abstract void HandleRequest();
 

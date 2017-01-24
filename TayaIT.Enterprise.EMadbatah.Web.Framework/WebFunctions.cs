@@ -113,7 +113,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
         {
             AddSessionCommittee,
             DeleteSessionCommittee,
-            GetSessionCommAtt
+            GetSessionCommAtt,
+            TakeSessionCommAttendance
         }
 
         public enum VotingFunctions

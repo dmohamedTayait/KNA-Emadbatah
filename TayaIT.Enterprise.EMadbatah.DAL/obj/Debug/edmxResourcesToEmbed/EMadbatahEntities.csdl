@@ -115,23 +115,10 @@
       <End EntitySet="Procedures" Role="Procedure" />
     </AssociationSet>
     <EntitySet Name="Committees" EntityType="EMadbatahModel.Committee" />
-    <EntitySet Name="CommitteeAttendants" EntityType="EMadbatahModel.CommitteeAttendant" />
     <EntitySet Name="DefaultAttendants" EntityType="EMadbatahModel.DefaultAttendant" />
     <AssociationSet Name="FK_Attendant_DefaultAttendant" Association="EMadbatahModel.FK_Attendant_DefaultAttendant">
       <End Role="DefaultAttendant" EntitySet="DefaultAttendants" />
       <End Role="Attendant" EntitySet="Attendants" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CommitteeAttendant_Committee" Association="EMadbatahModel.FK_CommitteeAttendant_Committee">
-      <End Role="Committee" EntitySet="Committees" />
-      <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CommitteeAttendant_DefaultAttendant" Association="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant">
-      <End Role="DefaultAttendant" EntitySet="DefaultAttendants" />
-      <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CommitteeAttendant_Session" Association="EMadbatahModel.FK_CommitteeAttendant_Session">
-      <End Role="Session" EntitySet="Sessions" />
-      <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
     </AssociationSet>
     <AssociationSet Name="FK_SessionContentItem_Attachement" Association="EMadbatahModel.FK_SessionContentItem_Attachement">
       <End Role="Attachement" EntitySet="Attachements" />
@@ -149,13 +136,22 @@
       <End Role="SessionCommittee" EntitySet="SessionCommittees" />
     </AssociationSet>
     <EntitySet Name="SessionCommitteeAttendants" EntityType="EMadbatahModel.SessionCommitteeAttendant" />
-    <AssociationSet Name="FK_SessionCommitteeAttendant_Attendant" Association="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant">
-      <End Role="Attendant" EntitySet="Attendants" />
+    <AssociationSet Name="FK_SessionCommitteeAttendant_DefaultAttendant" Association="EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant">
+      <End Role="DefaultAttendant" EntitySet="DefaultAttendants" />
       <End Role="SessionCommitteeAttendant" EntitySet="SessionCommitteeAttendants" />
     </AssociationSet>
     <AssociationSet Name="FK_SessionCommitteeAttendant_SessionCommittee" Association="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee">
       <End Role="SessionCommittee" EntitySet="SessionCommittees" />
       <End Role="SessionCommitteeAttendant" EntitySet="SessionCommitteeAttendants" />
+    </AssociationSet>
+    <EntitySet Name="CommitteeAttendants" EntityType="EMadbatahModel.CommitteeAttendant" />
+    <AssociationSet Name="FK_CommitteeAttendant_Committee" Association="EMadbatahModel.FK_CommitteeAttendant_Committee">
+      <End Role="Committee" EntitySet="Committees" />
+      <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CommitteeAttendant_DefaultAttendant" Association="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant">
+      <End Role="DefaultAttendant" EntitySet="DefaultAttendants" />
+      <End Role="CommitteeAttendant" EntitySet="CommitteeAttendants" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="AgendaItem">
@@ -227,7 +223,6 @@
     <Property Type="String" Name="ShortName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="DateTime" Name="CreatedAt" />
-    <NavigationProperty Name="SessionCommitteeAttendants" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant" FromRole="Attendant" ToRole="SessionCommitteeAttendant" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -287,7 +282,6 @@
     <NavigationProperty Name="MadbatahFilesStatus" Relationship="EMadbatahModel.FK_Session_MadbatahFilesStatus" FromRole="Session" ToRole="MadbatahFilesStatu" />
     <Property Type="String" Name="MP3FolderPath" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="Checker" />
-    <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Session" FromRole="Session" ToRole="CommitteeAttendant" />
     <Property Type="Int32" Name="SessionStartFlag" />
     <Property Type="Int32" Name="PresidentID" />
     <NavigationProperty Name="SessionCommittees" Relationship="EMadbatahModel.FK_SessionCommittee_Session" FromRole="Session" ToRole="SessionCommittee" />
@@ -720,24 +714,9 @@
     </Key>
     <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Type="String" Name="CommitteeName" MaxLength="500" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="Committee" ToRole="CommitteeAttendant" />
     <Property Type="Int32" Name="Status" />
     <NavigationProperty Name="SessionCommittees" Relationship="EMadbatahModel.FK_SessionCommittee_Committee" FromRole="Committee" ToRole="SessionCommittee" />
-  </EntityType>
-  <EntityType Name="CommitteeAttendant">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Type="Int64" Name="ID" Nullable="false" />
-    <Property Type="Int64" Name="CommitteeID" />
-    <Property Type="Int64" Name="DefaultAttendantID" />
-    <Property Type="Int64" Name="SessionID" />
-    <Property Type="Int32" Name="AttendantStatus" />
-    <NavigationProperty Name="Committee" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="CommitteeAttendant" ToRole="Committee" />
-    <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="CommitteeAttendant" ToRole="DefaultAttendant" />
-    <NavigationProperty Name="Session" Relationship="EMadbatahModel.FK_CommitteeAttendant_Session" FromRole="CommitteeAttendant" ToRole="Session" />
-    <Property Type="DateTime" Name="CommitteeDate" />
-    <Property Type="Int32" Name="Status" />
+    <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="Committee" ToRole="CommitteeAttendant" />
   </EntityType>
   <EntityType Name="DefaultAttendant">
     <Key>
@@ -747,7 +726,6 @@
     <Property Type="String" Name="Name" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="JobTitle" MaxLength="500" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Attendants" Relationship="EMadbatahModel.FK_Attendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="Attendant" />
-    <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="CommitteeAttendant" />
     <Property Type="Int32" Name="Type" />
     <Property Type="String" Name="AttendantTitle" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="OrderByAttendantType" />
@@ -756,6 +734,8 @@
     <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="Int32" Name="Status" />
     <Property Type="DateTime" Name="CreatedAt" />
+    <NavigationProperty Name="SessionCommitteeAttendants" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="SessionCommitteeAttendant" />
+    <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="CommitteeAttendant" />
   </EntityType>
   <Association Name="FK_Attendant_DefaultAttendant">
     <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
@@ -766,42 +746,6 @@
       </Principal>
       <Dependent Role="Attendant">
         <PropertyRef Name="DefaultAttendantID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CommitteeAttendant_Committee">
-    <End Type="EMadbatahModel.Committee" Role="Committee" Multiplicity="0..1" />
-    <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Committee">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CommitteeAttendant">
-        <PropertyRef Name="CommitteeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CommitteeAttendant_DefaultAttendant">
-    <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
-    <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DefaultAttendant">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CommitteeAttendant">
-        <PropertyRef Name="DefaultAttendantID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CommitteeAttendant_Session">
-    <End Type="EMadbatahModel.Session" Role="Session" Multiplicity="0..1" />
-    <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Session">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="CommitteeAttendant">
-        <PropertyRef Name="SessionID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -876,21 +820,21 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Type="Int64" Name="AttendantID" />
+    <Property Type="Int64" Name="DefaultAttendantID" />
     <Property Type="Int32" Name="Status" />
     <Property Type="Int64" Name="SessionCommitteeID" />
-    <NavigationProperty Name="Attendant" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_Attendant" FromRole="SessionCommitteeAttendant" ToRole="Attendant" />
+    <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant" FromRole="SessionCommitteeAttendant" ToRole="DefaultAttendant" />
     <NavigationProperty Name="SessionCommittee" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_SessionCommittee" FromRole="SessionCommitteeAttendant" ToRole="SessionCommittee" />
   </EntityType>
-  <Association Name="FK_SessionCommitteeAttendant_Attendant">
-    <End Type="EMadbatahModel.Attendant" Role="Attendant" Multiplicity="0..1" />
+  <Association Name="FK_SessionCommitteeAttendant_DefaultAttendant">
+    <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
     <End Type="EMadbatahModel.SessionCommitteeAttendant" Role="SessionCommitteeAttendant" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Attendant">
+      <Principal Role="DefaultAttendant">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="SessionCommitteeAttendant">
-        <PropertyRef Name="AttendantID" />
+        <PropertyRef Name="DefaultAttendantID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -903,6 +847,41 @@
       </Principal>
       <Dependent Role="SessionCommitteeAttendant">
         <PropertyRef Name="SessionCommitteeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CommitteeAttendant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Type="Int64" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int64" Name="CommitteeID" />
+    <Property Type="Int64" Name="DefaultAttendantID" />
+    <Property Type="Int32" Name="Status" />
+    <NavigationProperty Name="Committee" Relationship="EMadbatahModel.FK_CommitteeAttendant_Committee" FromRole="CommitteeAttendant" ToRole="Committee" />
+    <NavigationProperty Name="DefaultAttendant" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="CommitteeAttendant" ToRole="DefaultAttendant" />
+  </EntityType>
+  <Association Name="FK_CommitteeAttendant_Committee">
+    <End Type="EMadbatahModel.Committee" Role="Committee" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Committee">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CommitteeAttendant">
+        <PropertyRef Name="CommitteeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CommitteeAttendant_DefaultAttendant">
+    <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />
+    <End Type="EMadbatahModel.CommitteeAttendant" Role="CommitteeAttendant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DefaultAttendant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CommitteeAttendant">
+        <PropertyRef Name="DefaultAttendantID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

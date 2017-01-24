@@ -35,8 +35,18 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             {
                 CommitteeName = CommitteeHelper.GetCommitteeByID(int.Parse(CommitteeID));
                 EMadbatahEntities context = new EMadbatahEntities();
-                List<DefaultAttendant> defAttLst = DefaultAttendantHelper.GetAllDefaultAttendants((int)Model.AttendantType.FromTheCouncilMembers);
-                chbDefAttlst.DataSource = defAttLst;
+                List<DefaultAttendant> defAttMembersLst = DefaultAttendantHelper.GetDefaultAttendantsByTypeID((int)Model.AttendantType.FromTheCouncilMembers);
+                List<DefaultAttendant> defAttGovernmentLst = DefaultAttendantHelper.GetDefaultAttendantsByTypeID((int)Model.AttendantType.GovernmentRepresentative);
+                List<DefaultAttendant> defAlllst = new List<DefaultAttendant>();
+                foreach (DefaultAttendant def1 in defAttMembersLst)
+                {
+                    defAlllst.Add(def1);
+                }
+                foreach (DefaultAttendant def2 in defAttGovernmentLst)
+                {
+                    defAlllst.Add(def2);
+                }
+                chbDefAttlst.DataSource = defAlllst;
                 chbDefAttlst.DataValueField = "ID";
                 chbDefAttlst.DataTextField = "LongName";
                 chbDefAttlst.DataBind();
@@ -45,10 +55,13 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
         protected void bindAttvalues()
         {
-            List<CommitteeAttendant> commAttlst = CommitteeHelper.GetCommiteeAttendanceByCommitteeID(long.Parse(CommitteeID));
-            foreach (CommitteeAttendant commAttObj in commAttlst)
+            if (!string.IsNullOrEmpty(CommitteeID))
             {
-                chbDefAttlst.Items.FindByValue(commAttObj.DefaultAttendantID.ToString()).Selected = true;
+                List<CommitteeAttendant> commAttlst = CommitteeHelper.GetCommiteeAttendanceByCommitteeID(long.Parse(CommitteeID));
+                foreach (CommitteeAttendant commAttObj in commAttlst)
+                {
+                    chbDefAttlst.Items.FindByValue(commAttObj.DefaultAttendantID.ToString()).Selected = true;
+                }
             }
         }
 

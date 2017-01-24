@@ -306,6 +306,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                             switch ((Model.SessionContentItemStatus)item.StatusID)
                             {
+                                case Model.SessionContentItemStatus.DataEntryApproved:
+                                    reviewItem = reviewItem.Replace("<%Color%>", "brownitem");
+                                     break;
                                 case Model.SessionContentItemStatus.Approved: //approved
                                     reviewItem = reviewItem.Replace("<%Color%>", "");
                                     break;

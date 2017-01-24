@@ -150,7 +150,8 @@ namespace TayaIT.Enterprise.EMadbatah.Model
         Approved = 1,
         Rejected = 2,
         Fixed = 3,
-        ModefiedAfterApprove = 4
+        ModefiedAfterApprove = 4,
+        DataEntryApproved = 5
     }
 
     public enum FileType//Attachement or Session File

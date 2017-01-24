@@ -23,13 +23,9 @@
                 <a href="ManageSessionAttributes.aspx">إدارة بيانات المضبطة</a></div>
             <div class="adminhomebutton setting_icon">
                 <a href="ManageCommittees.aspx">إدارة اللجان</a></div>
-            <div class="adminhomebutton setting_icon">
-                <a href="ManageSessionCommitteeAttendance.aspx">إدارة لجان الجلسات</a></div>
             <div class="adminhomebutton user_icon">
                 <a href="AdminSecurity.aspx">إدارة المستخدمين</a></div>
-            <div class="clear">
-            </div>
-            <div class="adminhomebutton setting_icon">
+                  <div class="adminhomebutton setting_icon">
                 <a href="AdminAPPConfig.aspx">إدارة الإعدادات</a></div>
             <div class="clear">
             </div>

@@ -76,7 +76,7 @@
                     <a href="SpeakersAttendance.aspx" runat="server" id="A1" >حضور الأعضاء</a>
                     </li>
                      <li>
-                    <a href="CommitteeAttendance.aspx" runat="server" id="A2" >إدارة اللجان</a>
+                    <a href="ManageSessionCommitteeAttendance.aspx" runat="server" id="A2" >إدارة اللجان</a>
                     </li>
                    <li style="display:none">
                     <a href="SignOut.aspx?signouttype=2" runat="server" id="hrefSignOut" class="hrefSignOut">خروج</a>

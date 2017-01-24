@@ -255,19 +255,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CommitteeAttendants">
-      <EntityTypeMapping TypeName="EMadbatahModel.CommitteeAttendant">
-        <MappingFragment StoreEntitySet="CommitteeAttendant">
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="CommitteeDate" ColumnName="CommitteeDate" />
-          <ScalarProperty Name="AttendantStatus" ColumnName="AttendantStatus" />
-          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
-          <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
-          <ScalarProperty Name="CommitteeID" ColumnName="CommitteeID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="DefaultAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
         <MappingFragment StoreEntitySet="DefaultAttendant">
@@ -320,7 +307,17 @@
         <MappingFragment StoreEntitySet="SessionCommitteeAttendant">
           <ScalarProperty Name="SessionCommitteeID" ColumnName="SessionCommitteeID" />
           <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="AttendantID" ColumnName="AttendantID" />
+          <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommitteeAttendants">
+      <EntityTypeMapping TypeName="EMadbatahModel.CommitteeAttendant">
+        <MappingFragment StoreEntitySet="CommitteeAttendant">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
+          <ScalarProperty Name="CommitteeID" ColumnName="CommitteeID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
