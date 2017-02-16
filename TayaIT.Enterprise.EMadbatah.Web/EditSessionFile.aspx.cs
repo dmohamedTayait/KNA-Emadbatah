@@ -221,6 +221,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
            //Bind Available Attachments
             string attachName = "";
+            string topictitle = "";
             List<TayaIT.Enterprise.EMadbatah.DAL.Attachement> attachmentLst = TayaIT.Enterprise.EMadbatah.DAL.AttachmentHelper.GetSessionAttachments(long.Parse(SessionID));
             ListItem liAttach = new ListItem();
             foreach (TayaIT.Enterprise.EMadbatah.DAL.Attachement attachobj in attachmentLst)
@@ -285,6 +286,21 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     attachId.Value = "0";
                     divAttach.Style.Add("display", "none");
                     spanAttachTitle.InnerHtml = "";
+                }
+
+                if (lastContentItem.TopicID != null && lastContentItem.TopicID != 0)
+                {
+                    Topic topicObj = TopicHelper.GetTopicByID((int)lastContentItem.TopicID);
+                    topictitle = topicObj.Title;
+                    topicId.Value = lastContentItem.TopicID.ToString();
+                    divTopic.Style.Add("display", "");
+                    spanTopicTitle.InnerHtml = topictitle;
+                }
+                else
+                {
+                    topicId.Value = "0";
+                    divTopic.Style.Add("display", "none");
+                    spanTopicTitle.InnerHtml = "";
                 }
 
 
@@ -361,6 +377,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     divAgenda.Style.Add("display", "");
 
                 attachId.Value = "0";
+                topicId.Value = "0";
                 divAttach.Style.Add("display", "none");
                 spanAttachTitle.InnerHtml = "";
 

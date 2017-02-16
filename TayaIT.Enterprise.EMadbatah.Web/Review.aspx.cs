@@ -324,6 +324,51 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             }
                             sb.Append(reviewItem);
 
+                            //for Topics
+                            if (!string.IsNullOrEmpty(item.TopicID.ToString()))
+                            {
+                                Topic tpcObj = TopicHelper.GetTopicByID((long)item.TopicID);
+                                if (tpcObj != null)
+                                {
+                                    List<TopicParagraph> tpcParags = TopicHelper.GetTopicParagsByTopicID(long.Parse(item.TopicID.ToString()));
+                                    string tpcParagStr = "<div style='text-decoration:underline;padding-right:100px'>" + "الموضوع : " + tpcObj.Title + "</div><br/>";
+                                    foreach (TopicParagraph tpcParagObj in tpcParags)
+                                    {
+                                        tpcParagStr += "<div>";
+                                        tpcParagStr += tpcParagObj.ParagraphText;
+                                        tpcParagStr += "</div>";
+                                    }
+                                    //format attendant table
+                                    List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(item.TopicID.ToString()));
+                                    List<string> attNamesLst = new List<string>();
+                                    tpcParagStr += "<br/><div style='padding-right:150px'>مقدمو الطلب</div>";
+                                    for (int u = 0; u < tpcAtts.Count(); u += 2)
+                                    {
+                                        Attendant att1 = new Attendant();
+                                        Attendant att2 = new Attendant();
+                                        // attNames = "";
+                                        att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
+                                        tpcParagStr += "<div style='width:700px;'><div style='width:300px;float:right'>" + att1.LongName + "</div>";
+                                        if (u + 1 < tpcAtts.Count())
+                                        {
+                                            att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
+                                            tpcParagStr += "<div style='width:300px;float:right'>" + att2.LongName + "</div>";
+                                        }
+                                        tpcParagStr += "</div>";
+                                    }
+
+                                    string reviewItemComment = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
+                                              .Replace("<%itemText%>", tpcParagStr)
+                                                    .Replace("<%isLocked%>", "lockeditem")
+                                                    .Replace("<%title%>", "هذا المقطع مقترح أو توصية (للتعديل يمكنك استخدام رابط  [المقترحات / التوصيات] من  الصفحة الرئيسية) .. يمكنك الاطلاع فقط")
+                                                    .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
+                                                     .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
+                                                     .Replace("<%UserName%>", item.User.FName)
+                                                     .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام رابط  [المقترحات / التوصيات] من  الصفحة الرئيسية) ");
+                                    sb.Append(reviewItemComment);
+                                }
+                            }
+
                             //for comments
                             if (!string.IsNullOrEmpty(item.CommentOnText))
                             {

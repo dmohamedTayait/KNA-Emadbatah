@@ -36,15 +36,15 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                 switch (function)
                 {
                     case WebFunctions.CommitteeFunctions.AddSessionCommittee:
-                        if (CommitteeID != null && SessionID != null && SessionCommitteeName != null && SessionCommitteeCreatedAt != null && SessionCommitteeDetails != null &&
+                        if (CommitteeID != null && SessionID != null && SessionCommitteeCreatedAt != null &&
                             long.TryParse(CommitteeID, out commId) && long.TryParse(SessionID, out sId) && DateTime.TryParse(SessionCommitteeCreatedAt, out scommcreatedAt))
                         {
                             SessionCommittee sessionComm = new SessionCommittee();
                             sessionComm.CommitteeID = commId;
                             sessionComm.SessionID = sId;
-                            sessionComm.CommitteeName = SessionCommitteeName;
+                            sessionComm.CommitteeName = SessionCommitteeName != null ? SessionCommitteeName : "";
                             sessionComm.CreatedAt = scommcreatedAt;
-                            sessionComm.AddedDetails = SessionCommitteeDetails;
+                            sessionComm.AddedDetails = SessionCommitteeDetails != null ? SessionCommitteeDetails : "";
                             res = SessionCommitteeHelper.AddSessionCommittee(sessionComm);
 
                         }

@@ -30,7 +30,7 @@ $(document).ready(function () {
         $(".txtAddDetails").val('');
         $(".txtCreatedAt").val('');
         $(".lblCommName").html($(this).attr("commname"));
-        $(".txtCommName").val($(this).attr("commname"));
+        $(".txtCommName").val('');
         $(".txtSID").val($(this).attr("sid"));
         $(".txtCommID").val($(this).attr("commid"));
         $(".popupoverlay").show();
@@ -41,26 +41,27 @@ $(document).ready(function () {
 
 
     $(".btnAddSessionComm").click(function (e) {
-        jQuery.ajax({
-            cache: false,
-            type: 'post',
-            url: 'CommitteeHandler.ashx',
-            data: {
-                funcname: 'AddSessionCommittee',
-                commname: $(".txtCommName").val(),
-                scommdetails: $(".txtAddDetails").val(),
-                scommcreatedat: $(".txtCreatedAt").val(),
-                sid: $(".txtSID").val(),
-                commid: $(".txtCommID").val()
-            },
-            dataType: 'json',
-            success: function (response) {
-                if (response != "0") {
+        if ($(".txtCreatedAt").val() != null && $(".txtCreatedAt").val() != "") {
+            jQuery.ajax({
+                cache: false,
+                type: 'post',
+                url: 'CommitteeHandler.ashx',
+                data: {
+                    funcname: 'AddSessionCommittee',
+                    commname: $(".txtCommName").val(),
+                    scommdetails: $(".txtAddDetails").val(),
+                    scommcreatedat: $(".txtCreatedAt").val(),
+                    sid: $(".txtSID").val(),
+                    commid: $(".txtCommID").val()
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response != "0") {
 
-                    var divContent = " <div id=\"div_" + response + "\" class=\"grid_20 sessioncomm\">" +
+                        var divContent = " <div id=\"div_" + response + "\" class=\"grid_20 sessioncomm\">" +
                                      " <div style=\"margin-top:10px\"></div>" +
                                        "<div class=\"row\">" +
-                                            "<div class=\"grid_3 h2\" style=\"color:#0134cb\"><span>اسم اللجنة :</span></div>" +
+                                            "<div class=\"grid_3 h2\" style=\"color:#0134cb\"><span>اسم الجلسة :</span></div>" +
                                             "<div class=\"grid_6 h2\">" + $(".txtCommName").val() + "</div>" +
                                             " <div class=\"grid_4 h2\"><a href='javascript:void(0)' class=\"aPopupDelSessionComm\" scommid=\"" + response + "\" >حذف</a></div>" +
                                             " <div class=\"grid_4 h2\"><a href='javascript:void(0)' class=\"aPopupTakeSessionCommAtt\" scommid=\"" + response + "\" commid=\"" + $(".txtCommID").val() + "\" sid=\"" + $(".txtSID").val() + "\" >أخذ الغياب</a></div>" +
@@ -77,19 +78,20 @@ $(document).ready(function () {
                                             "<div class=\"clear\"></div>" +
                                         "</div>" +
                                      "</div>  <div class=\"clear\"></div>";
-                    var x = "divContent" + $(".txtCommID").val().trim();
-                    $("#" + x).append(divContent).show();
-                    $(".popupoverlay").hide();
-                    $(".popupAddSessionComm").hide();
-                    del_init();
-                    att_init();
-                    e.preventDefault();
+                        var x = "divContent" + $(".txtCommID").val().trim();
+                        $("#" + x).append(divContent).show();
+                        $(".popupoverlay").hide();
+                        $(".popupAddSessionComm").hide();
+                        del_init();
+                        att_init();
+                        e.preventDefault();
+                    }
+                },
+                error: function (response) {
+                    alert("Error");
                 }
-            },
-            error: function (response) {
-                alert("Error");
-            }
-        });
+            });
+        }
     }); // End Add
 
     function del_init() {

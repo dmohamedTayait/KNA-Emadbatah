@@ -63,7 +63,7 @@
                 <div>
                     <asp:GridView ID="gvProcedures" runat="server" AutoGenerateColumns="false" DataKeyNames="id"
                         CssClass="Gridview h2" ShowFooter="true" ShowHeader="false" OnRowEditing="gvProcedures_RowEditing"
-                        OnRowUpdating="gvProcedures_RowUpdating" OnRowCancelingEdit="gvProcedures_RowCancelingEdit">
+                        OnRowUpdating="gvProcedures_RowUpdating" OnRowCancelingEdit="gvProcedures_RowCancelingEdit" style="min-width: 700px">
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>

@@ -25,7 +25,7 @@
                 autoDimensions: false,
                 padding: 20,
                 width: 600,
-                height: 120
+                height: 150
             });
 
 
@@ -177,9 +177,9 @@
                 <!--<input type="submit" id="btnSave" class="btn" value="حفظ و خروج" runat="server" />-->
                 <form runat="server">
                 <%--<asp:Button  ID = "saveBtn" runat="server" CssClass="btn" Text ="حفظ و خروج" OnClick ="saveBtn_Click"/>--%>
-               <div class="addnewusercont">
-                <input id="btnSave" type="button" class="actionbtnsmenu" value="حفظ و خروج" />
-                <a id="various1" href="#inline1">تحميل النسخة المعدة مسبقا من النص</a>
+               <div class="addnewusercont" style="font-size:13pt">
+                <input id="btnSave" type="button" class="actionbtnsmenu" value="حفظ و خروج" style="font-size: 11pt;font-weight: bold;"/>
+                <a id="various1" href="#inline1" style="font-weight: bold;font-size: 13pt;">تحميل النسخة المعدة مسبقا من النص</a>
                 </div>
                 </form>
                 
@@ -191,15 +191,15 @@
     <!--Begin popup container div-->
     <div class="main_popup_container displaynone">
         <div id="inline1" class="popup_container_content tex_align_center">
-            <h5 class="largerow">
-                هل أنت موافق على العودة للنص الأصلي؟</h5>
-            <div class="largerow">
+            <div class="largerow h2" style="color:#b70808">
+                هل أنت موافق على العودة للنص الأصلي؟</div>
+            <div class="largerow" style="font-weight: bold;font-size: 11pt;">
                 سوف يتم إستبدال كل التعديلات التي قمت بها بالنص الأصلي الموجود، يرجي العلم بأنه
                 في حال موافقتك علي إستبدال التعديلات بالنص الأصلي، فإنه لا يمكن العودة لتعديلاتك
                 مرة أخري.</div>
             <div class="actions_btns addnewusercont">
-                <input type="button" class="actionbtnsmenu" id="yes" value="نعم" />
-                <input type="button" class="actionbtnsmenu" id="no" value="لا" />
+                <input type="button" class="actionbtnsmenu" id="yes" value="نعم" style="font-size: 11pt;font-weight: bold;padding-right: 17px"/>
+                <input type="button" class="actionbtnsmenu" id="no" value="لا" style="font-size: 11pt;font-weight: bold;padding-right: 17px"/>
             </div>
         </div>
     </div>

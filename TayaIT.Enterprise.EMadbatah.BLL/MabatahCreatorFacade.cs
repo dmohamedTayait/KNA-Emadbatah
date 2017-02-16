@@ -89,6 +89,14 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
             string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
 
+            try
+            {
+                int dayOfMonthNumHijNum = int.Parse(dayOfMonthNumHij);
+                dayOfMonthNumHij = dayOfMonthNumHijNum.ToString();
+            }
+            catch
+            {
+            }
             //for header
             string sessionNum = details.Subject; //"الخامسة عشره";
             string hijriDate = dayNameAr + " " + dayOfMonthNumHij + " " + monthNameHijAr + " سنة " + yearHij + " هـ";//" 10 رجب سنة 1431 ه";//"الثلاثاء 10 رجب سنة 1431 ه";
@@ -216,6 +224,48 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             contentItemAsText = text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!");
                             contentItemGrp.Add(contentItem);
                             k++;
+
+                            if (contentItem.TopicID != null)//If Current Segment Contains topic
+                            {
+                                string topicTitle = "";
+                                Topic tpc = TopicHelper.GetTopicByID(long.Parse(contentItem.TopicID.ToString()));
+                                List<TopicParagraph> tpcParags = TopicHelper.GetTopicParagsByTopicID(long.Parse(contentItem.TopicID.ToString()));
+                                WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp);// Copy the previuos segments before writing the topic
+                                text = "";
+                                contentItemAsText = "";
+                                contentItemGrp.Clear();//clear the segments array after writing them in the word
+
+                                topicTitle = "الموضوع : " + tpc.Title;
+                                doc.AddParagraph(TextHelper.StripHTML(topicTitle), ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.Center, false, "");
+                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                foreach (TopicParagraph tpcParagObj in tpcParags)
+                                {
+                                    doc.AddParagraph(TextHelper.StripHTML(tpcParagObj.ParagraphText), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                }
+                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                doc.AddParagraph("مقدمو الطلب", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+
+                                //format attendant table
+                                List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(contentItem.TopicID.ToString()));
+                                List<string> attNamesLst = new List<string>();
+                                for (int u = 0; u < tpcAtts.Count(); u += 2)
+                                {
+                                    Attendant att1 = new Attendant();
+                                    Attendant att2 = new Attendant();
+                                    string attNames = "";
+                                    att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
+                                    attNames = att1.LongName;
+                                    if (u + 1 < tpcAtts.Count())
+                                    {
+                                        att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
+                                        attNames += "," + att2.LongName;
+                                    }
+                                    attNamesLst.Add(attNames);
+                                }
+                                doc.AddTable(attNamesLst);
+                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                            }
+
                             if (contentItem.AttachementID != null)//If Current Segment Contains Attach
                             {
                                 string attachName = "";
@@ -534,6 +584,14 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string dayOfMonthNumHij = details.Date.Subtract(new TimeSpan(1, 0, 0, 0)).ToString("dd", dateFormat);//hijDate.Day;
                 string yearHij = details.Date.ToString("yyyy", dateFormat);  //hijDate.Year;
 
+                try
+                {
+                    int dayOfMonthNumHijNum = int.Parse(dayOfMonthNumHij);
+                    dayOfMonthNumHij = dayOfMonthNumHijNum.ToString();
+                }
+                catch
+                {
+                }
 
                 //for header
                 string sessionNum = details.Subject; //"الخامسة عشره";
@@ -653,13 +711,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     string pagesStr = "";
                     foreach (string part in parts)
                     {
-                        if (pages.IndexOf(part) == -1)
+                        if (pages.IndexOf((int.Parse(part) + increment).ToString()) == -1)
                         {
                             pagesStr += (int.Parse(part) + increment) + ", ";
-                            pages.Add(part);
+                            pages.Add((int.Parse(part) + increment).ToString());
                         }
                     }
-                    pages = pages.Distinct().ToList();
+                    pages = parts.Distinct().ToList();
                    
                     if (pagesStr.Length > 2)
                         pagesStr = pagesStr.Remove(pagesStr.Length - 2);
@@ -747,195 +805,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 }
             }
             return newGroup;
-        }
-
-        public static List<SessionContentItem> GroupSpeakerSimilarArticles(List<SessionContentItem> groupedItems)
-        {
-            List<SessionContentItem> newGroup = new List<SessionContentItem>();
-
-            foreach (SessionContentItem item in groupedItems)
-            {
-                if (newGroup.Count == 0)
-
-                    newGroup.Add(item);
-
-                else
-                    if (item.MergedWithPrevious == true)
-                    {
-                        newGroup[newGroup.Count - 1].Text += " " + item.Text;
-
-                        if (!string.IsNullOrEmpty(item.CommentOnAttendant)
-                            && !string.IsNullOrEmpty(newGroup[newGroup.Count - 1].CommentOnAttendant)
-                            && !newGroup[newGroup.Count - 1].CommentOnAttendant.Contains(item.CommentOnAttendant))
-                            newGroup[newGroup.Count - 1].CommentOnAttendant += " - " + item.CommentOnAttendant;
-
-                        if (!string.IsNullOrEmpty(item.CommentOnText)
-                            && !string.IsNullOrEmpty(newGroup[newGroup.Count - 1].CommentOnText)
-                            && !newGroup[newGroup.Count - 1].CommentOnText.Contains(item.CommentOnText))
-                            newGroup[newGroup.Count - 1].CommentOnText += " - " + item.CommentOnText;
-
-                        if (!string.IsNullOrEmpty(item.PageFooter)
-                            && !string.IsNullOrEmpty(newGroup[newGroup.Count - 1].PageFooter)
-                            && !newGroup[newGroup.Count - 1].PageFooter.Contains(item.PageFooter))
-                            newGroup[newGroup.Count - 1].PageFooter += " - " + item.PageFooter;
-
-
-
-                    }
-                    else
-
-                        newGroup.Add(item);
-            }
-            return newGroup;
-        }
-
-        public static string GetAttendantTitle(Object SomeObj)
-        {
-            Attendant att = null;
-            if (SomeObj is SessionAttendant)
-            {
-                SessionAttendant sAtt = (SessionAttendant)SomeObj;
-                att = new Attendant()
-                {
-                    ID = sAtt.ID,
-                    Name = sAtt.Name,
-                    FirstName = sAtt.FirstName,
-                    SecondName = sAtt.SecondName,
-                    TribeName = sAtt.TribeName,
-                    Type = (int)sAtt.Type
-                };
-            }
-            else
-                att = (Attendant)SomeObj;
-
-            string attName = "";
-            if (string.IsNullOrEmpty(att.FirstName) && string.IsNullOrEmpty(att.SecondName) && string.IsNullOrEmpty(att.TribeName))
-                attName = att.Name.Trim();
-            else
-                attName = ((att.FirstName == null ? "" : att.FirstName) + " " + (att.SecondName == null ? "" : att.SecondName) + " " + (att.TribeName == null ? "" : att.TribeName)).Replace("   ", " ").Replace("  ", " ").Trim();
-            int? type = att.Type;
-
-            string title = "";
-            if (attName.Trim().StartsWith("سعادة") || attName.Trim().StartsWith("سعاده") ||
-                            attName.Trim().StartsWith("معالي") || attName.Trim().StartsWith("معالى"))
-                title = "";
-            //return "";
-            else
-                if (type != null)
-                {
-                    //string title = "";
-                    Model.AttendantType attType = (Model.AttendantType)type.Value;
-                    switch (attType)
-                    {
-                        case Model.AttendantType.FromOutsideTheCouncil:
-                            title = "سعادة/ ";
-                            break;
-                        case Model.AttendantType.FromTheCouncilMembers:
-                            title = "سعادة/ ";
-                            break;
-                        case Model.AttendantType.GovernmentRepresentative:
-
-                            title = "معالي/ ";
-                            break;
-                        case Model.AttendantType.Secretariat:
-                            title = "سعادة/ ";
-                            break;
-                        case Model.AttendantType.President:
-                            title = "معالي/ ";
-                            break;
-                        case Model.AttendantType.NA:
-                            title = "سعادة/ ";
-                            break;
-                    }
-                    //return title;
-                }
-                else
-                    //return "سعادة/ ";
-                    title = "سعادة/ ";
-
-            return (title + attName).Trim();
-
-        }
-
-        public static string GetAttendantTitle(Object SomeObj, long session_id)
-        {
-            Attendant att = null;
-            if (SomeObj is SessionAttendant)
-            {
-                SessionAttendant sAtt = (SessionAttendant)SomeObj;
-                att = new Attendant()
-                {
-                    ID = sAtt.ID,
-                    Name = sAtt.Name,
-                    FirstName = sAtt.FirstName,
-                    SecondName = sAtt.SecondName,
-                    TribeName = sAtt.TribeName,
-                    Type = (int)sAtt.Type
-                };
-            }
-            else
-                att = (Attendant)SomeObj;
-
-            int attendant_title_id = 1;// BLL.EMadbatahFacade.get_session_attendant_title_id(session_id, att.ID);
-            string attName = "";
-            if (string.IsNullOrEmpty(att.FirstName) && string.IsNullOrEmpty(att.SecondName) && string.IsNullOrEmpty(att.TribeName))
-                attName = att.Name.Trim();
-            else
-                attName = ((att.FirstName == null ? "" : att.FirstName) + " " + (att.SecondName == null ? "" : att.SecondName) + " " + (att.TribeName == null ? "" : att.TribeName)).Replace("   ", " ").Replace("  ", " ").Trim();
-            int? type = att.Type;
-
-            string title = "";
-            if (attName.Trim().StartsWith("سعادة") || attName.Trim().StartsWith("سعاده") ||
-                            attName.Trim().StartsWith("معالي") || attName.Trim().StartsWith("معالى") ||
-                attName.Trim().StartsWith("المستشار"))
-                title = "";
-            //return "";
-
-            else
-                if (attendant_title_id > 0)
-                {
-                    //string title = "";
-                    Model.AttendantTitle attType = (Model.AttendantTitle)attendant_title_id;
-                    switch (attType)
-                    {
-                        case Model.AttendantTitle.M3alyPresident:
-                            title = "معالى الرئيس/ ";
-                            break;
-                        case Model.AttendantTitle.S3adetSessionPresident:
-                            title = "سعادة رئيس الجلسة/ ";
-                            break;
-                        case Model.AttendantTitle.S3adet:
-                            title = "سعادة/ ";
-                            break;
-                        case Model.AttendantTitle.M3aly:
-                            title = "معالى/ ";
-                            break;
-                        case Model.AttendantTitle.AlOstaz:
-                            title = "الأستاذ/ ";
-                            break;
-                        case Model.AttendantTitle.Almostashaar:
-                            title = "المستشار/ ";
-                            break;
-                        case Model.AttendantTitle.NoTitle:
-                            title = " ";
-                            break;
-                    }
-                    //return title;
-                }
-                else
-                    //return "سعادة/ ";
-                    title = "سعادة/ ";
-
-            //  return ("السيد العضو : " + attName).Trim();
-            string attFullPresentationName = "";
-            if (att.AttendantTitle == null)
-            {
-                if (att.Type != (int)Model.AttendantType.UnAssigned)
-                    attFullPresentationName = "السيد " + att.Name.Trim();
-                else attFullPresentationName = att.Name.Trim();
-            }
-            else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.Name.Trim();
-            return attFullPresentationName;
         }
 
         public static string GetAttendantTitleNSpeakersIndex(Object SomeObj, long session_id)

@@ -10,6 +10,7 @@
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <script src="scripts/jquery-3.0.0.min.js" type="text/javascript"></script>
     <script src="scripts/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="scripts/jPlayer/jquery.jplayer.min.js"></script>
     <link href="styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="scripts/Admin.js"></script>
     <script type="text/javascript">
@@ -28,7 +29,7 @@
             width: 100%;
             font-size: 16px;
         }
-              table.radio_list td label
+        table.radio_list td label
         {
             display: none;
             width: 50%;
@@ -36,7 +37,7 @@
         .table th
         {
             text-align: right;
-            height:35px;
+            height: 35px;
         }
         .table, .table tr
         {
@@ -54,12 +55,11 @@
         }
         .radio_list
         {
-           
         }
         .commraw
         {
             border: 1px solid #dedede;
-            background-color:White;
+            background-color: White;
             font-size: 10pt;
             font-weight: bold;
             padding: 7px;
@@ -72,9 +72,9 @@
             margin: 0px auto;
             cursor: pointer;
             background-image: url(../images/arrow-all.png);
-            float:right;
+            float: right;
         }
-       .hoverArrow.up
+        .hoverArrow.up
         {
             background-position: 5px 8px;
         }
@@ -87,31 +87,78 @@
             padding-right: 20px;
             border: 1px solid #dedede;
             margin: 10px;
-            background-color:#ececec;
+            background-color: #ececec;
         }
         .sessioncomms
         {
             padding-right: 20px;
             border: 1px solid #dedede;
             margin-bottom: 10px;
-            display:none;
+            display: none;
         }
         .popupoverlay
         {
-                z-index: 600;
+            z-index: 600;
         }
         .reviewpopup_cont
         {
             z-index: 1000;
-            height:auto;
+            height: auto;
+            top:25%;
         }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            mp3player($(".MP3FilePath").val());
+        });
+
+        function mp3player(mp3path) {     //alert($(".MP3FilePath").val());
+            var AudioPlayer = $("#jquery_jplayer_1");
+            var playertime;
+            AudioPlayer.jPlayer({
+                swfPath: "/scripts/jPlayer/",
+                wmode: "window",
+                solution: 'html, flash',
+                supplied: "mp3",
+                preload: 'metadata',
+                volume: 1,
+                cssSelectorAncestor: '#jp_container_1',
+                errorAlerts: false,
+                warningAlerts: false,
+                ready: function () {
+                    // play the jplayer
+                    $(this).jPlayer("setMedia", {
+                        mp3: mp3path// $(".MP3FilePath").val() // mp3 file path//'http://localhost:12000/SessionFiles/1345/session_10-05-2016_1.mp3'//$(".MP3FilePath").val() // mp3 file path
+                    }).jPlayer("play", 0);
+                    $('.jp-audio .next-jp-xseconds').click(function (e) {
+                        AudioPlayer.jPlayer("play", playertime + 5)
+                    });
+                    $('.jp-audio .prev-jp-xseconds').click(function (e) {
+                        AudioPlayer.jPlayer("play", playertime - 5)
+                    });
+                },
+                timeupdate: function (event) {
+                    if (!$(this).data("jPlayer").status.paused) {
+                        playertime = event.jPlayer.status.currentTime;
+                    }
+                }
+            });
+        }
+        $(document).ready(function () {
+            if (!Sys.WebForms.PageRequestManager.getInstance().get_isInAsyncPostBack()) {
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(AjaxEndMethod);
+            }
+        });
+    </script>
     <form id="form1" runat="server">
     <div class="grid_22">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
         </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
+                <input id="MP3FolderPath" class="MP3FolderPath" type="hidden" runat="server" value="" />
+                <input id="MP3FilePath" class="MP3FilePath" type="hidden" runat="server" value="http://localhost:12000/SessionFiles/1345/session_10-05-2016_1.mp3"
+                    name="MP3FilePath" />
                 <div>
                     <asp:Label runat="server" ID="lblInfo1" Visible="false" CssClass="lInfo"></asp:Label>
                 </div>
@@ -132,32 +179,63 @@
                     <div class="clear">
                     </div>
                 </div>
+                <div id="jquery_jplayer_1" class="jp-jplayer">
+                </div>
+                <div id="jp_container_1" class="jp-audio">
+                    <div class="jp-type-single">
+                        <div id="jp_interface_1" class="jp-interface">
+                            <ul class="jp-controls">
+                                <li><a href="#" class="jp-play" tabindex="1" title="play"></a></li>
+                                <li><a href="#" class="jp-pause" tabindex="1" title="pause"></a></li>
+                            </ul>
+                            <div class="jp-progress">
+                                <div class="jp-seek-bar">
+                                    <div class="jp-play-bar">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="jp-current-time">
+                            </div>
+                            <div class="jp-duration">
+                            </div>
+                            <div class="next-jp-xseconds" title="تقديم 5 ثوانى">
+                            </div>
+                            <div class="prev-jp-xseconds" title="تاخير 5 ثوانى">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
                 <div class="grid_22">
                     <% List<Committee> Committees = CommitteeHelper.GetAllCommittee(); %>
                     <section class="" border="0" cellspacing="0" cellpadding="0">
-                        <%foreach (Committee comm in Committees){ %>
+                        <%foreach (Committee comm in Committees)
+                          { %>
                         <div id="divComm<%=comm.ID%>">
                             <div class="row commraw">
                              <div class="hoverArrow down" commid=" <%=comm.ID%>"></div>
                                 <div class="grid_12 h2"><%=comm.CommitteeName%></div>
-                                   <% if (ddlSessions.SelectedValue != "0") {%>
+                                   <% if (ddlSessions.SelectedValue != "0")
+                                      {%>
                                 <div class="grid_6 h2">
-                                    <a href="javascript:void(0)" class="aPopupAddSessionComm" commid="<%=comm.ID%>" commname="<%=comm.CommitteeName%>" sid="<%=ddlSessions.SelectedValue%>">أضف لجنة جديدة</a>
+                                    <a href="javascript:void(0)" class="aPopupAddSessionComm" commid="<%=comm.ID%>" commname="<%=comm.CommitteeName%>" sid="<%=ddlSessions.SelectedValue%>">أضف جلسة جديدة</a>
                                 </div>
                                 <%} %>
                                 <div class="clear"></div>
                             </div>                         
                             <div id="divContent<%=comm.ID%>" class="sessioncomms">
                             <% if (ddlSessions.SelectedValue != "0")
-                           { %>
+                               { %>
 
                                 <% List<SessionCommittee> sessionComms = SessionCommitteeHelper.GetSessionCommitteeBySessionIDAndCommitteeID(long.Parse(ddlSessions.SelectedValue), comm.ID); %>
-                                <% if (sessionComms.Count > 0){ 
-                                    foreach (SessionCommittee sessionComm in sessionComms) { %>
+                                <% if (sessionComms.Count > 0)
+                                   {
+                                       foreach (SessionCommittee sessionComm in sessionComms)
+                                       { %>
                                    <div id="div_<%=sessionComm.ID%>" class="grid_20 sessioncomm">
                                        <div style="margin-top:10px"></div>
                                        <div class="row">
-                                            <div class="grid_3 h2" style="color:#0134cb"><span>اسم اللجنة :</span></div>
+                                            <div class="grid_3 h2" style="color:#0134cb"><span>اسم الجلسة :</span></div>
                                             <div class="grid_6 h2"><%=sessionComm.CommitteeName%></div>
                                              <div class="grid_4 h2"><a href="javascript:void(0)" class="aPopupDelSessionComm" scommid="<%=sessionComm.ID%>">حذف</a></div>
                                              <div class="grid_4 h2"><a href="javascript:void(0)" class="aPopupTakeSessionCommAtt" scommid="<%=sessionComm.ID%>" commid="<%=comm.ID%>" sid="<%=ddlSessions.SelectedValue%>">أخذ الغياب</a></div>
@@ -175,9 +253,9 @@
                                         </div>
                                      </div>
                                      <div class="clear"></div>
-                                    <% } 
-                                 } 
-                          } %>  </div>
+                                    <% }
+                                   }
+                           } %>  </div>
                          </div>
                         <% } %>
                     </section>
@@ -199,7 +277,7 @@
                     </div>
                     <div class="borderBD">
                         <h2>
-                            <span class="red">*</span> أضف لجنة جديدة : <span class="red">(</span> <span class="red lblCommName">
+                            <span class="red">*</span> أضف جلسة جديدة : <span class="red">(</span> <span class="red lblCommName">
                             </span><span class="red">)</span>
                         </h2>
                     </div>
@@ -208,7 +286,7 @@
                             <div class="grid_3 h2">
                                 <span class="red">*</span>
                                 <label title="اسم اللجنة">
-                                    اسم اللجنة
+                                    اسم الجلسة
                                 </label>
                             </div>
                             <div class="grid_8 ">
@@ -265,7 +343,6 @@
                     <div class="clear">
                     </div>
                 </div>
-
                 <div class="reviewpopup_cont popupAttendant graybg">
                     <div class="close_btn">
                     </div>
@@ -273,13 +350,28 @@
                     </div>
                     <div class="borderBD">
                         <h2>
-                            <span class="red">*</span> الغياب : 
+                            <span class="red">*</span> الغياب :
                         </h2>
                     </div>
                     <div class="datacontainer inputcont datacontainer3 attendantCont">
                         <table id="tbl_Att_Status" class="table h1">
-                        <tr><th style="padding-right: 10px;">اسماء الأعضاء</th><th style="color:black">حاضر</th><th style="color:Red">غائب</th><th style="color:green">غائب بعذر</th><th>غائب بعذر(مهمة رسمية) </th></tr>
-                        
+                            <tr>
+                                <th style="padding-right: 10px;">
+                                    اسماء الأعضاء
+                                </th>
+                                <th style="color: black">
+                                    حاضر
+                                </th>
+                                <th style="color: Red">
+                                    غائب
+                                </th>
+                                <th style="color: green">
+                                    غائب بعذر
+                                </th>
+                                <th>
+                                    غائب بعذر(مهمة رسمية)
+                                </th>
+                            </tr>
                         </table>
                     </div>
                     <div class="poppbtnscont fl">

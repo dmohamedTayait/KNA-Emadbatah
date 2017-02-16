@@ -121,6 +121,7 @@
     <EntitySetMapping Name="SessionContentItems">
       <EntityTypeMapping TypeName="EMadbatahModel.SessionContentItem">
         <MappingFragment StoreEntitySet="SessionContentItem">
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
           <ScalarProperty Name="OriginalStartTime" ColumnName="OriginalStartTime" />
           <ScalarProperty Name="IsSessionPresident" ColumnName="IsSessionPresident" />
           <ScalarProperty Name="VotingID" ColumnName="VotingID" />
@@ -318,6 +319,36 @@
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="DefaultAttendantID" ColumnName="DefaultAttendantID" />
           <ScalarProperty Name="CommitteeID" ColumnName="CommitteeID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Topics">
+      <EntityTypeMapping TypeName="EMadbatahModel.Topic">
+        <MappingFragment StoreEntitySet="Topic">
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TopicAttendants">
+      <EntityTypeMapping TypeName="EMadbatahModel.TopicAttendant">
+        <MappingFragment StoreEntitySet="TopicAttendant">
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
+          <ScalarProperty Name="AttendantID" ColumnName="AttendantID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TopicParagraphs">
+      <EntityTypeMapping TypeName="EMadbatahModel.TopicParagraph">
+        <MappingFragment StoreEntitySet="TopicParagraph">
+          <ScalarProperty Name="ParagraphAlignment" ColumnName="ParagraphAlignment" />
+          <ScalarProperty Name="ParagraphText" ColumnName="ParagraphText" />
+          <ScalarProperty Name="TopicID" ColumnName="TopicID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

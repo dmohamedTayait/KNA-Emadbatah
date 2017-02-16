@@ -37,15 +37,15 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\office.xml
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.csprojResolveAssemblyReference.cache
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Word.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.xml
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\ResolveAssemblyReference.cache
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
-E:\testt\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\ResolveAssemblyReference.cache
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb

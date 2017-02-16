@@ -150,9 +150,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1;
             }
         }
-
-
-
+        
         public static List<Attachement> GetSessionAttachments(long sessionID)
         {
             try
@@ -170,6 +168,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
+
         public static Attachement GetAttachementByID(int attachementID)
         {
             try
@@ -187,6 +186,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
+
         public static Attachement GetAttachementByOrder(int attachementOrder)
         {
             try
@@ -204,31 +204,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
-
-        /*public static int UpdateAttachementOrder(long attachmentID, int newOrder)
-        {
-            try
-            {
-                using (EMadbatahEntities context = new EMadbatahEntities())
-                {
-                    Attachement updated_attachment = context.Attachements.FirstOrDefault(c => c.ID == attachmentID);
-                    if (updated_attachment != null)
-                    {
-                        updated_attachment.Order = newOrder;
-                        int res = context.SaveChanges();
-                        return res;
-                    }
-                    else
-                        return -1;
-                }
-              
-            }
-            catch (Exception ex)
-            {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttachmentHelper.ChangeAttachementOrder(" + attachmentID + "," + newOrder + ")");
-                return -1;
-            }
-        }*/
 
         public static bool UpdateAttachementFileOrder(long attachFileID1, int newOrder1, long attachFileID2, int newOrder2)
         {

@@ -73,6 +73,7 @@
     <Compile Include="StageHelper.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TopicHelper.cs" />
     <Compile Include="UserHelper.cs" />
   </ItemGroup>
   <ItemGroup>

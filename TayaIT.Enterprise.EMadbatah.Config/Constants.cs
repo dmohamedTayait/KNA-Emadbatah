@@ -44,6 +44,13 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string SESSION_COMM_CREATEDAT { get { return "scommcreatedat"; } }
             public string SESSION_COMM_ADDED_DETAILS { get { return "scommdetails"; } }
 
+            public string TOPIC_ID { get { return "tpcid"; } }
+            public string TOPIC_TITLE { get { return "tpctitle"; } }
+
+            public string TOPIC_PARAG_ID { get { return "tpcparagid"; } }
+            public string TOPIC_PARAG { get { return "tpcparag"; } }
+            public string TOPIC_PARAG_ALIGN { get { return "tpcparagalign"; } }
+
             public string AGENDA_ITEM_ID { get { return "agid"; } }
             public string AGENDA_ITEM_ID_EParliment { get { return "epagid"; } }
 

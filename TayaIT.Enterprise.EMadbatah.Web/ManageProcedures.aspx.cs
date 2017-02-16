@@ -63,7 +63,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             gvProcedures.EditIndex = e.NewEditIndex;
             gvbind(long.Parse(ProcedureTypeID));
             string textProcedureTitle = ((TextBox)gvProcedures.Rows[e.NewEditIndex].FindControl("textProcedireTitle")).Text;
-            textProcedureTitle = textProcedureTitle.Replace("</br>", "\n");
+            textProcedureTitle = textProcedureTitle.Replace("</br>", "\n").Replace("&nbsp;", " ");
             ((TextBox)gvProcedures.Rows[e.NewEditIndex].FindControl("textProcedireTitle")).Text = textProcedureTitle;
         }
 
@@ -75,7 +75,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             string textProcedureTitle = ((TextBox)gvProcedures.Rows[e.RowIndex].FindControl("textProcedireTitle")).Text;
    
             gvProcedures.EditIndex = -1;
-            ProcedureHelper.UpdateProcedure(procedureID, textProcedureTitle.Replace("\n", "</br>"));
+            ProcedureHelper.UpdateProcedure(procedureID, textProcedureTitle.Replace("\n", "</br>").Replace(" ","&nbsp;" ));
             gvbind(long.Parse(ProcedureTypeID));
            
         }
@@ -101,7 +101,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
             //Add new procedure
             Procedure procObj = new Procedure();
-            procObj.ProcedureTitle = textProcedureTitle.Replace("\n","</br>");
+            procObj.ProcedureTitle = textProcedureTitle.Replace("\n", "</br>").Replace(" ","&nbsp;" );
             procObj.ProcedureTypeID = long.Parse(ProcedureTypeID);
             ProcedureHelper.AddNewProcedure(procObj);
 

@@ -52,3 +52,21 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\obj\Debug\TayaIT.Enterprise.EMadbatah.Config.csprojResolveAssemblyReference.cache
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\obj\Debug\TayaIT.Enterprise.EMadbatah.Config.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\obj\Debug\TayaIT.Enterprise.EMadbatah.Config.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\TayaIT.Enterprise.EMadbatah.Config.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\TayaIT.Enterprise.EMadbatah.Config.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\TagLibSharp.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft.Practices.Unity.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\obj\Debug\ResolveAssemblyReference.cache
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\obj\Debug\TayaIT.Enterprise.EMadbatah.Config.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Config\obj\Debug\TayaIT.Enterprise.EMadbatah.Config.pdb

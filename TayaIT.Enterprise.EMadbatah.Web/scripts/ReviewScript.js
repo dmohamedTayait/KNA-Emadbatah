@@ -68,20 +68,13 @@ $(document).ready(function () {
             left: $this.parent().offset().left + 10
         }).fadeIn();
     }, function () {
-
-
         $('#divToolTip').fadeOut();
     });
-
-
-
 
     // tinymce end
     var lastEditedDiv;
     $(".openeditem .Edititem").click(function () {
         lastEditedDiv = $(this);
-
-
         if ($(this).attr('data-isSessionStart') == "1") {
             document.location = '/SessionStart.aspx?sid=' + getParameterByName('sid') + '&reviewmode=1';
             return;
@@ -93,7 +86,6 @@ $(document).ready(function () {
         var ed = $('#SessionContentItemIDHidden');
         var note = $(this).attr('data-revnote');
         ed.val(id);
-
 
         var isCurrentUserFileRev = $('.isCurrentUserFileRev').val();
 
@@ -112,10 +104,8 @@ $(document).ready(function () {
                         //alert("yes locked");
                     } else {
 
-
                         //alert("no");
                         var approve = confirm("لم يتم تخصيص الملف الخاص بهذا المقطع لمراجع ملف ... هل ترغب بأن تكون مراجع هذا الملف؟");
-
 
                         if (approve) {
                             //alert('sfid ' + sessionFileID + ' currentuserid ' + currentUserID);
@@ -136,19 +126,7 @@ $(document).ready(function () {
                                         //alert("yes assigned");
                                         // location.reload();
                                     } else {
-
-
-                                        //alert("no not assigned");
-                                        //                                         var approve = confirm("لم يتم تخصيص الملف الخاص بهذا المقطع لمراجع ملف ... هل ترغب بأن تكون مراجع هذا الملف؟");
-
-
-                                        //                                         if (approve) {
-
                                         return false;
-
-
-
-                                        //                                         }
                                     }
                                 },
                                 error: function () {
@@ -156,9 +134,6 @@ $(document).ready(function () {
                                 }
                             });
                         } else {
-
-
-
 
                             return false;
                         }
@@ -241,22 +216,15 @@ $(document).ready(function () {
             if (lastEditedDiv.hasClass('reditem') || lastEditedDiv.hasClass('blueitem') || lastEditedDiv.hasClass('greenitem') || lastEditedDiv.hasClass('brownitem')) {
                 $('#approve').show();
             } else {
-
-
                 $('#approve').hide();
             }
-
             if (lastEditedDiv.hasClass('reditem')) {
                 $('#reject').hide();
             } else {
-
-
                 $('#reject').show();
             }
 
-
             //alert($(this).attr('data-sfid')); alert($(this).attr('data-scid'));
-
 
             $('#IsSessionStartHidden').val($(this).attr('data-isSessionStart'));
             mode = 3;
@@ -282,8 +250,6 @@ $(document).ready(function () {
             $(".datacontainer textarea").elastic();
             $(".datacontainer textarea").trigger('update');
         } //end else
-
-
     });
 
     $(".divcontent").scroll(function () {
@@ -379,6 +345,8 @@ $(document).ready(function () {
         $.fancybox.close()
         $(".popupoverlay").hide();
         $(".reviewpopup_cont").hide();
+        var AudioPlayer = $("#jquery_jplayer_1");
+        AudioPlayer.jPlayer('pause');
     })
 
 

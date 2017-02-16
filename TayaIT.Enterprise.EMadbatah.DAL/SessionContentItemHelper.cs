@@ -29,6 +29,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             bool ignored,
             long? attachID,
             int? voteID,
+            long? topicID,
             int isSessionPresident, float originalStartTime)
         {
 
@@ -68,6 +69,9 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
                     if (voteID != 0 && voteID != null)
                         session_content_item.VotingID = voteID;
+
+                    if (topicID != 0 && topicID != null)
+                        session_content_item.TopicID = topicID;
 
                     context.SessionContentItems.AddObject(session_content_item);
                     context.SaveChanges();
@@ -1115,7 +1119,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID, long? agendaSubItemID,
-            string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID, bool mergedWithPrev, bool ignored, long attachID, int voteID, int isSessionPresident
+            string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID, bool mergedWithPrev, bool ignored, long attachID, int voteID, long topicID, int isSessionPresident
             )//, float startTime, float endTime, float duration)
         {
             try
@@ -1138,6 +1142,10 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         if (voteID != 0 && voteID != null)
                             updated_session_content_item.VotingID = voteID;
                         else updated_session_content_item.VotingID = null;
+
+                        if (topicID != 0 && topicID != null)
+                            updated_session_content_item.TopicID = topicID;
+                        else updated_session_content_item.TopicID = null;
 
                         updated_session_content_item.AgendaSubItemID = agendaSubItemID;
                         updated_session_content_item.CommentOnAttendant = commentsOnAttendant;
@@ -1167,7 +1175,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
         public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID,
             long? agendaSubItemID, string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID,
-            bool updatedByRev, long reviewerID, bool mergedWithPrev, bool ignored, long attachID, int voteID, int isSessionPresident
+            bool updatedByRev, long reviewerID, bool mergedWithPrev, bool ignored, long attachID, int voteID,long topicID, int isSessionPresident
             )//,float startTime,float endTime,float duration)
         {
             try
@@ -1190,6 +1198,10 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         if (voteID != 0 && voteID != null)
                             updated_session_content_item.VotingID = voteID;
                         else updated_session_content_item.VotingID = null;
+
+                        if (topicID != 0 && topicID != null)
+                            updated_session_content_item.TopicID = topicID;
+                        else updated_session_content_item.TopicID = null;
 
                         updated_session_content_item.AgendaSubItemID = agendaSubItemID;
                         updated_session_content_item.CommentOnAttendant = commentsOnAttendant;

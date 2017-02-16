@@ -4,6 +4,7 @@
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script type="text/javascript" src="scripts/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="scripts/tiny_mce/tiny_mce.js"></script>
     <script type="text/javascript" src="scripts/tiny_mce/jquery.tinymce.js"></script>
     <script type="text/javascript" src="scripts/jPlayer/jquery.jplayer.min.js"></script>
     <script type="text/javascript" src="scripts/select2.full.min.js"></script>
@@ -48,6 +49,7 @@
         class="agendaItemId" />
     <input type="hidden" name="attachId" id="attachId" value="0" runat="server" class="attachId" />
     <input type="hidden" name="voteId" id="voteId" value="0" runat="server" class="voteId" />
+    <input type="hidden" name="topicId" id="topicId" value="0" runat="server" class="topicId" />
     <input type="hidden" name="unAssignedSpeakerId" id="unAssignedSpeakerId" value="0"
         runat="server" class="unAssignedSpeakerId" />
     <input type="hidden" name="unAssignedAgendaId" id="unAssignedAgendaId" value="0"
@@ -72,6 +74,8 @@
                         value="اضافة تصويت" />
                     <input name="" runat="server" id="btnAddManagePoint" type="button" class="btn inputBlock mb-5 btnAddManagePoint btn_editsession"
                         value="نقطة نظام" />
+                    <input name="" runat="server" id="btnAddTopic" type="button" class="btn inputBlock mb-5 btnAddTopic btn_editsession"
+                        value="المقترحات / التوصيات" />
                     <input name="" id="btnSplit" runat="server" type="button" class="btn inputBlock mb-5 split btn_editsession"
                         value="اقطع" data-clipboard-action="cut" data-clipboard-target="#MainContent_txtFooter" />
                     <input name="" type="button" id="btnSaveOnly" runat="server" class="btn inputBlock mb-5 btnSaveOnly btn_editsession"
@@ -305,6 +309,12 @@
                     </span>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0)" class="removeVote">حذف
                         التصويت</a>
                 </div>
+                 <div class="row divTopic" id="divTopic" runat="server" name="divTopic">
+                    <span style="color: Red">*</span> <span style="color: green">اسم الموضوع: </span>
+                    <span id="spanTopicTitle" runat="server" name="spanTopicTitle" class="spanTopicTitle">
+                    </span>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0)" class="removeTopic">حذف
+                        الموضوع</a>
+                </div>
                 <div class="row">
                     <div class="grid_10">
                         <div class="h2">
@@ -530,6 +540,32 @@
         <div class="poppbtnscont fl">
             <div class="fl">
                 <input type="button" id="btnSaveManagePoint" class="btnSaveManagePoint" value="أضف" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="reviewpopup_cont reviewpopup_cont7 graybg">
+        <div class="close_btn">
+        </div>
+        <div class="clear">
+        </div>
+        <div class="borderBD">
+            <h2>
+                <span class="red">*</span> المقترحات / التوصيات :
+            </h2>
+        </div>
+        <div class="datacontainer inputcont datacontainer3">
+            <div class="rdltopics">
+            </div>
+        </div>
+        <div class="poppbtnscont fl">
+            <div class="fl" style="margin: 10px">
+                <input type="button" id="btnSaveTopic" class="btnSaveTopic btn" value="أضف" />
                 <div class="clear">
                 </div>
             </div>

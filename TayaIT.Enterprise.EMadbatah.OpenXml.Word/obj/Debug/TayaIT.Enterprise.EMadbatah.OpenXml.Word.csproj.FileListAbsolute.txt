@@ -97,3 +97,36 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Mic
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.csprojResolveAssemblyReference.cache
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\gsdll32.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Bullzip.PDFWriter.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Bullzip.PdfWriter.Lib.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\DocumentFormat.OpenXml.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\OpenXmlPowerTools.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\itextsharp.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TagLibSharp.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.Unity.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\DocumentFormat.OpenXml.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\DocumentFormat.OpenXml.Extensions.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\OpenXmlPowerTools.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\ResolveAssemblyReference.cache
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.pdb

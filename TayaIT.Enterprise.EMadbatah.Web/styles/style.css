@@ -1172,7 +1172,8 @@ span.revFilelock {
     /*direction:rtl;*/
 }
 .reviewpopup_cont4,
-.reviewpopup_cont5 {
+.reviewpopup_cont5,
+.reviewpopup_cont7 {
     height: auto !important;
     margin-top: -300px;
 }
@@ -1448,14 +1449,16 @@ span.revFilelock {
     font-size: 16pt;
 }
 .divVote,
-.divAttach {
+.divAttach,
+.divTopic {
     font-size: 125%;
     margin-bottom: 20px;
     margin-top: 20px;
     font-weight: bold;
 }
 .spanVoteSubject,
-.spanAttachTitle {
+.spanAttachTitle,
+.spanTopicTitle {
     padding-right: 10px;
     padding-left: 50px;
 }

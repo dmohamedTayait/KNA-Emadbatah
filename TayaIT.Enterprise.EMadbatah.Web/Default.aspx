@@ -429,6 +429,8 @@
                                                 %>
                                                 <div style="padding-top: 5px;">
                                                     <a href="Review.aspx?sid=<%=session.SessionID%>">[صفحة المراجعة]</a></div>
+                                                <div style="padding-top: 5px;">
+                                                    <a href="ManageTopics.aspx?sid=<%=session.SessionID%>">[المقترحات / التوصيات]</a></div>
                                                 <%   
                                                                         }
                                                                         if (nRejected > 0)
@@ -439,6 +441,7 @@
                                                                            CurrentUser.Role == UserRole.Admin)
                                                                        {
                                                 %>
+                                                
                                                 <div style="padding-top: 5px;">
                                                     <a href="ReviewNotes.aspx?sid=<%=session.SessionID%>">[جميع الملاحظات]</a></div>
                                                 <%} %>

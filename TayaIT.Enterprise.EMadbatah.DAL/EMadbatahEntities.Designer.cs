@@ -51,6 +51,12 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionCommitteeAttendant_SessionCommittee", "SessionCommittee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommittee), "SessionCommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionCommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_Committee", "Committee", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Committee), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
 [assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_CommitteeAttendant_DefaultAttendant", "DefaultAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.DefaultAttendant), "CommitteeAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.CommitteeAttendant), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_TopicAttendant_Attendant", "Attendant", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Attendant), "TopicAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.TopicAttendant), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Topic_Session", "Session", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Session), "Topic", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Topic), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_SessionContentItem_Topic", "Topic", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Topic), "SessionContentItem", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.SessionContentItem), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_TopicAttendant_Topic1", "Topic", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Topic), "TopicAttendant", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.TopicAttendant), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_TopicParagraph_Topic", "Topic", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.Topic), "TopicParagraph", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.TopicParagraph), true)]
+[assembly: EdmRelationshipAttribute("EMadbatahModel", "FK_Topic_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(TayaIT.Enterprise.EMadbatah.DAL.User), "Topic", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(TayaIT.Enterprise.EMadbatah.DAL.Topic), true)]
 
 #endregion
 
@@ -485,6 +491,54 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
         private ObjectSet<CommitteeAttendant> _CommitteeAttendants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Topic> Topics
+        {
+            get
+            {
+                if ((_Topics == null))
+                {
+                    _Topics = base.CreateObjectSet<Topic>("Topics");
+                }
+                return _Topics;
+            }
+        }
+        private ObjectSet<Topic> _Topics;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TopicAttendant> TopicAttendants
+        {
+            get
+            {
+                if ((_TopicAttendants == null))
+                {
+                    _TopicAttendants = base.CreateObjectSet<TopicAttendant>("TopicAttendants");
+                }
+                return _TopicAttendants;
+            }
+        }
+        private ObjectSet<TopicAttendant> _TopicAttendants;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TopicParagraph> TopicParagraphs
+        {
+            get
+            {
+                if ((_TopicParagraphs == null))
+                {
+                    _TopicParagraphs = base.CreateObjectSet<TopicParagraph>("TopicParagraphs");
+                }
+                return _TopicParagraphs;
+            }
+        }
+        private ObjectSet<TopicParagraph> _TopicParagraphs;
 
         #endregion
 
@@ -680,6 +734,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         public void AddToCommitteeAttendants(CommitteeAttendant committeeAttendant)
         {
             base.AddObject("CommitteeAttendants", committeeAttendant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Topics EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTopics(Topic topic)
+        {
+            base.AddObject("Topics", topic);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TopicAttendants EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTopicAttendants(TopicAttendant topicAttendant)
+        {
+            base.AddObject("TopicAttendants", topicAttendant);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TopicParagraphs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTopicParagraphs(TopicParagraph topicParagraph)
+        {
+            base.AddObject("TopicParagraphs", topicParagraph);
         }
 
         #endregion
@@ -2122,6 +2200,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DefaultAttendant>("EMadbatahModel.FK_Attendant_DefaultAttendant", "DefaultAttendant", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_TopicAttendant_Attendant", "TopicAttendant")]
+        public EntityCollection<TopicAttendant> TopicAttendants
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TopicAttendant>("EMadbatahModel.FK_TopicAttendant_Attendant", "TopicAttendant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TopicAttendant>("EMadbatahModel.FK_TopicAttendant_Attendant", "TopicAttendant", value);
                 }
             }
         }
@@ -4532,6 +4632,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_Topic_Session", "Topic")]
+        public EntityCollection<Topic> Topics
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Topic>("EMadbatahModel.FK_Topic_Session", "Topic");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Topic>("EMadbatahModel.FK_Topic_Session", "Topic", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -5742,6 +5864,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Double> _OriginalStartTime;
         partial void OnOriginalStartTimeChanging(Nullable<global::System.Double> value);
         partial void OnOriginalStartTimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TopicID
+        {
+            get
+            {
+                return _TopicID;
+            }
+            set
+            {
+                OnTopicIDChanging(value);
+                ReportPropertyChanging("TopicID");
+                _TopicID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TopicID");
+                OnTopicIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TopicID;
+        partial void OnTopicIDChanging(Nullable<global::System.Int64> value);
+        partial void OnTopicIDChanged();
 
         #endregion
 
@@ -6124,6 +6270,44 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Attachement>("EMadbatahModel.FK_SessionContentItem_Attachement", "Attachement", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionContentItem_Topic", "Topic")]
+        public Topic Topic
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_SessionContentItem_Topic", "Topic").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_SessionContentItem_Topic", "Topic").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Topic> TopicReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_SessionContentItem_Topic", "Topic");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Topic>("EMadbatahModel.FK_SessionContentItem_Topic", "Topic", value);
                 }
             }
         }
@@ -7238,6 +7422,661 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="Topic")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Topic : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Topic object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static Topic CreateTopic(global::System.Int64 id)
+        {
+            Topic topic = new Topic();
+            topic.ID = id;
+            return topic;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> SessionID
+        {
+            get
+            {
+                return _SessionID;
+            }
+            set
+            {
+                OnSessionIDChanging(value);
+                ReportPropertyChanging("SessionID");
+                _SessionID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SessionID");
+                OnSessionIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _SessionID;
+        partial void OnSessionIDChanging(Nullable<global::System.Int64> value);
+        partial void OnSessionIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> UserID
+        {
+            get
+            {
+                return _UserID;
+            }
+            set
+            {
+                OnUserIDChanging(value);
+                ReportPropertyChanging("UserID");
+                _UserID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserID");
+                OnUserIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _UserID;
+        partial void OnUserIDChanging(Nullable<global::System.Int64> value);
+        partial void OnUserIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _CreatedAt;
+        partial void OnCreatedAtChanging(Nullable<global::System.DateTime> value);
+        partial void OnCreatedAtChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_Topic_Session", "Session")]
+        public Session Session
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_Topic_Session", "Session").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_Topic_Session", "Session").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Session> SessionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Session>("EMadbatahModel.FK_Topic_Session", "Session");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Session>("EMadbatahModel.FK_Topic_Session", "Session", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_SessionContentItem_Topic", "SessionContentItem")]
+        public EntityCollection<SessionContentItem> SessionContentItems
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SessionContentItem>("EMadbatahModel.FK_SessionContentItem_Topic", "SessionContentItem");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionContentItem>("EMadbatahModel.FK_SessionContentItem_Topic", "SessionContentItem", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_TopicAttendant_Topic1", "TopicAttendant")]
+        public EntityCollection<TopicAttendant> TopicAttendants
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TopicAttendant>("EMadbatahModel.FK_TopicAttendant_Topic1", "TopicAttendant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TopicAttendant>("EMadbatahModel.FK_TopicAttendant_Topic1", "TopicAttendant", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_TopicParagraph_Topic", "TopicParagraph")]
+        public EntityCollection<TopicParagraph> TopicParagraphs
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TopicParagraph>("EMadbatahModel.FK_TopicParagraph_Topic", "TopicParagraph");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TopicParagraph>("EMadbatahModel.FK_TopicParagraph_Topic", "TopicParagraph", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_Topic_User", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("EMadbatahModel.FK_Topic_User", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("EMadbatahModel.FK_Topic_User", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("EMadbatahModel.FK_Topic_User", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("EMadbatahModel.FK_Topic_User", "User", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="TopicAttendant")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TopicAttendant : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TopicAttendant object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static TopicAttendant CreateTopicAttendant(global::System.Int64 id)
+        {
+            TopicAttendant topicAttendant = new TopicAttendant();
+            topicAttendant.ID = id;
+            return topicAttendant;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> AttendantID
+        {
+            get
+            {
+                return _AttendantID;
+            }
+            set
+            {
+                OnAttendantIDChanging(value);
+                ReportPropertyChanging("AttendantID");
+                _AttendantID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AttendantID");
+                OnAttendantIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _AttendantID;
+        partial void OnAttendantIDChanging(Nullable<global::System.Int64> value);
+        partial void OnAttendantIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TopicID
+        {
+            get
+            {
+                return _TopicID;
+            }
+            set
+            {
+                OnTopicIDChanging(value);
+                ReportPropertyChanging("TopicID");
+                _TopicID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TopicID");
+                OnTopicIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TopicID;
+        partial void OnTopicIDChanging(Nullable<global::System.Int64> value);
+        partial void OnTopicIDChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_TopicAttendant_Attendant", "Attendant")]
+        public Attendant Attendant
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_TopicAttendant_Attendant", "Attendant").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_TopicAttendant_Attendant", "Attendant").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Attendant> AttendantReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Attendant>("EMadbatahModel.FK_TopicAttendant_Attendant", "Attendant");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Attendant>("EMadbatahModel.FK_TopicAttendant_Attendant", "Attendant", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_TopicAttendant_Topic1", "Topic")]
+        public Topic Topic
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_TopicAttendant_Topic1", "Topic").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_TopicAttendant_Topic1", "Topic").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Topic> TopicReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_TopicAttendant_Topic1", "Topic");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Topic>("EMadbatahModel.FK_TopicAttendant_Topic1", "Topic", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="TopicParagraph")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TopicParagraph : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TopicParagraph object.
+        /// </summary>
+        /// <param name="id">Initial value of the ID property.</param>
+        public static TopicParagraph CreateTopicParagraph(global::System.Int64 id)
+        {
+            TopicParagraph topicParagraph = new TopicParagraph();
+            topicParagraph.ID = id;
+            return topicParagraph;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                if (_ID != value)
+                {
+                    OnIDChanging(value);
+                    ReportPropertyChanging("ID");
+                    _ID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ID");
+                    OnIDChanged();
+                }
+            }
+        }
+        private global::System.Int64 _ID;
+        partial void OnIDChanging(global::System.Int64 value);
+        partial void OnIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> TopicID
+        {
+            get
+            {
+                return _TopicID;
+            }
+            set
+            {
+                OnTopicIDChanging(value);
+                ReportPropertyChanging("TopicID");
+                _TopicID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TopicID");
+                OnTopicIDChanged();
+            }
+        }
+        private Nullable<global::System.Int64> _TopicID;
+        partial void OnTopicIDChanging(Nullable<global::System.Int64> value);
+        partial void OnTopicIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ParagraphText
+        {
+            get
+            {
+                return _ParagraphText;
+            }
+            set
+            {
+                OnParagraphTextChanging(value);
+                ReportPropertyChanging("ParagraphText");
+                _ParagraphText = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ParagraphText");
+                OnParagraphTextChanged();
+            }
+        }
+        private global::System.String _ParagraphText;
+        partial void OnParagraphTextChanging(global::System.String value);
+        partial void OnParagraphTextChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ParagraphAlignment
+        {
+            get
+            {
+                return _ParagraphAlignment;
+            }
+            set
+            {
+                OnParagraphAlignmentChanging(value);
+                ReportPropertyChanging("ParagraphAlignment");
+                _ParagraphAlignment = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParagraphAlignment");
+                OnParagraphAlignmentChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ParagraphAlignment;
+        partial void OnParagraphAlignmentChanging(Nullable<global::System.Int32> value);
+        partial void OnParagraphAlignmentChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_TopicParagraph_Topic", "Topic")]
+        public Topic Topic
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_TopicParagraph_Topic", "Topic").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_TopicParagraph_Topic", "Topic").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Topic> TopicReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Topic>("EMadbatahModel.FK_TopicParagraph_Topic", "Topic");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Topic>("EMadbatahModel.FK_TopicParagraph_Topic", "Topic", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="EMadbatahModel", Name="User")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -7612,6 +8451,28 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SessionFile>("EMadbatahModel.FK_SessionFile_FileReviewer", "SessionFile", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("EMadbatahModel", "FK_Topic_User", "Topic")]
+        public EntityCollection<Topic> Topics
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Topic>("EMadbatahModel.FK_Topic_User", "Topic");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Topic>("EMadbatahModel.FK_Topic_User", "Topic", value);
                 }
             }
         }

@@ -125,8 +125,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }           
         }
 
-
-
         public static bool LockSessionFileReviewer(long sessionFileID, long revID, bool isAdmin)
         {
             try
@@ -160,9 +158,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
-
-
         public static bool UnlockSessionFile(long sessionFileID)
         {
             try
@@ -188,7 +183,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
         public static bool IsSessionFileLockedForFileReviewer(long sessionContentItemID)
         {
             try
@@ -208,7 +202,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return false;
             }
         }
-
 
         public static bool UnloackSessionFileReviewer(long sessionFileID)
         {
@@ -235,26 +228,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
-
-
-
-
-        //public bool ReAssignSessionFile(long sessionFileID, long newUserID)
-        //{
-        //    try
-        //    {
-        //        return AssignLockSessionFile(sessionFileID, newUserID);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.ReAssignSessionFile(" + sessionFileID + "," + newUserID +")");
-        //        return false;
-        //    }
-        //}
-
-        
-
         public static SessionFile GetSessionFileByID(long sessionFileID)
         {
             try
@@ -267,15 +240,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     sessionFile.FileReviewer = sessionFile.FileReviewer;
                 }
                 return sessionFile;
-
-                //using (EMadbatahEntities context = new EMadbatahEntities())
-                //{
-                //    var sessionFile = from sf in context.SessionFiles
-                //                  where sf.ID == sessionFileID
-                //                  select sf;
-
-                //    return sessionFile.FirstOrDefault<SessionFile>();                   
-                //}
             }
             catch (Exception ex)
             {
@@ -304,6 +268,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
+
         public static SessionFile GetSessionFileByOrder(int sessionFileOrder)
         {
             try
@@ -349,6 +314,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return false; ;
             }
         }
+
         public static int UpdateSessionFileFragOrderAndModifiedDate(long sessionFileID, int FragOrder , DateTime ModifiedDate)
         {
             try
@@ -373,6 +339,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1; ;
             }
         }
+
         public static int UpdateSessionFileStatus(long sessionFileID, int statusId, long? revID ,string note=null)
         {
             try
@@ -399,6 +366,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1; ;
             }
         }
+
         public static int UpdateSessionFileStartText(long sessionFileID, string updatedSessionText, string note = null)
         {
             try
@@ -424,7 +392,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1; ;
             }
         }
-
 
         public static int UpdateSessionFileLastSegmentFlag(long sessionFileID)
         {
@@ -497,6 +464,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1; ;
             }
         }
-        //public void AddSessionFile() { }//from code generator
+       
     }
 }

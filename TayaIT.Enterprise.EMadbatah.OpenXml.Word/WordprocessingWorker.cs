@@ -901,39 +901,21 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             Table table = new Table();
 
-            TableProperties props = new TableProperties(
+            TableProperties props = new TableProperties(new TableStyle() { Val = "styleTableGrid" },
+                new TableWidth() { Width = "4000", Type = TableWidthUnitValues.Pct },
+                new TableLook() {Val = "04A0",FirstRow = false,LastRow = false,NoHorizontalBand = false,NoVerticalBand = true},
                 new TableBorders(
-                new TopBorder
-                {
-                    Val = new EnumValue<BorderValues>(BorderValues.Single),
-                    Size = 12
-                },
-                new BottomBorder
-                {
-                    Val = new EnumValue<BorderValues>(BorderValues.Single),
-                    Size = 12
-                },
-                new LeftBorder
-                {
-                    Val = new EnumValue<BorderValues>(BorderValues.Single),
-                    Size = 12
-                },
-                new RightBorder
-                {
-                    Val = new EnumValue<BorderValues>(BorderValues.Single),
-                    Size = 12
-                },
-                new InsideHorizontalBorder
-                {
-                    Val = new EnumValue<BorderValues>(BorderValues.Single),
-                    Size = 12
-                },
-                new InsideVerticalBorder
-                {
-                    Val = new EnumValue<BorderValues>(BorderValues.Single),
-                    Size = 12
-                }));
+                    new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
+                    new BottomBorder { Val = new EnumValue<BorderValues>(BorderValues.None)},
+                    new LeftBorder  { Val = new EnumValue<BorderValues>(BorderValues.None) },
+                    new RightBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
+                    new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.None)},
+                    new InsideVerticalBorder {Val = new EnumValue<BorderValues>(BorderValues.None)}
+                ));
 
+            TableJustification tblJustification = new TableJustification();
+            tblJustification.Val = TableRowAlignmentValues.Center;
+            props.Append(tblJustification);
             table.AppendChild<TableProperties>(props);
 
             for (var i = 0; i <= data.GetUpperBound(0); i++)
@@ -942,11 +924,13 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 for (var j = 0; j <= data.GetUpperBound(1); j++)
                 {
                     var tc = new TableCell();
-                    tc.Append(new Paragraph(new Run(new Text(data[i, j]))));
+
+                    BiDi biDi1 = new BiDi();
+                    tc.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(),new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(data[i, j]))));
 
                     // Assume you want columns that are automatically sized.
                     tc.Append(new TableCellProperties(
-                        new TableCellWidth { Type = TableWidthUnitValues.Auto }));
+                        new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }));
 
                     tr.Append(tc);
                 }
@@ -955,6 +939,65 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             doc.Body.Append(table);
         }
 
+        public void AddTable(List<string> data)
+        {
+            var doc = _currentDoc.MainDocumentPart.Document;
+
+            Table table = new Table();
+
+            TableProperties props = new TableProperties(new TableStyle() { Val = "styleTableGrid" },
+                new TableWidth() { Width = "3500", Type = TableWidthUnitValues.Pct },
+                new TableLook() { Val = "04A0", FirstRow = false, LastRow = false, NoHorizontalBand = false, NoVerticalBand = true },
+                new TableBorders(
+                    new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
+                    new BottomBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
+                    new LeftBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
+                    new RightBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
+                    new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
+                    new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.None) }
+                ));
+
+            TableJustification tblJustification = new TableJustification();
+            tblJustification.Val = TableRowAlignmentValues.Center;
+            props.Append(tblJustification);
+            table.AppendChild<TableProperties>(props);
+            string[] sep = new string[1] { "," };
+            for (var i = 0; i < data.Count(); i++)
+            {
+                var tr = new TableRow();
+
+                string[] names = data[i].Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                if (names.Count() != 1)
+                {
+                    for (int j = 0; j < names.Count(); j++)
+                    {
+                        var tc1 = new TableCell();
+                        tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(names[j]))));
+                        // Assume you want columns that are automatically sized.
+                        tc1.Append(new TableCellProperties(new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }));
+                        tr.Append(tc1);
+                    }
+                }
+                else
+                {
+                    var tc1 = new TableCell();
+                    //HorizontalMerge hmerge = new HorizontalMerge() { Val = MergedCellValues.Continue };
+                    tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }), new Run(new Text(data[i]))));
+                    tc1.Append(new TableCellProperties(new HorizontalMerge() { Val = MergedCellValues.Restart },new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }));
+                    //tc1.TableCellProperties.Append(new HorizontalMerge() { Val = MergedCellValues.Restart });
+                    var tc2 = new TableCell();
+                    tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }), new Run(new Text(""))));
+                    tc2.Append(new TableCellProperties(new HorizontalMerge() { Val = MergedCellValues.Continue },new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }));
+
+                   
+                    tr.Append(tc1);
+                    tr.Append(tc2);
+
+                }
+                table.Append(tr);
+            }
+            doc.Body.Append(table);
+        }
         public void AddCustomTable(List<Model.SessionMembersVote> membersVoteLst)
         {
             var doc = _currentDoc.MainDocumentPart.Document;

@@ -47,6 +47,7 @@
     <Compile Include="AdminHandler.cs" />
     <Compile Include="BaseHandler.cs" />
     <Compile Include="CommitteeHandler.cs" />
+    <Compile Include="TopicHandler.cs" />
     <Compile Include="VotingHandler.cs" />
     <Compile Include="ProcedureHandler.cs" />
     <Compile Include="EditSessionHandler.cs" />

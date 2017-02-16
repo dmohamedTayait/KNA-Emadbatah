@@ -46,7 +46,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             GetSessionAgendaItemsIndex,
             UpdateSessionAgendaItemValue,
             UpdateSessionInfo,
-            UpdateAttendantSessionTitle,
             RemoveSessionFile
         }
 
@@ -115,6 +114,20 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             DeleteSessionCommittee,
             GetSessionCommAtt,
             TakeSessionCommAttendance
+        }
+
+        public enum TopicFunctions
+        {
+            GetSessionTopics,
+            AddTopic,
+            EditTopic,
+            DeleteTopic,
+            GetAllAtt,
+            GetTopicAtt,
+            AddTopicAtt,
+            AddTopicParag,
+            EditTopicParag,
+            DeleteTopicParag
         }
 
         public enum VotingFunctions

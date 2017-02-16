@@ -28,37 +28,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return true;
         }
 
-        public static string GetSessionName(long season, long stage, long serial)
-        {
-            //return new StringBuilder("[ ف ").Append(season).Append("/").Append("د ").Append(stage).Append("/").Append(serial).Append(" ]").ToString();
-            StringBuilder sb=  new StringBuilder("");
-            String stageAlfa="";
-            switch (stage)
-            {
-                case 1:
-                    stageAlfa = "أ";
-                    break;
-                case 2:
-                    stageAlfa = "ب";
-                    break;
-                case 3:
-                    stageAlfa = "ج";
-                    break;
-                case 4:
-                    stageAlfa = "د";
-                    break;
-                case 5:
-                    stageAlfa = "هـ";
-                    break;
-                default:
-                    stageAlfa = "هـ";
-                    break;
-            }
-            sb.Append(serial).Append(" / ").Append(" ف").Append(season).Append(" / ").Append(stageAlfa);
-            return "[ " + sb.ToString() + " ]";
-        }
-
-
         public static Model.MadbatahFilesStatus GetSessionMadbatahFilesStatus(long sessionID)
         {
             int statusID = DAL.SessionHelper.GetSessionMadabathFilesStatus(sessionID);
@@ -347,24 +316,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             return sessionDetailsList;
         }
 
-    //    public static SendSessionAudioFilesToDB(List<SessionAudioFile> files)
-    //    {
-    //        List<SessionFile> sessionFiles = new List<SessionFile>();
-    //        foreach (SessionAudioFile file in files)
-    //{
-    //     sessionFiles.Add(new SessionFile()
-    //     {
-    //         DurationSecs = file.DurationInSec,
-    //            Name = file.Name,
-    //            Order = file.Order,
-    //            SessionID = file.SessionID,
-    //           Status = (int)file.Status                
-    //     }
-
-    //     if(files
-    //}
-    //    }
-
         public static List<SessionDetails> GetSessions(int pageNo, int itemsPerPage)
         {
             List<SessionDetails> sessionsToRet = new List<SessionDetails>();
@@ -550,159 +501,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
         }
 
-
-        //new to update session data from EParliment (Attendance, and Agenda Items)
-        //Commented BY Dina
-        /*public static void UpdateSessionDetailsToDB(SessionDetails sd)
-        {
-            Session session = SessionHelper.GetSessionDetailsByEParlimentID(sd.EparlimentID);
-
-            
-
-            var attendants = new EntityCollection<Attendant>();
-            foreach (var att in sd.Attendance)
-            {
-                var existingAtt = session.Attendants.FirstOrDefault(s => s.EparlimentID == att.EparlimentID);
-           
-                if (existingAtt == null)
-                {
-                   AttendantHelper.AddNewAttendant(att.Name, att.JobTitle, att.EparlimentID, (int)att.Type, (int)att.State, session.ID, att.FirstName, att.SecondName , att.TribeName);
-                }
-                else
-                {
-                  
-                }
-               
-
-            }
-
-           foreach (SessionAgendaItem item in sd.AgendaItems.Values)
-            {
-                var existingItem = session.AgendaItems.FirstOrDefault(s => s.EParliamentID == item.EparlimentID);
-                //if existingAtt == null this is a new item
-                //if existingAtt has value then this val should be updated
-
-                if (existingItem == null)
-                {
-                    AgendaItem item2Send = new AgendaItem();
-                    item2Send.IsCustom = false;
-                    item2Send.Name = item.Text;
-                    item2Send.EParliamentID = item.EparlimentID;
-                    if (item.EparlimentParentID < 0)
-                        item2Send.EParliamentParentID = null;
-                    else
-                        item2Send.EParliamentParentID = item.EparlimentParentID;
-                    item2Send.Order = item.Order;
-
-                    if (item.SubAgendaItems.Count > 0)
-                    {
-                        foreach (SessionAgendaItem subItem in item.SubAgendaItems)
-                        {
-                            AgendaSubItem subitem2Send = new AgendaSubItem();
-                            subitem2Send.Name = subItem.Text;
-                            subitem2Send.EParliamentID = subItem.EparlimentID;
-                            subitem2Send.EParliamentParentID = subItem.EparlimentParentID;
-                            subitem2Send.Order = subItem.Order;
-                            subitem2Send.QFrom = subItem.QuestionFrom;
-                            subitem2Send.QTo = subItem.QuestionTo;
-                            item2Send.AgendaSubItems.Add(subitem2Send);
-                        }
-                    }
-                    
-                    //session.AgendaItems.Add(item2Send);
-                    AgendaHelper.AddAgendaItem(item2Send, session.ID);
-                }
-                else
-                {
-                    //this item already exist (needs update ??)
-
-                    if(item.SubAgendaItems != null && item.SubAgendaItems.Count > 0)
-                    {
-                         foreach (SessionAgendaItem subItem in item.SubAgendaItems)
-                         {
-                            var existingsubItem = existingItem.AgendaSubItems.FirstOrDefault(s => s.EParliamentID == subItem.EparlimentID);
-                            if(existingsubItem == null)
-                            {
-                                //this item is not in our database, and should be added
-                                AgendaHelper.AddAgendaSubItem(subItem.Text, existingItem.ID, subItem.EparlimentID, subItem.EparlimentParentID);
-                            }
-                         }
-                        
-                    }
-                }
-                
-            }
-
-
-
-
-
-            foreach (var item in session.AgendaItems)
-            {
-                if(item.EParliamentID == null || item.Name == "غير معرف")
-                    continue;
-                bool isFound = false;
-                SessionAgendaItem foundAgendaItem = null;
-                foreach (Model.SessionAgendaItem agendaItem in sd.AgendaItems.Values)
-                {
-
-                     if(agendaItem.EparlimentID == item.EParliamentID)
-                    {
-                        //this is item
-                        isFound = true;
-                        foundAgendaItem = agendaItem;
-                        break;
-                    }
-                     
-                }
-
-
-                //var res = from s in sd.AgendaItems.Values where s.
-                //var existingItem = from select [item.EParliamentID];
-                //if null delete
-                if (!isFound)// existingItem == null)
-                {
-                  //  AgendaHelper.DeleteAgendaItemByEparliamentID((long)item.EParliamentID, session.ID);//commented BY Dina
-                }
-                //for checking the subitems
-                else
-                {
-                    foreach (AgendaSubItem subitem in item.AgendaSubItems)
-                    {
-                        bool isSubFound = false;
-
-                        foreach (SessionAgendaItem agendaSubItem in foundAgendaItem.SubAgendaItems)
-                        {
-
-                            if (agendaSubItem.EparlimentID == subitem.EParliamentID)
-                            {
-                                //this is item
-                                isSubFound = true;
-                                break;
-                            }
-                        }
-                        if (!isSubFound)// existingItem == null)
-                        {
-                            AgendaHelper.DeleteSubAgendaItemByEparliamentID((long)subitem.EParliamentID, (long)subitem.EParliamentParentID, session.ID);
-                        }
-                    }
-                }
-
-            }
-
-
-            
-
-
-            
-
-
-
-           
-
-        }
-        */
-
         public static Hashtable GetSessionStatistics(EMadbatahUser currentUser, long sessionID)
         {
             Hashtable tblRevStats = null;
@@ -850,34 +648,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 );
 
             return sd;
-        }
-
-        public static int get_session_attendant_title_id(long session_id,long attendant_id)
-        {
-            int role = 0;
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["EMadbatahConn"].ToString()))
-            {
-                SqlCommand cmd = new SqlCommand("SELECT AttendantTitleID FROM SessionAttendant where SessionID=" + session_id.ToString() + " and AttendantID=" + attendant_id.ToString(), cn);
-                cn.Open();
-                SqlDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                rdr.Read();
-                role = Convert.ToInt32(rdr[0]);
-                // Response.Write(rdr[0].ToString()); //read a value
-            }
-            return role;
-        }
-
-        public static int update_session_attendant_title(long session_id, long attendant_id,long session_attendant_title_id)
-        {
-            int status = 0;
-            using (SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["EMadbatahConn"].ToString()))
-            {
-                SqlCommand cmd = new SqlCommand("update SessionAttendant set AttendantTitleID=" + session_attendant_title_id.ToString() + " where SessionID=" + session_id.ToString() + " and AttendantID=" + attendant_id.ToString(), cn);
-                cn.Open();
-                status = cmd.ExecuteNonQuery();
-                cn.Close();
-            }
-            return status;
         }
 
         public static bool UnloackSessionFile(long sessionFileID)

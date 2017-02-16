@@ -25,6 +25,9 @@
     <EntitySet Name="SessionFileStatus" EntityType="EMadbatahModel.Store.SessionFileStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionStatus" EntityType="EMadbatahModel.Store.SessionStatus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Stage" EntityType="EMadbatahModel.Store.Stage" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Topic" EntityType="EMadbatahModel.Store.Topic" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TopicAttendant" EntityType="EMadbatahModel.Store.TopicAttendant" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TopicParagraph" EntityType="EMadbatahModel.Store.TopicParagraph" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User" EntityType="EMadbatahModel.Store.User" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_AgendaItem_Session" Association="EMadbatahModel.Store.FK_AgendaItem_Session">
       <End Role="Session" EntitySet="Session" />
@@ -130,6 +133,10 @@
       <End Role="SessionFile" EntitySet="SessionFile" />
       <End Role="SessionContentItem" EntitySet="SessionContentItem" />
     </AssociationSet>
+    <AssociationSet Name="FK_SessionContentItem_Topic" Association="EMadbatahModel.Store.FK_SessionContentItem_Topic">
+      <End Role="Topic" EntitySet="Topic" />
+      <End Role="SessionContentItem" EntitySet="SessionContentItem" />
+    </AssociationSet>
     <AssociationSet Name="FK_SessionContentItem_User" Association="EMadbatahModel.Store.FK_SessionContentItem_User">
       <End Role="User" EntitySet="User" />
       <End Role="SessionContentItem" EntitySet="SessionContentItem" />
@@ -153,6 +160,26 @@
     <AssociationSet Name="FK_SessionFile_User" Association="EMadbatahModel.Store.FK_SessionFile_User">
       <End Role="User" EntitySet="User" />
       <End Role="SessionFile" EntitySet="SessionFile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Topic_Session" Association="EMadbatahModel.Store.FK_Topic_Session">
+      <End Role="Session" EntitySet="Session" />
+      <End Role="Topic" EntitySet="Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Topic_User" Association="EMadbatahModel.Store.FK_Topic_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Topic" EntitySet="Topic" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TopicAttendant_Attendant" Association="EMadbatahModel.Store.FK_TopicAttendant_Attendant">
+      <End Role="Attendant" EntitySet="Attendant" />
+      <End Role="TopicAttendant" EntitySet="TopicAttendant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TopicAttendant_Topic1" Association="EMadbatahModel.Store.FK_TopicAttendant_Topic1">
+      <End Role="Topic" EntitySet="Topic" />
+      <End Role="TopicAttendant" EntitySet="TopicAttendant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TopicParagraph_Topic" Association="EMadbatahModel.Store.FK_TopicParagraph_Topic">
+      <End Role="Topic" EntitySet="Topic" />
+      <End Role="TopicParagraph" EntitySet="TopicParagraph" />
     </AssociationSet>
     <AssociationSet Name="FK_User_Role" Association="EMadbatahModel.Store.FK_User_Role">
       <End Role="Role" EntitySet="Role" />
@@ -394,6 +421,7 @@
     <Property Name="IsSessionPresident" Type="int" />
     <Property Name="VotingID" Type="int" />
     <Property Name="OriginalStartTime" Type="float" />
+    <Property Name="TopicID" Type="bigint" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>
@@ -445,6 +473,33 @@
     <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="StageName" Type="nvarchar" MaxLength="300" />
     <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="Topic">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" />
+    <Property Name="SessionID" Type="bigint" />
+    <Property Name="UserID" Type="bigint" />
+    <Property Name="CreatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TopicAttendant">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="AttendantID" Type="bigint" />
+    <Property Name="TopicID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="TopicParagraph">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TopicID" Type="bigint" />
+    <Property Name="ParagraphText" Type="text" />
+    <Property Name="ParagraphAlignment" Type="int" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -784,6 +839,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SessionContentItem_Topic">
+    <End Role="Topic" Type="EMadbatahModel.Store.Topic" Multiplicity="0..1" />
+    <End Role="SessionContentItem" Type="EMadbatahModel.Store.SessionContentItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SessionContentItem">
+        <PropertyRef Name="TopicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SessionContentItem_User">
     <End Role="User" Type="EMadbatahModel.Store.User" Multiplicity="0..1" />
     <End Role="SessionContentItem" Type="EMadbatahModel.Store.SessionContentItem" Multiplicity="*" />
@@ -855,6 +922,66 @@
       </Principal>
       <Dependent Role="SessionFile">
         <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Topic_Session">
+    <End Role="Session" Type="EMadbatahModel.Store.Session" Multiplicity="0..1" />
+    <End Role="Topic" Type="EMadbatahModel.Store.Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Topic">
+        <PropertyRef Name="SessionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Topic_User">
+    <End Role="User" Type="EMadbatahModel.Store.User" Multiplicity="0..1" />
+    <End Role="Topic" Type="EMadbatahModel.Store.Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Topic">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TopicAttendant_Attendant">
+    <End Role="Attendant" Type="EMadbatahModel.Store.Attendant" Multiplicity="0..1" />
+    <End Role="TopicAttendant" Type="EMadbatahModel.Store.TopicAttendant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Attendant">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TopicAttendant">
+        <PropertyRef Name="AttendantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TopicAttendant_Topic1">
+    <End Role="Topic" Type="EMadbatahModel.Store.Topic" Multiplicity="0..1" />
+    <End Role="TopicAttendant" Type="EMadbatahModel.Store.TopicAttendant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TopicAttendant">
+        <PropertyRef Name="TopicID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TopicParagraph_Topic">
+    <End Role="Topic" Type="EMadbatahModel.Store.Topic" Multiplicity="0..1" />
+    <End Role="TopicParagraph" Type="EMadbatahModel.Store.TopicParagraph" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TopicParagraph">
+        <PropertyRef Name="TopicID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

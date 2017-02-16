@@ -8,29 +8,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 {
     public static class SessionStartHelper
     {
-        //public static bool AddSessionStart(string sessionStartText,long user_id)
-        //{
-        //    try
-        //    {
-        //        using (EMadbatahEntities context = new EMadbatahEntities())
-        //        {
-        //            SessionStart session_start_item = new SessionStart
-        //            {
-        //                UserID = user_id,
-        //                Text = sessionStartText
-        //            };
-        //            context.SessionStarts.AddObject(session_start_item);
-        //            int result = context.SaveChanges();
-        //            //context.Refresh(System.Data.Objects.RefreshMode.StoreWins, session_start_item);
-        //            return true;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionStartHelper.AddNewSessionStart(" + user_id + ")");
-        //        return false;
-        //    }
-        //}
 
         public static SessionFile AddSessionStart(string sessionStartText, long user_id, long sessionID, string startName)
         {
@@ -141,7 +118,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
         public static int UpdateSessionStartStatus(long sessionid, int sessionStartStatusID)
         {
             try
@@ -183,6 +159,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
+
         public static SessionFile GetSessionStartBySessionId(long session_id)
         {
             try
@@ -205,6 +182,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
+
         public static List<SessionFile> GetSessionStartByUserId(long user_id)
         {
             try

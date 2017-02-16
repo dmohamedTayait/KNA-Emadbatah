@@ -302,6 +302,7 @@ $(document).ready(function() {
             var AgendaItemID = $('.agendaItemId').val();
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
+ var TopicID = $('.topicId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers").val();
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
             var SpeakerName = $(".txtNewSpeaker").val();
@@ -342,6 +343,7 @@ $(document).ready(function() {
                         AgendaItemID: AgendaItemID,
                         AttachID: AttachID,
                         VoteID: VoteID,
+tpcid: TopicID,
                         SpeakerID: SpeakerID,
                         SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
@@ -392,15 +394,17 @@ $(document).ready(function() {
             if(!ed.getContent().length){
                 alert('There is no text cut from');
             }else if(OB.collapsed){
+                // Restore the selection bookmark
+                ed.selection.moveToBookmark(OB.bm);
                 // select where the cursor is
                 var range = ed.selection.getRng();
                 // target element
                 var $rangeStart = OB.$target;
-                var rangeStart = $rangeStart[0];
+                var rangeStart = OB.target;
                 // check if the start not the body
                 if (rangeStart.nodeName == 'BODY' || OB.startOffset == OB.$target.text().length) {
-                    if(OB.acNextSibling){
-                        $rangeStart = $(OB.acNextSibling);
+                    if(OB.nextSibling){
+                        $rangeStart = $(OB.nextSibling);
                         rangeStart = $rangeStart[0];
                     }else{
                         alert('There is no text cut from');
@@ -419,7 +423,7 @@ $(document).ready(function() {
                             // vars
                             selectedWordsLength += words[index].length + 1;
                             // check the selected words
-                            if(selectedWordsLength > OB.startOffset+1){
+                            if(selectedWordsLength > range.startOffset+1){
                                 selectedWords.push(words[index]);
                             }
                         }
@@ -434,10 +438,12 @@ $(document).ready(function() {
                         rangeStart = $rangeStart[0];
                     }
                 }
+                // last element
+                var $lastElement = $rangeStart.nextAll().andSelf().last();
+                var lastElement = $lastElement[0];
                 // select the html
-                var lastElement = $rangeStart.nextAll().andSelf().last();
                 range.setStart(rangeStart, 0);
-                range.setEnd(lastElement[0], 1);
+                range.setEnd(lastElement, 0);
                 ed.selection.setRng(range);
                 // get the selection and split
                 var selectedContent = ed.selection.getContent();
@@ -458,6 +464,10 @@ $(document).ready(function() {
                 if ($("#editSessionFileForm").valid()) {
                     // split action
                     splitAction(selectedContent);
+                }else{
+                    // deselect
+                    ed.selection.collapse(true);
+                    return;
                 }
             }else{
                 alert('Without any selection please !!')
@@ -543,7 +553,6 @@ $(document).ready(function() {
             $(".reviewpopup_cont1").hide();
       //  }
     }
-
         // split function
     function splitActionForManagePoint(selectedHtml){
             // vars
@@ -583,6 +592,7 @@ $(document).ready(function() {
             //var AgendaSubItemID = $("#MainContent_ddlAgendaSubItems > option:selected").length > 0 ? $("#MainContent_ddlAgendaSubItems > option:selected").attr("value") : "";
             var AgendaItemID = $('.agendaItemId').val();
             var AttachID = $('.attachId').val();
+var TopicID = $('.topicId').val();
             var VoteID = $('.voteId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers").val();
             SpeakerID = SpeakerID == 0 ?  $("#MainContent_ddlSpeakers option:contains(" + "غير محدد" + ")").attr('selected', 'selected').val() : SpeakerID;
@@ -618,6 +628,7 @@ $(document).ready(function() {
                     AgendaItemID: AgendaItemID,
                     AttachID: AttachID,
                     VoteID: VoteID,
+  tpcid:TopicID,
                     // AgendaSubItemID: AgendaSubItemID,
                     SpeakerID: SpeakerID,
                     SpeakerName: SpeakerName,
@@ -677,12 +688,11 @@ $(document).ready(function() {
     }
     // bind data to controls
     function BindData(response,prevOrNext) {
-    var isIgnored = 0
+   var isIgnored = 0
         if(prevOrNext == 1)
         {
         isIgnored = $(".chkIgnoredSegment").is(':checked') ? 1 : 0
         }
-    
         if (response.ItemOrder == "last") {
             $('#MainContent_btnNext').attr('disabled', 'disabled');
         }
@@ -738,6 +748,7 @@ $(document).ready(function() {
             $('.agendaItemId').val(response.AgendaItemID);
             $('.attachId').val(response.AttachID);
             $('.voteId').val(response.VoteID);
+ $('.topicId').val(response.TopicID);
             $('.agendaItemTxt').html(response.AgendaItemText);
             $('.agendaItemIsIndexed').val(response.AgendaItemIsIndexed);
             
@@ -760,8 +771,13 @@ $(document).ready(function() {
                 $('.divVote').show();
                 $('.spanVoteSubject').html(response.VoteSubject);
             }
-            //alert(AgendaSubItem_SelectedID);
-
+if (response.TopicID == "0") {
+                $('.divTopic').hide();
+                $('.spanTopicTitle').html('');
+            } else {
+                $('.divTopic').show();
+                $('.spanTopicTitle').html(response.TopicTitle);
+            }
             // set start and end time in hidden fields
             startTime.val(response.PargraphStartTime);
             endTime.val(response.PargraphEndTime);
@@ -835,7 +851,6 @@ $(document).ready(function() {
                 $('.chkIgnoredSegment').removeAttr('checked');
             }
 
-           
             // alert('response.IsGroupSubAgendaItems ' + response.IsGroupSubAgendaItems);
 
             //usama march                
@@ -878,10 +893,8 @@ $(document).ready(function() {
                 $('.sameAsPrevSpeaker').removeAttr('checked');
                 $('.isSessionPresident').removeAttr('checked');
                 $('.chkIgnoredSegment').removeAttr('checked');
-               
-            }
-
-             mode = 1;
+}
+                mode = 1;
                 if ($(".hdPageMode").val().length == 0) {
                     mode = "1";
                 } else {
@@ -895,7 +908,7 @@ $(document).ready(function() {
                   $('.btnSaveOnly').attr('disabled', 'disabled');
                   $('.btnSaveAndExit').attr('disabled', 'disabled');
                 }
-             if(prevOrNext == 1 && isIgnored == 1)
+   if(prevOrNext == 1 && isIgnored == 1)
             {
              $(".sameAsPrevSpeaker").attr("disabled", "disabled");
             }
@@ -929,6 +942,7 @@ $(document).ready(function() {
             var AgendaItemID = $('.agendaItemId').val();
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
+ var TopicID = $('.topicId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
             var SpeakerName = $("#MainContent_txtNewSpeaker").val();
@@ -957,6 +971,7 @@ $(document).ready(function() {
                         AgendaItemID: AgendaItemID,
                         AttachID: AttachID,
                         VoteID: VoteID,
+ tpcid:TopicID,
                         SpeakerID: SpeakerID,
                         SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
@@ -1016,6 +1031,7 @@ $(document).ready(function() {
             var AgendaItemID = $('.agendaItemId').val();
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
+var TopicID  = $('.topicId').val();
    
             var SpeakerID = $("#MainContent_ddlSpeakers").val();
             SpeakerID = SpeakerID == 0 ?  $("#MainContent_ddlSpeakers option:contains(" + "غير محدد" + ")").attr('selected', 'selected').val() : SpeakerID;
@@ -1052,6 +1068,7 @@ $(document).ready(function() {
                         AgendaItemID: AgendaItemID,
                         AttachID: AttachID,
                         VoteID: VoteID,
+  tpcid:TopicID,
                         SpeakerID: SpeakerID,
                         SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
@@ -1145,6 +1162,7 @@ $(document).ready(function() {
             var AgendaItemID = $('.agendaItemId').val();
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
+ var TopicID  = $('.topicId').val();
    
             var SpeakerID = $("#MainContent_ddlSpeakers").val();
             SpeakerID = SpeakerID == 0 ?  $("#MainContent_ddlSpeakers option:contains(" + "غير محدد" + ")").attr('selected', 'selected').val() : SpeakerID;
@@ -1179,6 +1197,7 @@ $(document).ready(function() {
                         AgendaItemID: AgendaItemID,
                         AttachID: AttachID,
                         VoteID: VoteID,
+ tpcid:TopicID,
                         SpeakerID: SpeakerID,
                         SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
@@ -1230,6 +1249,7 @@ $(document).ready(function() {
             var AgendaItemID = $('.agendaItemId').val();
             var AttachID = $('.attachId').val();
             var VoteID = $('.voteId').val();
+ var TopicID = $('.topicId').val();
             var SpeakerID = $("#MainContent_ddlSpeakers > option:selected").val();
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
             var SpeakerName = $("#MainContent_txtNewSpeaker").val();
@@ -1259,6 +1279,7 @@ $(document).ready(function() {
                         AgendaItemID: AgendaItemID,
                         AttachID: AttachID,
                         VoteID: VoteID,
+tpcid: TopicID,
                         SpeakerID: SpeakerID,
                         SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
@@ -1376,11 +1397,17 @@ $(document).ready(function() {
     // tinymce
     $('textarea.tinymce').tinymce({
         custom_undo_redo: true,
-        // Location of TinyMCE script
-        script_url: 'scripts/tiny_mce/tiny_mce.js',
         // General options
         theme: "advanced",
-        plugins: "pagebreak,directionality,noneditable",
+        plugins: "pagebreak,directionality,noneditable,paste",
+        paste_preprocess: function(pl, o) {
+			getCursorPosition(this, function(OB) {
+				// Content string containing the HTML from the clipboard
+				var stripedContent = o.content.replace(/&nbsp;/g, ' ').replace(/(<([^>]+)>)/ig, '');
+				var cleanedHTML = cleanHTML(stripedContent);
+                o.content = '<span>'+cleanedHTML+'</span>'
+			});
+		},
         language: "ar",
         // direction
         directionality: "rtl",
@@ -1408,6 +1435,27 @@ $(document).ready(function() {
         force_br_newlines: true,
         force_p_newlines: false,
         forced_root_block: false,
+		cleanup_callback: function(type, value) {
+			switch (type) {
+				case "get_from_editor":
+				    break;
+				case "insert_to_editor":
+					// Clear empty tags
+					value = cleanHTML(value);
+					break;
+				case "submit_content":
+					break;
+				case "get_from_editor_dom":
+					break;
+				case "insert_to_editor_dom":
+					break;
+				case "setup_content_dom":
+					break;
+				case "submit_content_dom":
+					break;
+			}
+			return value;
+		},
         setup: function(ed) {
             // function to make the span editable
             function editableSpan(ed, e, higlightonly) {
@@ -1597,11 +1645,17 @@ $(document).ready(function() {
     // tinymce for the popup window
     var defaultOptions = {
         custom_undo_redo: true,
-        // Location of TinyMCE script
-        script_url: 'scripts/tiny_mce/tiny_mce.js',
         // General options
         theme: "advanced",
-        plugins: "pagebreak,directionality,noneditable",
+        plugins: "pagebreak,directionality,noneditable,paste",
+        paste_preprocess: function(pl, o) {
+			getCursorPosition(this, function(OB) {
+				// Content string containing the HTML from the clipboard
+				var stripedContent = o.content.replace(/&nbsp;/g, ' ').replace(/(<([^>]+)>)/ig, '');
+				var cleanedHTML = cleanHTML(stripedContent);
+                o.content = '<span>'+cleanedHTML+'</span>'
+			});
+		},
         language: "ar",
         // direction
         directionality: "rtl",
@@ -1629,6 +1683,27 @@ $(document).ready(function() {
         force_br_newlines: true,
         force_p_newlines: false,
         forced_root_block: false,
+cleanup_callback: function(type, value) {
+			switch (type) {
+				case "get_from_editor":
+				    break;
+				case "insert_to_editor":
+					// Clear empty tags
+					value = cleanHTML(value);
+					break;
+				case "submit_content":
+					break;
+				case "get_from_editor_dom":
+					break;
+				case "insert_to_editor_dom":
+					break;
+				case "setup_content_dom":
+					break;
+				case "submit_content_dom":
+					break;
+			}
+			return value;
+		},
         setup : function(ed) {
             // on keypress
              editorEvents(ed);
@@ -1636,99 +1711,134 @@ $(document).ready(function() {
     };
 
     // get where the cursor position
-    function getCursorPosition(ed,callBack){
-        // vars
-        var objects = {};
-        // get the current target
-        var target = ed.selection.getStart();
-        objects.$target = $(target);
-        // Stores a bookmark of the current selection
-        var bm = ed.selection.getBookmark();
-        // get the mark
-        var $mark = $(ed.getBody()).find('#'+bm.id+'_start');
-        // check if the target is body
-        if(target.nodeName == 'BODY'){
-            // get next and prev sibling
-            objects.nextSibling = ($mark[0].nextElementSibling) ? $mark[0].nextElementSibling : false;
-            objects.previousSibling = ($mark[0].previousElementSibling) ? $mark[0].previousElementSibling : false;
+	function getCursorPosition(ed, callBack, mv) {
+		// vars
+		var target;
+		var objects = {};
+		// Stores a bookmark of the current selection
+		var bm = ed.selection.getBookmark();
+		// get the mark
+        objects.bm = bm;
+		objects.$mark = $(ed.getBody()).find('#' + bm.id + '_start');
+        objects.mark = objects.$mark[0];
+        if(mv){
+            objects.markNextSibling = (objects.mark.nextElementSibling) ? $.clone(objects.mark.nextElementSibling) : objects.mark.nextElementSibling;
+            objects.markPreviousSibling = (objects.mark.previousElementSibling) ? $.clone(objects.mark.previousElementSibling) : objects.mark.previousElementSibling;
+            objects.markAcNextSibling = (objects.mark.nextSibling) ? $.clone(objects.mark.nextSibling) : objects.mark.nextSibling;
+            objects.markAcPreviousSibling = (objects.mark.previousSibling) ? $.clone(objects.mark.previousSibling) : objects.mark.previousSibling;
         }else{
+            objects.markNextSibling = (objects.mark.nextElementSibling);
+            objects.markPreviousSibling = (objects.mark.previousElementSibling);
+            objects.markAcNextSibling = (objects.mark.nextSibling);
+            objects.markAcPreviousSibling = (objects.mark.previousSibling);
+        }
+        // define the real parent target
+		objects.$target = objects.$mark.parentsUntil('body').last();
+        // if there is parent
+		if(objects.$target[0]){
+			objects.target = objects.$target[0];
             // get next and prev sibling
-            objects.nextSibling = (target.nextElementSibling) ? target.nextElementSibling : false;
-            objects.previousSibling = (target.previousElementSibling) ? target.previousElementSibling : false;
+			objects.nextSibling = (objects.target.nextElementSibling) ? objects.target.nextElementSibling : false;
+			objects.previousSibling = (objects.target.previousElementSibling) ? objects.target.previousElementSibling : false;
+		}else{
+            objects.$target = $(ed.getBody());
+			objects.target = ed.getBody();
+            // get next and prev sibling
+			objects.nextSibling = (objects.markNextSibling) ? objects.markNextSibling : false;
+			objects.previousSibling = (objects.markPreviousSibling) ? objects.markPreviousSibling : false;
+		}
+		// get accurate next and prev sibling
+		objects.acNextSibling = (objects.target.nextSibling) ? $.clone(objects.target.nextSibling) : objects.nextSibling;
+		objects.acPreviousSibling = (objects.target.previousSibling) ? $.clone(objects.target.previousSibling) : objects.previousSibling;
+		// add more info
+		objects.collapsed = ed.selection.getRng().collapsed;
+		objects.startOffset = ed.selection.getRng().startOffset;
+		objects.endOffset = ed.selection.getRng().endOffset;
+        // move bookmark
+        if(mv){
+            // Restore the selection bookmark
+		    ed.selection.moveToBookmark(bm);
         }
-        // get accurate next and prev sibling
-        objects.acNextSibling = ($mark[0].nextSibling && $mark[0].nextSibling.data != '') ? $.clone($mark[0].nextSibling) : objects.nextSibling;
-        objects.acPreviousSibling = ($mark[0].previousSibling && $mark[0].previousSibling.data != '') ? $.clone($mark[0].previousSibling) : objects.previousSibling;
-        // Restore the selection bookmark
-        ed.selection.moveToBookmark(bm);
-        // add more info
-        objects.collapsed = ed.selection.getRng().collapsed;
-        objects.startOffset = ed.selection.getRng().startOffset;
-        objects.endOffset = ed.selection.getRng().endOffset;
+		// check callback
+		if (callBack) {
+			// call the function
+			var callBackData = callBack(objects);
+            // move bookmark
+            if(!mv){
+                // Restore the selection bookmark
+		        ed.selection.moveToBookmark(bm);
+            }
+			// return
+			return callBackData;
+		}
+		// return
+		return objects;
+	}
 
-        // check callback
-        if(callBack){
-            // call the function
-            var callBackData = callBack(objects);
-            // return
-            return callBackData;
-        }
-        // return
-        return objects;
-    }
+	function cleanHTML(value){
+		var emptyTags = /<[^\/>][^>|data-mce-type="bookmark"]*>[\s]*<\/[^>]+>/g;
+		var emptyTagsBr = /<[^\/>][^>]*>\s*<br\s*[\/]?>\s*<\/[^>]+>/g;
+		return value.replace(emptyTags,'').replace(emptyTagsBr,'<br>');
+	}
 
     // function for on key press
     function editorEvents(ed){
         // on keydown
-        ed.onKeyDown.add(function (ed, e) {
-            // to disable the merge of p tag
-            var dom = ed.dom;
-            var currentNode = ed.selection.getNode();
+        ed.onKeyDown.add(function(ed, e) {
+            // to disable the merge of p tag with span tags
             var backSpaceKey = (e.keyCode == 8);
             var deleteKey = (e.keyCode == 46);
             // backspace
             if (backSpaceKey || deleteKey) {
                 // get where the cursor position
-                if(getCursorPosition(ed,function(OB){
-                    if(backSpaceKey){
-                        if(OB.previousSibling && OB.$target){
-                            if(
-                                OB.$target[0].nodeName == 'P' && ((OB.acPreviousSibling.data == '' && OB.previousSibling.nodeName == 'SPAN') || (OB.acPreviousSibling.nodeName == 'SPAN')) ||
-                                OB.$target[0].nodeName == 'SPAN' && ((OB.acPreviousSibling.data == '' && OB.previousSibling.nodeName == 'P') || (OB.acPreviousSibling.nodeName == 'P'))
-                            ){
-                                return true;
+                if (getCursorPosition(ed, function(OB) {
+                        if (backSpaceKey) {
+                            if (OB.target && OB.previousSibling) {
+                                if(
+                                    (OB.target.nodeName == 'P' && OB.previousSibling.nodeName == 'SPAN') ||
+                                    (OB.target.nodeName == 'SPAN' && OB.previousSibling.nodeName == 'P')
+                                ){
+                                    if(!(OB.markAcPreviousSibling && OB.markAcPreviousSibling.nodeName) || OB.markAcPreviousSibling.data == ''){
+                                        return true;
+                                    }
+                                }else if(OB.target.nodeName == 'BODY'){
+                                    if(
+                                        (OB.markNextSibling.nodeName == 'P' && OB.markPreviousSibling.nodeName == 'SPAN') ||
+                                        OB.markNextSibling.nodeName == 'SPAN' && OB.markPreviousSibling.nodeName == 'P'
+                                    ){
+                                        if(OB.markAcNextSibling.nodeName == '#text' && (OB.markAcPreviousSibling.nodeName == 'P' || OB.markAcPreviousSibling.data == '')){
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            if (OB.target && OB.nextSibling) {
+                                if(
+                                    (OB.target.nodeName == 'P' && OB.nextSibling.nodeName == 'SPAN') ||
+                                    (OB.target.nodeName == 'SPAN' && OB.nextSibling.nodeName == 'P')
+                                ){
+                                    if(!(OB.markAcNextSibling && OB.markAcNextSibling.nodeName) || OB.markAcNextSibling.data == ''){
+                                        return true;
+                                    }
+                                }else if(OB.target.nodeName == 'BODY'){
+                                    if(
+                                        (OB.markNextSibling.nodeName == 'P' && OB.markPreviousSibling.nodeName == 'SPAN') ||
+                                        OB.markNextSibling.nodeName == 'SPAN' && OB.markPreviousSibling.nodeName == 'P'
+                                    ){
+                                        if(OB.markAcPreviousSibling.nodeName == '#text' && (OB.markAcNextSibling.nodeName == 'P' || OB.markAcNextSibling.data == '')){
+                                            return true;
+                                        }
+                                    }
+                                }
                             }
                         }
-                    }else{
-                        if(OB.nextSibling && OB.$target){
-                            if(
-                                OB.$target[0].nodeName == 'P' && ((OB.acNextSibling.data == '' && OB.nextSibling.nodeName == 'SPAN') || (OB.acNextSibling.nodeName == 'SPAN')) ||
-                                OB.$target[0].nodeName == 'SPAN' && ((OB.acNextSibling.data == '' && OB.nextSibling.nodeName == 'P') || (OB.acNextSibling.nodeName == 'P'))
-                            ){
-                                return true;
-                            }
-                        }
-                    }
-                })){
+                    })) {
                     e.preventDefault();
                 }
             }
-        });
-
-        // check if the user writes on no where
-        ed.onKeyPress.add(function (ed, e) {
-            var dom = ed.dom;
-            var currentNode = ed.selection.getNode();
-            if (currentNode.nodeName == 'BODY' && e.charCode != 13) {
-                // select the nearest tag
-                var nextElement = ed.selection.getRng().startContainer.nextSibling;
-                if (nextElement) {
-                    var mark = $('<i>.</i>');
-                    $(nextElement).prepend(mark);
-                    ed.selection.select(mark[0]);
-                    ed.execCommand('mceCleanup');
-                }
-            }
+            // clean up
+            ed.execCommand('mceCleanup');
         });
 
         // click on text tinyMCE editor
@@ -1823,26 +1933,29 @@ $(document).ready(function() {
                     // get caret position
                     getCursorPosition(ed,function(OB){
                         if(OB.collapsed){
-                            // add to the undo manager
-                            ed.undoManager.add();
                             // get current target
-                            var nodeName = OB.$target[0].nodeName;
+                            var nodeName = OB.target.nodeName;
                             // check node name
                             if (nodeName == 'BODY') {
+                                //OB.$mark.after(cloneHTML);
                                 ed.execCommand('mceInsertRawHTML', false, cloneHTML);
                             }else{
-                                if(OB.endOffset >= (OB.$target.text().length/2)){
-                                    $(OB.$target).after(cloneHTML);
+                                if(
+                                    (OB.markAcPreviousSibling && OB.markAcPreviousSibling.data != undefined) &&
+                                    (OB.markAcNextSibling && OB.markAcNextSibling.data != undefined) && 
+                                    (OB.markAcPreviousSibling.data.length >= OB.markAcNextSibling.data.length)
+                                ){
+                                    OB.$target.after(cloneHTML);
                                 }else{
-                                    $(OB.$target).before(cloneHTML);
+                                    OB.$target.before(cloneHTML);
                                 }
                             }
-                            // clean up
-                            ed.execCommand('mceCleanup'); 
+                            // add to the undo manager
+                            ed.undoManager.add();
                         }else{
                             alert('Without any selection please !!')
                         }
-                    });
+                    },true);
                 });
             }
         },
@@ -1850,8 +1963,7 @@ $(document).ready(function() {
 
         }
     });
-
-     // add procuder button
+         // add procuder button
     $(".btnAddManagePoint").click(function(e) {
         $(".sameAsPrevSpeaker").removeAttr('checked');
         $('.ddlSpeakersClone').empty();
@@ -1882,7 +1994,7 @@ $(document).ready(function() {
         
     
         // bind the new value
-        $('#MainContent_elm1').val("<span data-stime='" + startTime.val() +  "'>السيد الرئيس</span>");
+        $('#MainContent_elm1').val("<span data-stime='" + startTime.val() +  "'>الأخ الرئيس</span>");
          // add to the undo manager
         $('#MainContent_elm1').tinymce().undoManager.add();
 
@@ -1894,8 +2006,6 @@ $(document).ready(function() {
         }else alert("من فضلك اختر المتحدث");
     });
 
-    //
-    // add procuder button
     $(".btnAddProcuder").click(function(e) {
         // get the editors
         var ed1 = $('#MainContent_elm1').tinymce();
@@ -2031,6 +2141,71 @@ $(document).ready(function() {
         $(".voteId").val('0');
         $('.spanVoteSubject').html('');
         $('.divVote').hide();
+        e.preventDefault();
+    });
+
+ // add Attach button
+    $(".btnAddTopic").click(function(e) {
+        loadSessionTopics();
+        $(".popupoverlay").show();
+        $(".reviewpopup_cont7").show();
+        e.preventDefault();
+    });
+ function loadSessionTopics() {
+   
+        var topicId = $(".topicId").val();
+        $('.rdltopics').empty();
+        //Load Available Votes
+        jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: 'TopicHandler.ashx',
+            data: {
+                funcname: 'GetSessionTopics',
+                sid: $(".sessionID").val()
+            },
+            dataType: 'json',
+            success: function(response) {
+                var radio;
+                var label;
+                var div;
+                for (i = 0; i < response.length; i++) {
+                    radio = $('<input>').attr({
+                        type: 'radio',
+                        name: 'colorinput',
+                        value: response[i].ID,
+                        id: 'test' + response[i].ID
+                    });
+                    if (response[i].ID.toString() == topicId.toString()) {
+                        radio.attr("checked", "checked");
+                    }
+                    div = $('<div class="rd">');
+                    div.append(radio);
+                    div.append('<label>' + response[i].Title + '</label>');
+                    $('.rdltopics').append(div);
+                }
+               
+            }
+        });
+    }
+
+      $(".btnSaveTopic", '.reviewpopup_cont7').click(function(e) {
+        var checkedRadio = $(".rdltopics input:radio:checked");
+        if (checkedRadio.length > 0) {
+            $(".topicId").val(checkedRadio.val());
+            $('.spanTopicTitle').html(checkedRadio.next().text());
+            $('.divTopic').show();
+        }
+        // close the popup
+        $(".popupoverlay").hide();
+        $(".reviewpopup_cont7").hide();
+        e.preventDefault();
+    });
+
+     $(".removeTopic").click(function(e) {
+        $(".topicId").val('0');
+        $('.spanTopicTitle').html('');
+        $('.divTopic').hide();
         e.preventDefault();
     });
 

@@ -146,24 +146,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-     /*   public static Attendant GetAttendantByLongName(string longName, int eparID)
-        {
-            try
-            {
-                Attendant attendant = null;
-                using (EMadbatahEntities context = new EMadbatahEntities())
-                {
-                    attendant = context.Attendants.Where(c => c.LongName == longName && c.EparlimentID = eparID);
-                }
-                return attendant;
-            }
-            catch (Exception ex)
-            {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.GetAttendantByLongName(" + GetAttendantByLongName + "," + eparID.ToString() + ")");
-                return null;
-            }
-        }
-        */
         public static Attendant GetAttendantByDefaultAttendantId(long attendant_id)
         {
             try
@@ -195,15 +177,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         return attendant.ID;
                     else
                     {
-                        //Attendant unknownAttendant = new Attendant();
-                        //unknownAttendant.State = (int)Model.AttendantState.Attended;
-                        //unknownAttendant.Type = (int)Model.AttendantType.UnKnown;
-                        //unknownAttendant.EparlimentID = -1;
-                        //unknownAttendant.JobTitle = "";
-                        //unknownAttendant.Name = "غير معرف";
-
-
-                        //AddNewAttendant("غير معرف", "", -1, 7, 1, sessionID);
                         attendant = new Attendant
                         {
                             Name = "غير معرف",
@@ -217,15 +190,10 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         Session session = context.Sessions.FirstOrDefault(c => c.ID == sessionID);
                         session.Attendants.Add(attendant);
                         context.SaveChanges();
-
-
-
-                        //attendant = context.Sessions.FirstOrDefault(c => c.ID == sessionID).Attendants.FirstOrDefault(c => c.Name == "غير معرف");
                         return attendant.ID;
 
                     }
                 }
-                return -1;
             }
             catch (Exception ex)
             {
@@ -346,36 +314,13 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-      /*  public static bool AddNewSessionAttendant(Attendant attendant, long SessionIDCreated, out long AttendantID)
-        {
-            try
-            {
-                using (EMadbatahEntities context = new EMadbatahEntities())
-                {
-
-                    context.Attendants.AddObject(attendant);
-                    Session sss = context.Sessions.FirstOrDefault(s => s.ID == SessionIDCreated);
-                    attendant.Sessions.Add(sss);
-                    int resu = context.SaveChanges();
-                    AttendantID = attendant.ID;
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                AttendantID = 0;
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.AddNewAttendant()");
-                return false;
-            }
-        }
-        */
         public static bool AddNewSessionAttendant(Attendant newAttendant, long SessionID, out long AttendantID)
         {
             try
             {
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                   Attendant attendant = context.Sessions.FirstOrDefault(c => c.ID == SessionID).Attendants.FirstOrDefault(c => c.Name == newAttendant.LongName);
+                    Attendant attendant = context.Sessions.FirstOrDefault(c => c.ID == SessionID).Attendants.FirstOrDefault(c => c.Name == newAttendant.LongName);
                     if (attendant != null)
                         AttendantID = attendant.ID;
                     else
@@ -412,7 +357,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static List<Attendant> GetAttendantInSession(long SessionID, int SessionAttendantType,bool excluded)
+        public static List<Attendant> GetAttendantInSession(long SessionID, int SessionAttendantType, bool excluded)
         {
             try
             {
@@ -470,7 +415,5 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return false;
             }
         }
-
-       
     }
 }

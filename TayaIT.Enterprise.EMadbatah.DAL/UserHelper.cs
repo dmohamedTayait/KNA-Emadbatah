@@ -167,8 +167,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-       
-
         public static User GetUserByDomainName(string userDomainName)
         {
             try
@@ -230,7 +228,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-
         public static int GetAllUsersCount()
         {
             try
@@ -272,6 +269,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1;
             }
         }
+
         public static int UpdateUserRole(long userId, int roleID)
         {
             try
@@ -297,7 +295,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return -1;
             }
         }
-
 
         public static int UnDeleteUser(long userId, int userRoleId, string UserName, string UserDomainUserName, string UserEmail, bool isActive)
         {
