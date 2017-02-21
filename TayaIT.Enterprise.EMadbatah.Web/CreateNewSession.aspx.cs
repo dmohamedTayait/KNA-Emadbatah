@@ -45,47 +45,54 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 ddlSeason.DataBind();
                 ListItem liSeason = new ListItem("-- اختر --", "0");
                 ddlSeason.Items.Insert(0, liSeason);
+
+                if (!string.IsNullOrEmpty(SessionID))
+                {
+                    Session sessionObj = SessionHelper.GetSessionByID(long.Parse(SessionID));
+
+                    txtDate.Text = sessionObj.StartTime.Value.Date.ToShortDateString();
+                    txtStartDate.Text = sessionObj.EndTime.Value.Date.ToShortDateString();
+
+                   // txtTime.Text = ConverToToTwoDigits(sessionObj.StartTime.Value.Hour.ToString()) + ":" + ConverToToTwoDigits(sessionObj.StartTime.Value.Minute.ToString());
+                   // txtStartTime.Text = ConverToToTwoDigits(sessionObj.EndTime.Value.Hour.ToString()) + ":" + ConverToToTwoDigits(sessionObj.EndTime.Value.Minute.ToString());
+                    txtTime.Text = sessionObj.StartTime.Value.ToString("HH:mm");
+                    txtStartTime.Text = sessionObj.EndTime.Value.ToString("HH:mm");
+
+                    txtSubject.Text = sessionObj.Subject.ToString();
+                    txtEParliamentID.Text = sessionObj.EParliamentID.ToString();
+                    //txtEParliamentID.Enabled = false;
+                    ddlSeason.SelectedValue = sessionObj.Season.ToString();
+                    ddlStage.SelectedValue = sessionObj.Stage.ToString();
+                    ddlStagetype.SelectedValue = sessionObj.StageType.ToString();
+                    ddlType.SelectedValue = sessionObj.Type.ToString();
+                    ddlPresident.SelectedValue = sessionObj.PresidentID.ToString();
+
+                    if (sessionObj.SessionStartFlag == (int)SessionOpenStatus.OnTime)
+                        CBSessionStart.Checked = true;
+                    else CBSessionStart.Checked = false;
+
+                    this.Title = "المضبطة الإلكترونية - تعديل بيانات المضبطة";
+                    divPageTitle.InnerHtml = "تعديل بيانات المضبطة";
+                }
             }
         }
 
         protected void btnCreateNewSession_Click(object sender, EventArgs e)
         {
-            Session sessionObj = fillValues();
-
-            long SessionIDCreated = SessionHelper.CreateNewSession(sessionObj);
-
-
-            if (SessionIDCreated != -1)
+            if (!string.IsNullOrEmpty(SessionID))
             {
-                EMadbatahEntities context = new EMadbatahEntities();
-                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).Where(aa => aa.Status == (int)AttendantStatus.Active).ToList();
+                Session sessionObj = fillValues();
+                SessionHelper.UpdateSessionInfo(long.Parse(SessionID), sessionObj);
+                Session current_session = EditorFacade.GetSessionByID(long.Parse(SessionID));
+                AttendantHelper.GenerateSessionAttendants(long.Parse(SessionID), current_session, CBSessionStart.Checked, true);
+            }
+            else
+            {
+                Session sessionObj = fillValues();
+                long SessionIDCreated = SessionHelper.CreateNewSession(sessionObj);
 
-                if (CBSessionStart.Checked)
-                {
-                    for (int i = 0; i < DefaultAttendants.Count; i++)
-                    {
-                        try
-                        {
-                                Attendant attendant = fillAttendant(DefaultAttendants[i], (int) sessionObj.SessionStartFlag, sessionObj);
-                                bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
-                        }
-                        catch (Exception exx)
-                        {
-
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < DefaultAttendants.Count; i++)
-                    {
-                        Attendant attendant = fillAttendant(DefaultAttendants[i], (int)SessionOpenStatus.OnTime, sessionObj);
-                        bool res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
-
-                        attendant = fillAttendant(DefaultAttendants[i], (int)SessionOpenStatus.NotOnTime, sessionObj);
-                        res = AttendantHelper.AddNewSessionAttendant(attendant, SessionIDCreated);
-                    }
-                }
+                if (SessionIDCreated != -1)
+                    AttendantHelper.GenerateSessionAttendants(SessionIDCreated, sessionObj, CBSessionStart.Checked, false);
             }
             Response.Redirect("Default.aspx");
         }
@@ -127,24 +134,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             return sessionObj;
         }
 
-        public Attendant fillAttendant(DefaultAttendant defAtt, int sessionOpenStatus, Session sessionObj)
+        public string ConverToToTwoDigits(string num)
         {
-            Attendant attendant = new Attendant();
-            attendant.Name = defAtt.Name;
-            attendant.JobTitle = defAtt.JobTitle;
-            attendant.DefaultAttendantID = defAtt.ID;
-            attendant.SessionAttendantType = sessionOpenStatus;//0
-            attendant.EparlimentID = sessionObj.EParliamentID;
-            attendant.Type = defAtt.Type;
-            attendant.AttendantTitle = defAtt.AttendantTitle;
-            attendant.OrderByAttendantType = defAtt.OrderByAttendantType;
-            attendant.AttendantAvatar = defAtt.AttendantAvatar;
-            attendant.State = 1;
-            attendant.ShortName = defAtt.ShortName;
-            attendant.LongName = defAtt.LongName;
-            attendant.CreatedAt = defAtt.CreatedAt;
-           // attendant.NameInWord = defAtt.NameInWord;
-            return attendant;
+            if (num.Length == 1)
+                return "0" + num;
+            else return num;
         }
     }
 }

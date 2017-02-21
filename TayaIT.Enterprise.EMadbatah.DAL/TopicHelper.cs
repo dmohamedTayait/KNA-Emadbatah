@@ -186,6 +186,14 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                             }
                         }
 
+                        List<SessionContentItem> scLst = context.SessionContentItems.Where(c => c.TopicID == topicID).ToList();
+
+                        foreach (SessionContentItem scItem in scLst)
+                        {
+                            scItem.TopicID = null;
+                            context.SaveChanges();
+                        }
+                       
 
                         context.DeleteObject(chkIftopicExist);
                         context.SaveChanges();

@@ -377,9 +377,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     divAgenda.Style.Add("display", "");
 
                 attachId.Value = "0";
-                topicId.Value = "0";
                 divAttach.Style.Add("display", "none");
                 spanAttachTitle.InnerHtml = "";
+
+                topicId.Value = "0";
+                divTopic.Style.Add("display", "none");
+                spanTopicTitle.InnerHtml = "";
 
                 voteId.Value = "0";
                 divVote.Style.Add("display", "none");

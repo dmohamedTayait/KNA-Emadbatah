@@ -150,7 +150,7 @@
             success: function (response) {
                 AttCont = $("#AttCont");
                 AttCont.empty();
-                chb = "<div style='padding-bottom:10px' class=\"grid_5 h2 grid_att\"> <input type=\"checkbox\" name=\"chbAttID\" value=\"AttID\"><span>AttName</span></div>";
+                chb = "<div style='padding-bottom:10px' class=\"grid_6 h2 grid_att\"> <input type=\"checkbox\" name=\"chbAttID\" value=\"AttID\"><span>AttName</span></div>";
                 var tmpTr = "";
                 for (i = 0; i < response.length; i++) {
                     tmpchb = chb.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].LongName);
@@ -158,7 +158,7 @@
                     if (response[i].FirstName == "1")
                         $("input:checkbox[name='chb" + response[i].ID + "']", AttCont).prop('checked', true);
                 }
-                $(".spnTpcTitlePopup").html($("#divTpc1 div.dicTpcTitle").html());
+                $(".spnTpcTitlePopup").html($("#divTpc" + tpcid + " div.dicTpcTitle").html());
                 $(".txtTpcID").val(tpcid);
                 $(".popupoverlay").show();
                 $(".popupAttendant").show();

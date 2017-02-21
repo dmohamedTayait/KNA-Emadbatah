@@ -27,28 +27,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                 if (SessionIDEParliment != null)
                 {
-                    int sessionIDEparlimet = -1;
-                    if (int.TryParse(SessionIDEParliment, out sessionIDEparlimet))
-                    {
-                        //we have new session
-                        //check if session is in DB 
-
-                        SessionDetails sd = EMadbatahFacade.GetSessionByEParlimentID(sessionIDEparlimet);
-                        if (sd != null)
-                        {
-                            //exist in db 
-                            //check for its status
-                            if (sd.Status == SessionStatus.New)
-                            {
-                                //initialize new session from vecsys folder            
-                                InitializeVecsysNewSession(sd);
-                            }
-
-                        }
-                        else
-                        {
-                        }
-                    }
                 }
                 else
                 {

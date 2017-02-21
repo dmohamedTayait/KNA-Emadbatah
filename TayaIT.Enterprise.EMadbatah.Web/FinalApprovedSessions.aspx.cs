@@ -16,83 +16,16 @@ public partial class FinalApprovedSessions : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
-
-
-        //           MasterPage master = this.Master;
-        // master.RemoveHTMLTags(
-
-
-        // litStartupScript.Text = "<script type=\"text/javascript\"> var constants =  eval(" + serializer.Serialize(Constants.QSKeyNames) + "); alert(constants.AJAX_FUNCTION_NAME); </script>";
         if (!Page.IsPostBack)
         {
 
             UserRuleHidden.Value = CurrentUser.Role.ToString();
-
-            /*if (SessionIDEParliment != null)
+            int sessionsCount = EMadbatahFacade.GetFinalApprovedSessionsCount();
+            if (sessionsCount == 0)
             {
-                int sessionIDEparlimet = -1;
-                if (int.TryParse(SessionIDEParliment, out sessionIDEparlimet))
-                {
-                    //we have new session
-                    //check if session is in DB 
-
-                    SessionDetails sd = EMadbatahFacade.GetSessionByEParlimentID(sessionIDEparlimet);
-                    if (sd != null)
-                    {
-                        //exist in db 
-                        //check for its status
-                        if (sd.Status == SessionStatus.New)
-                        {
-                            //initialize new session from vecsys folder            
-                            //InitializeVecsysNewSession(sd);
-                        }
-
-                    }
-                    else
-                    {
-                        //very new we need to get its data from web service then we insert in database
-
-                        //try catch web service dead // display error
-
-                        SessionDetails newSessionDetails = null;
-
-                        try
-                        {
-                            Eparliment ep = new Eparliment();
-                            newSessionDetails = ep.GetSessionDetails(sessionIDEparlimet);
-                            if (newSessionDetails == null)
-                                spnWarn.InnerText = GetLocalizedString("strMsgErrorEPService"); // sssion doesn't exist in e-parliament
-                        }
-                        catch (Exception ex)
-                        {
-                            LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.Web._Default.Page_Load()");
-                            spnWarn.InnerText = GetLocalizedString("strMsgErrorEPService");
-                        }
-
-                        if (newSessionDetails != null)
-                        {
-                            //send to DB
-                            sd = EMadbatahFacade.AddNewSessionDetailsToDB(newSessionDetails);
-                            if (sd.SessionID != -1)
-                            {
-                                //initialize new session from vecsys folder            
-                                InitializeVecsysNewSession(sd);
-                            }
-                        }
-                    }
-                }
+                mainContent.Visible = false;
+                ShowInfo(GetLocalizedString("strNoSessionsExistWarn"));
             }
-            else
-            {*/
-                //TayaIT.Enterprise.EMadbatah.Model.SessionStatus status=new SessionStatus()
-                int sessionsCount = EMadbatahFacade.GetFinalApprovedSessionsCount();
-                if (sessionsCount == 0)
-                {
-                    mainContent.Visible = false;
-                    ShowInfo(GetLocalizedString("strNoSessionsExistWarn"));
-                }
-            /*}*/
         }
     }
 

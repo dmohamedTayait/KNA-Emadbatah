@@ -61,24 +61,99 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static int DeleteAttendantByEPID(long attendantEPID)
+        public static int GenerateSessionAttendants(long sid, Session current_session, bool CBSessionStart, bool edit)
         {
             try
             {
-                using (EMadbatahEntities context = new EMadbatahEntities())
+                EMadbatahEntities context = new EMadbatahEntities();
+                List<DefaultAttendant> DefaultAttendants = context.DefaultAttendants.Select(aa => aa).Where(aa => aa.Status == 1).ToList();
+                Attendant chIfAddedb4 = null;
+                if (CBSessionStart)
                 {
-                    Attendant attendant = context.Attendants.FirstOrDefault(c => c.EparlimentID == attendantEPID);
-                    context.DeleteObject(attendant);
-                    int res = context.SaveChanges();
-                    return res;
+                    for (int i = 0; i < DefaultAttendants.Count; i++)
+                    {
+                        chIfAddedb4 = null;
+                        Attendant attendant = fillAttendant(DefaultAttendants[i], 1, current_session);
+                        if (edit)
+                            chIfAddedb4 = current_session.Attendants.FirstOrDefault(c => c.SessionAttendantType == 1 && c.DefaultAttendantID == attendant.DefaultAttendantID);
+
+                        if (chIfAddedb4 == null)
+                            AddNewSessionAttendant(attendant, sid);
+                        else
+                        {
+                            chIfAddedb4.EparlimentID = current_session.EParliamentID;
+                            context.SaveChanges();
+                        }
+                    }
+
+                    if (edit)
+                    {
+                        List<Attendant> lstAtts = current_session.Attendants.Where(c => c.SessionAttendantType == 0).ToList();
+                        foreach (Attendant att in lstAtts)
+                        {
+                            context.Attach(att);
+                            context.DeleteObject(att);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < DefaultAttendants.Count; i++)
+                    {
+                        chIfAddedb4 = null;
+                        Attendant attendant = fillAttendant(DefaultAttendants[i], 1, current_session);
+                        if (edit)
+                            chIfAddedb4 = current_session.Attendants.FirstOrDefault(c => c.SessionAttendantType == 1 && c.DefaultAttendantID == attendant.DefaultAttendantID);
+
+                        if (chIfAddedb4 == null)
+                            AddNewSessionAttendant(attendant, sid);
+                        else
+                        {
+                            chIfAddedb4.EparlimentID = current_session.EParliamentID;
+                            context.SaveChanges();
+                        }
+                        attendant = fillAttendant(DefaultAttendants[i], 0, current_session);
+
+                        if (edit)
+                            chIfAddedb4 = current_session.Attendants.FirstOrDefault(c => c.SessionAttendantType == 0 && c.DefaultAttendantID == attendant.DefaultAttendantID);
+
+                        if (chIfAddedb4 == null)
+                            AddNewSessionAttendant(attendant, sid);
+                        else
+                        {
+                            chIfAddedb4.EparlimentID = current_session.EParliamentID;
+                            context.SaveChanges();
+                        }
+                    }
                 }
 
+                return 1;
             }
             catch (Exception ex)
             {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.DeleteAttendantByEPID(" + attendantEPID + ")");
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.GenerateSessionAttendants()");
                 return -1;
             }
+        }
+
+        public static Attendant fillAttendant(DefaultAttendant defAtt, int sessionOpenStatus, Session sessionObj)
+        {
+            Attendant attendant = new Attendant();
+            attendant.Name = defAtt.Name;
+            attendant.JobTitle = defAtt.JobTitle;
+            attendant.DefaultAttendantID = defAtt.ID;
+            attendant.SessionAttendantType = sessionOpenStatus;//0
+            attendant.EparlimentID = sessionObj.EParliamentID;
+            attendant.Type = defAtt.Type;
+            attendant.AttendantTitle = defAtt.AttendantTitle;
+            attendant.OrderByAttendantType = defAtt.OrderByAttendantType;
+            attendant.AttendantAvatar = defAtt.AttendantAvatar;
+            attendant.State = 1;
+            attendant.ShortName = defAtt.ShortName;
+            attendant.LongName = defAtt.LongName;
+            attendant.CreatedAt = defAtt.CreatedAt;
+            return attendant;
         }
 
         public static int DeleteAttendantByName(string attendant_name)
@@ -160,6 +235,24 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             catch (Exception ex)
             {
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.GetAttendantById(" + attendant_id + ")");
+                return null;
+            }
+        }
+
+        public static Attendant GetAttendantByDefaultAttendantIdAndEparID(long attendant_id,long eparID)
+        {
+            try
+            {
+                Attendant attendant = null;
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    attendant = context.Attendants.FirstOrDefault(c => c.DefaultAttendantID == attendant_id && c.EparlimentID == eparID);
+                }
+                return attendant;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.AttendantHelper.GetAttendantByDefaultAttendantIdAndEparID(" + attendant_id + "," + eparID + ")");
                 return null;
             }
         }

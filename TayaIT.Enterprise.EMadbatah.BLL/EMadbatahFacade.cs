@@ -103,19 +103,6 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             // return 
 
         }
-        public static SessionDetails GetSessionByEParlimentID(long eParlimentID)
-        {
-            Session session = SessionHelper.GetSessionByEParlimentID(eParlimentID);
-            if (session != null)
-            {
-                SessionDetails sd = GetSessionDetailsFromSessionObj(session);
-                return sd;
-            }
-            else
-                return null;
-            // return 
-
-        }
 
         /*
         public static void ReorderSessionFiles(int firstOrder, int secondOrder)

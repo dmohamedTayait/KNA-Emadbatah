@@ -126,6 +126,41 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
 
         }
+
+        public static long UpdateSessionInfo(long sessionID,Session updateSession)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    Session sessionObj = context.Sessions.FirstOrDefault(c => c.ID == sessionID);
+
+                    sessionObj.StartTime = updateSession.StartTime;
+                    sessionObj.EndTime = updateSession.EndTime;
+                    sessionObj.Type = updateSession.Type;
+                    sessionObj.President = updateSession.President;
+                    sessionObj.EParliamentID = updateSession.EParliamentID;
+                    sessionObj.Season = updateSession.Season;
+                    sessionObj.Stage = updateSession.Stage;
+                    sessionObj.StageType = updateSession.StageType;
+                    sessionObj.Serial = updateSession.Serial;
+                    sessionObj.Subject = updateSession.Subject;
+                    sessionObj.SessionStartFlag = updateSession.SessionStartFlag;
+                    sessionObj.PresidentID = updateSession.PresidentID;
+                    context.SaveChanges();
+
+                    return sessionObj.ID;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.UpdateSessionInfo()");
+                return -1;
+            }
+
+
+        }
+        
         
         public static List<Session> GetSessions(int pageNo, int count)
         {
@@ -393,68 +428,6 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             catch (Exception ex)
             {
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionByID(" + sessionID + ")");
-                return null;
-            }
-        }
-        
-        public static Session GetSessionDetailsByEParlimentID(long epid)
-        {
-            try
-            {
-                using (EMadbatahEntities context = new EMadbatahEntities())
-                {
-                    Session toRet = null;
-                    if (context.Sessions.Count<Session>() > 0)
-                    {
-                        toRet = context.Sessions.FirstOrDefault(s => s.EParliamentID == epid);
-                        if (toRet != null)
-                        {
-                            toRet.AgendaItems.Load();
-
-
-                            foreach (AgendaItem item in toRet.AgendaItems)
-                            {
-                                item.AgendaSubItems.Load();
-                                toRet.AgendaItems.Add(item);
-                            }
-
-
-                           
-                            toRet.Attendants.Load();
-                           
-
-
-                        }
-                    }
-                    return toRet;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionDetailsByEParlimentID(" + epid + ")");
-                return null;
-            }
-        }
-
-        public static Session GetSessionByEParlimentID(long sessionEParlimentID)
-        {
-            try
-            {
-                using (EMadbatahEntities context = new EMadbatahEntities())
-                {
-                    Session toRet = null;
-                    if (context.Sessions.Count<Session>() > 0)
-                    {
-                        toRet = context.Sessions.FirstOrDefault(s => s.EParliamentID == sessionEParlimentID);                         
-                         return toRet;
-                    }
-                    else
-                        return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.GetSessionByEParlimentID(" + sessionEParlimentID + ")");
                 return null;
             }
         }

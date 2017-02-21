@@ -1987,18 +1987,19 @@ cleanup_callback: function(type, value) {
        $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
 
        // set the editor
-        var ed1 = $('#MainContent_elm1').tinymce();
+       /* var ed1 = $('#MainContent_elm1').tinymce();
         var htmlContent = ed1.getContent();
         var clone = $('<div>').append(htmlContent)
         clone.find('span').removeClass('highlight editable hover');
-        
-    
+        */
+       var clone = $('#MainContent_elm1').html();
         // bind the new value
         $('#MainContent_elm1').val("<span data-stime='" + startTime.val() +  "'>الأخ الرئيس</span>");
          // add to the undo manager
         $('#MainContent_elm1').tinymce().undoManager.add();
 
-        splitActionForManagePoint(clone.html());
+        //alert(clone);
+        splitActionForManagePoint(clone);
         // close the popup
         $(".popupoverlay").hide();
         $(".reviewpopup_cont6").hide();

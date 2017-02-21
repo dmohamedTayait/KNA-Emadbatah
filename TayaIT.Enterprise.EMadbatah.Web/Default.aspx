@@ -421,17 +421,20 @@
                                                     المراجع:
                                                     <%=session.ReviewerName %></div>
                                                 <%  
-                                                                        }
-                                                                        if (CurrentUser.Role != UserRole.DataEntry &&
+                                                                        }%>
+                                                                         <div style="padding-top: 5px;">
+                                                   <a href="ManageTopics.aspx?sid=<%=session.SessionID%>">[المقترحات / التوصيات]</a></div>
+                                                                       <% if (CurrentUser.Role != UserRole.DataEntry &&
                                                                             (CurrentUser.Role == UserRole.Admin || session.ReviewerID == CurrentUser.ID || session.ReviewerID == null || CurrentUser.Role == UserRole.FileReviewer || CurrentUser.Role == UserRole.ReviewrDataEntry || CurrentUser.Role == UserRole.Reviewer)
                                                                             && !(session.Status == SessionStatus.FinalApproved))
                                                                         {
                                                 %>
+                                                  <div style="padding-top: 5px;">
+                                                    <a href="CreateNewSession.aspx?sid=<%=session.SessionID%>">[تعديل]</a></div>
                                                 <div style="padding-top: 5px;">
                                                     <a href="Review.aspx?sid=<%=session.SessionID%>">[صفحة المراجعة]</a></div>
-                                                <div style="padding-top: 5px;">
-                                                    <a href="ManageTopics.aspx?sid=<%=session.SessionID%>">[المقترحات / التوصيات]</a></div>
-                                                <%   
+                                        
+                                                  <%   
                                                                         }
                                                                         if (nRejected > 0)
                                                                         {

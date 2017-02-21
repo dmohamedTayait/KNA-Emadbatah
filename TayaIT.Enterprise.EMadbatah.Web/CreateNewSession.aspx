@@ -37,7 +37,7 @@
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
     </asp:ToolkitScriptManager>
     <div class="grid_24 xxlargerow">
-        <div class="Ntitle">
+        <div class="Ntitle" runat="server" id="divPageTitle">
             اضافة مضبطة جديدة:</div>
     </div>
     <div class="clear">
@@ -186,7 +186,7 @@
             </div>
         </div>
         <div class="prefix_5 addnewusercont">
-            <asp:Button ID="btnCreateNewSession" runat="server" Text="انشاء مضبطة جديدة" OnClick="btnCreateNewSession_Click"
+            <asp:Button ID="btnCreateNewSession" runat="server" Text="حفظ بيانات المضبطة" OnClick="btnCreateNewSession_Click"
                 ValidationGroup="VGSession" CssClass="btn" />
         </div>
     </div>
