@@ -150,7 +150,6 @@ $(document).ready(function() {
             $("#MainContent_txtSpeakerOtherJob").val(prevSpeakerTitle);
             $("#MainContent_imgSpeakerAvatar").attr("src",prevSpeakerImgUrl);
             $("#MainContent_txtSpeakerJob").html(prevSpeakerJob);
-            $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
             allInputs.attr('disabled', 'disabled');
             $("#MainContent_ddlOtherTitles").attr('disabled', 'disabled');
             // remove all errors
@@ -403,7 +402,7 @@ tpcid: TopicID,
                 var $rangeStart = OB.$target;
                 var rangeStart = OB.target;
                 // check if the start not the body
-                if (rangeStart.nodeName == 'BODY' || range.startOffset == OB.$target.text().length) {
+                if (rangeStart.nodeName == 'BODY' || OB.startOffset == OB.$target.text().length) {
                     if(OB.nextSibling){
                         $rangeStart = $(OB.nextSibling);
                         rangeStart = $rangeStart[0];
@@ -444,7 +443,7 @@ tpcid: TopicID,
                 var lastElement = $lastElement[0];
                 // select the html
                 range.setStart(rangeStart, 0);
-                range.setEnd(lastElement, 1);
+                range.setEnd(lastElement, 0);
                 ed.selection.setRng(range);
                 // get the selection and split
                 var selectedContent = ed.selection.getContent();
@@ -513,7 +512,7 @@ tpcid: TopicID,
      });
 
      $(".ddlCommittee").change(function() {
-         var selecText = $("#MainContent_ddlOtherTitles  option:selected").text() + $(".ddlCommittee option:selected").text().replace(/لجنة/g,"");
+         var selecText = $("#MainContent_ddlOtherTitles  option:selected").text() + " " + $(".ddlCommittee option:selected").text();
          $(".txtSpeakerOtherJob").val(selecText);
      });
 
@@ -716,7 +715,7 @@ var TopicID = $('.topicId').val();
             $("#MainContent_txtFooter").val(response.Item.PageFooter);
             $("#MainContent_txtSpeakerJob").html(response.AttendantJobTitle);
             $("#MainContent_txtSpeakerOtherJob").val(response.Item.CommentOnAttendant);
-            $('#MainContent_ddlSpeakers-container').attr("src",response.AttendantAvatar);
+            $('#MainContent_imgSpeakerAvatar').attr("src",response.AttendantAvatar);
             // bind drop down lists
             var AgendaItem_SelectedID = $("#MainContent_ddlAgendaItems > option:selected").attr("value");
             var AgendaSubItem_SelectedID = $("#MainContent_ddlAgendaSubItems > option:selected").attr("value");
@@ -1777,29 +1776,13 @@ cleanup_callback: function(type, value) {
 	}
 
 	function cleanHTML(value){
-		var emptyTagsBr = /<[\w]*(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?\sdata-mce-type=['"])[^>]*>\s*(<br\s*[\/]?>)?\s*<\/[\w]*>/g;
-        var cleaned = value.replace(emptyTagsBr,' ');
-		return cleaned;
+		var emptyTags = /<[^\/>][^>|data-mce-type="bookmark"]*>[\s]*<\/[^>]+>/g;
+		var emptyTagsBr = /<[^\/>][^>]*>\s*<br\s*[\/]?>\s*<\/[^>]+>/g;
+		return value.replace(emptyTags,'').replace(emptyTagsBr,'<br>');
 	}
 
     // function for on key press
     function editorEvents(ed){
-     // check if the user writes on no where
-       /* ed.onKeyPress.add(function (ed, l) {
-            var dom = ed.dom;
-            var currentNode = ed.selection.getNode();
-            if (currentNode.nodeName == 'BODY' && l.charCode != 13) {
-                // select the nearest tag
-                var nextElement = ed.selection.getRng().startContainer.nextSibling;
-                if (nextElement) {
-                    var mark = $('<i>.</i>');
-                    $(nextElement).prepend(mark);
-                    ed.selection.select(mark[0]);
-                    ed.execCommand('mceCleanup');
-                }
-            }
-        });*/
-
         // on keydown
         ed.onKeyDown.add(function(ed, e) {
             // to disable the merge of p tag with span tags
@@ -1809,11 +1792,8 @@ cleanup_callback: function(type, value) {
             if (backSpaceKey || deleteKey) {
                 // get where the cursor position
                 if (getCursorPosition(ed, function(OB) {
-                         if (backSpaceKey) {
-                            if(OB.markAcPreviousSibling && OB.markAcPreviousSibling.nodeName == 'BR'){
-                                OB.markAcPreviousSibling.remove();
-                                return true;
-                            }else if (OB.target && OB.previousSibling) {
+                        if (backSpaceKey) {
+                            if (OB.target && OB.previousSibling) {
                                 if(
                                     (OB.target.nodeName == 'P' && OB.previousSibling.nodeName == 'SPAN') ||
                                     (OB.target.nodeName == 'SPAN' && OB.previousSibling.nodeName == 'P')
@@ -1833,12 +1813,8 @@ cleanup_callback: function(type, value) {
                                 }
                             }
                         } else {
-                             if (OB.target && OB.nextSibling) {
-
-                                if(OB.markNextSibling && OB.markNextSibling.nodeName == 'BR'){
-                                    OB.markNextSibling.remove();
-                                    return true;
-                                }else if(
+                            if (OB.target && OB.nextSibling) {
+                                if(
                                     (OB.target.nodeName == 'P' && OB.nextSibling.nodeName == 'SPAN') ||
                                     (OB.target.nodeName == 'SPAN' && OB.nextSibling.nodeName == 'P')
                                 ){
@@ -1859,19 +1835,6 @@ cleanup_callback: function(type, value) {
                         }
                     })) {
                     e.preventDefault();
-                }
-             }else{
-                // check if the user writes on no where
-                var dom = ed.dom;
-                var currentNode = ed.selection.getNode();
-                if (currentNode.nodeName == 'BODY' && l.charCode != 13) {
-                    // select the nearest tag
-                    var nextElement = ed.selection.getRng().startContainer.nextSibling;
-                    if (nextElement) {
-                        var mark = $('<i>.</i>');
-                        $(nextElement).prepend(mark);
-                        ed.selection.select(mark[0]);
-                    }
                 }
             }
             // clean up
@@ -2028,8 +1991,6 @@ cleanup_callback: function(type, value) {
         var htmlContent = ed1.getContent();
         var clone = $('<div>').append(htmlContent)
         clone.find('span').removeClass('highlight editable hover');
-
-
         */
        var clone = $('#MainContent_elm1').html();
         // bind the new value
@@ -2076,55 +2037,17 @@ cleanup_callback: function(type, value) {
 
     // add Attach button
     $(".btnAssignAttachToContentItem").click(function(e) {
-        /*var checkedRadio = $(".rdlattachments input:radio");
+        var checkedRadio = $(".rdlattachments input:radio");
         var attachId = $(".attachId").val();
         if (attachId) {
             checkedRadio.filter('[value="' + attachId + '"]').prop('checked', true);
         }
-        */
 
-        loadSessionAttaches();
         $(".popupoverlay").show();
         $(".reviewpopup_cont4").show();
-       // $(".rdlattachments").attr("checked", "");
+        $(".rdlattachments").attr("checked", "");
         e.preventDefault();
     });
-
-      function loadSessionAttaches() {
-        var attachId = $(".attachId").val();
-        $('.rdlattachments').empty();
-        //Load Available Votes
-        jQuery.ajax({
-            cache: false,
-            type: 'post',
-            url: 'SessionHandler.ashx',
-            data: {
-                funcname: 'GetSessionAttachments',
-                sid: $(".sessionID").val()
-            },
-            dataType: 'json',
-            success: function(response) {
-                var radio;
-                var label;
-                var div;
-                for (i = 0; i < response.length; i++) {
-                    radio = $('<input>').attr({
-                        type: 'radio',
-                        name: 'colorinput',
-                        value: response[i].ID,
-                        id: 'test' + response[i].ID
-                    });
-                    if (response[i].ID.toString() == attachId.toString()) {
-                        radio.attr("checked", "checked");
-                    }
-                    div = $('<div class="rd">');
-                    div.append(radio);
-                    div.append('<label>' + response[i].Name + '</label>');
-                    $('.rdlattachments').append(div);
-                }
-               }
-        });
-    }
 
     $(".btnAddAttach", '.reviewpopup_cont4').click(function(e) {
         var checkedRadio = $(".rdlattachments input:radio:checked");
@@ -2137,7 +2060,6 @@ cleanup_callback: function(type, value) {
         $(".popupoverlay").hide();
         $(".reviewpopup_cont4").hide();
         e.preventDefault();
-
     });
 
     $(".removeAttach").click(function(e) {

@@ -70,7 +70,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     ddlCommittee.Items.Insert(0, liNewCommittee);
                     foreach (Committee committeeObj in Committees)
                     {
-                        liNewCommittee = new ListItem("( " + committeeObj.CommitteeName.ToString() + ")", committeeObj.ID.ToString());
+                        liNewCommittee = new ListItem(committeeObj.CommitteeName.ToString(), committeeObj.ID.ToString());
                         ddlCommittee.Items.Add(liNewCommittee);
                     }
                     // bind data
@@ -222,17 +222,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
            //Bind Available Attachments
             string attachName = "";
             string topictitle = "";
-            List<TayaIT.Enterprise.EMadbatah.DAL.Attachement> attachmentLst = TayaIT.Enterprise.EMadbatah.DAL.AttachmentHelper.GetSessionAttachments(long.Parse(SessionID));
-            ListItem liAttach = new ListItem();
-            foreach (TayaIT.Enterprise.EMadbatah.DAL.Attachement attachobj in attachmentLst)
-            {
-                liAttach = new ListItem();
-                liAttach.Text = attachobj.Name.ToString();
-                liAttach.Value = attachobj.ID.ToString();
-                liAttach.Attributes.Add("title", attachobj.Name.ToString());
-                rdlattachments.Items.Add(liAttach);
-            }
-
+           
             AgendaItem sessionUnknownItem = AgendaHelper.GetAgendaItemByNameAndSessionID("غير معرف", current_session.ID);
             unAssignedAgendaId.Value = sessionUnknownItem.ID.ToString();
 
@@ -321,6 +311,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 }
 
                 ddlSpeakers.SelectedValue = lastContentItem.AttendantID.ToString();
+                //ddlSpeakers.t
                 txtSpeakerOtherJob.Value = lastContentItem.CommentOnAttendant;//usama for job title
                 txtComments.InnerText = lastContentItem.CommentOnText;
                 txtFooter.InnerText = lastContentItem.PageFooter;

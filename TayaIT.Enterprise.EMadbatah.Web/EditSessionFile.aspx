@@ -459,9 +459,9 @@
                 <span class="red">*</span> المرفقات :
             </h2>
         </div>
-        <div class="datacontainer inputcont datacontainer2">
-            <asp:RadioButtonList runat="server" ID="rdlattachments" AutoPostBack="false" CssClass="rdlattachments">
-            </asp:RadioButtonList>
+        <div class="datacontainer inputcont datacontainer3">
+            <div class="rdlattachments">
+            </div>
         </div>
         <div class="poppbtnscont fl">
             <div class="fl" style="margin: 10px;">

@@ -362,6 +362,24 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
 
                     case WebFunctions.SessionsFunctions.ReorderSessionFiles:
                         break;
+                    case WebFunctions.SessionsFunctions.GetSessionAttachments:
+                         List<DAL.Attachement> ret = new List<DAL.Attachement>();
+                        if (!string.IsNullOrEmpty(SessionID))
+                        {
+                            List<DAL.Attachement> attachmentLst = DAL.AttachmentHelper.GetSessionAttachments(long.Parse(SessionID));
+                            DAL.Attachement attachObj = new DAL.Attachement();
+                           
+                            foreach (DAL.Attachement tAttachobj in attachmentLst)
+                            {
+                                attachObj = new DAL.Attachement();
+                                attachObj.Name = tAttachobj.Name.ToString();
+                                attachObj.ID = tAttachobj.ID;
+                                attachObj.SessionID = long.Parse(SessionID);
+                                ret.Add(attachObj);
+                            }
+                        }
+                        jsonStringOut = SerializeObjectInJSON(ret);
+                        break;
                     case WebFunctions.SessionsFunctions.AddAttachment:
                         break;
                     case WebFunctions.SessionsFunctions.RemoveAttachment:

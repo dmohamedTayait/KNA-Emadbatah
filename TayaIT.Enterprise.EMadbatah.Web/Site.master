@@ -52,7 +52,7 @@
                                   {
                                       if (CurrentUser.Role == UserRole.Admin)
                                       {
-                    %><li> <a class="settings" href="AdminHome.aspx">ادارة النظام</a></li><%
+                    %><li> <a class="settings" href="AdminHome.aspx">أعدادات المضبطة الألكترونية</a></li><%
                                                                                               }
                                   }
                

@@ -168,10 +168,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                     res = ReviewerFacade.FinalApproveSession(sessionId);
                                     if (res)
                                     {
-                                        string sessionFilesPath = _context.Server.MapPath("~") + "\\SessionFiles\\" + sd.EparlimentID;
+                                       /* string sessionFilesPath = _context.Server.MapPath("~") + "\\SessionFiles\\" + sd.EparlimentID;
                                         if (!Directory.Exists(sessionFilesPath))
                                             Directory.Delete(sessionFilesPath);//we have to delete temp word and html files also
-
+                                        */
                                         //EMAIL final approve
                                         //string toEmail = CurrentUser.Email;
                                         //string toUserName = CurrentUser.Name;

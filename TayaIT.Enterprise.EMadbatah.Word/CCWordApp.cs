@@ -1028,6 +1028,32 @@ namespace TayaIT.Enterprise.EMadbatah.Word
             return num;
 
         }
+
+        public int GetCurrentPageLineNumber(bool end)
+        {
+            int lineNo = 0;
+            foreach (Microsoft.Office.Interop.Word.Range range in  oWordApplic.ActiveDocument.Words)
+            {
+                lineNo = (int)range.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+            }
+
+            /*object oMissing = System.Reflection.Missing.Value;
+            Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticLines;
+            int num = oDoc.ComputeStatistics(stat, ref oMissing);
+            return num;*/
+
+            if (end)
+                GoToTheEnd();
+            //return GetCurrentPageNumber();
+            object oMissing = System.Reflection.Missing.Value;
+           // object totalPages = Microsoft.Office.Interop.Word.WdFieldType.wdFieldNumPages;
+            Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticLines;
+            int num = oDoc.ComputeStatistics(stat, ref oMissing);
+            //num = DocumentComputeStatistics();
+            return num;
+
+
+        }
         private int DocumentComputeStatistics()
         {
             object IncludeFootnotesAndEndnotes = false;

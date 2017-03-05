@@ -17,6 +17,17 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             
             return numPages;
         }
+
+        public static int GetDocumentLineNum(string docPath,bool end)
+        {
+            WordDocument doc = new WordDocument();
+            doc.Open(docPath, false);
+            int numPages = doc.GetCurrentPageLineNumber(end);
+            doc.Quit();
+
+            return numPages;
+        }
+
         public static bool ConvertDocument(string sourceDocPath, string targetFilePath, EMadbatah.Model.TargetFormat format)
         {
             return WordConverter.ConvertDocument(sourceDocPath, targetFilePath, format);

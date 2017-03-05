@@ -131,7 +131,7 @@
                                     <asp:ListItem Value="2" Text="زائر خارجى "></asp:ListItem>
                                     <asp:ListItem Value="3" Text="السادة الوزراء"></asp:ListItem>
                                     <asp:ListItem Value="5" Text="رئيس المجلس"></asp:ListItem>
-                                    <asp:ListItem Value="9" Text="العائلة المالكة"></asp:ListItem>
+                                    <asp:ListItem Value="9" Text="أمير البلاد"></asp:ListItem>
                                 </asp:DropDownList>
                             </ItemTemplate>
                             <EditItemTemplate>
@@ -140,7 +140,7 @@
                                     <asp:ListItem Value="1" Text="عضو من المجلس"></asp:ListItem>
                                     <asp:ListItem Value="3" Text="السادة الوزراء"></asp:ListItem>
                                     <asp:ListItem Value="5" Text="رئيس المجلس"></asp:ListItem>
-                                    <asp:ListItem Value="9" Text="العائلة المالكة"></asp:ListItem>
+                                    <asp:ListItem Value="9" Text="أمير البلاد"></asp:ListItem>
                                 </asp:DropDownList>
                             </EditItemTemplate>
                         </asp:TemplateField>

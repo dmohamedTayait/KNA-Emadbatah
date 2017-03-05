@@ -34,6 +34,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             AssignSessionStart, //IN userID, sessionStartID, OUT=bool
             GetSessionFiles, //IN sessionID, OUT=HTML
             ReorderSessionFiles,//IN sessionFileID, sessionFileOldOrder, sessionFileNewOrder, OUT=bool
+            GetSessionAttachments,
             AddAttachment,
             RemoveAttachment,
             ReOrderAttachment,//IN attachementID, attachementOldOrder, attachementNewOrder, OUT=bool

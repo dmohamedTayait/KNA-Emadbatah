@@ -1,4 +1,4 @@
-﻿<%@ Page Title="المضبطة الإلكترونية - ادارة النظام" Language="C#" AutoEventWireup="true"
+﻿<%@ Page Title="المضبطة الإلكترونية - أعدادات المضبطة الألكترونية" Language="C#" AutoEventWireup="true"
     CodeFile="AdminHome.aspx.cs" Inherits="TayaIT.Enterprise.EMadbatah.Web.AdminHome"
     MasterPageFile="~/Site.master" %>
 
@@ -12,21 +12,21 @@
             <div class="adminhomebutton create_ico">
                 <a href="CreateNewSession.aspx">اضافة مضبطة جديدة</a></div>
             <div class="adminhomebutton session_icon">
-                <a href="AdminSessions.aspx">إدارة الجلسات</a></div>
+                <a href="AdminSessions.aspx">مستخدمو المضابط</a></div>
             <div class="adminhomebutton user_icon">
                 <a href="ManageDefaultAttendance.aspx">إدارة الأعضاء</a></div>
             <div class="adminhomebutton setting_icon">
-                <a href="ManageProcedureTypes.aspx">إدارة الاجراءات</a></div>
+                <a href="ManageProcedureTypes.aspx">الاجراءات</a></div>
             <div class="clear">
             </div>
             <div class="adminhomebutton setting_icon">
                 <a href="ManageSessionAttributes.aspx">إدارة بيانات المضبطة</a></div>
             <div class="adminhomebutton setting_icon">
-                <a href="ManageCommittees.aspx">إدارة اللجان</a></div>
+                <a href="ManageCommittees.aspx">بيانات اللجان</a></div>
             <div class="adminhomebutton user_icon">
-                <a href="AdminSecurity.aspx">إدارة المستخدمين</a></div>
+                <a href="AdminSecurity.aspx">بيانات المستخدمين</a></div>
                   <div class="adminhomebutton setting_icon">
-                <a href="AdminAPPConfig.aspx">إدارة الإعدادات</a></div>
+                <a href="AdminAPPConfig.aspx">أعدادات النظام</a></div>
             <div class="clear">
             </div>
         </div>

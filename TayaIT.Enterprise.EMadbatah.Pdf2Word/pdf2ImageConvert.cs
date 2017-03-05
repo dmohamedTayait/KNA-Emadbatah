@@ -55,11 +55,18 @@ namespace TayaIT.Enterprise.EMadbatah.Pdf2Word
             converter.FirstPageToConvert = pageno;
             converter.LastPageToConvert = pageno;
             converter.FitPage = true;
-            converter.JPEGQuality = 10;
-            converter.OutputFormat = "pngalpha";
+            converter.JPEGQuality = 100;
+            converter.ResolutionX = 300; //dpi
+            converter.ResolutionY = 300;
+            //converter.DefaultPageSize = PdfPageSize.letter;
+         /*   converter.Width = 2380;
+            converter.Height = 3368;*/
+            converter.Width = 2380;
+            converter.Height = 3500;
+            converter.OutputFormat = "jpeg";
 
 
-            string output = outputDirectory + "\\" + input.Name.Substring(0, input.Name.Length - 4) + "_" + pageno + ".png";
+            string output = outputDirectory + "\\" + input.Name.Substring(0, input.Name.Length - 4) + "_" + pageno + ".jpg";
             
             converter.Convert(input.FullName, output);
             

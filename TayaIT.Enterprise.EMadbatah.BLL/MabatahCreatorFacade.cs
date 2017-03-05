@@ -136,7 +136,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             WordTemplateHandler.replaceCustomXML(outCoverPath, sb.ToString());
         }
 
-          public static int CreateMadbatahBody(long sessionID, string outFilePath, string SessionWorkingDir, string ServerMapPath, Model.SessionDetails details, out List<MadbatahIndexItem> index, out List<SpeakersIndexItem> speakersIndex)
+        public static int CreateMadbatahBody(long sessionID, string outFilePath, string SessionWorkingDir, string ServerMapPath, Model.SessionDetails details, out List<MadbatahIndexItem> index, out List<SpeakersIndexItem> speakersIndex)
         {
 
             string docPath = outFilePath;
@@ -339,7 +339,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 return -1;
             }
         }
-               
+
         public static void WriteAttendantInWord(SessionContentItem contentItem, Attendant att, WordprocessingWorker doc)
         {
             if (att.Type != (int)Model.AttendantType.UnAssigned)
@@ -358,7 +358,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             attFullPresentationName = "السيد " + att.ShortName.Trim();
                         else attFullPresentationName = att.AttendantTitle.Trim() + " " + att.ShortName.Trim();
                         attFullPresentationName = "( " + attFullPresentationName;
-                        if(String.IsNullOrEmpty(att.JobTitle))//if (att.Type != 3)
+                        if (String.IsNullOrEmpty(att.JobTitle))//if (att.Type != 3)
                             attFullPresentationName = attFullPresentationName + ")";
                         doc.AddParagraph(attFullPresentationName, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (!String.IsNullOrEmpty(att.JobTitle))
@@ -446,7 +446,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     if (fullparag != "")
                     {
                         myCollection2.Add(grp[i].PageFooter);
-                      
+
                         for (int pp = 0; pp < paragraphs.Length; pp++)
                         {
                             parag += TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " ");
@@ -718,7 +718,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         }
                     }
                     pages = parts.Distinct().ToList();
-                   
+
                     if (pagesStr.Length > 2)
                         pagesStr = pagesStr.Remove(pagesStr.Length - 2);
                     sb.Append(emptyRowBold.Replace("ItemName", item.Name.Trim()).Replace("PageNum", pagesStr));
