@@ -1029,18 +1029,27 @@ namespace TayaIT.Enterprise.EMadbatah.Word
 
         }
 
-        public int GetCurrentPageLineNumber(bool end)
+        public long GetCurrentPageLineNumber(bool end)
         {
-            int lineNo = 0;
+            long lineNo = 0;
             foreach (Microsoft.Office.Interop.Word.Range range in  oWordApplic.ActiveDocument.Words)
             {
-                lineNo = (int)range.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+                lineNo = (long)range.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
             }
-
+            return lineNo;
             /*object oMissing = System.Reflection.Missing.Value;
             Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticLines;
             int num = oDoc.ComputeStatistics(stat, ref oMissing);
-            return num;*/
+            return num;
+
+
+            object missing = System.Reflection.Missing.Value;
+            object what = Microsoft.Office.Interop.Word.WdGoToItem.wdGoToPercent;
+            object which = Microsoft.Office.Interop.Word.WdGoToDirection.wdGoToLast;
+            oDoc.GoTo(ref what, ref which, ref missing, ref missing);
+
+
+
 
             if (end)
                 GoToTheEnd();
@@ -1050,10 +1059,42 @@ namespace TayaIT.Enterprise.EMadbatah.Word
             Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticLines;
             int num = oDoc.ComputeStatistics(stat, ref oMissing);
             //num = DocumentComputeStatistics();
-            return num;
+            return num;*/
 
 
         }
+
+        public long GetCurrentPageLineNumber(int Page)
+        {
+            long lineNo = 0;
+           /* object What = Microsoft.Office.Interop.Word.WdGoToItem.wdGoToPage;
+            object Which = Microsoft.Office.Interop.Word.WdGoToDirection.wdGoToAbsolute;
+            object Miss = System.Reflection.Missing.Value;
+            object Start;
+            object End;
+            object CurrentPageNumber;
+            object NextPageNumber;
+
+            CurrentPageNumber = (Convert.ToInt32(Page.ToString()));
+            NextPageNumber = (Convert.ToInt32((Page + 1).ToString()));
+
+            // Get start position of current page
+            Start = oWordApplic.Selection.GoTo(ref What, ref Which, ref CurrentPageNumber, ref Miss).Start;
+
+            // Get end position of current page                                
+            End = oWordApplic.Selection.GoTo(ref What, ref Which, ref NextPageNumber, ref Miss).End;
+
+            lineNo = (long)oDoc.Range(ref Start, ref End).get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+
+          
+            */
+            Microsoft.Office.Interop.Word.Range range2 = oWordApplic.ActiveDocument.Words.Last;
+            lineNo = (long)range2.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+
+            lineNo = (long)range2.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+            return lineNo;
+        }
+
         private int DocumentComputeStatistics()
         {
             object IncludeFootnotesAndEndnotes = false;

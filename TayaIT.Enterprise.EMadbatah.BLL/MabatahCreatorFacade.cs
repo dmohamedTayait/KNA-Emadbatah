@@ -44,7 +44,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                 //Madbatah Index
                 int indexSize = 0;
-                indexSize = MabatahCreatorFacade.CreateMadbatahIndex(index, SessionWorkingDir, indexSize, bodySize, SessionWorkingDir + "indexDoc.docx", ServerMapPath, details);
+                indexSize = MabatahCreatorFacade.CreateMadbatahIndex(index, SessionWorkingDir, indexSize, SessionWorkingDir + "indexDoc.docx", ServerMapPath, details);
                 if (indexSize == -1)
                     throw new Exception("Index with Attachment Creation Failed.");
 
@@ -54,7 +54,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 if (speakerSize == -1)
                     throw new Exception("Speakers Index Creation Failed.");
 
-                MabatahCreatorFacade.CreateMadbatahIndex(index, SessionWorkingDir, indexSize + speakerSize + coverSize + sessionStartSize, bodySize, SessionWorkingDir + "indexDoc.docx", ServerMapPath, details);
+                MabatahCreatorFacade.CreateMadbatahIndex(index, SessionWorkingDir, indexSize + speakerSize + coverSize + sessionStartSize, SessionWorkingDir + "indexDoc.docx", ServerMapPath, details);
                 MabatahCreatorFacade.CreateSpeakersIndex(speakersIndex, indexSize + speakerSize + coverSize + sessionStartSize, ServerMapPath, SessionWorkingDir + "indexSpeakers.docx");
 
                 //Merga All Generated Files
@@ -207,11 +207,11 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                             if (k == 0)//First Time only to be Executed 
                             {
-                                //Prepare Speaker to be written in Word SpeakersFehres
-                                pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                                 Attendant att = sessionItem.Attendant;
                                 if (att.Type == (int)Model.AttendantType.FromTheCouncilMembers)
                                 {
+                                    //Prepare Speaker to be written in Word SpeakersFehres
+                                    pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                                     int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString(), att.Type));
                                     if (itemIndex == -1)
                                         speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), pageNum.ToString() + ",", att.Type));
@@ -290,6 +290,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);//write attach images
                                         ii++;
                                     }
+                                    doc.AddPageBreak();
                                 }
                             }
                             if (speakerGroup[j].Count == k)// reach the loop end
@@ -326,9 +327,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     doc.AddParagraph("الأمين العام", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                     doc.Save();
-                    int num = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
+                   // int num = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);//GetCurrentPageNumber();
                     doc.Dispose();
-                    return num;
+                    return 1;
                 }
             }
             catch (Exception ex)
@@ -572,7 +573,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
         public static string pCenterDefStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defBoldFont + SessionStartFacade.defFontSize + SessionStartFacade.textCenter;
         public static string pUnderLineCenterDefStyle = SessionStartFacade.marginZeroStyle + SessionStartFacade.defBoldFont + SessionStartFacade.defFontSize + SessionStartFacade.textCenter + SessionStartFacade.textunderline;
         public static string emptyParag = "<p style='" + SessionStartFacade.marginZeroStyle + "'>&nbsp;</p>";
-        public static int CreateMadbatahIndex(List<MadbatahIndexItem> index, string folderPath, int indexSize, int bodySize, string outIndexPath, string ServerMapPath, Model.SessionDetails details)
+        public static int CreateMadbatahIndex(List<MadbatahIndexItem> index, string folderPath, int indexSize, string outIndexPath, string ServerMapPath, Model.SessionDetails details)
         {
             try
             {

@@ -22,10 +22,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-           // TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(269, "/test/269/", "");
+            TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(238, "/test/238/", "");
           //   string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(155);
+            //select * from SessionFile where Name like '%1369b_07%'
 
-            int count = TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordCom.GetDocumentLineNum(@"C:\test\test.docx",false);
+           // TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordCom.ConvertDocument(@"C:\test\248.docx", @"C:\test\248.docx".Replace(".docx", ".pdf"), TayaIT.Enterprise.EMadbatah.Model.TargetFormat.Pdf);
+           // int count = TayaIT.Enterprise.EMadbatah.OpenXml.Word.WordCom.GetDocumentLineNum(@"C:\test\test.docx",false);
+
+           // byte[] wordDoc = System.IO.File.ReadAllBytes(@"C:\test\248.docx");
+          //  byte[] pdfDoc = System.IO.File.ReadAllBytes(@"C:\test\248.docx".Replace(".docx", ".pdf"));
+          //  SessionHelper.UpdateSessionWordAndPdfFiles(275, wordDoc, pdfDoc);
 
 
             string htmlText = "<span>test span</span> <span>test span2</span> test betweeen line<p procedure-id>test div</p>test between line2<p procedure-id>test div2</p>";

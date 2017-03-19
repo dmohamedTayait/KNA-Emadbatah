@@ -18,11 +18,11 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             return numPages;
         }
 
-        public static int GetDocumentLineNum(string docPath,bool end)
+        public static long GetDocumentLineNum(string docPath,bool end)
         {
             WordDocument doc = new WordDocument();
             doc.Open(docPath, false);
-            int numPages = doc.GetCurrentPageLineNumber(end);
+            long numPages = doc.GetCurrentPageLineNumber(end);
             doc.Quit();
 
             return numPages;

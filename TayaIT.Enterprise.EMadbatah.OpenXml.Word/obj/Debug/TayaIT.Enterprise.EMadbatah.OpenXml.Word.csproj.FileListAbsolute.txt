@@ -97,6 +97,8 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Mic
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.csprojResolveAssemblyReference.cache
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\ResolveAssemblyReference.cache
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\gsdll32.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.pdb
@@ -127,6 +129,4 @@ E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Ope
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\bin\Debug\Microsoft.Practices.ServiceLocation.xml
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\ResolveAssemblyReference.cache
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.OpenXml.Word\obj\Debug\TayaIT.Enterprise.EMadbatah.OpenXml.Word.pdb

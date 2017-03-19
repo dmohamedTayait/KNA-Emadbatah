@@ -5,12 +5,12 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 using iTextSharp.text.pdf;
- 
+
 namespace TayaIT.Enterprise.EMadbatah.Pdf2Word
 {
     public class pdf2ImageConvert
     {
-        
+
 
         /////////////////////////////////
         ////////////////////////////////
@@ -19,7 +19,7 @@ namespace TayaIT.Enterprise.EMadbatah.Pdf2Word
         {
             //String pdfFilePath = "Madbtah.pdf";
             int pagenos = getNumberOfPdfPages(pdfFilePath);
-            if(pagenos < 1)
+            if (pagenos < 1)
                 pagenos = GetPDFPageCount(pdfFilePath);
             convert(pdfFilePath, pagenos);
         }
@@ -32,16 +32,16 @@ namespace TayaIT.Enterprise.EMadbatah.Pdf2Word
 
             System.IO.FileInfo input = new FileInfo(pdfFilePath);
 
-            string directoryString = input.Directory + "\\"+input.Name.Substring(0, input.Name.Length - 4);
-            
+            string directoryString = input.Directory + "\\" + input.Name.Substring(0, input.Name.Length - 4);
+
             if (Directory.Exists(directoryString))
                 ;
             else
                 Directory.CreateDirectory(directoryString);
 
-            for(int i=0;i<pageNo;i++)
+            for (int i = 0; i < pageNo; i++)
             {
-                convertPage(input, directoryString, i+1);
+                convertPage(input, directoryString, i + 1);
             }
 
         }
@@ -49,49 +49,41 @@ namespace TayaIT.Enterprise.EMadbatah.Pdf2Word
         /////////////////////////////////////
         /////////////////////////////////////
 
-        private static void convertPage(FileInfo input, string outputDirectory,int pageno)
+        private static void convertPage(FileInfo input, string outputDirectory, int pageno)
         {
             PDFConvert converter = new PDFConvert();
             converter.FirstPageToConvert = pageno;
             converter.LastPageToConvert = pageno;
             converter.FitPage = true;
-            converter.JPEGQuality = 100;
-            converter.ResolutionX = 300; //dpi
-            converter.ResolutionY = 300;
+            converter.JPEGQuality = 85;
+            converter.ResolutionX = 100; //dpi
+            converter.ResolutionY = 100;
             //converter.DefaultPageSize = PdfPageSize.letter;
-         /*   converter.Width = 2380;
-            converter.Height = 3368;*/
-            converter.Width = 2380;
-            converter.Height = 3500;
+            /*   converter.Width = 2380;
+               converter.Height = 3368;*/
+           // converter.Width = 1190;
+           // converter.Height = 1684;
             converter.OutputFormat = "jpeg";
 
-
             string output = outputDirectory + "\\" + input.Name.Substring(0, input.Name.Length - 4) + "_" + pageno + ".jpg";
-            
-            converter.Convert(input.FullName, output);
-            
 
+            converter.Convert(input.FullName, output);
         }
 
+        public static int GetPDFPageCount(string path)
+        {
+            // open the file
+            PdfReader pdf_file = new PdfReader(path);
 
-        ///////////////////////////////////
-        //////////////////////////////////
+            // read it's page count
+            int page_count = pdf_file.NumberOfPages;
 
- 
-public static int GetPDFPageCount(string path)
-{                 
-      // open the file
-      PdfReader pdf_file = new PdfReader(path);
- 
-      // read it's page count
-      int page_count = pdf_file.NumberOfPages;
- 
-      // close the file.
-      pdf_file.Close();
- 
-      // return the value
-      return page_count;
-}
+            // close the file.
+            pdf_file.Close();
+
+            // return the value
+            return page_count;
+        }
 
 
         public static int getNumberOfPdfPages(string fileName)

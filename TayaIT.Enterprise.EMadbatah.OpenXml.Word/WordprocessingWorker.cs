@@ -13,6 +13,8 @@ using System.Xml.Linq;
 using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
+using OVML = DocumentFormat.OpenXml.Vml.Office;
+using V = DocumentFormat.OpenXml.Vml;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -412,33 +414,18 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
         public int CountPagesUsingOpenXML(WordprocessingWorker doc, string docPath, DocXmlParts xmlFilesPaths, string serverMapPath, out WordprocessingWorker worker)
         {
-            //worker = doc;
-            //return WordCom.GetDocumentNumPages(docPath);
-            //WordprocessingWorker tmpDoc = ObjectCopier.Clone<WordprocessingWorker>(doc);//openxml wordprocessing object is not serializable           
-            //usama 
+            string tmpFileName = "";
+            int count = 0;
             try
             {
-                int count = 0;
                 doc.Save();
                 doc.Dispose();
 
-                string tmpFileName = docPath.Replace(".docx", "_temp.docx");
+                tmpFileName = docPath.Replace(".docx", "_temp.docx");
                 using (WordprocessingWorker tmpDoc = new WordprocessingWorker(docPath, DocFileOperation.Open))
                 {
                     tmpDoc.SaveAs(tmpFileName);
                 }
-
-                //File.Copy(docPath, tmpFileName, true);
-
-
-                //FileInfo fi=new FileInfo(docPath);
-
-                //PdfMaker.PrintToPdf(fi.DirectoryName, serverMapPath, tmpFileName, tmpFileName.Replace(".docx", ".docx.pdf"));
-
-                //File.Copy(@"C:\PDF Writer\Output\Microsoft Word - body_temp.docx.pdf", tmpFileName.Replace(".docx", ".pdf"), true);
-                //File.Copy(@"C:\PDF Writer\Output\Microsoft Word - " + new FileInfo(tmpFileName).Name + ".pdf", tmpFileName.Replace(".docx", ".docx.pdf"), true);
-                //File.Delete(@"C:\PDF Writer\Output\Microsoft Word - " + new FileInfo(tmpFileName).Name + ".pdf");
-                //count = Pdf2Word.pdf2ImageConvert.GetPDFPageCount(tmpFileName.Replace(".docx", ".docx.pdf"));
                 count = WordCom.GetDocumentNumPages(tmpFileName);
                 //Thread.Sleep(1000);
                 while (true)
@@ -457,18 +444,17 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         break;
                 }
 
-                File.Delete(tmpFileName);
-                //File.Delete(tmpFileName.Replace(".docx", ".docx.pdf"));
 
-                worker = new WordprocessingWorker(docPath, DocFileOperation.Open);
-                //worker.SaveAs(docPath);
-                return count;
             }
             catch (Exception ex)
             {
-                worker = doc;
-                return 0;
+                Util.LogHelper.LogException(ex, "CountPagesUsingOpenXML");
+                Thread.ResetAbort();
             }
+
+            File.Delete(tmpFileName);
+            worker = new WordprocessingWorker(docPath, DocFileOperation.Open);
+            return count;
         }
 
         public int GetCurrentPageNumber()
@@ -502,6 +488,23 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             Save();
         }
+
+        public void AddPageBreak()
+        {
+            if (_docMainPart == null)
+                _docMainPart = _currentDoc.AddMainDocumentPart();
+            if (_docMainPart.Document == null)
+                _docMainPart.Document = MakeEmpyDocument();
+
+            Paragraph paragraph = new Paragraph();
+            Run run = new Run(new Break() { Type=BreakValues.Page });
+            paragraph.Append(run);
+
+            _docMainPart.Document.Body.Append(paragraph);
+
+            Save();
+        }
+
         public void AddCarriageReturn()
         {
 
@@ -870,14 +873,60 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             Save();
         }
 
-        //public void GenerateAllFootNoteWork()
-        //{
-        //            GeneratedCode.GeneratedClass gc = new GeneratedCode.GeneratedClass();
-        //            gc.CreateMainDocumentPart(_docMainPart);
-        //            Save();
-        //}
+     /*   public static void AppendEmbeddedObject(MainDocumentPart mainDocumentPart, FileInfo fileInfo, bool displayAsIcon)
+        {
+            OpenXmlEmbeddedObject openXmlEmbeddedObject = new OpenXmlEmbeddedObject(fileInfo, displayAsIcon);
 
+            if (!String.IsNullOrEmpty(openXmlEmbeddedObject.OleObjectBinaryData))
+            {
+                using (Stream dataStream = new MemoryStream(Convert.FromBase64String(openXmlEmbeddedObject.OleObjectBinaryData)))
+                {
+                    if (!String.IsNullOrEmpty(openXmlEmbeddedObject.OleImageBinaryData))
+                    {
+                        using (Stream emfStream = new MemoryStream(Convert.FromBase64String(openXmlEmbeddedObject.OleImageBinaryData)))
+                        {
+                            string imagePartId = GetUniqueXmlItemID();
+                            ImagePart imagePart = mainDocumentPart.AddImagePart(ImagePartType.Emf, imagePartId);
 
+                            if (emfStream != null)
+                            {
+                                imagePart.FeedData(emfStream);
+                            }
+
+                            string embeddedPackagePartId = GetUniqueXmlItemID();
+
+                            if (dataStream != null)
+                            {
+                                if (openXmlEmbeddedObject.ObjectIsOfficeDocument)
+                                {
+                                    EmbeddedPackagePart embeddedObjectPart = mainDocumentPart.AddNewPart<EmbeddedPackagePart>(
+                                        openXmlEmbeddedObject.FileContentType, embeddedPackagePartId);
+                                    embeddedObjectPart.FeedData(dataStream);
+                                }
+                                else
+                                {
+                                    EmbeddedObjectPart embeddedObjectPart = mainDocumentPart.AddNewPart<EmbeddedObjectPart>(
+                                        openXmlEmbeddedObject.FileContentType, embeddedPackagePartId);
+                                    embeddedObjectPart.FeedData(dataStream);
+                                }
+                            }
+
+                            if (!displayAsIcon && !openXmlEmbeddedObject.ObjectIsPicture)
+                            {
+                                Paragraph attachmentHeader = CreateParagraph(String.Format("Attachment: {0} (Double-Click to Open)", fileInfo.Name));
+                                mainDocumentPart.Document.Body.Append(attachmentHeader);
+                            }
+
+                            Paragraph embeddedObjectParagraph = GetEmbeededObjectParagraph(openXmlEmbeddedObject.FileType,
+                                imagePartId, openXmlEmbeddedObject.OleImageStyle, embeddedPackagePartId);
+
+                            mainDocumentPart.Document.Body.Append(embeddedObjectParagraph);
+                        }
+                    }
+                }
+            }
+        }
+        */
         public void Save()
         {
             try

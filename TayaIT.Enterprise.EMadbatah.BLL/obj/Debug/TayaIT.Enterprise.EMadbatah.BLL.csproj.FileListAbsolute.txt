@@ -144,8 +144,8 @@ E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enter
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.Web.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\OpenXmlPowerTools.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.dll
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\OpenXmlPowerTools.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\Bullzip.PdfWriter.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\itextsharp.dll
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
@@ -165,8 +165,8 @@ E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enter
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enterprise.EMadbatah.Vecsys.pdb
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\DocumentFormat.OpenXml.xml
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\OpenXmlPowerTools.pdb
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\TayaIT.Enterprise.EMadbatah.Word.pdb
+E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\OpenXmlPowerTools.pdb
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
 E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.BLL\bin\Debug\Microsoft.Practices.ServiceLocation.xml

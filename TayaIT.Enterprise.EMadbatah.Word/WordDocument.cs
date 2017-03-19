@@ -52,9 +52,14 @@ namespace TayaIT.Enterprise.EMadbatah.Word
             return wordApp.GetNumPages();
         }
 
-        public int GetCurrentPageLineNumber(bool end)
+        public long GetCurrentPageLineNumber(bool end)
         {
             return wordApp.GetCurrentPageLineNumber(end);
+        }
+
+        public long GetCurrentPageLineNumber(int page)
+        {
+            return wordApp.GetCurrentPageLineNumber(page);
         }
 
         public void insertText(string text, int fontSize, BasicFormat format, FontColor fontColor, TextFont font)
