@@ -657,6 +657,38 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static int FinalApproveSession(long sessionID, int madbatahStatusID,int madbatahFilesStatusID)
+        {
+            try
+            {
+                Session updated_session = null;
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    int res = 0;
+                    if (context.Sessions.Count<Session>() > 0)
+                    {
+                        updated_session = context.Sessions.FirstOrDefault(c => c.ID == sessionID);
+                        if (updated_session != null)
+                        {
+                            updated_session.SessionStatusID = madbatahStatusID;
+                            updated_session.SessionMadbatahWordFinal = updated_session.SessionMadbatahWord;
+                            updated_session.SessionMadbatahPDFFinal = updated_session.SessionMadbatahPDF;
+                            updated_session.MadbatahFilesStatusID = madbatahFilesStatusID;
+                        }
+                        res = context.SaveChanges();
+
+                    }
+                    return res;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionHelper.FinalApproveSession(" + sessionID + "," + madbatahFilesStatusID + "," + madbatahStatusID + ")");
+                return -1;
+            }
+        }
+
         public static int UpdateSessionMP3FilePath(long sessionID, string mp3path)
         {
             try

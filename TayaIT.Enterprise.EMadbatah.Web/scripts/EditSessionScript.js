@@ -566,6 +566,9 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 // next action
+                $(".sameAsPrevSpeaker").removeAttr('checked');
+                $(".isSessionPresident").removeAttr('checked');
+				$("#MainContent_txtSpeakerOtherJob").val('');
                 $(".next").removeAttr("disabled").triggerHandler('click');
             },
             error: function() {
@@ -818,13 +821,13 @@ $(document).ready(function() {
                     $("#select2-MainContent_ddlSpeakers-container").html($('#MainContent_ddlSpeakers :selected').text());
                     $("#select2-MainContent_ddlSpeakers-container").attr("title",$('#MainContent_ddlSpeakers :selected').text());
                     $('#MainContent_imgSpeakerAvatar').attr("src",response.AttendantAvatar +"?t=3");
-            }
-           }catch(err){}
+             }
+            } catch (err) {}
             if ($("#MainContent_ddlSpeakers > option:selected").text() == "غير محدد") {
                 $('#MainContent_ddlOtherTitles').val(0).attr('disabled', 'disabled');
                 $('#MainContent_ddlCommittee').val(0).hide().attr('disabled', 'disabled');
                 $('#MainContent_txtSpeakerOtherJob').val("").attr('disabled', 'disabled');
-				$('#MainContent_imgSpeakerAvatar').attr("src","/images/AttendantAvatars/unknown.jpg?t=1");
+                $('#MainContent_imgSpeakerAvatar').attr("src","/images/AttendantAvatars/unknown.jpg?t=1");
                 }
 
             // end binding DDL
@@ -1702,6 +1705,7 @@ $(document).ready(function() {
 
     // get where the cursor position
     function getCursorPosition(ed, callBack, mv) {
+        ed.undoManager.add();
         // vars
         var target;
         var objects = {};
@@ -1766,20 +1770,24 @@ $(document).ready(function() {
     }
 
     function cleanHTML(value) {
-        var emptyTagsBr = /<[\w]*(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?\sdata-mce-type=['"])[^>]*>\s*(<br\s*[\/]?>)?\s*<\/[\w]*>/g;
-        var cleaned = value.replace(emptyTagsBr, ' ');
-        return cleaned;
+        var emptyTagsBr = /<[\w]*(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?\sdata-mce-type=['"])[^>]*>\s*<\/[\w]*>/g;
+        //var emptyTagsBr = /<[\w]*(?=\s|>)(?!(?:[^>=]|=(['"])(?:(?!\1).)*\1)*?\sdata-mce-type=['"])[^>]*>\s*(<br\s*[\/]?>)?\s*<\/[\w]*>/g;
+        var cleaned = value.replace(emptyTagsBr, '');
+        return value;
     }
 
     // function for on key press
     function editorEvents(ed) {
         // on keydown
         ed.onKeyDown.add(function(ed, e) {
+            // undo
+            ed.undoManager.add();
             // to disable the merge of p tag with span tags
             var backSpaceKey = (e.keyCode == 8);
             var deleteKey = (e.keyCode == 46);
             // backspace
             if (backSpaceKey || deleteKey) {
+                ed.undoManager.add();
                 // get where the cursor position
                 if (getCursorPosition(ed, function(OB) {
                         if (backSpaceKey) {
@@ -1831,6 +1839,7 @@ $(document).ready(function() {
                             }
                         }
                     })) {
+                    ed.undoManager.add();
                     e.preventDefault();
                 }
             }
@@ -1840,12 +1849,14 @@ $(document).ready(function() {
 
         // check if the user writes on no where
         ed.onKeyPress.add(function (ed, e) {
+            ed.undoManager.add();
             getCursorPosition(ed, function(OB) {
                 var currentNode = OB.target;
                 if (currentNode.nodeName == 'BODY' && e.charCode != 13) {
                     // select the nearest tag
                     var nextElement = OB.nextSibling;
                     if (nextElement) {
+                        ed.undoManager.add();
                         var char = (e.keyCode == 32) ?  '&nbsp;' : String.fromCharCode(e.keyCode);
                         var mark = $('<i>'+char+'</i>');
                         $(nextElement).prepend(mark);
@@ -1853,6 +1864,7 @@ $(document).ready(function() {
                         $(currentNode).find('[data-mce-type]').remove();
                         ed.execCommand('mceCleanup');
                         ed.selection.collapse(false);
+                        ed.undoManager.add();
                         e.preventDefault();
                     }
                 }
@@ -1861,6 +1873,7 @@ $(document).ready(function() {
 
         // click on text tinyMCE editor
         ed.onKeyUp.add(function(ed, e) {
+            ed.undoManager.add();
             // check if the backspace
             if (e.keyCode == 8 || e.keyCode == 46) {
                 // to merge the spans together
@@ -1888,16 +1901,74 @@ $(document).ready(function() {
                     });
                 }
             };
+            ed.undoManager.add();
         });
     }
     //
     $('#MainContent_Textarea1, #MainContent_Textarea2').tinymce(defaultOptions);
     // change the default options
-    var newOptions = $.extend({}, defaultOptions);
-    newOptions.height = 200;
-    newOptions.theme_advanced_buttons1 = "bold,|,undo,redo";
-    newOptions.valid_elements = "@[class],strong,br,i[!id]";
-    newOptions.setup = function() {}
+    var newOptions = {
+        custom_undo_redo: true,
+        // General options
+        theme: "advanced",/*
+        plugins: "pagebreak,directionality,noneditable,paste",
+        paste_preprocess: function(pl, o) {
+            getCursorPosition(this, function(OB) {
+                // Content string containing the HTML from the clipboard
+                var stripedContent = o.content.replace(/&nbsp;/g, ' ').replace(/(<([^>]+)>)/ig, '');
+                var cleanedHTML = cleanHTML(stripedContent);
+                o.content = cleanedHTML
+            });
+        },*/
+        language: "ar",
+        // direction
+        directionality: "rtl",
+        // clean up
+        cleanup: true,
+        cleanup_on_startup: true,
+        width: '100%',
+        height: 200,
+        theme_advanced_source_editor_wrap: true,
+        // Theme options
+        theme_advanced_buttons1: "bold,|,undo,redo",
+        theme_advanced_buttons2: "",
+        theme_advanced_buttons3: "",
+        theme_advanced_buttons4: "",
+        theme_advanced_path: false,
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "right",
+        theme_advanced_resizing: false,
+        // Example content CSS (should be your site CSS)
+        content_css: "styles/tinymce_content.css",
+        // invalid elements
+        invalid_elements: "applet,body,button,caption,fieldset ,font,form,frame,frameset,head,,html,iframe,img,input,link,meta,object,option,param,script,select,style,table,tbody,tr,td,th,tbody,textarea,xmp",
+        // valid elements
+        valid_elements: "@[class],strong,br,i[!id]",
+        force_br_newlines: true,
+        force_p_newlines: false,
+        forced_root_block: false,
+        cleanup_callback: function(type, value) {
+            switch (type) {
+                case "get_from_editor":
+                    break;
+                case "insert_to_editor":
+                    // Clear empty tags
+                    value = cleanHTML(value);
+                    break;
+                case "submit_content":
+                    break;
+                case "get_from_editor_dom":
+                    break;
+                case "insert_to_editor_dom":
+                    break;
+                case "setup_content_dom":
+                    break;
+                case "submit_content_dom":
+                    break;
+            }
+            return value;
+        }
+    }
     $('#MainContent_Textarea3').tinymce(newOptions);
 
     // ajax load the dropdown list
@@ -1948,6 +2019,8 @@ $(document).ready(function() {
                     var clone = $('<p/>').append(addingParText).attr('procedure-id', $this.data('value'));
                     var cloneHTML = clone[0].outerHTML;
                     var ed = $('#MainContent_Textarea2').tinymce();
+                    // add to the undo manager
+                    ed.undoManager.add();
                     // get caret position
                     getCursorPosition(ed, function(OB) {
                         if (OB.collapsed) {
@@ -1955,7 +2028,6 @@ $(document).ready(function() {
                             var nodeName = OB.target.nodeName;
                             // check node name
                             if (nodeName == 'BODY') {
-                                //OB.$mark.after(cloneHTML);
                                 ed.execCommand('mceInsertRawHTML', false, cloneHTML);
                             } else {
                                 if (

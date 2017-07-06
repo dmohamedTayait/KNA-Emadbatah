@@ -183,14 +183,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         //MailManager.SendMail(new Email(new Emailreceptionist(toEmail, toUserName)), SystemMailType.FinalApproveSession, emailData);
 
                                         
-                                        Thread t2 = new Thread(new ParameterizedThreadStart(EMadbatahFacade.CreateMadbatahFiles));
+                                      /*  Thread t2 = new Thread(new ParameterizedThreadStart(EMadbatahFacade.CreateMadbatahFiles));
 
                                         object[] threadParams = new object[4];
                                         threadParams[0] = sd;
                                         threadParams[1] = CurrentUser;
                                         threadParams[2] = _context;
                                         threadParams[3] = FileVersion.final;
-                                        t2.Start(threadParams);
+                                        t2.Start(threadParams);*/
 
                                         //  EMadbatahFacade.CreateMadbatahFiles(sd, CurrentUser, _context, FileVersion.final);
 

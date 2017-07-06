@@ -294,11 +294,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         Attendant attendObj = AttendantHelper.GetAttendantById(retItem.AttendantID);
                                         if (attendObj != null && attendObj.AttendantAvatar != null && attendObj.AttendantAvatar != "")
                                         {
-                                            result["AttendantAvatar"] =  "/images/AttendantAvatars/" + attendObj.AttendantAvatar;
+                                            result["AttendantAvatar"] = "/images/AttendantAvatars/" + attendObj.AttendantAvatar + "?t=" + DateTime.Now.ToString();
                                         }
                                         else
                                         {
-                                             result["AttendantAvatar"]  = "/images/unknown.jpg?t=" + DateTime.Now.ToString();
+                                            result["AttendantAvatar"] = "/images/AttendantAvatars/unknown.jpg?t=" + DateTime.Now.ToString();
                                         }
 
                                         if (attendObj != null && attendObj.JobTitle != null )

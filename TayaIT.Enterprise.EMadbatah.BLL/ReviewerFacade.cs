@@ -45,16 +45,14 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             List<SessionContentItem> items = SessionContentItemHelper.GetSessionContentItemsBySessionIDAndNotStatusID(sessionId, (int)Model.SessionContentItemStatus.Approved);
             if (items.Count == 0 && !SessionContentItemHelper.DoesSessionContainsUndefinedAttendants(sessionId))
             {
-                SessionHelper.UpdateSessionStatus(sessionId, (int)Model.SessionStatus.FinalApproved);
-                /*Dina Comment: Madbatah creation failed, I think error file path*/
-                /*to b commented*/
-               // Eparliment ep = new Eparliment();
-               // ep.IngestContentsForFinalApprove(sessionId);
-                /*End to b commented*/
+                SessionHelper.FinalApproveSession(sessionId, (int)Model.SessionStatus.FinalApproved, (int)Model.MadbatahFilesStatus.FinalCreated);
                 return true;
             }
             else
+            {
+                SessionHelper.UpdateSessionStatus(sessionId, (int)Model.SessionStatus.Approved);
                 return false;
+            }
         }
         public static List<SessionContentItem> GetUserReviewNotes(long sessionId, long userId)
         {
