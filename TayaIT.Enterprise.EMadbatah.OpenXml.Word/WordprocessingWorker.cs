@@ -836,19 +836,15 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             paragraph.ParagraphProperties.SpacingBetweenLines = new SpacingBetweenLines() { After = "1", Line = "360", LineRule = LineSpacingRuleValues.Auto };
 
-            int i =0;
+            int i = 0;
+            bool emptyStr = false;
+            bool newParag = true;
             foreach (string paragraphTxt in paragraphTextArr)
             {
-                string paragraphText = System.Web.HttpUtility.HtmlDecode(paragraphTxt).Replace(";psbn&", " ").Replace("&nbsp;", " ");
-                Run run = new Run(new Text(paragraphText + " ") { Space = SpaceProcessingModeValues.Preserve });
-
-
-
                 if (i < footNoteTextArr.Count && !String.IsNullOrEmpty(footNoteTextArr[i]))
                 {
                     string footNoteText = footNoteTextArr[i];
                     FootnoteReference reference = new FootnoteReference() { Id = AddFootnoteReference(footNoteText + " .") };
-
                     List<OpenXmlElement> elements = new List<OpenXmlElement>();
                     elements.Add(
                     new Run(
@@ -860,17 +856,53 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         reference)
                     );
                     paragraph.Append(elements);
-                    paragraph.Append(run);
+                    newParag = false;
                 }
-                else
+
+                string[] sep = new string[1] { "#!#!#!" };
+                string[] pTextArr = System.Web.HttpUtility.HtmlDecode(paragraphTxt).Replace(";psbn&", " ").Replace("&nbsp;", " ").Split(sep, StringSplitOptions.None);
+                int j = 0;
+                foreach (string p in pTextArr)
                 {
-                    paragraph.Append(run);
+                    if (!emptyStr || (p.Trim() != "" && emptyStr))
+                    {
+                        if (p.Trim() == "")
+                            emptyStr = true;
+                        else emptyStr = false;
+
+                        Run run = new Run(new Text(p.Trim() + " ") { Space = SpaceProcessingModeValues.Preserve });
+                        paragraph.Append(run);
+                        newParag = false;
+
+                        if (pTextArr.Length != 1 && (j != pTextArr.Length - 1 || p.Trim() == ""))
+                        {
+                            _docMainPart.Document.Body.Append(paragraph);
+                            Save();
+
+                            paragraph = new Paragraph();
+                            paragraphProp = new ParagraphProperties();
+                            biDi1 = new BiDi();
+                            justification = new Justification();
+                            justification.Val = JustificationValues.LowKashida;
+                            paragraphProp.Append(biDi1);
+                            paragraphProp.Append(justification);
+                            paragraphProp.ParagraphStyleId = new ParagraphStyleId() { Val = paragraphType.ToString() };
+                            paragraph.Append(paragraphProp);
+
+                            paragraph.ParagraphProperties.SpacingBetweenLines = new SpacingBetweenLines() { After = "1", Line = "360", LineRule = LineSpacingRuleValues.Auto };
+                            newParag = true;
+                        }
+                        j++;
+                    }
                 }
                 i++;
             }
-            _docMainPart.Document.Body.Append(paragraph);
 
-            Save();
+            if (!newParag)
+            {
+                _docMainPart.Document.Body.Append(paragraph);
+                Save();
+            }
         }
 
      /*   public static void AppendEmbeddedObject(MainDocumentPart mainDocumentPart, FileInfo fileInfo, bool displayAsIcon)
@@ -2120,6 +2152,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 new Footnote(
                     new Paragraph(
                         new ParagraphProperties(new Justification() { Val = JustificationValues.Right },
+new Indentation() { Left = "720", Right = "720" },
                             new ParagraphStyleId() { Val = "FootNote" }),//htmlStyles.GetStyle("footnote text", false) }),
                         markerRun = new Run(
                             new RunProperties(new RightToLeftText(),

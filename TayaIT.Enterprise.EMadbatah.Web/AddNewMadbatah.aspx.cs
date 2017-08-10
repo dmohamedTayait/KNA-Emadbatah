@@ -22,7 +22,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-            TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(238, "/test/238/", "");
+            TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(10276, "/test/10276/", "");
           //   string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(155);
             //select * from SessionFile where Name like '%1369b_07%'
 

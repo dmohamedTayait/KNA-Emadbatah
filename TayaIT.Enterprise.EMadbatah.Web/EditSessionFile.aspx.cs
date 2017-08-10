@@ -146,6 +146,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             }
             //corrector
 
+            divTopic.Style.Add("display", "none");
             if (lastContentItem == null) // load from xml
             {
                 //// compose HTML spans from speech segments and set editor value
@@ -283,14 +284,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     Topic topicObj = TopicHelper.GetTopicByID((int)lastContentItem.TopicID);
                     topictitle = topicObj.Title;
                     topicId.Value = lastContentItem.TopicID.ToString();
-                    divTopic.Style.Add("display", "");
                     spanTopicTitle.InnerHtml = topictitle;
+                    chkTopic.Checked = true;
+                    aPopupGetAttTopic.Style.Add("display", "");
                 }
                 else
                 {
                     topicId.Value = "0";
-                    divTopic.Style.Add("display", "none");
                     spanTopicTitle.InnerHtml = "";
+                    chkTopic.Checked = false;
+                    aPopupGetAttTopic.Style.Add("display", "none");
                 }
 
 
@@ -372,12 +375,14 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 spanAttachTitle.InnerHtml = "";
 
                 topicId.Value = "0";
-                divTopic.Style.Add("display", "none");
                 spanTopicTitle.InnerHtml = "";
 
                 voteId.Value = "0";
                 divVote.Style.Add("display", "none");
                 spanVoteSubject.InnerHtml = "";
+
+                chkTopic.Checked = false;
+                aPopupGetAttTopic.Style.Add("display", "none");
             }
 
 

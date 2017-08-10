@@ -93,7 +93,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             UpdateCompletedSessionFileStatusCompleted,
             SplitItem,
             GetSpeakerJobTitle,
-            GetSpeakerJobTitleAndAvatar
+            GetSpeakerJobTitleAndAvatar,
+            GetTopicID
         }
 
         public enum FileFunctions

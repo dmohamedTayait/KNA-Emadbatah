@@ -160,6 +160,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                             else
                                 break;
                         }
+                    case WebFunctions.EditWizard.GetTopicID:
+                        {
+                            jsonStringOut = SerializeObjectInJSON(getSegmentTopicID());
+                            break;
+                        }
                     case WebFunctions.EditWizard.DoNext:
                         {
                             Session currentSession = null;
@@ -251,32 +256,12 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         //For Topics
                                         if (retItem.TopicID != null && retItem.TopicID != 0)
                                         {
-                                            Topic tpc = TopicHelper.GetTopicByID((int)retItem.TopicID);
-                                            if (tpc != null)
+                                            long prevTpcID = getPrevSegmentTopicID(FragOrder - 1);
+                                            //Topic tpc = TopicHelper.GetTopicByID((int)retItem.TopicID);
+                                            if (prevTpcID == 0 || prevTpcID == retItem.TopicID)//if (tpc != null)
                                             {
-                                                result["TopicTitle"] = tpc.Title;
-                                                result["TopicID"] = tpc.ID.ToString();
-                                            }
-                                            else
-                                            {
-                                                result["TopicTitle"] = "";
-                                                result["TopicID"] = "0";
-                                            }
-                                        }
-                                        else
-                                        {
-                                            result["TopicTitle"] = "";
-                                            result["TopicID"] = "0";
-                                        }
-
-                                        //For Topics
-                                        if (retItem.TopicID != null && retItem.TopicID != 0)
-                                        {
-                                            Topic tpc = TopicHelper.GetTopicByID((int)retItem.TopicID);
-                                            if (tpc != null)
-                                            {
-                                                result["TopicTitle"] = tpc.Title;
-                                                result["TopicID"] = tpc.ID.ToString();
+                                                result["TopicTitle"] = "";//tpc.Title;
+                                                result["TopicID"] = retItem.TopicID;// tpc.ID.ToString();
                                             }
                                             else
                                             {
@@ -454,7 +439,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                       //For Topics
                                       if (retItem.TopicID != null && retItem.TopicID != 0)
                                       {
-                                          Topic tpc = TopicHelper.GetTopicByID((int)retItem.TopicID);
+                                          /*Topic tpc = TopicHelper.GetTopicByID((int)retItem.TopicID);
                                           if (tpc != null)
                                           {
                                               result["TopicTitle"] = tpc.Title;
@@ -464,7 +449,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                           {
                                               result["TopicTitle"] = "";
                                               result["TopicID"] = "0";
-                                          }
+                                          }*/
+                                          result["TopicTitle"] = "";
+                                          result["TopicID"] = retItem.TopicID;
                                       }
                                       else
                                       {
@@ -1046,6 +1033,82 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             }
             return output;
         }
+        private long getPrevSegmentTopicID(int prevItemOrderID)
+        {
+              SessionContentItem prevContentItem = SessionContentItemFacade.GetSessionContentItemByIdAndFragmentOrder(Session_File_ID, prevItemOrderID);
+              if (prevItemOrderID == 0)
+              {
+                  if (prevContentItem.TopicID == null || prevContentItem.TopicID == 0)
+                      return 0;
+
+                  else return (long)prevContentItem.TopicID;
+              }
+              if (prevContentItem.Ignored == true)
+              {
+                  prevItemOrderID = prevItemOrderID - 1;
+                  getPrevSegmentTopicID(prevItemOrderID);
+              }
+              if (prevContentItem.TopicID == null || prevContentItem.TopicID == 0)
+                  return 0;
+              else
+                  return (long)prevContentItem.TopicID;
+        }
+
+        private long getNextSegmentTopicID()
+        {
+            try
+            {
+                loadSessionValues();
+                int nextItemOrderID = FragOrder + 1;
+                SessionContentItem nextContentItem = SessionContentItemFacade.GetSessionContentItemByIdAndFragmentOrder(Session_File_ID, nextItemOrderID);
+                if (nextContentItem.TopicID == null || nextContentItem.TopicID == 0)
+                    return 0;
+                else
+                    return (long)nextContentItem.TopicID;
+            }
+            catch { return 0; }
+        }
+
+        private long getSegmentTopicID()
+        {
+            loadSessionValues();
+            int prevItemOrderID = FragOrder - 1;
+            long topicId = 0;
+            SessionContentItem currContentItem = SessionContentItemFacade.GetSessionContentItemByIdAndFragmentOrder(Session_File_ID, FragOrder);
+            if (FragOrder == 0)
+            {
+                if (currContentItem == null || currContentItem.TopicID == null || currContentItem.TopicID == 0)
+                {
+                    Topic tpObj = new Topic();
+                    tpObj.SessionID = Session_ID;
+                    tpObj.CreatedAt = DateTime.Now;
+                    tpObj.UserID = CurrentUser.ID;
+                    topicId = TopicHelper.AddTopic(tpObj);
+                }
+                else
+                {
+                    topicId = (long)currContentItem.TopicID;
+                }
+            }
+            else
+            {
+                topicId = getPrevSegmentTopicID(prevItemOrderID);
+                if (topicId == 0 || topicId == null)
+                    topicId = getNextSegmentTopicID();
+
+                if (topicId == 0 || topicId == null)
+                {
+                    Topic tpObj = new Topic();
+                    tpObj.SessionID = Session_ID;
+                    tpObj.CreatedAt = DateTime.Now;
+                    tpObj.UserID = CurrentUser.ID;
+                    topicId = TopicHelper.AddTopic(tpObj);
+                }
+            }
+
+            return topicId;
+        }
+
         public string EditPageMode
         {
             get

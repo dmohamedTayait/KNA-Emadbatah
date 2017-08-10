@@ -38,9 +38,6 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                 if (SessionFileID != null && long.TryParse(SessionFileID, out sessionFileID))
                 {
-                    
-                    //SessionIDHidden.Value = sessionFileID.ToString();
-                   
                     SessionFile sf = SessionFileHelper.GetSessionFileByID(sessionFileID);
                     SessionIDHidden.Value = sf.SessionID.ToString();
 
@@ -58,6 +55,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     List<SessionContentItem> lsCntItems = SessionContentItemHelper.GetSessionContentItemsBySessionFileID(sessionFileID);
                     long currentSpeaker = 0;
                     long prevSpeaker = 0;
+                    long topic_id = 0;
                     foreach (SessionContentItem item in lsCntItems)
                     {
                         AgendaItem curAgendaItem = item.AgendaItem;
@@ -75,6 +73,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
                         //if (!item.MergedWithPrevious.Value)
                         currentSpeaker = item.AttendantID;
+
+                        if (currentSpeaker != prevSpeaker && topic_id != 0)
+                        {
+                            //for Topics
+                            string reviewItemTopic = write_topic_att(topic_id, item);
+                            if (reviewItemTopic != "")
+                                sb.Append(reviewItemTopic);
+                            topic_id = 0;
+                        }
+
                         if (currentSpeaker != prevSpeaker)//if (!item.MergedWithPrevious.Value)
                         {
                             Attendant att = item.Attendant;
@@ -169,6 +177,35 @@ namespace TayaIT.Enterprise.EMadbatah.Web
 
 
                         sb.Append(reviewItem);
+
+                        if (item.TopicID != null && item.TopicID != 0)
+                        {
+                            topic_id = (long)item.TopicID;
+                        }
+
+                        if (item.ID == lsCntItems[lsCntItems.Count - 1].ID && topic_id != 0)
+                        {
+                            //for Topics
+                            string reviewItemTopic = write_topic_att(topic_id, item);
+                            if (reviewItemTopic != "")
+                                sb.Append(reviewItemTopic);
+                            topic_id = 0;
+                        }
+
+                        //for footnote
+                        if (!string.IsNullOrEmpty(item.PageFooter))
+                        {
+                            string reviewFootNote = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
+                                    .Replace("<%SessionContentItemID%>", item.ID.ToString())
+                                    .Replace("<%itemText%>", item.PageFooter)
+                                    .Replace("<%isLocked%>", "lockeditem")
+                                    .Replace("<%title%>", "هذا المقطع تذييل صفحة (للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) .. يمكنك الاطلاع فقط")
+                                    .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
+                                    .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
+                                    .Replace("<%UserName%>", item.User.FName)
+                                    .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تذييل صفحة");
+                            sb.Append(reviewFootNote);
+                        }
                     }
                     madbatahContents.InnerHtml += sb.ToString();
                 }
@@ -177,6 +214,41 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     ShowMainError(GetLocalizedString("strNoQueryStr"));
                 }
             }
+        }
+
+        public string write_topic_att(long topic_id, SessionContentItem item)
+        {
+            Topic tpcObj = TopicHelper.GetTopicByID(topic_id);
+            if (tpcObj != null)
+            {
+                string tpcParagStr = "";
+                //format attendant table
+                List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(topic_id);
+                List<string> attNamesLst = new List<string>();
+                for (int u = 0; u < tpcAtts.Count(); u += 2)
+                {
+                    Attendant att1 = new Attendant();
+                    Attendant att2 = new Attendant();
+                    att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
+                    tpcParagStr += "<div style='width:700px;'><div style='width:300px;float:right'>" + att1.LongName + "</div>";
+                    if (u + 1 < tpcAtts.Count())
+                    {
+                        att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
+                        tpcParagStr += "<div style='width:300px;float:right'>" + att2.LongName + "</div>";
+                    }
+                    tpcParagStr += "</div>";
+                }
+
+                return Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
+                          .Replace("<%itemText%>", tpcParagStr)
+                                .Replace("<%isLocked%>", "lockeditem")
+                                .Replace("<%title%>", "هذا المقطع خاص بمقدمو طلب التوصيه / التوجيه")
+                                .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
+                                 .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
+                                 .Replace("<%UserName%>", item.User.FName);
+            }
+
+            return "";
         }
     }
 }

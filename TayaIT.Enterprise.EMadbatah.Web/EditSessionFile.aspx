@@ -74,8 +74,8 @@
                         value="اضافة تصويت" />
                     <input name="" runat="server" id="btnAddManagePoint" type="button" class="btn inputBlock mb-5 btnAddManagePoint btn_editsession"
                         value="نقطة نظام" />
-                    <input name="" runat="server" id="btnAddTopic" type="button" class="btn inputBlock mb-5 btnAddTopic btn_editsession"
-                        value="المقترحات / التوصيات" />
+                    <%-- <input name="" runat="server" id="btnAddTopic" type="button" class="btn inputBlock mb-5 btnAddTopic btn_editsession"
+                        value="المقترحات / التوصيات" />--%>
                     <input name="" id="btnSplit" runat="server" type="button" class="btn inputBlock mb-5 split btn_editsession"
                         value="اقطع" data-clipboard-action="cut" data-clipboard-target="#MainContent_txtFooter" />
                     <input name="" type="button" id="btnSaveOnly" runat="server" class="btn inputBlock mb-5 btnSaveOnly btn_editsession"
@@ -260,6 +260,17 @@
                                     رئيس الجلسة</label>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="grid_2 h2">
+                                &nbsp;</div>
+                            <div class="grid_11 h2">
+                                <input name="chkTopic" id="chkTopic" runat="server" class="chkTopic" type="checkbox"
+                                    value="" />
+                                <label for="chkTopic" style="margin-left:110px">
+                                    توصية</label>
+                                <a href="javascript:void(0)" class="aPopupGetAttTopic" style="text-decoration:underline" runat="server" name="aPopupGetAttTopic" id="aPopupGetAttTopic">مقدمو الطلب</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="grid_5">
                         <div class="user-image">
@@ -309,7 +320,7 @@
                     </span>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0)" class="removeVote">حذف
                         التصويت</a>
                 </div>
-                 <div class="row divTopic" id="divTopic" runat="server" name="divTopic">
+                <div class="row divTopic" id="divTopic" runat="server" name="divTopic">
                     <span style="color: Red">*</span> <span style="color: green">اسم الموضوع: </span>
                     <span id="spanTopicTitle" runat="server" name="spanTopicTitle" class="spanTopicTitle">
                     </span>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:void(0)" class="removeTopic">حذف
@@ -435,7 +446,7 @@
             <input type="checkbox" class="isAgendaItemIndexed" id="isAgendaItemIndexed" runat="server"
                 value="1" />
             <label for="MainContent_isAgendaItemIndexed">
-               <strong style="font-size: 12pt;"> بند رئيسى</strong></label>
+                <strong style="font-size: 12pt;">بند رئيسى</strong></label>
         </div>
         <div class="poppbtnscont fl">
             <div class="fl">
@@ -519,7 +530,7 @@
                 </div>
             </div>
         </div>
-          <div class="clear">
+        <div class="clear">
         </div>
         <div class="row" style="padding-top: 30px;">
             <div class="grid_16">
@@ -566,6 +577,35 @@
         <div class="poppbtnscont fl">
             <div class="fl" style="margin: 10px">
                 <input type="button" id="btnSaveTopic" class="btnSaveTopic btn" value="أضف" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="reviewpopup_cont popupAttendant graybg" style="width: 1260px !important;
+        left: 31% !important;height: auto;top: 450px;">
+        <div class="close_btn">
+        </div>
+        <div class="clear">
+        </div>
+        <div class="borderBD">
+            <h2>
+                <span class="red">*</span> مقدموا الطلب :<span> (</span><span class="spnTpcTitlePopup"></span><span>
+                    )</span>
+            </h2>
+        </div>
+        <div class="datacontainer inputcont datacontainer3 attendantCont">
+            <div id="AttCont" class="AttCont">
+            </div>
+        </div>
+        <div class="poppbtnscont fl">
+            <div class="fl" style="margin: 10px">
+                <input type="hidden" name="txtTpcID" class="txtTpcID" />
+                <input type="button" id="btnAddAttToTopic" class="btnAddAttToTopic btn" value="حفظ" />
                 <div class="clear">
                 </div>
             </div>

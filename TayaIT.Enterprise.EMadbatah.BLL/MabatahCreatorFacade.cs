@@ -224,7 +224,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             contentItemAsText = text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!");
                             contentItemGrp.Add(contentItem);
                             k++;
-
+                            /*
                             if (contentItem.TopicID != null)//If Current Segment Contains topic
                             {
                                 string topicTitle = "";
@@ -265,7 +265,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 doc.AddTable(attNamesLst);
                                 doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                             }
-
+                            */
                             if (contentItem.AttachementID != null)//If Current Segment Contains Attach
                             {
                                 string attachName = "";
@@ -281,7 +281,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     string wordAttFilePath = SessionWorkingDir + attachName.ToLower().Replace(".pdf", ".pdf.docx");
                                     string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, "")).OrderBy(p => new FileInfo(p).CreationTime).ToArray();
 
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp);// Copy the previuos segments before witing the attach
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp,1);// Copy the previuos segments before witing the attach
                                     text = "";
                                     contentItemAsText = "";
                                     contentItemGrp.Clear();//clear the segments array after writing them in the word
@@ -290,12 +290,37 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);//write attach images
                                         ii++;
                                     }
-                                    doc.AddPageBreak();
+                                   // doc.AddPageBreak();
                                 }
                             }
                             if (speakerGroup[j].Count == k)// reach the loop end
                             {
-                                WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp);
+                                if (sessionItem.TopicID != null && sessionItem.TopicID != 0)
+                                {
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp,0);
+                                    List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(sessionItem.TopicID.ToString()));
+                                    List<string> attNamesLst = new List<string>();
+                                    for (int u = 0; u < tpcAtts.Count(); u += 2)
+                                    {
+                                        Attendant att1 = new Attendant();
+                                        Attendant att2 = new Attendant();
+                                        string attNames = "";
+                                        att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
+                                        attNames = att1.LongName;
+                                        if (u + 1 < tpcAtts.Count())
+                                        {
+                                            att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
+                                            attNames += "," + att2.LongName;
+                                        }
+                                        attNamesLst.Add(attNames);
+                                    }
+                                    doc.AddTable(attNamesLst);
+                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                }
+                                else
+                                {
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp,1);
+                                }
                                 contentItemGrp.Clear();
                             }
                         }
@@ -428,7 +453,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
         }
 
-        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc, List<SessionContentItem> grp)
+        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc, List<SessionContentItem> grp,int replace=0)
         {
             try
             {
@@ -451,7 +476,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         for (int pp = 0; pp < paragraphs.Length; pp++)
                         {
                             parag += TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " ");
-                            myCollection.Add(TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " "));
+                            if(replace == 1)
+                                myCollection.Add(TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " "));
+                            else myCollection.Add(TextHelper.StripHTML(paragraphs[pp].ToLower()).Trim().Replace("&nbsp;", " "));
                             if (paragraphs.Length != 1 && pp < p.Length)
                             {
                                 if (parag.Trim() != "")
@@ -791,6 +818,10 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                && !string.IsNullOrEmpty(newGroup[newGroup.Count - 1].PageFooter)
                                && !newGroup[newGroup.Count - 1].PageFooter.Contains(item.PageFooter))
                                newGroup[newGroup.Count - 1].PageFooter += " - " + item.PageFooter;*/
+
+                        if (item.TopicID != null && item.TopicID != 0
+                           && (newGroup[newGroup.Count - 1].TopicID == null || newGroup[newGroup.Count - 1].TopicID == 0))
+                            newGroup[newGroup.Count - 1].TopicID = item.TopicID;
                     }
                     else
                     {

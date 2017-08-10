@@ -169,6 +169,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     long lastSFID = 0;
                     long currentSpeaker = 0;
                     long prevSpeaker = 0;
+                    long topic_id = 0;
                     foreach (List<SessionContentItem> groupedItems in allItems)
                     {
                        foreach (SessionContentItem item in groupedItems)
@@ -196,6 +197,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                 sb.Append("<hr id=\"file_" + lastSFID + "\" />");
                             }
                             currentSpeaker = item.AttendantID;
+
+                            if (currentSpeaker != prevSpeaker && topic_id != 0)
+                            {
+                                //for Topics
+                                string reviewItemTopic = write_topic_att(topic_id, item);
+                                if (reviewItemTopic != "")
+                                    sb.Append(reviewItemTopic);
+                                topic_id = 0;
+                            }
+
                             if (currentSpeaker != prevSpeaker)//if (!item.MergedWithPrevious.Value)
                             {
                                 Attendant att = item.Attendant;
@@ -324,49 +335,18 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             }
                             sb.Append(reviewItem);
 
-                            //for Topics
-                            if (!string.IsNullOrEmpty(item.TopicID.ToString()))
+                            if (item.TopicID != null && item.TopicID != 0)
                             {
-                                Topic tpcObj = TopicHelper.GetTopicByID((long)item.TopicID);
-                                if (tpcObj != null)
-                                {
-                                    List<TopicParagraph> tpcParags = TopicHelper.GetTopicParagsByTopicID(long.Parse(item.TopicID.ToString()));
-                                    string tpcParagStr = "<div style='text-decoration:underline;padding-right:100px'>" + "الموضوع : " + tpcObj.Title + "</div><br/>";
-                                    foreach (TopicParagraph tpcParagObj in tpcParags)
-                                    {
-                                        tpcParagStr += "<div>";
-                                        tpcParagStr += tpcParagObj.ParagraphText;
-                                        tpcParagStr += "</div>";
-                                    }
-                                    //format attendant table
-                                    List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(item.TopicID.ToString()));
-                                    List<string> attNamesLst = new List<string>();
-                                    tpcParagStr += "<br/><div style='padding-right:150px'>مقدمو الطلب</div>";
-                                    for (int u = 0; u < tpcAtts.Count(); u += 2)
-                                    {
-                                        Attendant att1 = new Attendant();
-                                        Attendant att2 = new Attendant();
-                                        // attNames = "";
-                                        att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
-                                        tpcParagStr += "<div style='width:700px;'><div style='width:300px;float:right'>" + att1.LongName + "</div>";
-                                        if (u + 1 < tpcAtts.Count())
-                                        {
-                                            att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
-                                            tpcParagStr += "<div style='width:300px;float:right'>" + att2.LongName + "</div>";
-                                        }
-                                        tpcParagStr += "</div>";
-                                    }
+                                topic_id = (long)item.TopicID;
+                            }
 
-                                    string reviewItemComment = Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
-                                              .Replace("<%itemText%>", tpcParagStr)
-                                                    .Replace("<%isLocked%>", "lockeditem")
-                                                    .Replace("<%title%>", "هذا المقطع مقترح أو توصية (للتعديل يمكنك استخدام رابط  [المقترحات / التوصيات] من  الصفحة الرئيسية) .. يمكنك الاطلاع فقط")
-                                                    .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
-                                                     .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
-                                                     .Replace("<%UserName%>", item.User.FName)
-                                                     .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام رابط  [المقترحات / التوصيات] من  الصفحة الرئيسية) ");
-                                    sb.Append(reviewItemComment);
-                                }
+                            if (item.ID == groupedItems[groupedItems.Count-1].ID && topic_id != 0)
+                            {
+                                //for Topics
+                                string reviewItemTopic = write_topic_att(topic_id, item);
+                                if (reviewItemTopic != "")
+                                    sb.Append(reviewItemTopic);
+                                topic_id = 0;
                             }
 
                             //for comments
@@ -462,6 +442,42 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     btnFinalApproveSession.Style.Add("display", "none");
                 }
             }
+        }
+
+        public string write_topic_att(long topic_id, SessionContentItem item)
+        {
+            Topic tpcObj = TopicHelper.GetTopicByID(topic_id);
+            if (tpcObj != null)
+            {
+                string tpcParagStr = "";
+                //format attendant table
+                List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(topic_id);
+                List<string> attNamesLst = new List<string>();
+                for (int u = 0; u < tpcAtts.Count(); u += 2)
+                {
+                    Attendant att1 = new Attendant();
+                    Attendant att2 = new Attendant();
+                    att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
+                    tpcParagStr += "<div style='width:700px;'><div style='width:300px;float:right'>" + att1.LongName + "</div>";
+                    if (u + 1 < tpcAtts.Count())
+                    {
+                        att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
+                        tpcParagStr += "<div style='width:300px;float:right'>" + att2.LongName + "</div>";
+                    }
+                    tpcParagStr += "</div>";
+                }
+
+                return  Application[Constants.HTMLTemplateFileNames.ReviewItem].ToString()
+                          .Replace("<%itemText%>", tpcParagStr)
+                                .Replace("<%isLocked%>", "lockeditem")
+                                .Replace("<%title%>", "هذا المقطع خاص بمقدمو طلب التوصيه / التوجيه")
+                                .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
+                                .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
+                                .Replace("<%UserName%>", item.User.FName)
+                                .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>");
+            }
+
+            return "";
         }
     }
 }
