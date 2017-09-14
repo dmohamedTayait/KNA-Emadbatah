@@ -10,6 +10,9 @@ namespace TayaIT.Enterprise.EMadbatah.Model.VecSys
         public string value { get; set; }
         public double stime { get; set; }
         public double  dur { get; set; }
+
         public double conf { get; set; }
+        public string procedureid { get; set; }
+        public string textalign { get; set; }
     }
 }

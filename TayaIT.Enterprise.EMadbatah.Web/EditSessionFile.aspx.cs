@@ -92,7 +92,16 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             {
                 foreach (TayaIT.Enterprise.EMadbatah.Model.VecSys.Word word in segment.words)
                 {
-                    output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value.Replace(".", "،") +"</span> ";
+                   // output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value.Replace(".", "،") +"</span> ";
+                    if (word.stime.ToString() == "0")
+                    {
+                        if (word.procedureid == "-1")
+                            output += "<br />";
+                        else
+                            output += "<p procedure-id='" + word.procedureid.ToString() + "' style='text-align: " + word.textalign.ToString() + "'>" + word.value.Replace(".", "،").Replace("!####!", "&nbsp;") + "</p> ";
+                    }
+                    else
+                        output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value.Replace(".", "،").Replace("!####!", "&nbsp;") + "</span> ";
                 }
             }
             return output;

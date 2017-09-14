@@ -85,303 +85,281 @@
             }
         })
     </script>
-      <div id="mainContent" runat="server">
-    <div id="maintable1">
-        <table class="table mytable" border="0" cellspacing="0" cellpadding="0">
-            <thead>
-                <tr>
-                    <th class="options">
-                    </th>
-                    <th class="column column1">
-                        رقم الجلسة
-                    </th>
-                    <th class="column column2">
-                        التاريخ
-                    </th>
-                    <th class="column column3">
-                        الحالة
-                    </th>
-                    <th class="column column4">
-                        الملفات
-                    </th>
-                    <th class="column column5">
-                        المراجع
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <%
-                    //for paging
-                    int sessionsCount = EMadbatahFacade.GetSessionsCount();
-                    int currentPageNo = 1;
-                    int itemsPerPage = 10;
+    <div id="mainContent" runat="server">
+        <div id="maintable1">
+            <table class="table mytable" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th class="options">
+                        </th>
+                        <th class="column column1">
+                            رقم الجلسة
+                        </th>
+                        <th class="column column2">
+                            التاريخ
+                        </th>
+                        <th class="column column3">
+                            الحالة
+                        </th>
+                        <th class="column column4">
+                            الملفات
+                        </th>
+                        <th class="column column5">
+                            المراجع
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%
+                        //for paging
+                        int sessionsCount = EMadbatahFacade.GetSessionsCount();
+                        int currentPageNo = 1;
+                        int itemsPerPage = 10;
 
-                    if (CurrentPageNo != null)
-                        int.TryParse(CurrentPageNo, out currentPageNo);
+                        if (CurrentPageNo != null)
+                            int.TryParse(CurrentPageNo, out currentPageNo);
 
-                    if (ItemsPerPage != null)
-                        int.TryParse(ItemsPerPage, out itemsPerPage);
+                        if (ItemsPerPage != null)
+                            int.TryParse(ItemsPerPage, out itemsPerPage);
 
-                    List<SessionDetails> sessionsDetails = EMadbatahFacade.GetSessions(currentPageNo, itemsPerPage);
-                    //build html of sessions
+                        List<SessionDetails> sessionsDetails = EMadbatahFacade.GetSessions(currentPageNo, itemsPerPage);
+                        //build html of sessions
 
-                    foreach (SessionDetails session in sessionsDetails)
-                    {
-                        string sessionDate = session.Date.Date.ToShortDateString();
-                        string sessionDateHijri = session.DateHijri.ToString();
-                        string sessionName = "( " + session.EparlimentID.ToString() + " / " + session.Type + " ) ";
-                        string sessionStatus = GetLocalizedString("strSessionStatus" + session.Status.ToString());
-
-                        int nRejected = 0;
-                        int nModefiedAfterApprove = 0;
-                        int nFixed = 0;
-
-                        Hashtable tblStats = EMadbatahFacade.GetSessionStatistics(CurrentUser, session.SessionID);
-                        if (tblStats != null)
+                        foreach (SessionDetails session in sessionsDetails)
                         {
-                            nRejected = int.Parse(tblStats[(int)SessionContentItemStatus.Rejected].ToString());
-                            nModefiedAfterApprove = int.Parse(tblStats[(int)SessionContentItemStatus.ModefiedAfterApprove].ToString());
-                            nFixed = int.Parse(tblStats[(int)SessionContentItemStatus.Fixed].ToString());
-                        }
+                            string sessionDate = session.Date.Date.ToShortDateString();
+                            string sessionDateHijri = session.DateHijri.ToString();
+                            string sessionName = "( " + session.EparlimentID.ToString() + " / " + session.Type + " ) ";
+                            string sessionStatus = GetLocalizedString("strSessionStatus" + session.Status.ToString());
+
+                            int nRejected = 0;
+                            int nModefiedAfterApprove = 0;
+                            int nFixed = 0;
+
+                            Hashtable tblStats = EMadbatahFacade.GetSessionStatistics(CurrentUser, session.SessionID);
+                            if (tblStats != null)
+                            {
+                                nRejected = int.Parse(tblStats[(int)SessionContentItemStatus.Rejected].ToString());
+                                nModefiedAfterApprove = int.Parse(tblStats[(int)SessionContentItemStatus.ModefiedAfterApprove].ToString());
+                                nFixed = int.Parse(tblStats[(int)SessionContentItemStatus.Fixed].ToString());
+                            }
                         
-                %>
-                <!-- new row -->
-                <tr class="tbrow tbrow<%=session.Status.ToString()%>">
-                    <td class="options">
-                        <% if (session.Status != SessionStatus.New)
-                           {%>
-                        <div class="hoverArrow down">
-                        </div>
-                        <%} %>
-                    </td>
-                    <td colspan="6">
-                        <table class="columns" width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr class="color1">
-                                <td class="column column1">
-                                    <strong>
-                                        <%=sessionName%></strong>
-                                </td>
-                                <td class="column column2">
-                                    <%=sessionDate%>
-                                </td>
-                                <td class="column column3">
-                                    <span class="status"><span class="icon"></span>
-                                        <%=sessionStatus%></span>
-                                </td>
-                                <% switch (session.Status)
-                                   {
-                                       case SessionStatus.New:
-                                %>
-                                <td class="column column4">
-                                    <span class="grayed">لم يتم البدء بعد</span>
-                                    <select id="selectVecsysFolders" runat="server" visible="false" class="selectVecsysFolders">
-                                    </select>
-                                    <input type="button" id="btnConfirm" runat="server" visible="false" value="confirm" />
-                                    <span id="spnWarn" name="spnWarn" runat="server"></span>
-                                </td>
-                                <!--td class="column column5">
+                    %>
+                    <!-- new row -->
+                    <tr class="tbrow tbrow<%=session.Status.ToString()%>">
+                        <td class="options">
+                            <% if (session.Status != SessionStatus.New)
+                               {%>
+                            <div class="hoverArrow down">
+                            </div>
+                            <%} %>
+                        </td>
+                        <td colspan="6">
+                            <table class="columns" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr class="color1">
+                                    <td class="column column1">
+                                        <strong>
+                                            <%=sessionName%></strong>
+                                    </td>
+                                    <td class="column column2">
+                                        <%=sessionDate%>
+                                    </td>
+                                    <td class="column column3">
+                                        <span class="status"><span class="icon"></span>
+                                            <%=sessionStatus%></span>
+                                    </td>
+                                    <% switch (session.Status)
+                                       {
+                                           case SessionStatus.New:
+                                    %>
+                                    <td class="column column4">
+                                        <span class="grayed">لم يتم البدء بعد</span>
+                                        <select id="selectVecsysFolders" runat="server" visible="false" class="selectVecsysFolders">
+                                        </select>
+                                        <input type="button" id="btnConfirm" runat="server" visible="false" value="confirm" />
+                                        <span id="spnWarn" name="spnWarn" runat="server"></span>
+                                    </td>
+                                    <!--td class="column column5">
                                     <span class="grayed">- - - - -</span>
                                 </td>
                                 <td class="column column6">
                                     <span class="grayed">- - - - -</span>
                                 </td-->
-                                <%
-                                    break;
-                                                       case SessionStatus.InProgress:
-                                                       case SessionStatus.Completed:
-                                                       case SessionStatus.Approved:
-                                                       case SessionStatus.FinalApproved:
-                                %>
-                                <td class="column column4">
-                                    <table class="smalltable" width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    الملفات
-                                                </th>
-                                                <th>
-                                                    المصحح
-                                                </th>
-                                                <th>
-                                                    مراجع الملف
-                                                </th>
-                                                <th>
-                                                    الحالة
-                                                </th>
-                                                <th>
-                                                    آخر تعديل
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="displayOnOpen">
-                                            <%
-                                                //session files
-                                                foreach (SessionAudioFile saf in session.SessionFiles)
-                                                {
-                                                    string sessionFileCompleteName = saf.Name;
-                                                    string sessionFileName = System.IO.Path.GetFileName(saf.Name);
-                                                    string sessionFileStatus = GetLocalizedString("strSessionFileStatus" + saf.Status.ToString());
-                                                    string sessionFileOrderStr = saf.Order.ToString();
-                                                    string sessionFileOwnerName = saf.OwnerUserName;
-                                                    string lastModefied = saf.LastModefied.ToString();
-                                                    int sessionFileOrder = saf.Order;
+                                    <%
+                                               break;
+                                           case SessionStatus.InProgress:
+                                           case SessionStatus.Completed:
+                                           case SessionStatus.Approved:
+                                           case SessionStatus.FinalApproved:
+                                    %>
+                                    <td class="column column4">
+                                        <table class="smalltable" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        الملفات
+                                                    </th>
+                                                    <th>
+                                                        المصحح
+                                                    </th>
+                                                    <th>
+                                                        مراجع الملف
+                                                    </th>
+                                                    <th>
+                                                        الحالة
+                                                    </th>
+                                                    <th>
+                                                        آخر تعديل
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="displayOnOpen">
+                                                <%
+                                           //session files
+                                           foreach (SessionAudioFile saf in session.SessionFiles)
+                                           {
+                                               string sessionFileCompleteName = saf.Name;
+                                               string sessionFileName = System.IO.Path.GetFileName(saf.Name);
+                                               string sessionFileStatus = GetLocalizedString("strSessionFileStatus" + saf.Status.ToString());
+                                               string sessionFileOrderStr = saf.Order.ToString();
+                                               string sessionFileOwnerName = saf.OwnerUserName;
+                                               string lastModefied = saf.LastModefied.ToString();
+                                               int sessionFileOrder = saf.Order;
 
-                                                    int currentUserID = saf.UserID == null ? -1 : (int)saf.UserID;
+                                               int currentUserID = saf.UserID == null ? -1 : (int)saf.UserID;
                                                                     
-                                            %>
-                                            <tr data-order="<%=sessionFileOrder%>" data-id="<%=saf.ID%>">
-                                                <td title="<%=sessionFileName%>">
-                                                    <span>
-                                                        <%= TextHelper.Truncate(sessionFileName, 18, "...") %></span>
-                                                </td>
-                                                <td data-currentuserid="<%=currentUserID %>" data-sessionfileid="<%=saf.ID%>">
-                                                    <select id="selectUsers" class="selectUsers" data-currentuserid="<%=currentUserID %>">
-                                                        <option value="-1" selected="selected">-- إسناد إلى مصحح -- </option>
-                                                        <%
-                                                    List<EMadbatahUser> peopleWithDEPower = (from user in usersdb/*revusersdb*/
-                                                                                            where user.Role != UserRole.Reviewer
-                                                                                            select user).ToList<EMadbatahUser>();
-                                                            int counter = 0;
-                                                            foreach (EMadbatahUser user in peopleWithDEPower)
-                                                            {
-                                                                if (counter == 0 && saf.UserID == null)
-                                                          %><option value="<%=user.ID%>" <%=saf.UserID == user.ID ? "selected=\"selected\"" : ""%>>
-                                                            <%=user.Name%></option>
-                                                        <%   
-counter++;
-                                                                               } 
-                                                        %>
-                                                    </select>
-                                                    <span class="lock" style="<%=(saf.UserID == null)?"display:none": "display:inline"%>;
-                                                        cursor: pointer;" title="إزالة المصحح من على الملف"></span>
-                                                </td>
-                                                <td data-currentuserid="<%=currentUserID %>" data-sessionfileid="<%=saf.ID%>">
-                                                
-                                                <%--FILEREVIEWER--%>
-                                                <select id="selectFileReviewer" class="selectFileReviewer" data-currentuserid="<%=currentUserID %>">
-                                                        <% 
+                                                %>
+                                                <tr data-order="<%=sessionFileOrder%>" data-id="<%=saf.ID%>">
+                                                    <td title="<%=sessionFileName%>">
+                                                        <span>
+                                                            <%= TextHelper.Truncate(sessionFileName, 18, "...") %></span>
+                                                    </td>
+                                                    <td data-currentuserid="<%=currentUserID %>" data-sessionfileid="<%=saf.ID%>">
+                                                        <select id="selectUsers" class="selectUsers" data-currentuserid="<%=currentUserID %>">
+                                                            <option value="-1" selected="selected">-- إسناد إلى مصحح -- </option>
+                                                            <%
+                                        List<EMadbatahUser> peopleWithDEPower = (from user in usersdb/*revusersdb*/
+                                                                                 where user.Role != UserRole.Reviewer
+                                                                                 select user).ToList<EMadbatahUser>();
+                                        int counter = 0;
+                                        foreach (EMadbatahUser user in peopleWithDEPower)
+                                        {
+                                            if (counter == 0 && saf.UserID == null)
+                                                            %><option value="<%=user.ID%>" <%=saf.UserID == user.ID ? "selected=\"selected\"" : ""%>>
+                                                                <%=user.Name%></option>
+                                                            <%   
+                                                        counter++;
+                                                    } 
+                                                            %>
+                                                        </select>
+                                                        <span class="lock" style="<%=(saf.UserID == null)?"display:none": "display:inline"%>;
+                                                            cursor: pointer;" title="إزالة المصحح من على الملف"></span>
+                                                    </td>
+                                                    <td data-currentuserid="<%=currentUserID %>" data-sessionfileid="<%=saf.ID%>">
+                                                        <%--FILEREVIEWER--%>
+                                                        <select id="selectFileReviewer" class="selectFileReviewer" data-currentuserid="<%=currentUserID %>">
+                                                            <% 
                                                     
                                                     List<EMadbatahUser> peopleWithFRPower = (from user in usersdb/*revusersdb*/
                                                                                              //now the dataentry-reviewr role is using filereviewer privilages instead od session reviewer
                                                                                              where user.Role == UserRole.FileReviewer || user.Role == UserRole.ReviewrDataEntry
-                                                                                            select user).ToList<EMadbatahUser>();
-                                                            int counterrfv = 0;
-                                                            foreach (EMadbatahUser user in peopleWithFRPower)
-                                                            {
-                                                                if (counterrfv == 0 && saf.FileReviewrID == null)
-                                                                {
-                                                        %>
-                                                        <option value="-1" selected="selected">-- إسناد إلى مراجع ملف -- </option>
-                                                        <%}
+                                                                                             select user).ToList<EMadbatahUser>();
+                                                    int counterrfv = 0;
+                                                    foreach (EMadbatahUser user in peopleWithFRPower)
+                                                    {
+                                                        if (counterrfv == 0 && saf.FileReviewrID == null)
+                                                        {
+                                                            %>
+                                                            <option value="-1" selected="selected">-- إسناد إلى مراجع ملف -- </option>
+                                                            <%}
                                                                 
-                                                        %><option value="<%=user.ID%>" <%=saf.FileReviewrID == user.ID ? "selected=\"selected\"" : ""%>>
-                                                            <%=user.Name%></option>
-                                                        <%   
-                                                            counterrfv++;    
-                                                              } 
-                                                        %>
-                                                    </select>
-                                                    <span class="revFilelock" style="<%=(saf.FileReviewrID == null)?"display:none": "display:inline"%>; cursor: pointer;" title="إزالة مراجع الملف من على الملف"></span>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        <%=sessionFileStatus%></span>
-                                                </td>
-                                                <td>
-                                                    <!-- usama here add reorder js ajax calls -->
-                                                    <%=lastModefied%>
-                                                </td>
-                                            </tr>
-                                            <%
+                                                            %><option value="<%=user.ID%>" <%=saf.FileReviewrID == user.ID ? "selected=\"selected\"" : ""%>>
+                                                                <%=user.Name%></option>
+                                                            <%   
+                                                                counterrfv++;
+                                                            } 
+                                                            %>
+                                                        </select>
+                                                        <span class="revFilelock" style="<%=(saf.FileReviewrID == null)?"display:none": "display:inline"%>;
+                                                            cursor: pointer;" title="إزالة مراجع الملف من على الملف"></span>
+                                                    </td>
+                                                    <td>
+                                                        <span>
+                                                            <%=sessionFileStatus%></span>
+                                                        <%  if (CurrentUser.Role == UserRole.Admin && !saf.IsSessionStart)
+                                                            {%>
+                                                        <div class="removeFile" style="cursor: pointer; color: Red; font-weight: bold">
+                                                            حذف الملف</div>
+                                                        <% }%>
+                                                    </td>
+                                                    <td>
+                                                        <!-- usama here add reorder js ajax calls -->
+                                                        <%=lastModefied%>
+                                                    </td>
+                                                </tr>
+                                                <%
                                                                 }//end foreach
-                                            %>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <%
+                                                %>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <%
                                     break;
 
-                                                       default:
+                                       default:
                                     break;
-                                                   } %>
-                                <%
-string currentReviewerID = session.ReviewerID.ToString();
-List<EMadbatahUser> reviewrs = (from user in usersdb/*revusersdb*/
-                                //now the dataentry-reviewr role is using filereviewer privilages instead od session reviewer
-                                where user.Role != UserRole.DataEntry && user.Role != UserRole.FileReviewer
-                                
-                                select user).ToList<EMadbatahUser>();
+                                       } %>
+                                    <%
+                                       string currentReviewerID = session.ReviewerID.ToString();
+                                       List<EMadbatahUser> reviewrs = (from user in usersdb/*revusersdb*/
+                                                                       //now the dataentry-reviewr role is using filereviewer privilages instead od session reviewer
+                                                                       where user.Role != UserRole.DataEntry && user.Role != UserRole.FileReviewer
+
+                                                                       select user).ToList<EMadbatahUser>();
                                         
                        
                         
-                                %>
-                                <td class="column column5" data-currentrevid="<%=currentReviewerID %>" data-sessionid="<%=session.SessionID %>">
-                                 <div class="padd">
-                                     <select id="selectReviewers" class="selectReviewers" data-currentrevid="<%=currentReviewerID %>"
-                        data-sessionid="<%=session.SessionID %>">
-                        <% 
-int counterRev = 0;
-foreach (EMadbatahUser user in reviewrs)
-{
-    if (counterRev == 0 && session.ReviewerID == null)
-                        %>
-                        <option value="-1" selected="selected">-- إسناد إلى مراجع -- </option>
-                        <%
-                        %><option value="<%=user.ID%>" <%=session.ReviewerID == user.ID ? "selected=\"selected\"" : ""%>>
-                            <%=user.Name%></option>
-                        <%   
-counterRev++;
-                                                                               } 
-                        %>
-                    </select>
-                    <span class="revlock" style="<%=(session.ReviewerID == null)?"display:none": "display:inline"%>;
-                        cursor: pointer;" title="إزالة المراجع من على الجلسة"></span>
-                       </div>
+                                    %>
+                                    <td class="column column5" data-currentrevid="<%=currentReviewerID %>" data-sessionid="<%=session.SessionID %>">
+                                        <div class="padd">
+                                            <select id="selectReviewers" class="selectReviewers" data-currentrevid="<%=currentReviewerID %>"
+                                                data-sessionid="<%=session.SessionID %>">
+                                                <% 
+                                       int counterRev = 0;
+                                       foreach (EMadbatahUser user in reviewrs)
+                                       {
+                                           if (counterRev == 0 && session.ReviewerID == null)
+                                                %>
+                                                <option value="-1" selected="selected">-- إسناد إلى مراجع -- </option>
+                                                <%
+                                                %><option value="<%=user.ID%>" <%=session.ReviewerID == user.ID ? "selected=\"selected\"" : ""%>>
+                                                    <%=user.Name%></option>
+                                                <%   
+    counterRev++;
+} 
+                                                %>
+                                            </select>
+                                            <span class="revlock" style="<%=(session.ReviewerID == null)?"display:none": "display:inline"%>;
+                                                cursor: pointer;" title="إزالة المراجع من على الجلسة"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <!-- new row end -->
-                <%
+                    </tr>
+                    <!-- new row end -->
+                    <%
                         
-                    }//end of foreach
+                        }//end of foreach
                 
-                %>
-            </tbody>
-        </table>
-        <div class="prefix_21">
-            <!--input type="button" value="حفظ" class="btn" name="" /-->
-            <span id="spnMsg"></span>
+                    %>
+                </tbody>
+            </table>
+            <div class="prefix_21">
+                <!--input type="button" value="حفظ" class="btn" name="" /-->
+                <span id="spnMsg"></span>
+            </div>
         </div>
-    </div>
     </div>
     <script type="text/javascript">
         $('.selectUsers').change(function (e) {
@@ -413,8 +391,7 @@ counterRev++;
                         sfid: $(this).parents('td').attr("data-sessionFileID"),
                         uid: newUserIDval
                     },
-                    success: function (response) 
-                    {
+                    success: function (response) {
 
                         if (response != 'true') {//| response != 'true')
                             alert('لقد حدث خطأ');
@@ -478,13 +455,11 @@ counterRev++;
                     },
                     success: function (response) {
 
-                        if (response != 'true') 
-                        {//| response != 'true')
+                        if (response != 'true') {//| response != 'true')
                             alert('لقد حدث خطأ');
                             $(this).val(oldUserID);
                         }
-                        else 
-                        {
+                        else {
                             span.css("display", "inline");
                             //$(this).parent.children('span').addClass('lock');
                             parentTD.attr('data-currentRevID', newUserIDval);
@@ -537,13 +512,11 @@ counterRev++;
                     },
                     success: function (response) {
 
-                        if (response != 'true') 
-                        {//| response != 'true')
+                        if (response != 'true') {//| response != 'true')
                             alert('لقد حدث خطأ');
 
                         }
-                        else 
-                        {
+                        else {
                             //$(this).removeClass('lock');
                             lockSpan.css("display", "none");
                             usersSelect.prepend($('<option></option>').val('-1').html(" -- إسناد إلى مصحح -- "));
@@ -584,8 +557,7 @@ counterRev++;
                         funcname: 'UnlockSessionReviewer',
                         sid: sessionID
                     },
-                    success: function (response) 
-                    {
+                    success: function (response) {
 
                         if (response != 'true') {//| response != 'true')
                             alert('لقد حدث خطأ');
@@ -613,14 +585,14 @@ counterRev++;
         /*
         //usama new for the new role sessionfile_reviewer
         UnlockSessionFileReviewer
-AssignSessionFileReviewer
-AssignSessionFileReviewer
-مراجع ملف
+        AssignSessionFileReviewer
+        AssignSessionFileReviewer
+        مراجع ملف
 
-//<NewRoleName>
+        //<NewRoleName>
 
-revFilelock*/
-       $('.revFilelock').click(function (e) {
+        revFilelock*/
+        $('.revFilelock').click(function (e) {
             var lockSpan = $(this);
             var usersSelect = $(this).parent('td').children('select');
             // var userIDtoUnlock = usersSelect.attr('data-currentUserID'); //$(this).attr("data-currentUserID")
@@ -648,13 +620,11 @@ revFilelock*/
                     },
                     success: function (response) {
 
-                        if (response != 'true') 
-                        {//| response != 'true')
+                        if (response != 'true') {//| response != 'true')
                             alert('لقد حدث خطأ');
 
                         }
-                        else 
-                        {
+                        else {
                             //$(this).removeClass('lock');
                             lockSpan.css("display", "none");
                             usersSelect.prepend($('<option></option>').val('-1').html(" -- إسناد إلى مراجع ملف -- "));
@@ -669,8 +639,8 @@ revFilelock*/
 
 
 
-//selectFileReviewer
-$('.selectFileReviewer').change(function (e) {
+        //selectFileReviewer
+        $('.selectFileReviewer').change(function (e) {
 
             var selectFileReviewer = $(this);
             var oldUserID = $(this).parent('td').attr('data-currentUserID');
@@ -699,8 +669,7 @@ $('.selectFileReviewer').change(function (e) {
                         sfid: $(this).parents('td').attr("data-sessionFileID"),
                         uid: newUserIDval
                     },
-                    success: function (response) 
-                    {
+                    success: function (response) {
 
                         if (response != 'true') {//| response != 'true')
                             alert('لقد حدث خطأ');

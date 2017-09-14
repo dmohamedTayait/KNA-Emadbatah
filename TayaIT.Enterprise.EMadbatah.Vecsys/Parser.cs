@@ -55,11 +55,14 @@ namespace TayaIT.Enterprise.EMadbatah.Vecsys
                 foreach (XmlNode subNode in node.ChildNodes)
                 {
                     Word word = new Word();
-                    word.conf = double.Parse(subNode.Attributes["conf"].Value);
-                    word.dur = double.Parse(subNode.Attributes["dur"].Value);
-                    word.stime = double.Parse(subNode.Attributes["stime"].Value);
+                    word.conf = (subNode.Attributes["conf"] != null) ? double.Parse(subNode.Attributes["conf"].Value) : 0;
+                    word.dur = (subNode.Attributes["dur"] !=null)? double.Parse(subNode.Attributes["dur"].Value) : 0;
+                    word.stime = (subNode.Attributes["stime"] != null) ? double.Parse(subNode.Attributes["stime"].Value) : 0;
                     word.value = subNode.InnerText.Trim();
+                    word.procedureid = subNode.Attributes["procedure-id"] != null ? subNode.Attributes["procedure-id"].Value : "";
+                    word.textalign = subNode.Attributes["text-align"] != null ?subNode.Attributes["text-align"].Value : "";
                     words.Add(word);
+                 
                 }
                 seg.words = words;
                 sessionFile.SpeechSegmentList.Add(seg);

@@ -744,6 +744,11 @@ $(document).ready(function() {
             $('.attachId').val(response.AttachID);
             $('.voteId').val(response.VoteID);
             $('.topicId').val(response.TopicID);
+            if(response.TopicID != "0" && response.TopicID != null)
+            {
+             $(".aPopupGetAttTopic").show();
+            }
+            else  $(".aPopupGetAttTopic").hide();
             $('.agendaItemTxt').html(response.AgendaItemText);
             $('.agendaItemIsIndexed').val(response.AgendaItemIsIndexed);
 
@@ -766,12 +771,15 @@ $(document).ready(function() {
                 $('.divVote').show();
                 $('.spanVoteSubject').html(response.VoteSubject);
             }
+            $('.divTopic').hide();
             if (response.TopicID == "0") {
-                $('.divTopic').hide();
+               // $('.divTopic').hide();
                 $('.spanTopicTitle').html('');
+                $(".chkTopic").removeAttr('checked')
             } else {
-                $('.divTopic').show();
+               // $('.divTopic').show();
                 $('.spanTopicTitle').html(response.TopicTitle);
+                $(".chkTopic").attr('checked','checked')
             }
             // set start and end time in hidden fields
             startTime.val(response.PargraphStartTime);
@@ -2016,7 +2024,7 @@ $(document).ready(function() {
                     // vars
                     var $this = $(this);
                     var addingParText = $this.html();
-                    var clone = $('<p/>').append(addingParText).attr('procedure-id', $this.data('value'));
+                    var clone = $('<p/>').append(addingParText).attr('procedure-id', $this.data('value')).css({ "text-align": "right" });
                     var cloneHTML = clone[0].outerHTML;
                     var ed = $('#MainContent_Textarea2').tinymce();
                     // add to the undo manager
@@ -2276,6 +2284,102 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+    
+
+$('.chkTopic').change(function() {
+    // this will contain a reference to the checkbox   
+    if (this.checked) {
+        //Load Available Votes
+        jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: 'EditSessionHandler.ashx',
+            data: {
+                funcname: 'GetTopicID',
+                sid: $(".sessionID").val(),
+                scid:  $(".hdSessionContentItemID").val()
+            },
+            dataType: 'json',
+            success: function(response) {
+              $(".topicId").val(response); 
+              $(".aPopupGetAttTopic").show();
+            }
+        });
+    } else {
+         $(".topicId").val("0");
+         $(".aPopupGetAttTopic").hide();
+    }
+});
+   
+    var $request;
+   $('.aPopupGetAttTopic').click(function(e) {
+        var sid =  $(".sessionID").val();
+        var tpcid =  $(".topicId").val();
+        if ($request != null) {
+            $request.abort();
+            $request = null;
+        }
+
+        $request = jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: 'TopicHandler.ashx',
+            data: {
+                funcname: 'GetAllAtt',
+                sid: sid,
+                tpcid: tpcid
+            },
+            dataType: 'json',
+            success: function (response) {
+                AttCont = $("#AttCont");
+                AttCont.empty();
+                chb = "<div style='padding-bottom:10px' class=\"grid_6 h2 grid_att\"> <input type=\"checkbox\" name=\"chbAttID\" value=\"AttID\"><span>AttName</span></div>";
+                var tmpTr = "";
+                for (i = 0; i < response.length; i++) {
+                    tmpchb = chb.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].LongName);
+                    AttCont.append(tmpchb);
+                    if (response[i].FirstName == "1")
+                        $("input:checkbox[name='chb" + response[i].ID + "']", AttCont).prop('checked', true);
+                }
+                $(".popupoverlay").show();
+                $(".popupAttendant").show();
+                e.preventDefault();
+            },
+            error: function (response) { }
+        });
+        e.preventDefault();
+    });
+    
+    $('.btnAddAttToTopic').click(function (e) {
+        var names = [];
+        $('.grid_att input:checked').each(function () {
+            names.push(this.value);
+        });
+        if ($request != null) {
+            $request.abort();
+            $request = null;
+        }
+
+        $request = jQuery.ajax({
+            cache: false,
+            type: 'post',
+            url: 'TopicHandler.ashx',
+            data: {
+                funcname: 'AddTopicAtt',
+                json_str: JSON.stringify(names),
+                tpcid: $(".topicId").val()
+            },
+            dataType: 'json',
+            success: function (response) {
+                $(".popupoverlay").hide();
+                $(".popupAttendant").hide();
+                e.preventDefault();
+            },
+            error: function (response) { }
+        });
+        e.preventDefault();
+    });
+
     // add Attach button
     $(".btnAddTopic").click(function(e) {
         loadSessionTopics();
@@ -2327,7 +2431,8 @@ $(document).ready(function() {
         if (checkedRadio.length > 0) {
             $(".topicId").val(checkedRadio.val());
             $('.spanTopicTitle').html(checkedRadio.next().text());
-            $('.divTopic').show();
+            //$('.divTopic').show();
+            $('.divTopic').hide();
         }
         // close the popup
         $(".popupoverlay").hide();

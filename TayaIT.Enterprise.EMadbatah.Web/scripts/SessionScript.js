@@ -99,15 +99,42 @@ jQuery.ajax({
 
 }
 
-//function confirmNewSession(sessionID) {
+$(document).ready(function () {
+    $(".smalltable .removeFile").live('click', function () {
+        //alert('');
+        var sessionID = $(this).parents("tr").attr('data-sessionid');
+        var sessionFileID = $(this).parents("tr").attr('data-id');
+        //  alert(sessionID);
+        // alert(sessionFileID);
+        $.ajax({
+            cache: false,
+            type: 'post',
+            url: 'SessionHandler.ashx',
+            data: {
+                funcname: 'RemoveSessionFile',
+                sfid: sessionFileID
+            },
+            success: function (response) {
+                if (response == 'true') {
+                    $("tr [data-id=" + sessionFileID + "]").animate({
+                        opacity: 0.25,
+                        left: "+=50",
+                        height: "toggle"
+                    }, 2000, function () {
+                        $(this).remove();
+                    });
 
 
 
+                    alert("تم الحذف بنجاح");
 
-//   
-//}
+                }
+            },
+            error: function () {
+                alert("لقد حدث خطأ");
+            }
+        });
 
-
-
-
+    });
+});
 

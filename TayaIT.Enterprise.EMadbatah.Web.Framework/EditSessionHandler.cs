@@ -256,7 +256,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         //For Topics
                                         if (retItem.TopicID != null && retItem.TopicID != 0)
                                         {
-                                            long prevTpcID = getPrevSegmentTopicID(FragOrder - 1);
+                                            long prevTpcID = getPrevSegmentTopicID(FragOrder);
                                             //Topic tpc = TopicHelper.GetTopicByID((int)retItem.TopicID);
                                             if (prevTpcID == 0 || prevTpcID == retItem.TopicID)//if (tpc != null)
                                             {
@@ -641,36 +641,74 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                     case WebFunctions.EditWizard.SplitItem:
                         {
                             long currentFragOrder = -1;
-                            
+
                             if (CurrentFragOrder != null && long.TryParse(CurrentFragOrder, out currentFragOrder) &&
                                 XmlFilePath != null && SplittedText != null &&
                                 SessionFileID != null && long.TryParse(SessionFileID, out Session_File_ID))
                             {
                                 try
                                 {
-                                   XmlDocument doc = new XmlDocument();
+                                    XmlDocument doc = new XmlDocument();
                                     doc.Load(XmlFilePath);
 
                                     StringBuilder sb = new StringBuilder();
-                                    
-                                    
-
                                     XmlDocument spansDoc = new XmlDocument();//nbsp
-                                    spansDoc.LoadXml("<doc>" + HttpUtility.HtmlDecode(SplittedText).Replace("&nbsp;", "") + "</doc>");
-                                    
+                                    spansDoc.LoadXml("<doc>" + HttpUtility.HtmlDecode(SplittedText).Replace("&nbsp;", "!####!").Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!") + "</doc>");
+
                                     //XmlNodeList spanNodes = spansDoc.SelectNodes("//doc/span"); //modefied by usama and saber for text when splitted all spaces are removed
-                                    XmlNodeList spanNodes = spansDoc.SelectNodes("//span[@data-stime]");
+                                    XmlNodeList spanNodes = spansDoc.SelectNodes("//span[@data-stime]|//p");
 
                                     if (spanNodes.Count == 0)
                                     {
                                         jsonStringOut = SerializeObjectInJSON("false");
                                         break;
                                     }
+                                    string stime = "";
+                                    string etime = "";
+                                    int loop = 0;
                                     foreach (XmlNode node in spanNodes)
                                     {
-                                        if (node.Attributes["data-stime"] == null)
-                                            continue;
-                                        sb.Append("<Word stime=\"" + node.Attributes["data-stime"].Value + "\" dur=\"0.25\" conf=\"0.886\">" + node.InnerText + "</Word>");
+                                        //span means the words translated from vocapia
+                                        if (node.Name == "span")
+                                        {
+                                            if (node.Attributes["data-stime"] == null)
+                                                continue;
+                                            if (loop == 0)
+                                            {
+                                                stime = node.Attributes["data-stime"].Value;
+                                                loop++;
+                                            }
+                                            sb.Append("<Word stime=\"" + node.Attributes["data-stime"].Value + "\" dur=\"0.25\" conf=\"0.886\">" + node.InnerText + "</Word>");
+                                            etime = node.Attributes["data-stime"].Value;
+                                        }
+
+                                        else if (node.Name == "p")//الاجراءات التى اضافها المستخدم عند  القطع يجب اضافتها مع النص التالى 
+                                        {
+                                            string procedure_id = "0";
+                                            string text_align = "right";
+                                            if (node.Attributes["procedure-id"] != null)
+                                                procedure_id = node.Attributes["procedure-id"].Value;
+                                            if (node.Attributes["style"] != null)
+                                                text_align = node.Attributes["style"].Value.Replace("text-align", "").Replace(":", "").Replace(";", "").Trim();
+                                            sb.Append("<Word procedure-id=\"" + procedure_id + "\" text-align=\"" + text_align + "\">" + node.InnerText + "</Word>");
+                                        }
+
+                                        else//next line 
+                                        {
+                                            sb.Append("<Word procedure-id='-1' text-align='space'>space</Word>");
+                                        }
+                                        if (node.NextSibling != null)
+                                        {
+                                            if (node.NextSibling.InnerText.Contains("#!#!#!"))
+                                            {
+                                                string[] sep = new string[1] { "#!#!#!" };
+                                                string[] newlines = node.NextSibling.InnerText.Split(sep, StringSplitOptions.None);
+                                                for (int g = 0; g < newlines.Count()-1; g++)
+                                                {
+                                                    sb.Append("<Word procedure-id='-1' text-align='space'>space</Word>");
+                                                }
+                                            }
+                                        }
                                     }
 
                                     //<Word stime="4.89" dur="0.25" conf="0.886"> لأ </Word>
@@ -683,11 +721,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                     string speakerID = "TT_" + Rand1 + "-" + Rand2;
 
 
-                                    string header = "<SpeechSegment ch=\"1\" sconf=\"1.00\" stime=\"" + spanNodes[0].Attributes["data-stime"].Value + "\" etime=\"" + spanNodes[spanNodes.Count - 1].Attributes["data-stime"].Value + "\" spkid=\""+speakerID+"\" lang=\"ara-fnc\" lconf=\"1.00\" trs=\"1\">";
+                                    string header = "<SpeechSegment ch=\"1\" sconf=\"1.00\" stime=\"" + stime + "\" etime=\"" + etime + "\" spkid=\"" + speakerID + "\" lang=\"ara-fnc\" lconf=\"1.00\" trs=\"1\">";
                                     XmlDocumentFragment xmlDocFrag = doc.CreateDocumentFragment();
                                     xmlDocFrag.InnerXml = header + sb.ToString();
 
-                                    
+
                                     //as currentfragorder is out of combine so we have to calculate its relative pos in xml without combine
                                     TransFile tf = new TransFile();
                                     tf = VecsysParser.ParseTransXml(XmlFilePath);
@@ -698,18 +736,18 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                     if (curPos == 0)
                                         curPos = 1;//for below curPos - 1
                                     //doc.DocumentElement.ChildNodes[3].ChildNodes.Item(2).AppendChild(xmlDocFrag);
-                                    doc.DocumentElement.ChildNodes[3].InsertAfter(xmlDocFrag, doc.DocumentElement.ChildNodes[3].ChildNodes.Item(curPos-1));
+                                    doc.DocumentElement.ChildNodes[3].InsertAfter(xmlDocFrag, doc.DocumentElement.ChildNodes[3].ChildNodes.Item(curPos - 1));
 
                                     //doc.InsertAfter(xmlDocFrag, doc.DocumentElement.ChildNodes[3].ChildNodes[2]);
 
                                     doc.Save(XmlFilePath);
 
                                     SessionContentItemHelper.UpdateSessionContentItemOrders(Session_File_ID, currentFragOrder);
-                                    SessionContentItemHelper.UpdateSessionContentItemEndTime(Session_File_ID, currentFragOrder,double.Parse(spanNodes[0].Attributes["data-stime"].Value));
+                                    SessionContentItemHelper.UpdateSessionContentItemEndTime(Session_File_ID, currentFragOrder, double.Parse(stime));
 
                                     current_session_info = (Hashtable)_context.Session["current_session_info"];
-                                    current_session_info["PargraphEndTime"] = double.Parse(spanNodes[0].Attributes["data-stime"].Value);
-                                    
+                                    current_session_info["PargraphEndTime"] = double.Parse(stime);
+
                                     jsonStringOut = SerializeObjectInJSON("true");
                                 }
                                 catch (Exception ex)
@@ -1028,7 +1066,17 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
             {
                 foreach (TayaIT.Enterprise.EMadbatah.Model.VecSys.Word word in segment.words)
                 {
-                    output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value.Replace(".","،") + "</span> ";
+                    //حالة اجراء -- تم كتابة الاجراء فى ملف ال
+                    // xml فى حال القطع فقط
+                    if (word.stime.ToString() == "0")
+                    {
+                        if (word.procedureid == "-1")
+                            output += "<br />";
+                        else
+                            output += "<p procedure-id='" + word.procedureid.ToString() + "' style='text-align: " + word.textalign.ToString() + "'>" + word.value.Replace(".", "،").Replace("!####!", "&nbsp;").Replace("#!#!#!", "<br/>") + "</p> ";
+                    }
+                    else
+                        output += "<span class='segment' data-stime='" + word.stime.ToString() + "'>" + word.value.Replace(".", "،").Replace("!####!", "&nbsp;").Replace("#!#!#!", "<br/>") + "</span> ";
                 }
             }
             return output;

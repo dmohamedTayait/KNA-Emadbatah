@@ -298,9 +298,6 @@
                                                             </div>
                                                         </div>
                                                         <%} %>
-                                                        <% if(CurrentUser.Role == UserRole.Admin && !saf.IsSessionStart)   {   %>
-                                                            <div class="removeFile" style="cursor:pointer;color:Red;font-weight:bold">حذف الملف</div>
-                                                        <%} %>
                                                     </td>
                                                 </tr>
                                                 <%
@@ -422,8 +419,6 @@
                                                     <%=session.ReviewerName %></div>
                                                 <%  
                                                                         }%>
-                                                                         <div style="padding-top: 5px;">
-                                                   <a href="ManageTopics.aspx?sid=<%=session.SessionID%>">[المقترحات / التوصيات]</a></div>
                                                                        <% if (CurrentUser.Role != UserRole.DataEntry &&
                                                                             (CurrentUser.Role == UserRole.Admin || session.ReviewerID == CurrentUser.ID || session.ReviewerID == null || CurrentUser.Role == UserRole.FileReviewer || CurrentUser.Role == UserRole.ReviewrDataEntry || CurrentUser.Role == UserRole.Reviewer)
                                                                             && !(session.Status == SessionStatus.FinalApproved))
