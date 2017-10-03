@@ -1039,106 +1039,95 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
         }
         public void AddCustomTable(List<Model.SessionMembersVote> membersVoteLst)
         {
-            var doc = _currentDoc.MainDocumentPart.Document;
+            if (_docMainPart == null)
+                _docMainPart = _currentDoc.AddMainDocumentPart();
+            if (_docMainPart.Document == null)
+                _docMainPart.Document = MakeEmpyDocument();
 
             Table table = new Table();
-            TableProperties tableProp = new TableProperties();
-            TableStyle tableStyle = new TableStyle() { Val = "styleTableGrid" };
-            TableWidth tableWidth = new TableWidth() { Width = "2500", Type = TableWidthUnitValues.Pct };
-            TableLook tableLook = new TableLook() { Val = "04A0", FirstRow = true,
-                LastRow = false, FirstColumn = true, LastColumn = false,
-                NoHorizontalBand = false, NoVerticalBand = true };
-            TableJustification tblJustification = new TableJustification();
-            tblJustification.Val = TableRowAlignmentValues.Right;
-            tableProp.Append(tableStyle);
-            tableProp.Append(tableWidth);
-            tableProp.Append(tableLook);
-            tableProp.Append(tblJustification);
-            table.Append(tableProp);    
 
+            TableProperties tableProp = new TableProperties(new TableStyle() { Val = "styleTableGrid" },
+                    new TableIndentation() { Width = 0,Type = TableWidthUnitValues.Dxa },
+                    new TableJustification() { Val = TableRowAlignmentValues.Right },
+                    new TableWidth() { Width = "3500", Type = TableWidthUnitValues.Pct },//in percentage makes 70%
+                    new TableLook() { Val = "04A0", FirstRow = true, LastRow = false, NoHorizontalBand = false, NoVerticalBand = true },
+                    new TableBorders(
+                        new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U , Space = (UInt32Value)0U},
+                        new BottomBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U },
+                        new LeftBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U },
+                        new RightBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U },
+                        new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U },
+                        new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U }),
+                   new TableCellMarginDefault(
+                       new TopMargin() { Width = "67.5", Type = TableWidthUnitValues.Dxa },
+                       new TableCellLeftMargin() { Width = 67, Type = TableWidthValues.Dxa },
+                       new BottomMargin() { Width = "67.5", Type = TableWidthUnitValues.Dxa },
+                       new TableCellRightMargin() { Width = 67, Type = TableWidthValues.Dxa })
+                       );
+            /*  TableLook tableLook = new TableLook() { Val = "04A0", FirstRow = true,
+                LastRow = false, FirstColumn = true, LastColumn = false,
+                NoHorizontalBand = false, NoVerticalBand = true };*/
+
+            table.Append(tableProp);
+
+            TableRow th = new TableRow();
+            var thc1 = new TableCell();
+            thc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center },new SpacingBetweenLines() { After = "0",Before="0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("م".ToString()) { Space = SpaceProcessingModeValues.Preserve })));
+            thc1.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = "d0d0d0", Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
+
+            var thc2 = new TableCell();
+            thc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(" اسم العضو ") { Space = SpaceProcessingModeValues.Preserve })));
+            thc2.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = "d0d0d0", Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "2000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
+
+            var thc3 = new TableCell();
+            thc3.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("التصويت") { Space = SpaceProcessingModeValues.Preserve })));
+            thc3.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = "d0d0d0", Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "1000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
+
+            th.Append(thc3);
+            th.Append(thc2);
+            th.Append(thc1);
+          
+            table.Append(th);
 
             int i = 0;
             foreach (Model.SessionMembersVote member in membersVoteLst)
             {
+                string voteStr = "";
+                string color = "fff";
+                switch (member.MemberVoteID)
+                {
+                    case 0:
+                        voteStr = "غير موجود";
+                        break;
+                    case 1:
+                        voteStr = "ممتنع";
+                        break;
+                    case 2:
+                        voteStr = "غير موافق";
+                        color = "fb969e";
+                        break;
+                    case 3:
+                        voteStr = "موافق";
+                        color = "9be19b";
+                        break;
+                    default:
+                        voteStr = "غير موجود";
+                        break;
+                }
                 var tr = new TableRow();
 
-                Paragraph paragraph1 = new Paragraph();
-                ParagraphProperties paragraphProp1 = new ParagraphProperties();
-                Justification justification1 = new Justification();
-                justification1.Val = JustificationValues.Center;
-                paragraphProp1.Append(justification1);
-                paragraph1.Append(paragraphProp1);   
-                Run run1 = new Run(new Text((i + 1).ToString()) { Space = SpaceProcessingModeValues.Preserve });
-                paragraph1.Append(run1);
-
-
                 var tc1 = new TableCell();
-                tc1.Append(paragraph1);
-                tc1.Append(new TableCellProperties(
-                    new TableCellWidth { Type = TableWidthUnitValues.Pct , Width = "400" }));
-                tc1.Append(new TableCellProperties(
-                   new TableCellMarginDefault(
-                new TableCellLeftMargin { Width = 108, Type = TableWidthValues.Dxa },
-                new TableCellRightMargin { Width = 108, Type = TableWidthValues.Dxa }
-                 )));
-                tc1.Append(new TableCellProperties(new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center }));
-
-                Paragraph paragraph2 = new Paragraph();
-                ParagraphProperties paragraphProp2 = new ParagraphProperties();
-                Justification justification2 = new Justification();
-                justification2.Val = JustificationValues.Right;
-                paragraphProp2.Append(justification2);
-                paragraph2.Append(paragraphProp2);   
-                Run run2 = new Run(new Text("  " + member.MemberFullName) { Space = SpaceProcessingModeValues.Preserve });
-                paragraph2.Append(run2);
-
+                tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(member.PersonID.ToString()) { Space = SpaceProcessingModeValues.Preserve })));//(i + 1).ToString()
+                tc1.Append(new TableCellProperties(new TableCellWidth { Width = "500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
                 var tc2 = new TableCell();
-                tc2.Append(paragraph2);
-                tc2.Append(new TableCellProperties(
-                                   new TableCellWidth { Type = TableWidthUnitValues.Pct, Width = "2500" }));
-                tc2.Append(new TableCellProperties(
-                   new TableCellMarginDefault(
-                new TableCellLeftMargin { Width = 108, Type = TableWidthValues.Dxa },
-                new TableCellRightMargin { Width = 108, Type = TableWidthValues.Dxa }
-                 )));
-                tc2.Append(new TableCellProperties(new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center }));
-
-                Paragraph paragraph3 = new Paragraph();
-                ParagraphProperties paragraphProp3 = new ParagraphProperties();
-                Justification justification3 = new Justification();
-                justification3.Val = JustificationValues.Center;
-                paragraphProp3.Append(justification3);
-                paragraph3.Append(paragraphProp3);   
-                Run run3 = new Run(new Text(member.MemberVoteID.ToString()) { Space = SpaceProcessingModeValues.Preserve });
-                paragraph3.Append(run3);
+                tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("  " + member.MemberFullName) { Space = SpaceProcessingModeValues.Preserve })));
+                tc2.Append(new TableCellProperties(new TableCellWidth { Width = "2000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
+      
                 var tc3 = new TableCell();
-                Shading shading1 = new Shading()  {
-                        Color = "Green",
-                        Fill = "ABCDEF",
-                        Val = ShadingPatternValues.Clear
-                    };
-                Shading shading2 = new Shading()
-                {
-                    Color = "Red",
-                    Fill = "010101",
-                    Val = ShadingPatternValues.Clear
-                };
+                tc3.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(voteStr) { Space = SpaceProcessingModeValues.Preserve })));
+                tc3.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = color, Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "1000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
-                if (member.MemberVoteID == 1)
-                    tc3.Append(shading1);
-                else if (member.MemberVoteID == 2)
-                    tc3.Append(shading2);
-                tc3.Append(paragraph3);
-                tc3.Append(new TableCellProperties(
-                                new TableCellWidth { Type = TableWidthUnitValues.Pct, Width = "800" }));
-                tc3.Append(new TableCellProperties(
-                   new TableCellMarginDefault(
-                new TableCellLeftMargin { Width = 108, Type = TableWidthValues.Dxa },
-                new TableCellRightMargin { Width = 108, Type = TableWidthValues.Dxa }
-                 )));
-                tc3.Append(new TableCellProperties(new TableCellVerticalAlignment() { Val = TableVerticalAlignmentValues.Center }));
-    
                 tr.Append(tc3);
                 tr.Append(tc2);
                 tr.Append(tc1);
@@ -1146,9 +1135,79 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 table.Append(tr);
                 i++;
             }
-            doc.Body.Append(table);
+            _docMainPart.Document.Body.Append(table);
+            Save();
         }
 
+        public void AddStatistcsTable(string[,] data)
+        {
+            try
+            {
+                if (_docMainPart == null)
+                    _docMainPart = _currentDoc.AddMainDocumentPart();
+                if (_docMainPart.Document == null)
+                    _docMainPart.Document = MakeEmpyDocument();
+
+
+                //Container table
+                Table bigtable = new Table();
+
+                TableProperties bigtableProp = new TableProperties(new TableStyle() { Val = "styleTableGrid" },
+                        new TableIndentation() { Width = 0, Type = TableWidthUnitValues.Dxa },
+                        new TableJustification() { Val = TableRowAlignmentValues.Right },
+                        new TableWidth() { Width = "5000", Type = TableWidthUnitValues.Pct },
+                        new TableLook() { Val = "04A0", FirstRow = false, LastRow = false, NoHorizontalBand = false, NoVerticalBand = true });
+
+
+                bigtable.Append(bigtableProp);
+                TableRow tr = new TableRow();
+
+                for (var i = 0; i <= data.GetUpperBound(0); i++)
+                {
+                    Table table1 = new Table( new TableProperties(new TableStyle() { Val = "styleTableGrid" },
+                            new TableIndentation() { Width = 0, Type = TableWidthUnitValues.Dxa },
+                            new TableJustification() { Val = TableRowAlignmentValues.Right },
+                            new TableWidth() { Width = "4000", Type = TableWidthUnitValues.Pct },
+                            new TableLook() { Val = "04A0", FirstRow = false, LastRow = false, NoHorizontalBand = false, NoVerticalBand = true },
+                            new TableBorders(
+                                new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "d0d0d0", Size = (UInt32Value)8U, Space = (UInt32Value)0U },
+                                new BottomBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "d0d0d0", Size = (UInt32Value)8U, Space = (UInt32Value)0U },
+                                new LeftBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "d0d0d0", Size = (UInt32Value)8U, Space = (UInt32Value)0U },
+                                new RightBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "d0d0d0", Size = (UInt32Value)8U, Space = (UInt32Value)0U },
+                                new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "d0d0d0", Size = (UInt32Value)12U, Space = (UInt32Value)0U },
+                                new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "d0d0d0", Size = (UInt32Value)12U, Space = (UInt32Value)0U }),
+                           new TableCellMarginDefault(
+                               new TopMargin() { Width = "67.5", Type = TableWidthUnitValues.Dxa },
+                               new TableCellLeftMargin() { Width = 67, Type = TableWidthValues.Dxa },
+                               new BottomMargin() { Width = "67.5", Type = TableWidthUnitValues.Dxa },
+                               new TableCellRightMargin() { Width = 67, Type = TableWidthValues.Dxa })
+                               ));
+                    TableRow tpl1tr1 = new TableRow();
+
+                    for (var j = 0; j <= data.GetUpperBound(1); j++)
+                    {
+                        var tpl1Tc1 = new TableCell();
+                        tpl1Tc1.Append(new Paragraph(new ParagraphProperties(new SpacingBetweenLines() { After = "0",Before="0", Line = "360", LineRule = LineSpacingRuleValues.Auto },new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(data[i, j]))));
+                        tpl1tr1.Append(tpl1Tc1);
+                    }
+                    table1.Append(tpl1tr1);
+
+                    var tc1 = new TableCell();
+                    tc1.Append(table1);
+                    tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(""))));
+                    tc1.Append(new TableCellProperties(new TableCellWidth { Width = "1250", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
+                    tr.Append(tc1);
+                }
+
+                bigtable.Append(tr);
+
+                _docMainPart.Document.Body.Append(bigtable);
+                Save();
+            }
+            catch(Exception ex){
+
+            }
+        }
         private void InitializeDocumentStyles()
         {
             // Create a style part and add it to the document

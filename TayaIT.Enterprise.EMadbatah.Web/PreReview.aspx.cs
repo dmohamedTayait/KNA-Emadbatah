@@ -202,8 +202,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                                     .Replace("<%title%>", "هذا المقطع تذييل صفحة (للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) .. يمكنك الاطلاع فقط")
                                     .Replace("<%FileRevName%>", item.SessionFile.FileReviewer != null ? item.SessionFile.FileReviewer.FName : "لا يوجد")
                                     .Replace("<%FileName%>", Path.GetFileName(item.SessionFile.Name))
-                                    .Replace("<%UserName%>", item.User.FName)
-                                    .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تذييل صفحة");
+                                    .Replace("<%UserName%>", item.User.FName);
+                                   // .Replace("<%RevName%>", sd.ReviewerName + "\r\n<br/>(للتعديل يمكنك استخدام خيارات تعديل أكثر للمقطع السابق) هذا المقطع تذييل صفحة");
                             sb.Append(reviewFootNote);
                         }
                     }

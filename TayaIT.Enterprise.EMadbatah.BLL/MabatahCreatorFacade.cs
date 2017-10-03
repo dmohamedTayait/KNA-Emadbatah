@@ -224,48 +224,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             contentItemAsText = text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!");
                             contentItemGrp.Add(contentItem);
                             k++;
-                            /*
-                            if (contentItem.TopicID != null)//If Current Segment Contains topic
-                            {
-                                string topicTitle = "";
-                                Topic tpc = TopicHelper.GetTopicByID(long.Parse(contentItem.TopicID.ToString()));
-                                List<TopicParagraph> tpcParags = TopicHelper.GetTopicParagsByTopicID(long.Parse(contentItem.TopicID.ToString()));
-                                WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp);// Copy the previuos segments before writing the topic
-                                text = "";
-                                contentItemAsText = "";
-                                contentItemGrp.Clear();//clear the segments array after writing them in the word
 
-                                topicTitle = "الموضوع : " + tpc.Title;
-                                doc.AddParagraph(TextHelper.StripHTML(topicTitle), ParagraphStyle.UnderLineParagraphTitle, ParagrapJustification.Center, false, "");
-                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                foreach (TopicParagraph tpcParagObj in tpcParags)
-                                {
-                                    doc.AddParagraph(TextHelper.StripHTML(tpcParagObj.ParagraphText), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                }
-                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                                doc.AddParagraph("مقدمو الطلب", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
-
-                                //format attendant table
-                                List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(contentItem.TopicID.ToString()));
-                                List<string> attNamesLst = new List<string>();
-                                for (int u = 0; u < tpcAtts.Count(); u += 2)
-                                {
-                                    Attendant att1 = new Attendant();
-                                    Attendant att2 = new Attendant();
-                                    string attNames = "";
-                                    att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
-                                    attNames = att1.LongName;
-                                    if (u + 1 < tpcAtts.Count())
-                                    {
-                                        att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
-                                        attNames += "," + att2.LongName;
-                                    }
-                                    attNamesLst.Add(attNames);
-                                }
-                                doc.AddTable(attNamesLst);
-                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
-                            }
-                            */
                             if (contentItem.AttachementID != null)//If Current Segment Contains Attach
                             {
                                 string attachName = "";
@@ -281,7 +240,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     string wordAttFilePath = SessionWorkingDir + attachName.ToLower().Replace(".pdf", ".pdf.docx");
                                     string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, "")).OrderBy(p => new FileInfo(p).CreationTime).ToArray();
 
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp,1);// Copy the previuos segments before witing the attach
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 1);// Copy the previuos segments before witing the attach
                                     text = "";
                                     contentItemAsText = "";
                                     contentItemGrp.Clear();//clear the segments array after writing them in the word
@@ -290,14 +249,45 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         ImageWriter.AddImage(doc.DocMainPart.Document.Body, doc.DocMainPart, f, "rId" + ii);//write attach images
                                         ii++;
                                     }
-                                   // doc.AddPageBreak();
+                                    // doc.AddPageBreak();
                                 }
                             }
+
+
+                            if (contentItem.VotingID != null && contentItem.VotingID != 0)// To write Vote Table
+                            {
+                                WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 1);// Copy the previuos segments before witing the attach
+                                text = "";
+                                contentItemAsText = "";
+                                contentItemGrp.Clear();//clear the segments array after writing them in the word
+
+                                TBLNonSecretVoteSubject voteSubject = NonSecretVoteSubjectHelper.GetSessionVoteByVoteID((int)contentItem.VotingID);
+                                doc.AddParagraph("رقم الموضوع : " + voteSubject.NonSecretVoteSubjectNumber.ToString(), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                doc.AddParagraph("الموضوع : " + voteSubject.NonSecretVoteSubject, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                doc.AddParagraph("نتيجة التصويت الإلكتروني", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+                                doc.AddStatistcsTable(new string[,] 
+                                  {{ voteSubject.NofNoVote.ToString(), "ممتنع : " },
+                                   { voteSubject.NofDisagree.ToString(), "غير موافق : " },
+                                   { voteSubject.NofAgree.ToString(), "موافق : " }, 
+                                   { voteSubject.NofAttendance.ToString() ,"الحضور : " }});
+                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                                List<MembersVote> mems = MembersVoteHelper.GetMembersVoteNonSecretVoteID((int)contentItem.VotingID);
+                                List<SessionMembersVote> membersVoteLst = new List<SessionMembersVote>();
+                                foreach (MembersVote mem in mems)
+                                {
+                                    SessionMembersVote s = new SessionMembersVote(mem.AutoID, mem.NonSecretVoteSubjectID, mem.PersonID, (int)mem.MemberVoteID, mem.MemberFullName);
+                                    membersVoteLst.Add(s);
+                                }
+
+                                doc.AddCustomTable(membersVoteLst);
+                                doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                            }
+
                             if (speakerGroup[j].Count == k)// reach the loop end
                             {
                                 if (sessionItem.TopicID != null && sessionItem.TopicID != 0)
                                 {
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp,0);
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 0);
                                     List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(sessionItem.TopicID.ToString()));
                                     List<string> attNamesLst = new List<string>();
                                     for (int u = 0; u < tpcAtts.Count(); u += 2)
@@ -319,32 +309,15 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                                 else
                                 {
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp,1);
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 1);
                                 }
                                 contentItemGrp.Clear();
                             }
                         }
+
                         k = 0;
                         text = "";
                         j++;
-                        if (j == 0)// To write Vote Table
-                        {
-                            /*List<MembersVote> mems = MembersVoteHelper.GetMembersVoteNonSecretVoteID(155);
-                            List<SessionMembersVote> membersVoteLst = new List<SessionMembersVote>();
-                            foreach (MembersVote mem in mems)
-                            {
-                                SessionMembersVote s = new SessionMembersVote(mem.AutoID, mem.NonSecretVoteSubjectID, mem.PersonID,(int) mem.MemberVoteID, mem.MemberFullName);
-                                membersVoteLst.Add(s);
-                            }
-
-                            doc.AddCustomTable(membersVoteLst);
-
-                             doc.AddTable(new string[,] 
-                                  { { "Texas", "1" }, 
-                                  { "California", "2" }, 
-                                  { "New York", "3" }, 
-                                  { "Massachusetts", "4" } });*/
-                        }
                     }///loop sessionitem
 
                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
