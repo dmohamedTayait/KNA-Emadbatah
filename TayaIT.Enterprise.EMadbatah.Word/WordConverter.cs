@@ -44,7 +44,7 @@ namespace TayaIT.Enterprise.EMadbatah.Word
             WdExportRange paramExportRange = WdExportRange.wdExportAllDocument;
             int paramStartPage = 0;
             int paramEndPage = 0;
-            WdExportItem paramExportItem = WdExportItem.wdExportDocumentContent;
+            WdExportItem paramExportItem = WdExportItem.wdExportDocumentWithMarkup;
             bool paramIncludeDocProps = true;
             bool paramKeepIRM = true;
             WdExportCreateBookmarks paramCreateBookmarks =

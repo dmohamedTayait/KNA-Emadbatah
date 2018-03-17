@@ -153,7 +153,7 @@
                 chb = "<div style='padding-bottom:10px' class=\"grid_6 h2 grid_att\"> <input type=\"checkbox\" name=\"chbAttID\" value=\"AttID\"><span>AttName</span></div>";
                 var tmpTr = "";
                 for (i = 0; i < response.length; i++) {
-                    tmpchb = chb.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].LongName);
+                    tmpchb = chb.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].AttendantDegree + " " + response[i].LongName);
                     AttCont.append(tmpchb);
                     if (response[i].FirstName == "1")
                         $("input:checkbox[name='chb" + response[i].ID + "']", AttCont).prop('checked', true);

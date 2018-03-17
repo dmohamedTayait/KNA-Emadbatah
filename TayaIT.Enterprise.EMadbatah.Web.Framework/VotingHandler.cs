@@ -34,28 +34,42 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                 {
                     case WebFunctions.VotingFunctions.GetSessionVotes:
                         List<SessionNonSecretVoteSubject> votesLst = new List<SessionNonSecretVoteSubject>();
-                        if (votesLst != null)
+                        TBLMeeting meeting = new TBLMeeting();
+                        List<TBLNonSecretVoteSubject> votes = new List<TBLNonSecretVoteSubject>();
+                        if (!string.IsNullOrEmpty(SessionIDEParliment))
                         {
-                            TBLMeeting meeting = NonSecretVoteSubjectHelper.GetNonSecretVotesByEparID(long.Parse(SessionIDEParliment));
+                            meeting = NonSecretVoteSubjectHelper.GetNonSecretVotesByEparID(long.Parse(SessionIDEParliment));
                             if (meeting != null && meeting.TBLNonSecretVoteSubjects != null && meeting.TBLNonSecretVoteSubjects.Count > 0)
                             {
-                                foreach (TBLNonSecretVoteSubject voteSubject in meeting.TBLNonSecretVoteSubjects)
-                                {
-                                    SessionNonSecretVoteSubject sessionVoteSubject = new SessionNonSecretVoteSubject();
-                                    sessionVoteSubject.ID = voteSubject.NonSecretVoteSubjectID;
-                                    sessionVoteSubject.MeetingID = (int)voteSubject.MeetingID;
-                                    sessionVoteSubject.NonSecretVoteSubjectNumber = voteSubject.NonSecretVoteSubjectNumber;
-                                    sessionVoteSubject.NonSecretVoteSubject = voteSubject.NonSecretVoteSubject;
-                                    sessionVoteSubject.NonSecretVoteSubjectDate = (DateTime)voteSubject.NonSecretVoteSubjectDate;
-                                    sessionVoteSubject.NonSecreatVoteSubjectIsClosed = (bool)voteSubject.NonSecreatVoteSubjectIsClosed;
-                                    sessionVoteSubject.NofAgree = voteSubject.NofAgree;
-                                    sessionVoteSubject.NofDisagree = voteSubject.NofDisagree;
-                                    sessionVoteSubject.NofNoVote = voteSubject.NofNoVote;
-                                    sessionVoteSubject.NofAttendance = voteSubject.NofAttendance;
-                                    votesLst.Add(sessionVoteSubject);
-                                }
+                                votes = meeting.TBLNonSecretVoteSubjects.ToList();
                             }
                         }
+                        else if (!string.IsNullOrEmpty(SessionID))
+                        {
+                            Session sessionObj = SessionHelper.GetSessionByID(long.Parse(SessionID));
+                           // meeting = NonSecretVoteSubjectHelper.GetNonSecretVotesByMeetingDate((DateTime)sessionObj.StartTime);
+                            votes = NonSecretVoteSubjectHelper.GetNonSecretVoteSubjectsByMeetingDate((DateTime)sessionObj.StartTime);
+                           
+                        }
+                        if (votes != null && votes.Count > 0)
+                        {
+                            foreach (TBLNonSecretVoteSubject voteSubject in votes)
+                            {
+                                SessionNonSecretVoteSubject sessionVoteSubject = new SessionNonSecretVoteSubject();
+                                sessionVoteSubject.ID = voteSubject.NonSecretVoteSubjectID;
+                                sessionVoteSubject.MeetingID = (int)voteSubject.MeetingID;
+                                sessionVoteSubject.NonSecretVoteSubjectNumber = voteSubject.NonSecretVoteSubjectNumber;
+                                sessionVoteSubject.NonSecretVoteSubject = voteSubject.NonSecretVoteSubject;
+                                sessionVoteSubject.NonSecretVoteSubjectDate = (DateTime)voteSubject.NonSecretVoteSubjectDate;
+                                sessionVoteSubject.NonSecreatVoteSubjectIsClosed = voteSubject.NonSecreatVoteSubjectIsClosed != null ? (bool)voteSubject.NonSecreatVoteSubjectIsClosed : false;
+                                sessionVoteSubject.NofAgree = voteSubject.NofAgree;
+                                sessionVoteSubject.NofDisagree = voteSubject.NofDisagree;
+                                sessionVoteSubject.NofNoVote = voteSubject.NofNoVote;
+                                sessionVoteSubject.NofAttendance = voteSubject.NofAttendance;
+                                votesLst.Add(sessionVoteSubject);
+                            }
+                        }
+                        
                         jsonStringOut = SerializeObjectInJSON(votesLst);
                         break;
                     default:

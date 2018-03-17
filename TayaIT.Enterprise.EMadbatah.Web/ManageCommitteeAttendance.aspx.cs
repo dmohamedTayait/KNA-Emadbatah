@@ -60,7 +60,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 List<CommitteeAttendant> commAttlst = CommitteeHelper.GetCommiteeAttendanceByCommitteeID(long.Parse(CommitteeID));
                 foreach (CommitteeAttendant commAttObj in commAttlst)
                 {
-                    chbDefAttlst.Items.FindByValue(commAttObj.DefaultAttendantID.ToString()).Selected = true;
+                   if(chbDefAttlst.Items.FindByValue(commAttObj.DefaultAttendantID.ToString()) != null)
+                    { 
+                       chbDefAttlst.Items.FindByValue(commAttObj.DefaultAttendantID.ToString()).Selected = true;
+                    }
+                   
                 }
             }
         }

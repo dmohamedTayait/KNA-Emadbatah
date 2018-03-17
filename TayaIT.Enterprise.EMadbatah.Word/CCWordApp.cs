@@ -1029,27 +1029,18 @@ namespace TayaIT.Enterprise.EMadbatah.Word
 
         }
 
-        public long GetCurrentPageLineNumber(bool end)
+        public int GetCurrentPageLineNumber(bool end)
         {
-            long lineNo = 0;
+            int lineNo = 0;
             foreach (Microsoft.Office.Interop.Word.Range range in  oWordApplic.ActiveDocument.Words)
             {
-                lineNo = (long)range.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+                lineNo = (int)range.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
             }
-            return lineNo;
+
             /*object oMissing = System.Reflection.Missing.Value;
             Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticLines;
             int num = oDoc.ComputeStatistics(stat, ref oMissing);
-            return num;
-
-
-            object missing = System.Reflection.Missing.Value;
-            object what = Microsoft.Office.Interop.Word.WdGoToItem.wdGoToPercent;
-            object which = Microsoft.Office.Interop.Word.WdGoToDirection.wdGoToLast;
-            oDoc.GoTo(ref what, ref which, ref missing, ref missing);
-
-
-
+            return num;*/
 
             if (end)
                 GoToTheEnd();
@@ -1059,7 +1050,7 @@ namespace TayaIT.Enterprise.EMadbatah.Word
             Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticLines;
             int num = oDoc.ComputeStatistics(stat, ref oMissing);
             //num = DocumentComputeStatistics();
-            return num;*/
+            return num;
 
 
         }
@@ -1067,31 +1058,33 @@ namespace TayaIT.Enterprise.EMadbatah.Word
         public long GetCurrentPageLineNumber(int Page)
         {
             long lineNo = 0;
-           /* object What = Microsoft.Office.Interop.Word.WdGoToItem.wdGoToPage;
-            object Which = Microsoft.Office.Interop.Word.WdGoToDirection.wdGoToAbsolute;
-            object Miss = System.Reflection.Missing.Value;
-            object Start;
-            object End;
-            object CurrentPageNumber;
-            object NextPageNumber;
+            try
+            {
+                removeEmptyPages();
+                /* object What =Microsoft.Office.Interop.Word.WdGoToItem.wdGoToPage;
+                 object Which =Microsoft.Office.Interop.Word.WdGoToDirection.wdGoToAbsolute;
+                 object Miss = System.Reflection.Missing.Value;
+                 object Start;
+                 object End;
+                 object CurrentPageNumber;
+                 object NextPageNumber;
+                 CurrentPageNumber = (Convert.ToInt32(Page.ToString()));
+                 NextPageNumber = (Convert.ToInt32((Page + 1).ToString()));
+                 // Get start position of current page
+                 Start = oWordApplic.Selection.GoTo(ref What, ref Which, ref CurrentPageNumber, ref Miss).Start;
+                 // Get end position of current page
+                 End = oWordApplic.Selection.GoTo(ref What, ref Which, ref NextPageNumber, ref Miss).End;
+                 lineNo = (long)oDoc.Range(ref Start, ref End).get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);*/
 
-            CurrentPageNumber = (Convert.ToInt32(Page.ToString()));
-            NextPageNumber = (Convert.ToInt32((Page + 1).ToString()));
-
-            // Get start position of current page
-            Start = oWordApplic.Selection.GoTo(ref What, ref Which, ref CurrentPageNumber, ref Miss).Start;
-
-            // Get end position of current page                                
-            End = oWordApplic.Selection.GoTo(ref What, ref Which, ref NextPageNumber, ref Miss).End;
-
-            lineNo = (long)oDoc.Range(ref Start, ref End).get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
-
-          
-            */
-            Microsoft.Office.Interop.Word.Range range2 = oWordApplic.ActiveDocument.Words.Last;
-            lineNo = (long)range2.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
-
-            lineNo = (long)range2.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+                Microsoft.Office.Interop.Word.Range range2 = oWordApplic.ActiveDocument.Words.Last;
+                lineNo = (long)range2.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+                lineNo = (long)range2.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdFirstCharacterLineNumber);
+            }
+            catch (Exception ex)
+            {
+                Util.LogHelper.LogException(ex, "ccwordApp.GetCurrentPageLineNumber");
+                System.Threading.Thread.ResetAbort();
+            }
             return lineNo;
         }
 
@@ -1103,16 +1096,41 @@ namespace TayaIT.Enterprise.EMadbatah.Word
             return wordCount;
             //MessageBox.Show("There are " + wordCount.ToString() + " words in this document.");
         }
-
-        public int GetNumPages()
+        public void removeEmptyPages()
         {
-            GoToTheEnd();
-            //return GetCurrentPageNumber();
-            object oMissing = System.Reflection.Missing.Value;
-            object totalPages = Microsoft.Office.Interop.Word.WdFieldType.wdFieldNumPages;
-            Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticPages;
-            int num = oDoc.ComputeStatistics(stat, ref oMissing);
-            num = DocumentComputeStatistics();
+           /* Microsoft.Office.Interop.Word.Paragraphs paragraphs = null;
+            paragraphs = oDoc.Paragraphs;
+            foreach (Microsoft.Office.Interop.Word.Paragraph paragraph in paragraphs)
+            {
+                if (paragraph.Range.Text.Trim() == string.Empty)
+                {
+                    paragraph.Range.Select();
+                    oWordApplic.Selection.Delete();
+                }
+            }
+            oDoc.Save(); */
+        }
+        public int GetNumPages()//the working function
+        {
+             int num =0;
+             try
+             {
+                 removeEmptyPages();
+
+                 GoToTheEnd();
+                 //return GetCurrentPageNumber();
+                 object oMissing = System.Reflection.Missing.Value;
+                 object totalPages = Microsoft.Office.Interop.Word.WdFieldType.wdFieldNumPages;
+                 Microsoft.Office.Interop.Word.WdStatistic stat = Microsoft.Office.Interop.Word.WdStatistic.wdStatisticPages;
+                 num = oDoc.ComputeStatistics(stat, ref oMissing);
+                 num = DocumentComputeStatistics();
+             }
+             catch (Exception ex)
+             {
+                 Util.LogHelper.LogException(ex, "ccwordApp.GetNumPages");
+                 System.Threading.Thread.ResetAbort();
+             }
+
             return num;
         }
 
@@ -1158,6 +1176,53 @@ namespace TayaIT.Enterprise.EMadbatah.Word
                 }
             }
 
+        }
+
+        public string searchToGetPageNum(string filePathAndName,string text)
+        {
+
+            oWordApplic.Visible = false;
+            object missing = System.Type.Missing;
+            object saveChanges = Microsoft.Office.Interop.Word.WdSaveOptions.wdSaveChanges;
+
+            Microsoft.Office.Interop.Word.Documents docs = oWordApplic.Documents;
+
+            docs.Open(filePathAndName, ReadOnly: true);
+
+            int intFound = 0;
+            Range rng = oWordApplic.ActiveDocument.Content;   // this = wordApp.ActiveDocument
+
+            rng.Find.ClearFormatting();
+            rng.Find.Forward = true;
+            rng.Find.Text = text.Trim();
+            string found = "";
+            try
+            {
+                rng.Find.Execute(
+                    ref missing, ref missing, ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing, ref missing, ref missing,
+                    ref missing, ref missing, ref missing, ref missing, ref missing);
+                int p = (int)rng.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdActiveEndPageNumber);
+                found += p.ToString() + ",";
+                while (rng.Find.Found)
+                {
+                    intFound++;
+                    rng.Find.Execute(
+                        ref missing, ref missing, ref missing, ref missing, ref missing,
+                        ref missing, ref missing, ref missing, ref missing, ref missing,
+                        ref missing, ref missing, ref missing, ref missing, ref missing);
+                    p = (int)rng.get_Information(Microsoft.Office.Interop.Word.WdInformation.wdActiveEndPageNumber);
+                    found += p.ToString() + ",";
+                }
+            }
+
+            catch (Exception ex)
+            {
+               // oWordApplic.ActiveDocument.Close(saveChanges, ref missing, ref missing);
+                //wordApp.Application.Quit(ref missing, ref missing, ref missing);
+            }
+
+            return found;
         }
     }
 

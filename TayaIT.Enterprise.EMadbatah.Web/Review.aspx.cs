@@ -198,9 +198,29 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             }
                             currentSpeaker = item.AttendantID;
 
-                            if (currentSpeaker != prevSpeaker && topic_id != 0)
+                          /*  if (currentSpeaker != prevSpeaker && topic_id != 0)
                             {
                                 //for Topics
+                                string reviewItemTopic = write_topic_att(topic_id, item);
+                                if (reviewItemTopic != "")
+                                    sb.Append(reviewItemTopic);
+                                topic_id = 0;
+                            }*/
+
+                            if ((item.TopicID != null && item.TopicID != 0 && item.MergedTopicWithPrevious != null && !(bool)item.MergedTopicWithPrevious))
+                            {
+                                if (topic_id != 0)
+                                {
+                                    string reviewItemTopic = write_topic_att(topic_id, item);
+                                    if (reviewItemTopic != "")
+                                        sb.Append(reviewItemTopic);
+                                    topic_id = 0;
+                                }
+                                topic_id = (long)item.TopicID;
+                            }
+
+                            if (item.TopicID == null || item.TopicID == 0 && topic_id != 0)
+                            {
                                 string reviewItemTopic = write_topic_att(topic_id, item);
                                 if (reviewItemTopic != "")
                                     sb.Append(reviewItemTopic);
@@ -335,10 +355,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                             }
                             sb.Append(reviewItem);
 
-                            if (item.TopicID != null && item.TopicID != 0)
+                           /* if (item.TopicID != null && item.TopicID != 0)
                             {
                                 topic_id = (long)item.TopicID;
-                            }
+                            }*/
 
                             if (item.ID == groupedItems[groupedItems.Count-1].ID && topic_id != 0)
                             {
@@ -453,16 +473,17 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 //format attendant table
                 List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(topic_id);
                 List<string> attNamesLst = new List<string>();
+                tpcParagStr += "<div style='width:700px;'><div style='padding-right:200px'>مقدموا الطلب</div></div>";
                 for (int u = 0; u < tpcAtts.Count(); u += 2)
                 {
                     Attendant att1 = new Attendant();
                     Attendant att2 = new Attendant();
                     att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
-                    tpcParagStr += "<div style='width:700px;'><div style='width:300px;float:right'>" + att1.LongName + "</div>";
+                    tpcParagStr += "<div style='width:700px;'><div style='width:300px;float:right'>" + (att1.AttendantDegree + " " + att1.LongName).Trim() + "</div>";
                     if (u + 1 < tpcAtts.Count())
                     {
                         att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
-                        tpcParagStr += "<div style='width:300px;float:right'>" + att2.LongName + "</div>";
+                        tpcParagStr += "<div style='width:300px;float:right'>" + (att2.AttendantDegree + " " + att2.LongName).Trim() + "</div>";
                     }
                     tpcParagStr += "</div>";
                 }

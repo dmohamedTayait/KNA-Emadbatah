@@ -207,7 +207,7 @@
                 </div>
                 <br />
                 <div class="grid_22">
-                    <% List<Committee> Committees = CommitteeHelper.GetAllCommittee(); %>
+                    <% List<Committee> Committees = CommitteeHelper.GetAllCommittee(1); %>
                     <section class="" border="0" cellspacing="0" cellpadding="0">
                         <%foreach (Committee comm in Committees)
                           { %>

@@ -65,7 +65,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         }
                     }
 
-                    List<Committee> Committees = CommitteeHelper.GetAllCommittee();
+                    List<Committee> Committees = CommitteeHelper.GetAllCommittee((int)Model.AttendantStatus.Active);
                     ListItem liNewCommittee = new ListItem("-- اختر --", "0");
                     ddlCommittee.Items.Insert(0, liNewCommittee);
                     foreach (Committee committeeObj in Committees)
@@ -188,6 +188,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             // set editor text
             elm1.Value = html;
 
+            long prevTopicID = 0;
             //get prev item from db if exist
             if (FragOrder - 1 >= 0)
             {
@@ -205,7 +206,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         sb.Append("prevSpeakerTitle=\"").Append(prevContentItem.Attendant.JobTitle).Append("\";");
                     sb.Append("</script>");
                     ClientScript.RegisterClientScriptBlock(typeof(string), "abbas", sb.ToString());
-
+                    prevTopicID = prevContentItem.TopicID != null ? (long)prevContentItem.TopicID : 0;
                     //ClientScript.RegisterClientScriptBlock(typeof(string), "abbas", "<script type=\"text/javascript\">prevAgendaItemIndex=" + prevContentItem.AgendaItemID + ";prevAgendaSubItemIndex=" + prevContentItem.AgendaSubItemID == null ? "''" : prevContentItem.AgendaSubItemID
                     //    + ";prevSpeakerIndex=" + prevContentItem.AttendantID + ";prevSpeakerTitle=" + prevContentItem.Attendant.JobTitle == null ? "''" : prevContentItem.Attendant.JobTitle + ";</script>");
                 }
@@ -214,9 +215,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             //bind Speakers Drop Down List
             ListItem li;
             long unAssignedId = 0;
-            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName))
+            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt))
             {
-                ListItem liAttendant = new ListItem(item.LongName, item.ID.ToString());
+                ListItem liAttendant = new ListItem((item.AttendantDegree + " " +  item.LongName).Trim(), item.ID.ToString());
                 ddlSpeakers.Items.Add(liAttendant);
                 if (item.LongName == "غير محدد")
                     unAssignedId = item.ID;
@@ -288,23 +289,81 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     spanAttachTitle.InnerHtml = "";
                 }
 
+                if ((lastContentItem.TopicID == null || lastContentItem.TopicID == 0) && (prevTopicID == null || prevTopicID == 0))
+                {
+                    divTopic.Style.Add("display", "none");
+                    chkTopic.Checked = false;
+                    chkTopic.Disabled = true;
+                    btnAddNewTopic.Disabled = false;
+                    aPopupGetAttTopic.Style.Add("display", "none");
+                }
+                else if ((lastContentItem.TopicID != null && lastContentItem.TopicID != 0) && (prevTopicID == null || prevTopicID == 0))
+                {
+                    topicId.Value = lastContentItem.TopicID.ToString();
+                    divTopic.Style.Add("display", "");
+                    chkTopic.Checked = false;
+                    chkTopic.Disabled = true;
+                    btnAddNewTopic.Disabled = true;
+                    aPopupGetAttTopic.Style.Add("display", "");
+                    if (!(bool)lastContentItem.MergedTopicWithPrevious)
+                    {
+                        chkTopic.Checked = false;
+                        divTopic.Style.Add("display", "block");
+                    }
+                    else
+                    {
+                        chkTopic.Checked = true;
+                    }
+                }
+                else if ((lastContentItem.TopicID == null || lastContentItem.TopicID == 0) && (prevTopicID != null && prevTopicID != 0))
+                {
+                    topicId.Value = lastContentItem.TopicID.ToString();
+                    prevTopicId.Value = prevTopicID.ToString();
+                    divTopic.Style.Add("display", "none");
+                    chkTopic.Checked = false;
+                    chkTopic.Disabled = false;
+                    btnAddNewTopic.Disabled = true;
+                    aPopupGetAttTopic.Style.Add("display", "none");
+                }
+                else if ((lastContentItem.TopicID != null && lastContentItem.TopicID != 0) && (prevTopicID != null && prevTopicID != 0))
+                {
+                    topicId.Value = lastContentItem.TopicID.ToString();
+                    prevTopicId.Value = prevTopicID.ToString();
+                    divTopic.Style.Add("display", "none");
+                    if (!(bool)lastContentItem.MergedTopicWithPrevious)
+                    {
+                        chkTopic.Checked = false;
+                    }
+                    else
+                    {
+                        chkTopic.Checked = true;
+                    }
+                    if (lastContentItem.TopicID != prevTopicID)
+                    {
+                        divTopic.Style.Add("display", "block");
+                    } 
+                    chkTopic.Disabled = false;
+                    btnAddNewTopic.Disabled = false;
+                    aPopupGetAttTopic.Style.Add("display", "");
+                }/*
                 if (lastContentItem.TopicID != null && lastContentItem.TopicID != 0)
                 {
-                    Topic topicObj = TopicHelper.GetTopicByID((int)lastContentItem.TopicID);
-                    topictitle = topicObj.Title;
                     topicId.Value = lastContentItem.TopicID.ToString();
-                    spanTopicTitle.InnerHtml = topictitle;
-                    chkTopic.Checked = true;
-                    aPopupGetAttTopic.Style.Add("display", "");
+                    chkTopic.Checked = false;
+                    chkTopic.Disabled = true;
+                    btnAddNewTopic.Disabled = false;
+                    aPopupGetAttTopic.Style.Add("display", "none");
                 }
                 else
                 {
                     topicId.Value = "0";
                     spanTopicTitle.InnerHtml = "";
                     chkTopic.Checked = false;
+                    chkTopic.Disabled = true;
+                    btnAddNewTopic.Disabled = false;
                     aPopupGetAttTopic.Style.Add("display", "none");
                 }
-
+                */
 
                 string voteSubject = "";
                 if (lastContentItem.VotingID != null && lastContentItem.VotingID != 0)

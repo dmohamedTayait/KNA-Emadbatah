@@ -17,11 +17,11 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     List<DefaultAttendant> DefaultAttendants = new List<DefaultAttendant>();
                     if (unassigned)
                     {
-                        DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8 && c.Status == 1).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
+                        DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8 && c.Status == 1).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt).ToList();
                     }
                     else
                     {
-                        DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8 && c.Type != 9 && c.Status == 1).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
+                        DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8 && c.Type != 9 && c.Status == 1).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt).ToList();
                     }
                    
                     return DefaultAttendants;
@@ -41,7 +41,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
                     List<DefaultAttendant> DefaultAttendants = new List<DefaultAttendant>();
-                    DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type == type && c.Status == 1).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
+                    DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type == type && c.Status == 1).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt).ToList();
                     return DefaultAttendants;
                 }
             }
@@ -60,7 +60,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 {
                     List<DefaultAttendant> DefaultAttendants = new List<DefaultAttendant>();
 
-                    DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8 && c.Status == 2).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
+                    DefaultAttendants = context.DefaultAttendants.Select(c => c).Where(c => c.Type != 8 && c.Status == 2).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt).ToList();
                     return DefaultAttendants;
                 }
             }
@@ -113,7 +113,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static int UpdateDefaultAttendantById(long attendant_id, string name, string shortName, string longName, string attTitle, string jobTitle, int type)
+        public static int UpdateDefaultAttendantById(long attendant_id, string name, string shortName, string longName, string attTitle, string jobTitle, int type,string attDegree)
         {
             try
             {
@@ -129,6 +129,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         attendantForUpdate.Name = name;
                         attendantForUpdate.ShortName = shortName;
                         attendantForUpdate.Type = type;
+                        attendantForUpdate.AttendantDegree = attDegree;
                       //  attendantForUpdate.CreatedAt = DateTime.Now;
                     }
                     return context.SaveChanges();
@@ -141,7 +142,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static int UpdateDefaultAttendantById(long attendant_id, string name, string shortName, string longName, string attTitle, string attAvatar, string jobTitle, int type)
+        public static int UpdateDefaultAttendantById(long attendant_id, string name, string shortName, string longName, string attTitle, string attAvatar, string jobTitle, int type, string attendantDegree)
         {
             try
             {
@@ -158,6 +159,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         attendantForUpdate.Name = name;
                         attendantForUpdate.ShortName = shortName;
                         attendantForUpdate.Type = type;
+                        attendantForUpdate.AttendantDegree = attendantDegree;
                       //  attendantForUpdate.CreatedAt = DateTime.Now;
                     }
                     return context.SaveChanges();
@@ -170,7 +172,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
-        public static int UpdateDefaultAttendantById(long attendant_id, string name, string shortName, string longName, string attTitle, string attAvatar, string jobTitle, int type,int status)
+        public static int UpdateDefaultAttendantById(long attendant_id, string name, string shortName, string longName, string attTitle, string attAvatar, string jobTitle, int type, int status, string attendantDegree)
         {
             try
             {
@@ -188,6 +190,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         attendantForUpdate.ShortName = shortName;
                         attendantForUpdate.Type = type;
                         attendantForUpdate.Status = status;
+                        attendantForUpdate.AttendantDegree = attendantDegree;
                     }
 
                     return context.SaveChanges();
@@ -212,6 +215,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     {
                         attendantForUpdate.Status = status;
                     }
+
+                    CommitteeHelper.UpdateCommitteeAttendantStatus(attendant_id, status);
 
                     return context.SaveChanges();
                 }

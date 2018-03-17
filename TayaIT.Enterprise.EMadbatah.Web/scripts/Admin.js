@@ -148,7 +148,7 @@ $(document).ready(function () {
                          "</tr>";
                     var tmpTr = "";
                     for (i = 0; i < response.length; i++) {
-                        tmpTr = tr.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].LongName);
+                        tmpTr = tr.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].AttendantDegree + " " + response[i].LongName);
                         tbl.append(tmpTr);
                         $("input:radio[name='rd" + response[i].ID + "']", tbl).filter('[value="' + response[i].Status + '"]').prop('checked', true);
                     }

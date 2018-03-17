@@ -30,6 +30,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             long? attachID,
             int? voteID,
             long? topicID,
+            bool? mergedtopicWithPrev,
             int isSessionPresident, float originalStartTime)
         {
 
@@ -71,7 +72,10 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         session_content_item.VotingID = voteID;
 
                     if (topicID != 0 && topicID != null)
+                    {
                         session_content_item.TopicID = topicID;
+                        session_content_item.MergedTopicWithPrevious = mergedtopicWithPrev;
+                    }
 
                     context.SessionContentItems.AddObject(session_content_item);
                     context.SaveChanges();
@@ -236,6 +240,26 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
+
+        //for editor
+        public static SessionContentItem GetSessionContentItemByFragOrder(long sessionFileID, long currentFragOrder)
+        {
+            try
+            {
+                SessionContentItem session_content_item = null;
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    session_content_item = context.SessionContentItems.FirstOrDefault(c => c.SessionFileID == sessionFileID && c.FragOrderInXml==currentFragOrder);
+                }
+                return session_content_item;
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionContentItemHelper.GetSessionContentItemByFragOrder(" + sessionFileID + "," + currentFragOrder + ")");
+                return null;
+            }
+        }
+
 
         //for review page
         public static List<SessionContentItem> GetSessionContentItemsBySessionID(long sessionID)
@@ -1119,7 +1143,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         }
 
         public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID, long? agendaSubItemID,
-            string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID, bool mergedWithPrev, bool ignored, long attachID, int voteID, long topicID, int isSessionPresident
+            string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID, bool mergedWithPrev, bool ignored, long attachID, int voteID, long topicID, bool mergedtopicWithPrev, int isSessionPresident
             )//, float startTime, float endTime, float duration)
         {
             try
@@ -1144,8 +1168,15 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         else updated_session_content_item.VotingID = null;
 
                         if (topicID != 0 && topicID != null)
+                        {
                             updated_session_content_item.TopicID = topicID;
-                        else updated_session_content_item.TopicID = null;
+                            updated_session_content_item.MergedTopicWithPrevious = mergedtopicWithPrev;
+                        }
+                        else
+                        {
+                            updated_session_content_item.TopicID = null;
+                            updated_session_content_item.MergedTopicWithPrevious = null;
+                        }
 
                         updated_session_content_item.AgendaSubItemID = agendaSubItemID;
                         updated_session_content_item.CommentOnAttendant = commentsOnAttendant;
@@ -1175,7 +1206,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
         public static int UpdateSessionContentItem(long sessionContentItemID, string text, long attendantID, long agendaItemID,
             long? agendaSubItemID, string commentsOnAttendant, string commentsOnText, string FooterText, int sessioContentItemStatusID,
-            bool updatedByRev, long reviewerID, bool mergedWithPrev, bool ignored, long attachID, int voteID,long topicID, int isSessionPresident
+            bool updatedByRev, long reviewerID, bool mergedWithPrev, bool ignored, long attachID, int voteID,long topicID, bool mergedtopicWithPrev,int isSessionPresident
             )//,float startTime,float endTime,float duration)
         {
             try
@@ -1200,9 +1231,15 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         else updated_session_content_item.VotingID = null;
 
                         if (topicID != 0 && topicID != null)
+                        {
                             updated_session_content_item.TopicID = topicID;
-                        else updated_session_content_item.TopicID = null;
-
+                            updated_session_content_item.MergedTopicWithPrevious = mergedtopicWithPrev;
+                        }
+                        else
+                        {
+                            updated_session_content_item.TopicID = null;
+                            updated_session_content_item.MergedTopicWithPrevious = null;
+                        }
                         updated_session_content_item.AgendaSubItemID = agendaSubItemID;
                         updated_session_content_item.CommentOnAttendant = commentsOnAttendant;
                         updated_session_content_item.CommentOnText = commentsOnText;

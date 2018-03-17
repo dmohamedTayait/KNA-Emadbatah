@@ -243,6 +243,7 @@
     <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
     <Property Name="LongName" Type="nvarchar" MaxLength="500" />
     <Property Name="CreatedAt" Type="datetime" />
+    <Property Name="AttendantDegree" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -291,6 +292,7 @@
     <Property Name="LongName" Type="nvarchar" MaxLength="500" />
     <Property Name="Status" Type="int" />
     <Property Name="CreatedAt" Type="datetime" />
+    <Property Name="AttendantDegree" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="MadbatahFilesStatus">
     <Key>
@@ -358,6 +360,7 @@
     <Property Name="SessionStartFlag" Type="int" />
     <Property Name="Serial" Type="bigint" />
     <Property Name="PresidentID" Type="int" />
+    <Property Name="HijriDate" Type="datetime" />
   </EntityType>
   <EntityType Name="SessionAttendant">
     <Key>
@@ -422,6 +425,7 @@
     <Property Name="VotingID" Type="int" />
     <Property Name="OriginalStartTime" Type="float" />
     <Property Name="TopicID" Type="bigint" />
+    <Property Name="MergedTopicWithPrevious" Type="bit" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>

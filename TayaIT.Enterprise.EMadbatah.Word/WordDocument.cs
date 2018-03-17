@@ -52,7 +52,7 @@ namespace TayaIT.Enterprise.EMadbatah.Word
             return wordApp.GetNumPages();
         }
 
-        public long GetCurrentPageLineNumber(bool end)
+        public int GetCurrentPageLineNumber(bool end)
         {
             return wordApp.GetCurrentPageLineNumber(end);
         }

@@ -55,7 +55,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
                     if (user.SessionFiles != null && user.SessionFiles.Count > 0)
                     {
-                        foreach (SessionFile file in user.SessionFiles)
+                        foreach (SessionFile file in user.SessionFiles.ToList())
                         {
                             file.UserID = null;
                         }
@@ -66,7 +66,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                                    select session;
                     if (sessions != null && sessions.Count<Session>() > 0)
                     {
-                        foreach (Session s in sessions)
+                        foreach (Session s in sessions.ToList())
                         {
                             s.ReviewerID = null;
                         }
@@ -78,7 +78,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 
                     if (sessionContentItems != null && sessionContentItems.Count<SessionContentItem>() > 0)
                     {
-                        foreach (SessionContentItem sci in sessionContentItems)
+                        foreach (SessionContentItem sci in sessionContentItems.ToList())
                         {
                             sci.ReviewerUserID = null;
                         }
@@ -90,7 +90,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                                         select ss;
                     if (sessionStarts != null && sessionStarts.Count<SessionFile>() > 0)
                     {
-                        foreach (SessionFile ss in sessionStarts)
+                        foreach (SessionFile ss in sessionStarts.ToList())
                         {
                             ss.UserID = null;
                         }

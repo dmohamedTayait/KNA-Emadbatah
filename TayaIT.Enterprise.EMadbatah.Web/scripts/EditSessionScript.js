@@ -124,6 +124,39 @@ $(document).ready(function() {
         $.fancybox.close()
     })
 
+        $(".btnAddNewTopic").click(function (e) {
+            tpcid = 0;
+            if ($request != null) {
+                $request.abort();
+                $request = null;
+            }
+
+            $request = jQuery.ajax({
+                cache: false,
+                type: 'post',
+                url: 'TopicHandler.ashx',
+                data: {
+                    funcname: "AddTopic",
+                    sid: $(".sessionID").val()
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response != "0") {
+                        $(".topicId").val(response) ;
+                        $(".chkTopic").attr("disabled","disabled");
+                        $(".divTopic").show();
+                        e.preventDefault();
+                        $(".btnAddNewTopic").attr("disabled","disabled");
+                        $(".aPopupGetAttTopic").show();
+                    }
+                },
+                error: function (response) {
+                    alert("Error");
+                }
+            });
+    }); // End Add
+
+
     //onchange ignored
     $('.chkIgnoredSegment').change(function() {
 
@@ -303,6 +336,7 @@ $(document).ready(function() {
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
             var SpeakerName = $(".txtNewSpeaker").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+            var MergeWithPrevTopic = $(".chkTopic").is(':checked');
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
@@ -343,6 +377,7 @@ $(document).ready(function() {
                         SpeakerID: SpeakerID,
                         SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
+                        MergeWithPrevTopic: MergeWithPrevTopic,
                         IsSessionPresident: IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                         Ignored: Ignored,
@@ -597,6 +632,7 @@ $(document).ready(function() {
         var SpeakerName = $("#MainContent_txtNewSpeaker").val();
         var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
         var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+        var MergeWithPrevTopic = $(".chkTopic").is(':checked');
         var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
         var Ignored = $(".chkIgnoredSegment").is(':checked');
         var SpeakerJob = $("#MainContent_txtSpeakerOtherJob").val();
@@ -630,6 +666,7 @@ $(document).ready(function() {
                 SpeakerID: SpeakerID,
                 SpeakerName: SpeakerName,
                 SameAsPrevSpeaker: SameAsPrevSpeaker,
+                MergeWithPrevTopic: MergeWithPrevTopic,
                 IsSessionPresident: IsSessionPresident,
                 IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                 Ignored: Ignored,
@@ -744,11 +781,13 @@ $(document).ready(function() {
             $('.attachId').val(response.AttachID);
             $('.voteId').val(response.VoteID);
             $('.topicId').val(response.TopicID);
+            $('.prevTopicId').val(response.PrevTopicID);
             if(response.TopicID != "0" && response.TopicID != null)
             {
              $(".aPopupGetAttTopic").show();
-            }
+            } 
             else  $(".aPopupGetAttTopic").hide();
+
             $('.agendaItemTxt').html(response.AgendaItemText);
             $('.agendaItemIsIndexed').val(response.AgendaItemIsIndexed);
 
@@ -771,15 +810,43 @@ $(document).ready(function() {
                 $('.divVote').show();
                 $('.spanVoteSubject').html(response.VoteSubject);
             }
-            $('.divTopic').hide();
-            if (response.TopicID == "0") {
-               // $('.divTopic').hide();
-                $('.spanTopicTitle').html('');
-                $(".chkTopic").removeAttr('checked')
-            } else {
-               // $('.divTopic').show();
-                $('.spanTopicTitle').html(response.TopicTitle);
-                $(".chkTopic").attr('checked','checked')
+          //  $('.divTopic').hide();
+            if (response.TopicID == "0" && response.PrevTopicID == "0") {
+                $('.divTopic').hide();
+                $(".chkTopic").removeAttr('checked');
+                $(".chkTopic").attr('disabled','disabled');
+                $(".aPopupGetAttTopic").hide();
+                $(".btnAddNewTopic").removeAttr("disabled");
+            } else  if (response.TopicID != "0" && response.PrevTopicID == "0")  {
+                $('.divTopic').show();
+                $(".chkTopic").removeAttr('checked');
+                $(".chkTopic").attr('disabled','disabled');
+                $(".aPopupGetAttTopic").show();
+                $(".btnAddNewTopic").attr("disabled","disabled");
+            }
+            else  if (response.TopicID == "0" && response.PrevTopicID != "0")  {
+                $('.divTopic').hide();
+                $(".chkTopic").removeAttr('checked');
+                $(".chkTopic").removeAttr('disabled');
+                $(".aPopupGetAttTopic").hide();
+                $(".btnAddNewTopic").removeAttr("disabled");
+            }
+            else  if (response.TopicID != "0" && response.PrevTopicID != "0")  {
+                $('.divTopic').hide();
+                if(!response.MergeWithPrevTopic){
+                    $(".chkTopic").removeAttr('checked');
+                    $(".btnAddNewTopic").attr("disabled","disabled");
+                }
+                else{
+                    $(".chkTopic").attr('checked','checked');
+                    $(".btnAddNewTopic").removeAttr("disabled");
+                }
+                if(response.TopicID != response.PrevTopicID )
+                {
+                   $('.divTopic').show();
+                }
+                $(".aPopupGetAttTopic").show();
+                $(".chkTopic").removeAttr('disabled');
             }
             // set start and end time in hidden fields
             startTime.val(response.PargraphStartTime);
@@ -950,6 +1017,7 @@ $(document).ready(function() {
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
             var SpeakerName = $("#MainContent_txtNewSpeaker").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+            var MergeWithPrevTopic = $(".chkTopic").is(':checked');
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
@@ -978,6 +1046,7 @@ $(document).ready(function() {
                         SpeakerID: SpeakerID,
                         SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
+                        MergeWithPrevTopic: MergeWithPrevTopic,
                         IsSessionPresident: IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                         Ignored: Ignored,
@@ -1044,6 +1113,7 @@ $(document).ready(function() {
 
         var SpeakerName = $("#MainContent_txtNewSpeaker").val();
         var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+        var MergeWithPrevTopic = $(".chkTopic").is(':checked');
         var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
         var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
         var Ignored = $(".chkIgnoredSegment").is(':checked');
@@ -1075,6 +1145,7 @@ $(document).ready(function() {
                     SpeakerID: SpeakerID,
                     SpeakerName: SpeakerName,
                     SameAsPrevSpeaker: SameAsPrevSpeaker,
+                    MergeWithPrevTopic: MergeWithPrevTopic,
                     IsSessionPresident: IsSessionPresident,
                     IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                     Ignored: Ignored,
@@ -1171,6 +1242,7 @@ $(document).ready(function() {
 
         var SpeakerName = $("#MainContent_txtNewSpeaker").val();
         var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+        var MergeWithPrevTopic = $(".chkTopic").is(':checked');
         var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
         var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
         var Ignored = $(".chkIgnoredSegment").is(':checked');
@@ -1202,6 +1274,7 @@ $(document).ready(function() {
                     SpeakerID: SpeakerID,
                     SpeakerName: SpeakerName,
                     SameAsPrevSpeaker: SameAsPrevSpeaker,
+                    MergeWithPrevTopic: MergeWithPrevTopic,
                     IsSessionPresident: IsSessionPresident,
                     IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                     Ignored: Ignored,
@@ -1255,6 +1328,7 @@ $(document).ready(function() {
             SpeakerID = SpeakerID == 1.5 ? -1 : SpeakerID;
             var SpeakerName = $("#MainContent_txtNewSpeaker").val();
             var SameAsPrevSpeaker = $(".sameAsPrevSpeaker").is(':checked');
+            var MergeWithPrevTopic = $(".chkTopic").is(':checked');
             var IsSessionPresident = $(".isSessionPresident").is(':checked') ? "1" : "0";
             var IsGroupSubAgendaItems = $(".chkGroupSubAgendaItems").is(':checked');
             var Ignored = $(".chkIgnoredSegment").is(':checked');
@@ -1284,6 +1358,7 @@ $(document).ready(function() {
                         SpeakerID: SpeakerID,
                         SpeakerName: SpeakerName,
                         SameAsPrevSpeaker: SameAsPrevSpeaker,
+                        MergeWithPrevTopic: MergeWithPrevTopic,
                         IsSessionPresident: IsSessionPresident,
                         IsGroupSubAgendaItems: IsGroupSubAgendaItems,
                         Ignored: Ignored,
@@ -2226,7 +2301,8 @@ $(document).ready(function() {
             url: 'VotingHandler.ashx',
             data: {
                 funcname: 'GetSessionVotes',
-                epsid: $(".eparId").val()
+               // epsid: $(".eparId").val()
+                sid: $(".sessionID").val()
             },
             dataType: 'json',
             success: function(response) {
@@ -2290,7 +2366,7 @@ $('.chkTopic').change(function() {
     // this will contain a reference to the checkbox   
     if (this.checked) {
         //Load Available Votes
-        jQuery.ajax({
+      /*  jQuery.ajax({
             cache: false,
             type: 'post',
             url: 'EditSessionHandler.ashx',
@@ -2304,7 +2380,9 @@ $('.chkTopic').change(function() {
               $(".topicId").val(response); 
               $(".aPopupGetAttTopic").show();
             }
-        });
+        });*/
+        $(".topicId").val($(".prevTopicId").val());
+        $(".aPopupGetAttTopic").show();
     } else {
          $(".topicId").val("0");
          $(".aPopupGetAttTopic").hide();
@@ -2336,7 +2414,7 @@ $('.chkTopic').change(function() {
                 chb = "<div style='padding-bottom:10px' class=\"grid_6 h2 grid_att\"> <input type=\"checkbox\" name=\"chbAttID\" value=\"AttID\"><span>AttName</span></div>";
                 var tmpTr = "";
                 for (i = 0; i < response.length; i++) {
-                    tmpchb = chb.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].LongName);
+                    tmpchb = chb.replace(/AttID/g, response[i].ID).replace("AttName", response[i].AttendantTitle + " " + response[i].AttendantDegree + " " + response[i].LongName);
                     AttCont.append(tmpchb);
                     if (response[i].FirstName == "1")
                         $("input:checkbox[name='chb" + response[i].ID + "']", AttCont).prop('checked', true);
@@ -2444,6 +2522,7 @@ $('.chkTopic').change(function() {
         $(".topicId").val('0');
         $('.spanTopicTitle').html('');
         $('.divTopic').hide();
+        $(".aPopupGetAttTopic").hide();
         e.preventDefault();
     });
 

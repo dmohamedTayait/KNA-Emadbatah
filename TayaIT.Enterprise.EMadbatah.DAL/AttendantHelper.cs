@@ -8,7 +8,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
 {
     public class AttendantHelper
     {
-        public static bool AddNewAttendant(string attendant_name, string job_title, int eparliamentID, int typeID, int stateID, long sessionID, string fName, string sName, string tName)
+        public static bool AddNewAttendant(string attendant_name, string job_title, int eparliamentID, int typeID, int stateID, long sessionID, string fName, string sName, string tName, string attendantDegree)
         {
             try
             {
@@ -23,7 +23,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         State = stateID,
                         FirstName = fName,
                         SecondName = sName,
-                        TribeName = tName
+                        TribeName = tName,
+                        AttendantDegree = attendantDegree
                     };
                     //context.Attendants.AddObject(attendant);
 
@@ -153,6 +154,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             attendant.ShortName = defAtt.ShortName;
             attendant.LongName = defAtt.LongName;
             attendant.CreatedAt = defAtt.CreatedAt;
+            attendant.AttendantDegree = defAtt.AttendantDegree;
             return attendant;
         }
 
@@ -440,7 +442,7 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             {
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                    List<Attendant> attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
+                    List<Attendant> attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt).ToList();
                     return attendantsInTime;
                 }
             }
@@ -465,12 +467,12 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                         {
                             Attendant attObj = AttendantHelper.GetAttendantByDefaultAttendantId(long.Parse(sessionObj.PresidentID.ToString()));
                             sessionPresidentID = attObj.ID;
-                            attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Type != 9 && ww.DefaultAttendantID != sessionObj.PresidentID && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
+                            attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Type != 9 && ww.DefaultAttendantID != sessionObj.PresidentID && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt).ToList();
                         }
                     }
                     else
                     {
-                        attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Type != 9 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName).ToList();
+                        attendantsInTime = context.Attendants.Select(aa => aa).Where(ww => ww.SessionAttendantType == SessionAttendantType && ww.Type != 8 && ww.Type != 9 && ww.Sessions.Any(aaaa => aaaa.ID == SessionID)).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt).ToList();
                     }
                     return attendantsInTime;
                 }

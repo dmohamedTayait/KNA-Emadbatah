@@ -51,10 +51,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         jsonStringOut = SerializeObjectInJSON(retTopics);
                         break;
                     case WebFunctions.TopicFunctions.AddTopic:
-                        if (TopicTitle != null && long.TryParse(SessionID, out sId))
+                        if (SessionID != null && long.TryParse(SessionID, out sId))
                         {
                             Topic tpc = new Topic();
-                            tpc.Title = TopicTitle;
+                          //  tpc.Title = TopicTitle;
                             tpc.UserID = CurrentUser.ID;
                             tpc.SessionID = sId;
                             tpc.CreatedAt = DateTime.Now;
@@ -84,7 +84,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                         {
                             Session current_session = EditorFacade.GetSessionByID(long.Parse(SessionID));
                             List<TopicAttendant> tpcAttLst = TopicHelper.GetTopicAttsByTopicID(long.Parse(TopicID));
-                            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag && (c.Type != (int)Model.AttendantType.UnAssigned)).OrderBy(s => s.CreatedAt).ThenBy(s => s.LongName))
+                            foreach (Attendant item in current_session.Attendants.Where(c => c.SessionAttendantType == current_session.SessionStartFlag && (c.Type != (int)Model.AttendantType.UnAssigned)).OrderBy(s => s.LongName).ThenBy(s => s.CreatedAt))
                             {
                                 att = new Attendant();
                                 att.FirstName = "0";
@@ -98,7 +98,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 att.ShortName = item.ShortName;
                                 att.LongName = item.LongName;
                                 att.AttendantTitle = item.AttendantTitle;
-                              
+                                att.AttendantDegree = item.AttendantDegree;
                                 attLst.Add(att);
                             }
                         }

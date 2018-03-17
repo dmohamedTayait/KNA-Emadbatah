@@ -51,6 +51,22 @@
     <div class="grid_22">
         <div class="largerow">
             <div class="grid_6 h2">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlAttType"
+                    InitialValue="0" ErrorMessage="*" ValidationGroup="VGSession" ForeColor="Red" />
+                <asp:Label ID="lblAttDegree" runat="server" Text="الدرجة العلمية"></asp:Label>
+            </div>
+            <div class="grid_10">
+                <asp:DropDownList ID="ddlDegree" runat="server" Style="width: 100%;">
+                    <asp:ListItem Value="" Text=""></asp:ListItem>
+                    <asp:ListItem Value="د." Text="د."></asp:ListItem>
+                    <asp:ListItem Value="أ.د." Text="أ.د."></asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="largerow">
+            <div class="grid_6 h2">
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="textAttLongName"
                     ErrorMessage="*" ForeColor="Red" ValidationGroup="VGSession"></asp:RequiredFieldValidator>
                 <asp:Label ID="lblAttLongName" runat="server" Text="اسم العضو"></asp:Label>

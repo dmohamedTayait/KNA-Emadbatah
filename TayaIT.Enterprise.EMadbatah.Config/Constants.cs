@@ -114,6 +114,7 @@ namespace TayaIT.Enterprise.EMadbatah.Config
             public string AgendaSubItemID { get { return "AgendaSubItemID"; } }
             public string SpeakerID { get { return "SpeakerID"; } }
             public string SameAsPrevSpeaker { get { return "SameAsPrevSpeaker"; } }
+            public string MergeWithPrevTopic { get { return "MergeWithPrevTopic"; } }
             public string IsSessionPresident { get { return "IsSessionPresident"; } }
             public string IsGroupSubAgendaItems { get { return "IsGroupSubAgendaItems"; } }
             public string Ignored { get { return "Ignored"; } }

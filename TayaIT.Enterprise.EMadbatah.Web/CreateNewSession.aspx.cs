@@ -53,8 +53,8 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                     txtDate.Text = sessionObj.StartTime.Value.Date.ToShortDateString();
                     txtStartDate.Text = sessionObj.EndTime.Value.Date.ToShortDateString();
 
-                   // txtTime.Text = ConverToToTwoDigits(sessionObj.StartTime.Value.Hour.ToString()) + ":" + ConverToToTwoDigits(sessionObj.StartTime.Value.Minute.ToString());
-                   // txtStartTime.Text = ConverToToTwoDigits(sessionObj.EndTime.Value.Hour.ToString()) + ":" + ConverToToTwoDigits(sessionObj.EndTime.Value.Minute.ToString());
+                    // txtTime.Text = ConverToToTwoDigits(sessionObj.StartTime.Value.Hour.ToString()) + ":" + ConverToToTwoDigits(sessionObj.StartTime.Value.Minute.ToString());
+                    // txtStartTime.Text = ConverToToTwoDigits(sessionObj.EndTime.Value.Hour.ToString()) + ":" + ConverToToTwoDigits(sessionObj.EndTime.Value.Minute.ToString());
                     txtTime.Text = sessionObj.StartTime.Value.ToString("HH:mm");
                     txtStartTime.Text = sessionObj.EndTime.Value.ToString("HH:mm");
 
@@ -71,6 +71,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                         CBSessionStart.Checked = true;
                     else CBSessionStart.Checked = false;
 
+                    if (SessionFileHelper.GetUnNewSessionFilesCount(long.Parse(SessionID)) > 0)
+                        CBSessionStart.Enabled = false;
+                    else
+                        CBSessionStart.Enabled = true;
                     this.Title = "المضبطة الإلكترونية - تعديل بيانات المضبطة";
                     divPageTitle.InnerHtml = "تعديل بيانات المضبطة";
                 }
@@ -84,7 +88,9 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 Session sessionObj = fillValues();
                 SessionHelper.UpdateSessionInfo(long.Parse(SessionID), sessionObj);
                 Session current_session = EditorFacade.GetSessionByID(long.Parse(SessionID));
-                AttendantHelper.GenerateSessionAttendants(long.Parse(SessionID), current_session, CBSessionStart.Checked, true);
+                if (SessionFileHelper.GetUnNewSessionFilesCount(long.Parse(SessionID)) == 0)
+                    AttendantHelper.GenerateSessionAttendants(long.Parse(SessionID), current_session, CBSessionStart.Checked, true);
+                
             }
             else
             {

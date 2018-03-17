@@ -79,11 +79,62 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             gvbind();
         }
 
+        protected void gvCommittees_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label textCommitteeStatus = (Label)e.Row.FindControl("textCommitteeStatus");
+
+                LinkButton lnkRemove = (LinkButton)e.Row.FindControl("lnkRemove");
+                LinkButton lnkUnRemove = (LinkButton)e.Row.FindControl("lnkUnRemove");
+
+                Label lblCommitteeName = (Label)e.Row.FindControl("lblCommitteeName");
+                LinkButton lnkCommitteeName = (LinkButton)e.Row.FindControl("lnkCommitteeName");
+
+                DataControlFieldCell lbkBtn = (DataControlFieldCell)e.Row.Controls[0]; //here use the cell no in which your edit command button is there.
+
+                if (textCommitteeStatus.Text == "1")
+                {
+                    lnkRemove.Visible = true;
+                    lnkUnRemove.Visible = false;
+
+                    if (lnkCommitteeName != null)
+                        lnkCommitteeName.Visible = true;
+                    if (lblCommitteeName != null)
+                        lblCommitteeName.Visible = false;
+
+                    lbkBtn.Enabled = true;//write a logic to disable or enable according to privilages. true;
+                }
+                else
+                {
+                    lnkRemove.Visible = false;
+                    lnkUnRemove.Visible = true;
+
+                    if (lnkCommitteeName != null)
+                        lnkCommitteeName.Visible = false;
+                    if (lblCommitteeName != null)
+                        lblCommitteeName.Visible = true;
+
+                    lbkBtn.Enabled = false;//write a logic to disable or enable according to privilages.
+                }
+
+            }
+        }
+
         protected void gvCommittees_RowDeleting(object sender, EventArgs e)
         {
             LinkButton lnkRemove = (LinkButton)sender;
             long CommitteeID = long.Parse(lnkRemove.CommandArgument);//Convert.ToInt64(gvCommittees.DataKeys[e.RowIndex].Value.ToString());
             CommitteeHelper.UpdateCommitteeStatusById(CommitteeID,(int)Model.AttendantStatus.Deleted);
+            gvbind();
+
+        }
+
+        protected void gvCommittees_RowUnDeleting(object sender, EventArgs e)
+        {
+            LinkButton lnkRemove = (LinkButton)sender;
+            long CommitteeID = long.Parse(lnkRemove.CommandArgument);//Convert.ToInt64(gvCommittees.DataKeys[e.RowIndex].Value.ToString());
+            CommitteeHelper.UpdateCommitteeStatusById(CommitteeID, (int)Model.AttendantStatus.Active);
             gvbind();
 
         }

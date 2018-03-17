@@ -56,8 +56,8 @@ namespace TayaIT.Enterprise.EMadbatah.Pdf2Word
             converter.LastPageToConvert = pageno;
             converter.FitPage = true;
             converter.JPEGQuality = 85;
-            converter.ResolutionX = 100; //dpi
-            converter.ResolutionY = 100;
+            converter.ResolutionX = 150; //dpi
+            converter.ResolutionY = 150;
             //converter.DefaultPageSize = PdfPageSize.letter;
             /*   converter.Width = 2380;
                converter.Height = 3368;*/

@@ -145,7 +145,8 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                     sessionObj.StageType = updateSession.StageType;
                     sessionObj.Serial = updateSession.Serial;
                     sessionObj.Subject = updateSession.Subject;
-                    sessionObj.SessionStartFlag = updateSession.SessionStartFlag;
+                    if (SessionFileHelper.GetUnNewSessionFilesCount(sessionID) == 0)
+                        sessionObj.SessionStartFlag = updateSession.SessionStartFlag;
                     sessionObj.PresidentID = updateSession.PresidentID;
                     context.SaveChanges();
 

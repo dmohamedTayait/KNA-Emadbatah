@@ -83,6 +83,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                 att.LongName = tempAtt.LongName;
                                 att.AttendantTitle = tempAtt.AttendantTitle;
                                 att.Status = tmpStatus;
+                                att.AttendantDegree = tempAtt.AttendantDegree;
                                 defAttlst.Add(att);
                             }
                         }

@@ -22,11 +22,17 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\itextsh
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.csprojResolveAssemblyReference.cache
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\gsdll32.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\itextsharp.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\itextsharp.xtra.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\ResolveAssemblyReference.cache
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\gsdll32.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\itextsharp.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\itextsharp.xtra.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\gsdll32.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\bin\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Pdf2Word\obj\Debug\TayaIT.Enterprise.EMadbatah.Pdf2Word.pdb

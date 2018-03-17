@@ -74,6 +74,10 @@
       <Project>{FBC69697-B34A-4897-8F2A-D325C05EA455}</Project>
       <Name>TayaIT.Enterprise.EMadbatah.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TayaIT.Enterprise.EMadbatah.Util\TayaIT.Enterprise.EMadbatah.Util.csproj">
+      <Project>{D512000F-449B-497F-8023-D48DB046AC27}</Project>
+      <Name>TayaIT.Enterprise.EMadbatah.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

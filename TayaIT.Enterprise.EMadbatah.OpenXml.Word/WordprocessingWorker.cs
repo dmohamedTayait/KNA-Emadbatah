@@ -119,7 +119,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     InitializeDocumentStyles();
             }
             SectionProperties sectionProps = new SectionProperties();
-            PageMargin pageMargin = new PageMargin() { Top = 1440, Right = (UInt32Value)1440U, Bottom = 1440, Left = (UInt32Value)1440U, Header = (UInt32Value)288U, Footer = (UInt32Value)288U, Gutter = (UInt32Value)0U };
+            PageMargin pageMargin = new PageMargin() { Top = 720, Right = (UInt32Value)1440U, Bottom = 720, Left = (UInt32Value)1440U, Header = (UInt32Value)288U, Footer = (UInt32Value)288U, Gutter = (UInt32Value)0U };
             PageSize pageSize = new PageSize() { Width = (UInt32Value)11908U, Height = (UInt32Value)16833U };
             //Spacing space = new Spacing (){ 
             sectionProps.Append(pageMargin);
@@ -154,7 +154,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             }
 
             SectionProperties sectionProps = new SectionProperties();
-            PageMargin pageMargin = new PageMargin() { Top = 1440, Right = (UInt32Value)1440U, Bottom = 1440, Left = (UInt32Value)1440U, Header = (UInt32Value)288U, Footer = (UInt32Value)288U, Gutter = (UInt32Value)0U };
+            PageMargin pageMargin = new PageMargin() { Top = 720, Right = (UInt32Value)1440U, Bottom = 720, Left = (UInt32Value)1440U, Header = (UInt32Value)288U, Footer = (UInt32Value)288U, Gutter = (UInt32Value)0U };
             PageSize pageSize = new PageSize() { Width = (UInt32Value)11908U, Height = (UInt32Value)16833U };
             //Spacing space = new Spacing (){ 
             sectionProps.Append(pageMargin);
@@ -427,6 +427,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     tmpDoc.SaveAs(tmpFileName);
                 }
                 count = WordCom.GetDocumentNumPages(tmpFileName);
+                int counter = 0;
                 //Thread.Sleep(1000);
                 while (true)
                 {
@@ -437,14 +438,19 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         if (thisproc.ProcessName.StartsWith("WINWORD"))
                         {
                             WordExists = true;
+                            counter += 10;
+                            if (counter == 1000)
+                            {
+                                thisproc.Kill();
+                                WordExists = false;
+                                Util.LogHelper.LogMessage("process killed by me", "page num", System.Diagnostics.TraceEventType.Information);
+                            }
                             break;
                         }
                     }
                     if (!WordExists)
                         break;
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -455,6 +461,56 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             File.Delete(tmpFileName);
             worker = new WordprocessingWorker(docPath, DocFileOperation.Open);
             return count;
+        }
+
+        public long CountLineNum(WordprocessingWorker doc, string docPath,DocXmlParts xmlFilesPaths, string serverMapPath, out WordprocessingWorker worker)
+        {
+            long lnCount = 0;
+            string tmpFileName = docPath.Replace(".docx", "_temp.docx");
+            try
+            {
+                doc.Save();
+                doc.Dispose();
+
+                using (WordprocessingWorker tmpDoc = new WordprocessingWorker(docPath, DocFileOperation.Open))
+                {
+                    tmpDoc.SaveAs(tmpFileName);
+                }
+
+                lnCount = WordCom.GetDocumentLineNum(tmpFileName, 0);
+                int counter = 0;
+                while (true)
+                {
+                    bool WordExists = false;
+                    Thread.Sleep(200);
+                    foreach (System.Diagnostics.Process thisproc in System.Diagnostics.Process.GetProcesses())
+                    {
+                        if (thisproc.ProcessName.StartsWith("WINWORD"))
+                        {
+                            WordExists = true;
+                            counter += 10;
+                            if (counter == 1000)
+                            {
+                                thisproc.Kill();
+                                WordExists = false;
+                                Util.LogHelper.LogMessage("process killed by me", "line num", System.Diagnostics.TraceEventType.Information);
+                            }
+                            break;
+                        }
+                    }
+                    if (!WordExists)
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Util.LogHelper.LogException(ex, "CountLineNum");
+                Thread.ResetAbort();
+                lnCount = 0;
+            }
+            File.Delete(tmpFileName);
+            worker = new WordprocessingWorker(docPath, DocFileOperation.Open);
+            return lnCount;
         }
 
         public int GetCurrentPageNumber()
@@ -491,10 +547,10 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
         public void AddPageBreak()
         {
-            if (_docMainPart == null)
+           /* if (_docMainPart == null)
                 _docMainPart = _currentDoc.AddMainDocumentPart();
             if (_docMainPart.Document == null)
-                _docMainPart.Document = MakeEmpyDocument();
+                _docMainPart.Document = MakeEmpyDocument();*/
 
             Paragraph paragraph = new Paragraph();
             Run run = new Run(new Break() { Type=BreakValues.Page });
@@ -682,10 +738,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
         public void AddParagraph(string paragraphText, ParagraphStyle paragraphType, ParagrapJustification textDirection, bool appendFootNote, string footNoteText)
         {
-
-
             paragraphText = System.Web.HttpUtility.HtmlDecode(paragraphText).Replace(";psbn&", " ").Replace("&nbsp;", " ");
-
 
             if (_docMainPart == null)
                 _docMainPart = _currentDoc.AddMainDocumentPart();
@@ -794,6 +847,11 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 _docMainPart.Document.Body.Append(paragraph);
             }
 
+           /* List<Break> breaks = _docMainPart.Document.Descendants<Break>().ToList();
+            foreach (Break b in breaks)
+            {
+                b.Remove();
+            }*/
             Save();
         }
 
@@ -905,8 +963,36 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             }
         }
 
+        public void DeleteLastParagraph(string text)
+        {
+            IEnumerable<OpenXmlElement> elems = _docMainPart.Document.Body.Descendants().ToList();
+            List<Paragraph> paragraphsToDelete = new List<Paragraph>();
+            foreach (OpenXmlElement elem in elems)
+            {
+                if (elem is Paragraph && elem.InnerText == text)
+                {
+                    Paragraph p = (Paragraph)elem;
+                    paragraphsToDelete.Add(p);
+                }
+            }
+
+            foreach (var p in paragraphsToDelete)
+            {
+                p.RemoveAllChildren();
+                p.Remove();
+            }
+        }
+
+        public void InsertImage(string fileName,int i)
+        {
+            ImageWriter.AddImage(_docMainPart.Document.Body, _docMainPart, fileName, "rId" + i);
+            Save();
+        }
+
         public void Save()
         {
+            if (!IsOpen)
+                Open(DocPath);
             try
             {
                 _docMainPart.Document.Save();// Save changes to the main document part.             
@@ -978,7 +1064,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 Table table = new Table();
 
                 TableProperties props = new TableProperties(new TableStyle() { Val = "styleTableGrid" },
-                    new TableWidth() { Width = "3500", Type = TableWidthUnitValues.Pct },
+                    new TableWidth() { Width = "4250", Type = TableWidthUnitValues.Pct },
                     new TableLook() { Val = "04A0", FirstRow = false, LastRow = false, NoHorizontalBand = false, NoVerticalBand = true },
                     new TableBorders(
                         new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
@@ -986,8 +1072,12 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         new LeftBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
                         new RightBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
                         new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
-                        new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.None) }
-                    ));
+                        new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.None) }),
+                    new TableCellMarginDefault(
+                       new TopMargin() { Width = "71.4", Type = TableWidthUnitValues.Dxa },//0.05
+                       new TableCellLeftMargin() { Width = 71, Type = TableWidthValues.Dxa },
+                       new BottomMargin() { Width = "71.4", Type = TableWidthUnitValues.Dxa },
+                       new TableCellRightMargin() { Width = 71, Type = TableWidthValues.Dxa }));
 
                 TableJustification tblJustification = new TableJustification();
                 tblJustification.Val = TableRowAlignmentValues.Center;
@@ -1004,27 +1094,23 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         for (int j = 0; j < names.Count(); j++)
                         {
                             var tc1 = new TableCell();
-                            tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(names[j]))));
-                            // Assume you want columns that are automatically sized.
-                            tc1.Append(new TableCellProperties(new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }));
+                            tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(names[j]))));
+                            tc1.Append(new TableCellProperties(new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
                             tr.Append(tc1);
                         }
                     }
                     else
                     {
                         var tc1 = new TableCell();
-                        //HorizontalMerge hmerge = new HorizontalMerge() { Val = MergedCellValues.Continue };
-                        tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(data[i]))));
-                        tc1.Append(new TableCellProperties(new HorizontalMerge() { Val = MergedCellValues.Restart }, new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }));
-                        //tc1.TableCellProperties.Append(new HorizontalMerge() { Val = MergedCellValues.Restart });
-                        var tc2 = new TableCell();
-                        tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(""))));
-                        tc2.Append(new TableCellProperties(new HorizontalMerge() { Val = MergedCellValues.Continue }, new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }));
+                        tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(data[i]))));
+                        tc1.Append(new TableCellProperties(new HorizontalMerge() { Val = MergedCellValues.Restart }, new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
+                        var tc2 = new TableCell();
+                        tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(""))));
+                        tc2.Append(new TableCellProperties(new HorizontalMerge() { Val = MergedCellValues.Continue }, new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
                         tr.Append(tc1);
                         tr.Append(tc2);
-
                     }
                     table.Append(tr);
                 }
@@ -1049,7 +1135,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             TableProperties tableProp = new TableProperties(new TableStyle() { Val = "styleTableGrid" },
                     new TableIndentation() { Width = 0,Type = TableWidthUnitValues.Dxa },
                     new TableJustification() { Val = TableRowAlignmentValues.Right },
-                    new TableWidth() { Width = "3500", Type = TableWidthUnitValues.Pct },//in percentage makes 70%
+                    new TableWidth() { Width = "5000", Type = TableWidthUnitValues.Pct },//in percentage makes 70%
                     new TableLook() { Val = "04A0", FirstRow = true, LastRow = false, NoHorizontalBand = false, NoVerticalBand = true },
                     new TableBorders(
                         new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U , Space = (UInt32Value)0U},
@@ -1059,10 +1145,10 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         new InsideHorizontalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U },
                         new InsideVerticalBorder { Val = new EnumValue<BorderValues>(BorderValues.Single), Color = "000000", Size = (UInt32Value)12U, Space = (UInt32Value)0U }),
                    new TableCellMarginDefault(
-                       new TopMargin() { Width = "67.5", Type = TableWidthUnitValues.Dxa },
-                       new TableCellLeftMargin() { Width = 67, Type = TableWidthValues.Dxa },
-                       new BottomMargin() { Width = "67.5", Type = TableWidthUnitValues.Dxa },
-                       new TableCellRightMargin() { Width = 67, Type = TableWidthValues.Dxa })
+                       new TopMargin() { Width = "100.5", Type = TableWidthUnitValues.Dxa },//0.07
+                       new TableCellLeftMargin() { Width = 100, Type = TableWidthValues.Dxa },
+                       new BottomMargin() { Width = "100.5", Type = TableWidthUnitValues.Dxa },
+                       new TableCellRightMargin() { Width = 100, Type = TableWidthValues.Dxa })
                        );
             /*  TableLook tableLook = new TableLook() { Val = "04A0", FirstRow = true,
                 LastRow = false, FirstColumn = true, LastColumn = false,
@@ -1070,24 +1156,24 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
             table.Append(tableProp);
 
-            TableRow th = new TableRow();
+           /* TableRow th = new TableRow();
             var thc1 = new TableCell();
-            thc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center },new SpacingBetweenLines() { After = "0",Before="0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("م".ToString()) { Space = SpaceProcessingModeValues.Preserve })));
+            thc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center },new SpacingBetweenLines() { After = "0",Before="0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("م".ToString()) { Space = SpaceProcessingModeValues.Preserve })));
             thc1.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = "d0d0d0", Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
             var thc2 = new TableCell();
-            thc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(" اسم العضو ") { Space = SpaceProcessingModeValues.Preserve })));
+            thc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }) , new Run(new Text(" اسم العضو ") { Space = SpaceProcessingModeValues.Preserve })));
             thc2.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = "d0d0d0", Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "2000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
             var thc3 = new TableCell();
-            thc3.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("التصويت") { Space = SpaceProcessingModeValues.Preserve })));
+            thc3.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("التصويت") { Space = SpaceProcessingModeValues.Preserve })));
             thc3.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = "d0d0d0", Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "1000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
             th.Append(thc3);
             th.Append(thc2);
             th.Append(thc1);
           
-            table.Append(th);
+            table.Append(th);*/
 
             int i = 0;
             foreach (Model.SessionMembersVote member in membersVoteLst)
@@ -1104,11 +1190,13 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         break;
                     case 2:
                         voteStr = "غير موافق";
-                        color = "fb969e";
+                        color = "fff";
+                       // color = "fb969e";
                         break;
                     case 3:
                         voteStr = "موافق";
-                        color = "9be19b";
+                        color = "fff";
+                       // color = "9be19b";
                         break;
                     default:
                         voteStr = "غير موجود";
@@ -1116,21 +1204,21 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 }
                 var tr = new TableRow();
 
-                var tc1 = new TableCell();
-                tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(member.PersonID.ToString()) { Space = SpaceProcessingModeValues.Preserve })));//(i + 1).ToString()
-                tc1.Append(new TableCellProperties(new TableCellWidth { Width = "500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
+              /*  var tc1 = new TableCell();
+                tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(member.PersonID.ToString()) { Space = SpaceProcessingModeValues.Preserve })));//(i + 1).ToString()
+                tc1.Append(new TableCellProperties(new TableCellWidth { Width = "500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));*/
 
                 var tc2 = new TableCell();
-                tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("  " + member.MemberFullName) { Space = SpaceProcessingModeValues.Preserve })));
+                tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.LowKashida }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text("  " + member.MemberFullName) { Space = SpaceProcessingModeValues.Preserve }) { RsidRunProperties = "003213CC" }) { RsidParagraphAddition = "003213CC", RsidParagraphProperties = "00704A9B", RsidParagraphMarkRevision = "003213CC", RsidRunAdditionDefault = "003213CC" });
                 tc2.Append(new TableCellProperties(new TableCellWidth { Width = "2000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
       
                 var tc3 = new TableCell();
-                tc3.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "360", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(voteStr) { Space = SpaceProcessingModeValues.Preserve })));
+                tc3.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new Justification() { Val = JustificationValues.Center }, new SpacingBetweenLines() { After = "0", Before = "0", Line = "240", LineRule = LineSpacingRuleValues.Auto }), new Run(new Text(voteStr) { Space = SpaceProcessingModeValues.Preserve })));
                 tc3.Append(new TableCellProperties(new Shading() { Color = "auto", Fill = color, Val = ShadingPatternValues.Clear }, new TableCellWidth { Width = "1000", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
                 tr.Append(tc3);
                 tr.Append(tc2);
-                tr.Append(tc1);
+             //   tr.Append(tc1);
               
                 table.Append(tr);
                 i++;
@@ -1731,8 +1819,62 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
 
         }
 
+        public void writeImage(int ii,string text,string img_path)
+        {
+            Text textPlaceHolder = _docMainPart.Document.Body.Descendants<Text>()
+                .Where((x) => x.Text == text).First();
 
+            if (textPlaceHolder == null)
+            {
+                Console.WriteLine("Text holder not found!");
+            }
+            else
+            {
+                var parent = textPlaceHolder.Parent;
 
+                if (!(parent is Run))  // Parent should be a run element.
+                {
+                    Console.Out.WriteLine("Parent is not run");
+                }
+                else
+                {
+                    // Insert image (the image created with your function) after text place holder. 
+                   // DocumentFormat.OpenXml.Office.Drawing.Drawing element = new DocumentFormat.OpenXml.Office.Drawing.Drawing(img_path);
+                  //  ImageWriter.InsertImageAfterPlaceHolder(_docMainPart.Document.Body, _docMainPart, img_path, "rId" + ii, textPlaceHolder);
+                   // textPlaceHolder.Parent.InsertAfter<DocumentFormat.OpenXml.Office.Drawing.Drawing>(element, textPlaceHolder);
+                    // Remove text place holder.
+                    textPlaceHolder.Remove();
+                }
+            }
+        }
+
+        public void yy()
+        {
+            Text textPlaceHolder = _docMainPart.Document.Body.Descendants<Text>()
+                .Where((x) => x.Text == "$image_tag$").First();
+
+            if (textPlaceHolder == null)
+            {
+                Console.WriteLine("Text holder not found!");
+            }
+            else
+            {
+                var parent = textPlaceHolder.Parent;
+
+                if (!(parent is Run))  // Parent should be a run element.
+                {
+                    Console.Out.WriteLine("Parent is not run");
+                }
+                else
+                {
+                    // Insert image (the image created with your function) after text place holder. 
+                    DocumentFormat.OpenXml.Office.Drawing.Drawing element = new DocumentFormat.OpenXml.Office.Drawing.Drawing("C:\\Users\\Desktop\\TestPdfs\\Signature1.png");
+                    textPlaceHolder.Parent.InsertAfter<DocumentFormat.OpenXml.Office.Drawing.Drawing>(element, textPlaceHolder);
+                    // Remove text place holder.
+                    textPlaceHolder.Remove();
+                }
+            }
+        }
 
         public static Document MakeEmpyDocument()
         {
@@ -2169,7 +2311,6 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 new Footnote(
                     new Paragraph(
                         new ParagraphProperties(new Justification() { Val = JustificationValues.Right },
-new Indentation() { Left = "720", Right = "720" },
                             new ParagraphStyleId() { Val = "FootNote" }),//htmlStyles.GetStyle("footnote text", false) }),
                         markerRun = new Run(
                             new RunProperties(new RightToLeftText(),
@@ -2193,7 +2334,64 @@ new Indentation() { Left = "720", Right = "720" },
             return footnotesRef;
         }
 
+        public static void SaveDOCX(string fileName, string BodyText, bool isLandScape, double rMargin, double lMargin, double bMargin, double tMargin)
+        {
+            WordprocessingDocument _currentDoc = WordprocessingDocument.Create(fileName, WordprocessingDocumentType.Document);
 
+            MainDocumentPart _docMainPart = _currentDoc.AddMainDocumentPart();
+            _docMainPart.Document = MakeEmpyDocument();
+            //InitializeDocumentPartsFromXml();
+            // InitializeDocumentStyles();
+
+            MainDocumentPart mainDocumenPart = _currentDoc.MainDocumentPart;
+
+            //Place the HTML String into a MemoryStream Object
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\"><html><head></head><body>" + BodyText + "</body></html>"));
+
+            //Assign an HTML Section for the String Text
+            string htmlSectionID = "Sect1";
+
+            // Create alternative format import part.
+            AlternativeFormatImportPart formatImportPart = mainDocumenPart.AddAlternativeFormatImportPart(AlternativeFormatImportPartType.Html, htmlSectionID);
+
+            // Feed HTML data into format import part (chunk).
+            formatImportPart.FeedData(ms);
+            AltChunk altChunk = new AltChunk();
+            altChunk.Id = htmlSectionID;
+
+            //Clear out the Document Body and Insert just the HTML string.  (This prevents an empty First Line)
+            mainDocumenPart.Document.Body.RemoveAllChildren();
+            mainDocumenPart.Document.Body.Append(altChunk);
+
+            /*
+             Set the Page Orientation and Margins Based on Page Size
+             inch equiv = 1440 (1 inch margin)
+             */
+            double width = 8.27 * 1440;
+            double height = 11.69 * 1440;
+
+            SectionProperties sectionProps = new SectionProperties();
+            PageSize pageSize;
+            if (isLandScape)
+                pageSize = new PageSize() { Width = (UInt32Value)height, Height = (UInt32Value)width, Orient = PageOrientationValues.Landscape };
+            else
+                pageSize = new PageSize() { Width = (UInt32Value)width, Height = (UInt32Value)height, Orient = PageOrientationValues.Portrait };
+
+            rMargin = rMargin * 1440;
+            lMargin = lMargin * 1440;
+            bMargin = bMargin * 1440;
+            tMargin = tMargin * 1440;
+
+            PageMargin pageMargin = new PageMargin() { Top = (Int32)tMargin, Right = (UInt32Value)rMargin, Bottom = (Int32)bMargin, Left = (UInt32Value)lMargin, Header = (UInt32Value)360U, Footer = (UInt32Value)360U, Gutter = (UInt32Value)0U };
+
+            sectionProps.Append(pageSize);
+            sectionProps.Append(pageMargin);
+            mainDocumenPart.Document.Body.Append(sectionProps);
+
+            //Saving/Disposing of the created word Document
+            _currentDoc.MainDocumentPart.Document.Save();
+            _currentDoc.Dispose();
+        }
 
     }
 }

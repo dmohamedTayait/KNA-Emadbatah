@@ -55,22 +55,31 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.P
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.csprojResolveAssemblyReference.cache
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\ICSharpCode.SharpZipLib.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.ServiceLocation.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.Unity.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.Unity.Interception.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TagLibSharp.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.ServiceLocation.xml
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\ResolveAssemblyReference.cache
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.Unity.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TagLibSharp.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Util\obj\Debug\TayaIT.Enterprise.EMadbatah.Util.pdb

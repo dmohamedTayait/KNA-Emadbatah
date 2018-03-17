@@ -72,11 +72,11 @@ namespace TayaIT.Enterprise.EMadbatah.Web
                 {
                     if (fuAttAvatar.HasFile)
                     {
-                        DefaultAttendantHelper.UpdateDefaultAttendantById(long.Parse(AttendantID), textAttName.Text, textAttShortName.Text, textAttLongName.Text, textAttTitle.Text, filename, textAttJobTitle.Text, int.Parse(ddlAttType.SelectedValue));
+                        DefaultAttendantHelper.UpdateDefaultAttendantById(long.Parse(AttendantID), textAttName.Text, textAttShortName.Text, textAttLongName.Text, textAttTitle.Text, filename, textAttJobTitle.Text, int.Parse(ddlAttType.SelectedValue),ddlDegree.SelectedValue);
                     }
                     else
                     {
-                        DefaultAttendantHelper.UpdateDefaultAttendantById(long.Parse(AttendantID), textAttName.Text, textAttShortName.Text, textAttLongName.Text, textAttTitle.Text, textAttJobTitle.Text, int.Parse(ddlAttType.SelectedValue));
+                        DefaultAttendantHelper.UpdateDefaultAttendantById(long.Parse(AttendantID), textAttName.Text, textAttShortName.Text, textAttLongName.Text, textAttTitle.Text, textAttJobTitle.Text, int.Parse(ddlAttType.SelectedValue), ddlDegree.SelectedValue);
                     }
                     lblInfo1.Text = "تم الحفظ بنجاح";
                     lblInfo1.Visible = true;
@@ -110,6 +110,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             defAttendant.AttendantAvatar = imgName;
             defAttendant.Status = 1;
             defAttendant.CreatedAt = DateTime.Now;
+            defAttendant.AttendantDegree = ddlDegree.SelectedValue;
             return defAttendant;
         }
 
@@ -120,6 +121,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             textAttLongName.Text = defAttObj.LongName;
             textAttJobTitle.Text = defAttObj.JobTitle;
             ddlAttType.SelectedValue = defAttObj.Type.ToString();
+            ddlDegree.SelectedValue = defAttObj.AttendantDegree.ToString();
             textAttTitle.Text = defAttObj.AttendantTitle;
             imgAttendantAvatar.ImageUrl = String.Format("/images/AttendantAvatars/{0}", defAttObj.AttendantAvatar);
         }
@@ -131,6 +133,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             textAttLongName.Text = "";
             textAttJobTitle.Text = "";
             ddlAttType.SelectedValue = "1";
+            ddlDegree.SelectedValue = "";
             textAttTitle.Text = "السيد";
         }
     }

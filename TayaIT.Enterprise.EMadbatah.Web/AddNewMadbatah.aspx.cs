@@ -22,7 +22,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
         protected void Button1_Click(object sender, EventArgs e)
         {
 
-            TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(10276, "/test/10276/", "");
+            TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatah(262, "/test/262/", "");
           //   string mad = TayaIT.Enterprise.EMadbatah.BLL.SessionStartFacade.GetAutomaticSessionStartText(155);
             //select * from SessionFile where Name like '%1369b_07%'
 
@@ -33,6 +33,10 @@ namespace TayaIT.Enterprise.EMadbatah.Web
           //  byte[] pdfDoc = System.IO.File.ReadAllBytes(@"C:\test\248.docx".Replace(".docx", ".pdf"));
           //  SessionHelper.UpdateSessionWordAndPdfFiles(275, wordDoc, pdfDoc);
 
+       //     TayaIT.Enterprise.EMadbatah.Word.CCWordApp wrdapp = new Word.CCWordApp();
+         //  TextBox3.Text= wrdapp.FindLoop(@"C:\test\40276\40276.docx", "الرئيــــــــــــــــــــــــــــــــــس");
+            string[] sep = new string[1] { "#!#!#!" };
+            string[] newlines = "#!#!#!#!#!#!#!#!#!".Split(sep, StringSplitOptions.None);
 
             string htmlText = "<span>test span</span> <span>test span2</span> test betweeen line<p procedure-id>test div</p>test between line2<p procedure-id>test div2</p>";
             Regex regex = new Regex(@"<p procedure-id[^>]*?>(.*?)</p>", RegexOptions.IgnorePatternWhitespace);

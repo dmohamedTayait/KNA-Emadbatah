@@ -513,7 +513,7 @@ $('.absLoad.loading').hide();
                     success: function (response) 
                     {
                         
-                        if (response != '1')  {//| response != 'true')
+                        if (response == '0')  {//| response != 'true')
                             alert('لقد حدث خطأ');
                                     }
                         else

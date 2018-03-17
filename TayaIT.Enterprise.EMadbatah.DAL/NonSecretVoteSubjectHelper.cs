@@ -58,7 +58,51 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
                 return null;
             }
         }
-        
+
+        public static TBLMeeting GetNonSecretVotesByMeetingDate(DateTime meetingDate)
+        {
+            try
+            {
+                using (EmadbatahVotingEntities context = new EmadbatahVotingEntities())
+                {
+                    TBLMeeting meeting = new TBLMeeting();
+                    if (context.TBLMeetings.Count<TBLMeeting>() > 0)
+                    {
+                        meeting = context.TBLMeetings.Where(s =>EntityFunctions.TruncateTime(s.MeetingDate) == EntityFunctions.TruncateTime(meetingDate)).FirstOrDefault();
+                        if (meeting != null)
+                            meeting.TBLNonSecretVoteSubjects.Load();
+                    }
+                    return meeting;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.NonSecretVoteSubjectHelper.NonSecretVotesByEparID()");
+                return null;
+            }
+        }
+
+        public static List<TBLNonSecretVoteSubject> GetNonSecretVoteSubjectsByMeetingDate(DateTime meetingDate)
+        {
+            try
+            {
+                using (EmadbatahVotingEntities context = new EmadbatahVotingEntities())
+                {
+                    List<TBLNonSecretVoteSubject> votes = new List<TBLNonSecretVoteSubject>();
+                    if (context.TBLNonSecretVoteSubjects.Count<TBLNonSecretVoteSubject>() > 0)
+                    {
+                        votes = context.TBLNonSecretVoteSubjects.Where(s => EntityFunctions.TruncateTime(s.NonSecretVoteSubjectDate) == EntityFunctions.TruncateTime(meetingDate)).ToList();
+                    }
+                    return votes;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.NonSecretVoteSubjectHelper.NonSecretVotesByEparID()");
+                return null;
+            }
+        }
+
         #endregion
 
     }

@@ -121,6 +121,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web
             defAttobj.Status = 1;
             defAttobj.Type = textAttType;
             defAttobj.CreatedAt = DateTime.Now;
+            defAttobj.AttendantDegree = "";
             DefaultAttendantHelper.AddNewDefaultAttendant(defAttobj);
 
             gvbind();

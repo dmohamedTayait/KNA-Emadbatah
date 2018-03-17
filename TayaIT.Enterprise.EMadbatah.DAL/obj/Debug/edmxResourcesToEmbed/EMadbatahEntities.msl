@@ -42,6 +42,7 @@
     <EntitySetMapping Name="Attendants">
       <EntityTypeMapping TypeName="EMadbatahModel.Attendant">
         <MappingFragment StoreEntitySet="Attendant">
+          <ScalarProperty Name="AttendantDegree" ColumnName="AttendantDegree" />
           <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
           <ScalarProperty Name="LongName" ColumnName="LongName" />
           <ScalarProperty Name="ShortName" ColumnName="ShortName" />
@@ -91,6 +92,7 @@
     <EntitySetMapping Name="Sessions">
       <EntityTypeMapping TypeName="EMadbatahModel.Session">
         <MappingFragment StoreEntitySet="Session">
+          <ScalarProperty Name="HijriDate" ColumnName="HijriDate" />
           <ScalarProperty Name="PresidentID" ColumnName="PresidentID" />
           <ScalarProperty Name="SessionStartFlag" ColumnName="SessionStartFlag" />
           <ScalarProperty Name="Checker" ColumnName="Checker" />
@@ -121,6 +123,7 @@
     <EntitySetMapping Name="SessionContentItems">
       <EntityTypeMapping TypeName="EMadbatahModel.SessionContentItem">
         <MappingFragment StoreEntitySet="SessionContentItem">
+          <ScalarProperty Name="MergedTopicWithPrevious" ColumnName="MergedTopicWithPrevious" />
           <ScalarProperty Name="TopicID" ColumnName="TopicID" />
           <ScalarProperty Name="OriginalStartTime" ColumnName="OriginalStartTime" />
           <ScalarProperty Name="IsSessionPresident" ColumnName="IsSessionPresident" />
@@ -259,6 +262,7 @@
     <EntitySetMapping Name="DefaultAttendants">
       <EntityTypeMapping TypeName="EMadbatahModel.DefaultAttendant">
         <MappingFragment StoreEntitySet="DefaultAttendant">
+          <ScalarProperty Name="AttendantDegree" ColumnName="AttendantDegree" />
           <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="LongName" ColumnName="LongName" />

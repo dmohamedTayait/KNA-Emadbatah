@@ -92,6 +92,27 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             }
         }
 
+        public static int GetUnNewSessionFilesCount(long sessionID)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    var files = from f in context.SessionFiles
+                                where f.SessionID == sessionID && f.IsActive == 1 && f.Status != 1
+                                select f;
+
+
+                    return files.Count<SessionFile>();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.SessionFileHelper.AddNewSessionFiles()");
+                return -1;
+            }
+        }
+
         public static bool LockSessionFile(long sessionFileID, long userID, bool isAdmin)
         {
             try

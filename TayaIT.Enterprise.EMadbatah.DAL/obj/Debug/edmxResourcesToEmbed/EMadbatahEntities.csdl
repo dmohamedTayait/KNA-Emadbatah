@@ -251,6 +251,7 @@
     <Property Type="String" Name="LongName" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Type="DateTime" Name="CreatedAt" />
     <NavigationProperty Name="TopicAttendants" Relationship="EMadbatahModel.FK_TopicAttendant_Attendant" FromRole="Attendant" ToRole="TopicAttendant" />
+    <Property Type="String" Name="AttendantDegree" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AttendantState">
     <Key>
@@ -314,6 +315,7 @@
     <Property Type="Int32" Name="PresidentID" />
     <NavigationProperty Name="SessionCommittees" Relationship="EMadbatahModel.FK_SessionCommittee_Session" FromRole="Session" ToRole="SessionCommittee" />
     <NavigationProperty Name="Topics" Relationship="EMadbatahModel.FK_Topic_Session" FromRole="Session" ToRole="Topic" />
+    <Property Type="DateTime" Name="HijriDate" />
   </EntityType>
   <EntityType Name="SessionContentItem">
     <Key>
@@ -359,6 +361,7 @@
     <Property Type="Double" Name="OriginalStartTime" />
     <Property Type="Int64" Name="TopicID" />
     <NavigationProperty Name="Topic" Relationship="EMadbatahModel.FK_SessionContentItem_Topic" FromRole="SessionContentItem" ToRole="Topic" />
+    <Property Type="Boolean" Name="MergedTopicWithPrevious" />
   </EntityType>
   <EntityType Name="SessionContentItemStatus">
     <Key>
@@ -768,6 +771,7 @@
     <Property Type="DateTime" Name="CreatedAt" />
     <NavigationProperty Name="SessionCommitteeAttendants" Relationship="EMadbatahModel.FK_SessionCommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="SessionCommitteeAttendant" />
     <NavigationProperty Name="CommitteeAttendants" Relationship="EMadbatahModel.FK_CommitteeAttendant_DefaultAttendant" FromRole="DefaultAttendant" ToRole="CommitteeAttendant" />
+    <Property Type="String" Name="AttendantDegree" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_Attendant_DefaultAttendant">
     <End Type="EMadbatahModel.DefaultAttendant" Role="DefaultAttendant" Multiplicity="0..1" />

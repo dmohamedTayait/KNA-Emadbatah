@@ -661,6 +661,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
         public static void CreateMadbatahFiles(SessionDetails details, EMadbatahUser threadUser, HttpContext threadContext, FileVersion fileVersion)
         {
+            foreach (System.Diagnostics.Process thisproc in System.Diagnostics.Process.GetProcesses())
+            {
+                if (thisproc.ProcessName.StartsWith("WINWORD"))
+                {
+                    thisproc.Kill();
+                }
+            }
 
             long sessionID = details.SessionID;
             string folderPath = threadContext.Server.MapPath("~") + @"\Files\" + sessionID + @"\";

@@ -78,6 +78,24 @@
                     AllowPaging="true" OnPageIndexChanging="gvDefaultAttendants_PageIndexChanging"
                     PageSize="5" DataKeyNames="id" CssClass="Gridview h2">
                     <Columns>
+                           <asp:TemplateField HeaderText="الدرجة العلمية" ItemStyle-Width="50px">
+                            <ItemTemplate>
+                                <asp:DropDownList ID="ddlDegree" runat="server" SelectedValue='<%# Eval("AttendantDegree") %>'
+                                    Enabled="false" Style="width: 100%;">
+                                    <asp:ListItem Value="" Text=""></asp:ListItem>
+                                    <asp:ListItem Value="د." Text="د."></asp:ListItem>
+                                    <asp:ListItem Value="أ.د." Text="أ.د."></asp:ListItem>
+                                </asp:DropDownList>
+                            </ItemTemplate>
+                            <EditItemTemplate>
+                                <asp:DropDownList ID="ddlDegree" runat="server" SelectedValue='<%# Eval("AttendantDegree") %>'
+                                    Style="width: 100%;">
+                                    <asp:ListItem Value="" Text=""></asp:ListItem>
+                                    <asp:ListItem Value="د." Text="د."></asp:ListItem>
+                                    <asp:ListItem Value="أ.د." Text="أ.د."></asp:ListItem>
+                                </asp:DropDownList>
+                            </EditItemTemplate>
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="اسم العضو">
                             <ItemTemplate>
                                 <asp:Label ID="lblAttLongName" runat="server" Text='<%# Eval("LongName")%>'></asp:Label>

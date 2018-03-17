@@ -13,8 +13,13 @@ C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Ent
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
 C:\tayawork\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.csprojResolveAssemblyReference.cache
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\ResolveAssemblyReference.cache
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
-E:\KNA Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\bin\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.csprojResolveAssemblyReference.cache
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.dll
+C:\tayawork\KNA-Work\KNA-Emadbatah-Git\KNA-Emadbatah\TayaIT.Enterprise.EMadbatah.Model\obj\Debug\TayaIT.Enterprise.EMadbatah.Model.pdb

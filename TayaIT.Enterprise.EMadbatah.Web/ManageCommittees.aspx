@@ -65,13 +65,14 @@
             <div class="grid_12">
                 <div>
                     <asp:GridView ID="gvCommittees" runat="server" AutoGenerateColumns="false" DataKeyNames="id"
-                        CssClass="Gridview h2" ShowFooter="true" ShowHeader="false" OnRowEditing="gvCommittees_RowEditing"
+                        CssClass="Gridview h2" ShowFooter="true" ShowHeader="false" OnRowEditing="gvCommittees_RowEditing" OnRowDataBound="gvCommittees_RowDataBound"
                         OnRowUpdating="gvCommittees_RowUpdating" OnRowCancelingEdit="gvCommittees_RowCancelingEdit">
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                     <asp:LinkButton ID="lblCommitteeName" runat="server" Text='<%# Eval("CommitteeName")%>'
+                                     <asp:LinkButton ID="lnkCommitteeName" runat="server" Text='<%# Eval("CommitteeName")%>'
                                         PostBackUrl='<%# String.Format("~/ManageCommitteeAttendance.aspx?commid={0}", Eval("ID"))%>'></asp:LinkButton>
+                                        <asp:Label ID="lblCommitteeName" runat="server" Text='<%# Eval("CommitteeName")%>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="textCommitteeName" runat="server" Text='<%# Eval("CommitteeName")%>'></asp:TextBox>
@@ -80,12 +81,20 @@
                                     <asp:TextBox ID="textCommitteeName" runat="server" Style="width: 100%;height:40px" ></asp:TextBox>
                                 </FooterTemplate>
                             </asp:TemplateField>
+                                 <asp:TemplateField Visible="false">
+                                <ItemTemplate>
+                                     <asp:Label ID="textCommitteeStatus" runat="server" Text='<%# Eval("Status")%>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:CommandField ShowEditButton="true" CancelText="الغاء" EditText="تعديل" UpdateText="حفظ" />
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkRemove" runat="server" CommandArgument='<%# Eval("ID")%>'
                                         OnClick="gvCommittees_RowDeleting" OnClientClick="return confirm('هل أنت متأكد أنك تريد الحذف ؟')"
                                         Text="حذف"></asp:LinkButton>
+                                    <asp:LinkButton ID="lnkUnRemove" runat="server" CommandArgument='<%# Eval("ID")%>'
+                                        OnClick="gvCommittees_RowUnDeleting" OnClientClick="return confirm('هل أنت متأكد أنك تريد الغاء الحذف ؟')"
+                                        Text="الغاء الحذف"></asp:LinkButton>
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     <asp:Button ID="btnAdd" runat="server" Text="اضافة" CssClass="btn" OnClick="AddNewCommittee" />

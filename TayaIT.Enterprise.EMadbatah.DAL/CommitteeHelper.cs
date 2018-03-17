@@ -14,13 +14,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             {
                 using (EMadbatahEntities context = new EMadbatahEntities())
                 {
-                    List<Committee> Committees = context.Committees.Where(c=> c.Status == 1).Select(c => c).ToList();
+                    List<Committee> Committees = context.Committees.Select(c => c).OrderBy(c => c.Status).ThenBy(c => c.CommitteeName).ToList();
                     return Committees;
                 }
             }
             catch (Exception ex)
             {
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.GetAllCommittee()");
+                return null;
+            }
+        }
+
+        public static List<Committee> GetAllCommittee(int status)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                    List<Committee> Committees = context.Committees.Where(c => c.Status == status).Select(c => c).ToList();
+                    return Committees;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.GetAllCommittee(" + status + ")");
                 return null;
             }
         }
@@ -181,6 +198,33 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
             catch (Exception ex)
             {
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendantStatus(" + commID + " , " + defAttID + " , " + status + ")");
+                return 0;
+            }
+        }
+
+        public static long UpdateCommitteeAttendantStatus(long defAttID, int status)
+        {
+            try
+            {
+                using (EMadbatahEntities context = new EMadbatahEntities())
+                {
+                   List<CommitteeAttendant> commAttLst = context.CommitteeAttendants.Where(c => c.DefaultAttendantID == defAttID).ToList();
+                   if (commAttLst.Count != 0)
+                    {
+                        foreach (CommitteeAttendant commAttObj in commAttLst)
+                        {
+                            commAttObj.Status = status;
+                        }
+                        int result = context.SaveChanges();
+                        return 1;
+                    }
+                    else
+                        return -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.DAL.CommitteeHelper.UpdateCommitteeAttendantStatus(" + defAttID + " , " + status + ")");
                 return 0;
             }
         }

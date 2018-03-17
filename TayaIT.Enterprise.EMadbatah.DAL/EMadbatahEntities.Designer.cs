@@ -2040,6 +2040,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.DateTime> _CreatedAt;
         partial void OnCreatedAtChanging(Nullable<global::System.DateTime> value);
         partial void OnCreatedAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AttendantDegree
+        {
+            get
+            {
+                return _AttendantDegree;
+            }
+            set
+            {
+                OnAttendantDegreeChanging(value);
+                ReportPropertyChanging("AttendantDegree");
+                _AttendantDegree = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AttendantDegree");
+                OnAttendantDegreeChanged();
+            }
+        }
+        private global::System.String _AttendantDegree;
+        partial void OnAttendantDegreeChanging(global::System.String value);
+        partial void OnAttendantDegreeChanged();
 
         #endregion
 
@@ -3125,6 +3149,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.DateTime> _CreatedAt;
         partial void OnCreatedAtChanging(Nullable<global::System.DateTime> value);
         partial void OnCreatedAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AttendantDegree
+        {
+            get
+            {
+                return _AttendantDegree;
+            }
+            set
+            {
+                OnAttendantDegreeChanging(value);
+                ReportPropertyChanging("AttendantDegree");
+                _AttendantDegree = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("AttendantDegree");
+                OnAttendantDegreeChanged();
+            }
+        }
+        private global::System.String _AttendantDegree;
+        partial void OnAttendantDegreeChanging(global::System.String value);
+        partial void OnAttendantDegreeChanged();
 
         #endregion
 
@@ -4419,6 +4467,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int32> _PresidentID;
         partial void OnPresidentIDChanging(Nullable<global::System.Int32> value);
         partial void OnPresidentIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> HijriDate
+        {
+            get
+            {
+                return _HijriDate;
+            }
+            set
+            {
+                OnHijriDateChanging(value);
+                ReportPropertyChanging("HijriDate");
+                _HijriDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("HijriDate");
+                OnHijriDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _HijriDate;
+        partial void OnHijriDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnHijriDateChanged();
 
         #endregion
 
@@ -5888,6 +5960,30 @@ namespace TayaIT.Enterprise.EMadbatah.DAL
         private Nullable<global::System.Int64> _TopicID;
         partial void OnTopicIDChanging(Nullable<global::System.Int64> value);
         partial void OnTopicIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> MergedTopicWithPrevious
+        {
+            get
+            {
+                return _MergedTopicWithPrevious;
+            }
+            set
+            {
+                OnMergedTopicWithPreviousChanging(value);
+                ReportPropertyChanging("MergedTopicWithPrevious");
+                _MergedTopicWithPrevious = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("MergedTopicWithPrevious");
+                OnMergedTopicWithPreviousChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _MergedTopicWithPrevious;
+        partial void OnMergedTopicWithPreviousChanging(Nullable<global::System.Boolean> value);
+        partial void OnMergedTopicWithPreviousChanged();
 
         #endregion
 
