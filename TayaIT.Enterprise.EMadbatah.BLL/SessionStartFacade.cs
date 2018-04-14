@@ -388,7 +388,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             string body = "";
             if (attendants.Count > 0)
             {
-                int table_width = if_status_added ? 85 : 65;
+                int table_width = if_status_added ? 100 : 65;
                 body += "<p style='" + basicPStyle + textunderline + textRight + "'>" + head + "</p>";
                 body += "<table style='" + tableStyle + ";width:" + table_width.ToString() + "%'>";
                 int count = 1;

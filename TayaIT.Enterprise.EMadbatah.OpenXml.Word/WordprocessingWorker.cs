@@ -125,7 +125,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             sectionProps.Append(pageMargin);
             sectionProps.Append(pageSize);
             _docMainPart.Document.Body.Append(sectionProps);
-
+            Save();
             //_docMainPart.Document = new Document();
             //_body = new Body();
             //InitializeDocumentPartsFromXml();

@@ -36,8 +36,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 SessionFile start = SessionStartFacade.GetSessionStartBySessionID(sessionID);
                 //HtmlToOpenXml.SaveHtmlToWord(start.SessionStartText, SessionWorkingDir + "sessionStartDoc.docx", ServerMapPath+ "\\resources\\", out sessionStartSize);
                 HTMLtoDOCX hd = new HTMLtoDOCX();
-               // hd.CreateFileFromHTML(start.SessionStartText, SessionWorkingDir + "bodyDoc.docx");
-                WordprocessingWorker.SaveDOCX(SessionWorkingDir + "bodyDoc.docx", start.SessionStartText, false, 1, 1, .5, .5);
+                hd.CreateFileFromHTML(start.SessionStartText, SessionWorkingDir + "bodyDoc.docx");
+              //  WordprocessingWorker.SaveDOCX(SessionWorkingDir + "bodyDoc.docx", start.SessionStartText, false, 1, 1, .5, .5);
 
                 //Madbatah Body
                 int bodySize = MabatahCreatorFacade.CreateMadbatahBody(sessionID, SessionWorkingDir + "bodyDoc.docx", SessionWorkingDir, ServerMapPath, details, out index, out speakersIndex);
