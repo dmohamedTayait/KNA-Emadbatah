@@ -542,7 +542,12 @@ $(document).ready(function() {
 
     $(".ddlCommittee").change(function() {
         var selecText = $("#MainContent_ddlOtherTitles  option:selected").text() + $(".ddlCommittee option:selected").text().replace(/لجنة/g, "");
-        $(".txtSpeakerOtherJob").val(selecText);
+        var selectID = $(".ddlOtherTitles option:selected").attr("value");
+        if(selectID == 5 || selectID == 6)
+        {
+          selecText = "(" + selecText + ")"
+        }
+         $(".txtSpeakerOtherJob").val(selecText);
     });
 
 

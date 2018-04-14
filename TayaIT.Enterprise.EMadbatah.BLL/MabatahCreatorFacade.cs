@@ -451,7 +451,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         if (!String.IsNullOrEmpty(att.JobTitle))
                             doc.AddParagraph("    " + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
-                            doc.AddParagraph("(" + contentItem.CommentOnAttendant.Trim() + " )", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                            doc.AddParagraph(contentItem.CommentOnAttendant.Trim() , ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                     else
                     {
@@ -462,7 +462,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         if (!String.IsNullOrEmpty(att.JobTitle))
                             doc.AddParagraph("    (" + att.JobTitle + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                         if (!String.IsNullOrEmpty(contentItem.CommentOnAttendant))
-                            doc.AddParagraph("    (" + contentItem.CommentOnAttendant.Trim() + ")", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                            doc.AddParagraph("    "+ contentItem.CommentOnAttendant.Trim(), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     }
                 }
 

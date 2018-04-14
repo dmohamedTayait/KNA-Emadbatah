@@ -222,8 +222,8 @@
                             <div class="grid_11">
                                 <asp:DropDownList ID="ddlOtherTitles" AutoPostBack="false" runat="server" CssClass="inputBlock ddlOtherTitles">
                                     <asp:ListItem Text="-- أختر --" Value="0"></asp:ListItem>
-                                    <asp:ListItem Text="المقرر" Value="2"></asp:ListItem>
-                                    <asp:ListItem Text="عن المقرر" Value="3"></asp:ListItem>
+                                    <asp:ListItem Text="(المقرر)" Value="2"></asp:ListItem>
+                                    <asp:ListItem Text="عن (المقرر)" Value="3"></asp:ListItem>
                                     <asp:ListItem Text="-------------------" Value="4"></asp:ListItem>
                                     <asp:ListItem Text="رئيس لجنة" Value="5"></asp:ListItem>
                                     <asp:ListItem Text="عضو لجنة" Value="6"></asp:ListItem>
