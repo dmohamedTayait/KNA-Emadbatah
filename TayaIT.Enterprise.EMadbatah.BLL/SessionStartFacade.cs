@@ -370,7 +370,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             madbatahStart += "<body dir='" + directionStyle + "'>";
             madbatahStart += sessionStart + body;
             madbatahStart += "<p style='" + basicPStyle + textJustify + "'>" + madbatahStartsection2 + "</p>" + emptyParag;
-            madbatahStart += "<p style='" + basicPStyle + textJustify + "'>" + madbatahStartsection3 + "</p>" + emptyParag;
+            madbatahStart += "<p style='" + basicPStyle + textJustify + "'>" + madbatahStartsection3 + "</p>";
             madbatahStart += "</body></html>";
             return madbatahStart;
         }
@@ -388,7 +388,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             string body = "";
             if (attendants.Count > 0)
             {
-                int table_width = if_status_added ? 100 : 65;
+                int table_width = if_status_added ? 95 : 70;
                 body += "<p style='" + basicPStyle + textunderline + textRight + "'>" + head + "</p>";
                 body += "<table style='" + tableStyle + ";width:" + table_width.ToString() + "%'>";
                 int count = 1;
@@ -397,13 +397,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 {
                     if (att.Name != "غير معرف")
                     {
-                        att_stats = (Model.AttendantState)att.State == Model.AttendantState.Attended ? "حاضر" : "غير موجود";
-                        body += "<tr style='" + pagebreak + "'><td style='" + valign + "'><p style=' " + tdJustifyStyle + " '>" + count.ToString() + "</p></td><td><p style=' " + tdJustifyStyle + " '>" + "   - " + att.Name.Trim() + "</p>";
+                        att_stats = (Model.AttendantState)att.State == Model.AttendantState.Attended ? "حاضــــــــر" : "غـير موجـود";
+                        body += "<tr style='" + pagebreak + "'><td style='" + valign + ";width:5%'><p style=' " + tdJustifyStyle + " '>" + count.ToString() + "</p></td><td style='width:65%'><p style=' " + tdJustifyStyle + " '>" + "   - " + att.Name.Trim() + "</p>";
                         if (!String.IsNullOrEmpty(att.JobTitle))
                             body += "<p style=' " + tdCenterStyle + "'>" + "(" + att.JobTitle.Trim() + ")" + "</p>";
                         body += "</td>";
                         if(if_status_added)
-                            body += "<td  style='" + valign + "'><p style=' " + tdJustifyStyle + "'>" + "(" + att_stats + ")" + "</p></td>";
+                            body += "<td  style='" + valign + ";width:25%'><p style=' " + tdJustifyStyle + "'>" + "(" + att_stats + ")" + "</p></td>";
                         body += "</tr>";
                         count++;
                     }

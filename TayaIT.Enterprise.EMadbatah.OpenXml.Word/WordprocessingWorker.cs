@@ -1064,7 +1064,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                 Table table = new Table();
 
                 TableProperties props = new TableProperties(new TableStyle() { Val = "styleTableGrid" },
-                    new TableWidth() { Width = "4250", Type = TableWidthUnitValues.Pct },
+                    new TableWidth() { Width = "5000", Type = TableWidthUnitValues.Pct },
                     new TableLook() { Val = "04A0", FirstRow = false, LastRow = false, NoHorizontalBand = false, NoVerticalBand = true },
                     new TableBorders(
                         new TopBorder { Val = new EnumValue<BorderValues>(BorderValues.None) },
@@ -1094,7 +1094,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                         for (int j = 0; j < names.Count(); j++)
                         {
                             var tc1 = new TableCell();
-                            tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(names[j]))));
+                            tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "SmallParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(names[j]))));
                             tc1.Append(new TableCellProperties(new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
                             tr.Append(tc1);
                         }
@@ -1102,11 +1102,11 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
                     else
                     {
                         var tc1 = new TableCell();
-                        tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(data[i]))));
+                        tc1.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "SmallParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(data[i]))));
                         tc1.Append(new TableCellProperties(new HorizontalMerge() { Val = MergedCellValues.Restart }, new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
                         var tc2 = new TableCell();
-                        tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "ParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(""))));
+                        tc2.Append(new Paragraph(new ParagraphProperties(new ParagraphStyleId() { Val = "SmallParagraphTitle" }, new BiDi(), new SpacingBetweenLines() { After = "0", Before = "0", Line = "276", LineRule = LineSpacingRuleValues.Auto }, new Justification() { Val = JustificationValues.LowKashida }), new Run(new Text(""))));
                         tc2.Append(new TableCellProperties(new HorizontalMerge() { Val = MergedCellValues.Continue }, new TableCellWidth { Width = "2500", Type = TableWidthUnitValues.Pct }, new TableCellVerticalAlignment { Val = TableVerticalAlignmentValues.Center }));
 
                         tr.Append(tc1);
@@ -1367,7 +1367,21 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             styleParagraphTitle.Append(runParagraphTitleTextProp);
 
 
-
+            RunProperties runSmallParagraphTitleTextProp = new RunProperties();
+            RunFonts runSmallParagraphTitleTextFonts = new RunFonts() { Ascii = "AdvertisingBold", HighAnsi = "AdvertisingBold", ComplexScript = "AdvertisingBold" };
+            FontSize fontSmallParagraphTitleTextSize = new FontSize() { Val = "24" };
+            FontSizeComplexScript fontSmallParagraphTitleComplexScriptSize = new FontSizeComplexScript() { Val = "24" };
+            RightToLeftText rtlSmallTextParagraphTitle = new RightToLeftText();
+            runSmallParagraphTitleTextProp.Append(runSmallParagraphTitleTextFonts);
+            runSmallParagraphTitleTextProp.Append(fontSmallParagraphTitleTextSize);
+            runSmallParagraphTitleTextProp.Append(fontSmallParagraphTitleComplexScriptSize);
+            runSmallParagraphTitleTextProp.Append(rtlSmallTextParagraphTitle);
+            Style styleSmallParagraphTitle = new Style();
+            styleSmallParagraphTitle.StyleId = "SmallParagraphTitle";
+            styleSmallParagraphTitle.Append(new Name() { Val = "Taya Madbatah Small Paragraph Title Text" });
+            styleSmallParagraphTitle.Append(new BasedOn() { Val = "Normal" });
+            styleSmallParagraphTitle.Append(new NextParagraphStyle() { Val = "Normal" });
+            styleSmallParagraphTitle.Append(runSmallParagraphTitleTextProp);
 
             // Run runParagraphTitleText = new Run() { RsidRunProperties = "00CD365A" };
             RunProperties runUnderlineParagraphTitleTextProp = new RunProperties();
@@ -1587,6 +1601,7 @@ namespace TayaIT.Enterprise.EMadbatah.OpenXml.Word
             _docStylePart.Styles = new Styles();
             _docStylePart.Styles.Append(styleNormalText);
             _docStylePart.Styles.Append(styleParagraphTitle);
+            _docStylePart.Styles.Append(styleSmallParagraphTitle);
             _docStylePart.Styles.Append(styleUnderlineParagraphTitle);
             _docStylePart.Styles.Append(styleParagraphTitleItalic);
             _docStylePart.Styles.Append(styleParagraphTitleBoldItalic);

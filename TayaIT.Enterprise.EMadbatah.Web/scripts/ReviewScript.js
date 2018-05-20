@@ -599,6 +599,9 @@ $(document).ready(function () {
 
         $('.absLoad.loading').show()
         $(this).attr('disabled', 'disabled');
+        alert('يتم الآن تجهيز ملفات المضبطة.. هذه العملية تستغرق عدة دقائق .. سيقوم التطبيق بإرسال رسالة بريد إلكتروني إليكم بمجرد الإنتهاء من تجهيزها')
+        $('.absLoad.loading').hide();
+        $('.btnApproveSession').css("display", "none");
         //var ed = $('.reviewpopup_cont')
         // Do you ajax call here, window.setTimeout fakes ajax call
         jQuery.ajax({
@@ -621,12 +624,12 @@ $(document).ready(function () {
 
 
                     changeButtonsForSessionStatus();
-                    alert('يتم الآن تجهيز ملفات المضبطة.. هذه العملية تستغرق عدة دقائق .. سيقوم التطبيق بإرسال رسالة بريد إلكتروني إليكم بمجرد الإنتهاء من تجهيزها')
+                   // alert('يتم الآن تجهيز ملفات المضبطة.. هذه العملية تستغرق عدة دقائق .. سيقوم التطبيق بإرسال رسالة بريد إلكتروني إليكم بمجرد الإنتهاء من تجهيزها')
 
                     $('.btnFinalApproveSession').css("display", "none");
 
                 }
-                $('.absLoad.loading').hide();
+               // $('.absLoad.loading').hide();
             },
             error: function () {
                 $('.absLoad.loading').hide();

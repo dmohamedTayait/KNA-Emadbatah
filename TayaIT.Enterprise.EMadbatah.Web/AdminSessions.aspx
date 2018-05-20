@@ -324,15 +324,14 @@
                                         <div class="padd">
                                             <select id="selectReviewers" class="selectReviewers" data-currentrevid="<%=currentReviewerID %>"
                                                 data-sessionid="<%=session.SessionID %>">
+                                                <option value="-1" selected="selected">-- إسناد إلى مراجع -- </option>
                                                 <% 
                                        int counterRev = 0;
                                        foreach (EMadbatahUser user in reviewrs)
                                        {
                                            if (counterRev == 0 && session.ReviewerID == null)
                                                 %>
-                                                <option value="-1" selected="selected">-- إسناد إلى مراجع -- </option>
-                                                <%
-                                                %><option value="<%=user.ID%>" <%=session.ReviewerID == user.ID ? "selected=\"selected\"" : ""%>>
+                                                <option value="<%=user.ID%>" <%=session.ReviewerID == user.ID ? "selected=\"selected\"" : ""%>>
                                                     <%=user.Name%></option>
                                                 <%   
     counterRev++;

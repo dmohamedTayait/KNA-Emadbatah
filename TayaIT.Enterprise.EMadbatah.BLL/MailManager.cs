@@ -95,7 +95,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     }
 
                     email.Body = templateEmailMessage.Replace("<%MainContent%>", emailBody);
-                    return util.SendMail(email);
+                    return true;// util.SendMail(email);
                 }
 
             }

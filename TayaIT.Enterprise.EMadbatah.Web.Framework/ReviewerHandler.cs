@@ -96,6 +96,7 @@ namespace TayaIT.Enterprise.EMadbatah.Web.Framework
                                         t2.Start(threadParams);
                                         t2.IsBackground = true;
                                         LogHelper.LogMessage("start thread", "approve session", System.Diagnostics.TraceEventType.Information);*/
+
                                         EMadbatahFacade.CreateMadbatahFiles(sd, CurrentUser, _context, FileVersion.draft);
                                     }
                                 }

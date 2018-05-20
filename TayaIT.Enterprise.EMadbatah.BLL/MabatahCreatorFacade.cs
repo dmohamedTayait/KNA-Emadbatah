@@ -142,12 +142,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             WordTemplateHandler.replaceCustomXML(outCoverPath, sb.ToString());
         }
         public static string docPath = "";
+        public static string sWorkingDir = "";
         public static DocXmlParts xmlFilesPaths = new DocXmlParts();
+        public static WordprocessingWorker doc;
+        public static int docNum = 0;
+        public static int docPageCount = 0;
         public static int CreateMadbatahBody(long sessionID, string outFilePath, string SessionWorkingDir, string ServerMapPath, Model.SessionDetails details, out List<MadbatahIndexItem> index, out List<SpeakersIndexItem> speakersIndex)
         {
 
             docPath = outFilePath;
-            int docNum = 0;
+            docNum = 0;
+            sWorkingDir = SessionWorkingDir;
 
             string resfolderpath = ServerMapPath + "\\resources\\";
 
@@ -165,7 +170,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             xmlFilesPaths.HeaderPartPath = resfolderpath + "header.xml";
             try
             {
-                WordprocessingWorker doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open, true);
+                doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open, true);
                 {
                     doc.DocHeaderString = "ــــــــــــــــــــ        " + details.EparlimentID.ToString() + " / " + details.Type + "        ــــــــــــــــــــ";
                     doc.ApplyHeaderAndFooter();
@@ -176,16 +181,23 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     List<SessionContentItem> allItems = SessionContentItemHelper.GetItemsBySessionIDOrderedBySessionFile(sessionID);//All segments
 
                     int pageNum = 0;//page num in word
-                    int docPageCount = 0;
+                   
                     long lineNum = 0;//line num in word
                     int ii = 1000;//section ID reserved for images mut be large umber like 1000
                     int j = 0;
                     int k = 0;//loop counter
+                    docPageCount = 0;
+
+                    doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                    lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
+                    doc.DeleteLastParagraph("space");
+                    if (lineNum != 1)
+                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
 
                     List<List<SessionContentItem>> speakerGroup = new List<List<SessionContentItem>>();
                     List<SessionContentItem> newGroup = GroupSpeakerSimilarArticles(allItems, out speakerGroup);//to Group Segments by Speakers 
                     List<SessionContentItem> contentItemGrp = new List<SessionContentItem>();
-                    string currentWorkingDoc = docPath;
+                   // string currentWorkingDoc = docPath;
                     foreach (SessionContentItem sessionItem in newGroup)
                     {
                         string text = "";
@@ -193,13 +205,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         foreach (SessionContentItem contentItem in speakerGroup[j])
                         {
                             if (!doc.IsOpen)
-                                doc = new WordprocessingWorker(currentWorkingDoc, xmlFilesPaths, DocFileOperation.Open);
+                                doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.Open);
 
                             //Prepare AgendaItem to be written in Word Fehres
                             AgendaItem updatedAgenda = contentItem.AgendaItem;
                             if (updatedAgenda.Name != "غير معرف")
                             {
-                                pageNum = doc.CountPagesUsingOpenXML(doc, currentWorkingDoc, xmlFilesPaths, ServerMapPath, out doc);
+                                pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                                 int ind = index.FindIndex(curIndexItem => curIndexItem.ID == updatedAgenda.ID);
                                 if (ind == -1)
                                 {
@@ -224,7 +236,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 if (att.Type == (int)Model.AttendantType.FromTheCouncilMembers)
                                 {
                                     //Prepare Speaker to be written in Word SpeakersFehres
-                                    pageNum = doc.CountPagesUsingOpenXML(doc, currentWorkingDoc, xmlFilesPaths, ServerMapPath, out doc);
+                                    pageNum = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                                     int itemIndex = speakersIndex.IndexOf(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), (pageNum + docPageCount).ToString(), att.Type));
                                     if (itemIndex == -1)
                                         speakersIndex.Add(new SpeakersIndexItem(MabatahCreatorFacade.GetAttendantTitleNSpeakersIndex(att, sessionID), (pageNum + docPageCount).ToString() + ",", att.Type));
@@ -241,7 +253,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                                     if (prevItem.TopicID != null && prevItem.TopicID != 0)
                                     {
-                                        WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 0);
+                                        WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 0);
                                         List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(prevItem.TopicID.ToString()));
                                         List<string> attNamesLst = new List<string>();
                                         for (int u = 0; u < tpcAtts.Count(); u += 2)
@@ -250,15 +262,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                             Attendant att2 = new Attendant();
                                             string attNames = "";
                                             att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
-                                            attNames = (att1.AttendantDegree + " " + att1.LongName).Trim();
+                                           // attNames = (att1.AttendantDegree + " " + att1.Name).Trim();
+                                            attNames = att1.Name.Trim();
                                             if (u + 1 < tpcAtts.Count())
                                             {
                                                 att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
-                                                attNames += "," + (att2.AttendantDegree + " " + att2.LongName).Trim();
+                                               // attNames += "," + (att2.AttendantDegree + " " + att2.Name).Trim();
+                                                attNames += "," + att2.Name.Trim();
                                             }
                                             attNamesLst.Add(attNames);
                                         }
-                                        doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+                                       // doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
                                         if (attNamesLst.Count > 0)
                                         {
                                             doc.AddParagraph("مقدمو الطلب", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
@@ -277,7 +291,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     {
                                         if (contentItem.TopicID != null && contentItem.TopicID != 0 && contentItem.MergedTopicWithPrevious == false)
                                         {
-                                            WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 1);
+                                            WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);
                                             text = "";
                                             contentItemAsText = "";
                                             contentItemGrp.Clear();//clear the segments array after writing them in the word
@@ -286,8 +300,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                             }
 
-                            text += " " + contentItem.Text.ToLower().Trim();
-                            contentItemAsText = text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!");
+                            text += " " + contentItem.Text.Trim();
+                            contentItemAsText = text.Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!");
                             contentItemGrp.Add(contentItem);
                             k++;
 
@@ -306,8 +320,8 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     string wordAttFilePath = SessionWorkingDir + attachName.ToLower().Replace(".pdf", ".pdf.docx");
                                     string[] files = Directory.GetFiles(SessionWorkingDir + fInfo.Name.Replace(fInfo.Extension, "")).OrderBy(p => new FileInfo(p).CreationTime).ToArray();
 
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 1);// Copy the previuos segments before witing the attach
-                                    docPageCount += doc.CountPagesUsingOpenXML(doc, currentWorkingDoc, xmlFilesPaths, ServerMapPath, out doc);
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);// Copy the previuos segments before witing the attach
+                                    docPageCount += doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, ServerMapPath, out doc);
                                     text = "";
                                     contentItemAsText = "";
                                     contentItemGrp.Clear();//clear the segments array after writing them in the word
@@ -320,16 +334,16 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                     }
                                     doc.Dispose();
                                     docNum++;
-                                    currentWorkingDoc = SessionWorkingDir + "bodyDoc" + docNum.ToString() + ".docx";
-                                    docPath = currentWorkingDoc;
-                                    doc = new WordprocessingWorker(currentWorkingDoc, xmlFilesPaths, DocFileOperation.CreateNew, true);
+                                 //   currentWorkingDoc = SessionWorkingDir + "bodyDoc" + docNum.ToString() + ".docx";
+                                    docPath = SessionWorkingDir + "bodyDoc" + docNum.ToString() + ".docx"; //currentWorkingDoc;
+                                    doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.CreateNew, true);
                                 }
                             }
 
 
                             if (contentItem.VotingID != null && contentItem.VotingID != 0)// To write Vote Table
                             {
-                                WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 1);// Copy the previuos segments before witing the attach
+                                WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);// Copy the previuos segments before witing the attach
                                 text = "";
                                 contentItemAsText = "";
                                 contentItemGrp.Clear();//clear the segments array after writing them in the word
@@ -355,7 +369,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                             {
                                 if (contentItem.TopicID != null && contentItem.TopicID != 0)
                                 {
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 0);
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 0);
                                     List<TopicAttendant> tpcAtts = TopicHelper.GetTopicAttsByTopicID(long.Parse(contentItem.TopicID.ToString()));
                                     List<string> attNamesLst = new List<string>();
                                     for (int u = 0; u < tpcAtts.Count(); u += 2)
@@ -364,15 +378,17 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                         Attendant att2 = new Attendant();
                                         string attNames = "";
                                         att1 = AttendantHelper.GetAttendantById((long)tpcAtts[u].AttendantID);
-                                        attNames = (att1.AttendantDegree + " " + att1.LongName).Trim(); ;
+                                       // attNames = (att1.AttendantDegree + " " + att1.Name).Trim(); 
+                                        attNames = att1.Name.Trim();
                                         if (u + 1 < tpcAtts.Count())
                                         {
                                             att2 = AttendantHelper.GetAttendantById((long)tpcAtts[u + 1].AttendantID);
-                                            attNames += "," + (att2.AttendantDegree + " " + att2.LongName).Trim();
+                                           // attNames += "," + (att2.AttendantDegree + " " + att2.Name).Trim();
+                                            attNames += "," + att2.Name.Trim();
                                         }
                                         attNamesLst.Add(attNames);
                                     }
-                                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
+                                   // doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
                                     if (attNamesLst.Count > 0)
                                     {
                                         doc.AddParagraph("مقدمو الطلب", ParagraphStyle.ParagraphTitle, ParagrapJustification.Center, false, "");
@@ -386,7 +402,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                                 }
                                 else
                                 {
-                                    WriteParagraphInWord(sessionItem, contentItemAsText, doc, contentItemGrp, 1);
+                                    WriteParagraphInWord(sessionItem, contentItemAsText, contentItemGrp, 1);
                                 }
                                 contentItemGrp.Clear();
                             }
@@ -397,7 +413,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                         j++;
                     }///loop sessionitem
 
-                    doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
+                   // doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     doc.AddParagraph("الرئيـــــــــــــــس", ParagraphStyle.ParagraphTitle, ParagrapJustification.LTR, false, "");
                     doc.AddParagraph("", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                     doc.AddParagraph("الأمين العـــــام", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
@@ -411,12 +427,12 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             {
                 index = new List<MadbatahIndexItem>();
                 speakersIndex = new List<SpeakersIndexItem>();
-                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(" + sessionID + "," + outFilePath + ")");
+                LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.CreateMadbatahBody(" + sessionID + "," + docPath + ")");
                 return -1;
             }
         }
 
-        public static WordprocessingWorker WriteAttendantInWord(SessionContentItem contentItem, Attendant att, WordprocessingWorker doc)
+        public static void WriteAttendantInWord(SessionContentItem contentItem, Attendant att)
         {
             if (att.Type != (int)Model.AttendantType.UnAssigned)
             {
@@ -428,7 +444,21 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     doc.DeleteLastParagraph("test line num");
 
                     if (newlineNum != 1)
-                        doc.AddPageBreak();
+                    {
+                        int pageCnt = doc.CountPagesUsingOpenXML(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
+                        if (pageCnt < 15)
+                        {
+                            doc.AddPageBreak();
+                        }
+                        else
+                        {
+                            docPageCount += pageCnt;
+                            doc.Dispose();
+                            docNum++;
+                            docPath = sWorkingDir + "bodyDoc" + docNum.ToString() + ".docx";
+                            doc = new WordprocessingWorker(docPath, xmlFilesPaths, DocFileOperation.CreateNew, true);
+                        }
+                    }
                 }
 
                 string attFullPresentationName = "";
@@ -467,10 +497,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 }
 
             }
-            return doc;// new WordprocessingWorker(docPath, DocFileOperation.Open);
         }
 
-        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc, List<SessionContentItem> grp, bool ttt)
+        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, List<SessionContentItem> grp, bool ttt)
         {
             string[] p = new string[] { };
             string[] paragraphs = GetParagraphsArr(contentItemAsText, out p);
@@ -480,13 +509,13 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             List<string> myCollection2 = new List<string>();
             for (int pp = 0; pp < paragraphs.Length; pp++)
             {
-                parag = TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim();
+                parag = TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ")).Trim();
                 if (parag != "")
                 {
                     myCollection.Add(parag.Replace("&nbsp;", " "));
                     myCollection2.Add(sessionItem.PageFooter);
                     if (pp != 0)
-                        doc = WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
+                        WriteAttendantInWord(sessionItem, sessionItem.Attendant);
                     if (sessionItem.PageFooter != "")
                         doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
                     else doc.AddParagraph(parag.Replace("&nbsp;", " "), ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
@@ -516,7 +545,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
             }
         }
 
-        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, WordprocessingWorker doc, List<SessionContentItem> grp, int replace = 0)
+        public static void WriteParagraphInWord(SessionContentItem sessionItem, string contentItemAsText, List<SessionContentItem> grp, int replace = 0)
         {
             try
             {
@@ -527,9 +556,9 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 string proc = "";
                 for (int i = 0; i < grp.Count; i++)
                 {
-                    fullparag = TextHelper.StripHTML(grp[i].Text.Replace("#!#!#!", " ").ToLower()).Trim();
+                    fullparag = TextHelper.StripHTML(grp[i].Text.Replace("#!#!#!", " ")).Trim();
                     string[] p = new string[] { };
-                    string[] paragraphs = GetParagraphsArr(grp[i].Text.ToLower().Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!"), out p);
+                    string[] paragraphs = GetParagraphsArr(grp[i].Text.Replace("<br/>", "#!#!#!").Replace("<br>", "#!#!#!").Replace("<br >", "#!#!#!").Replace("<br />", "#!#!#!"), out p);
                     string[] procedureArr = new string[] { };
 
                     if (fullparag != "")
@@ -538,15 +567,15 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
 
                         for (int pp = 0; pp < paragraphs.Length; pp++)
                         {
-                            parag += TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " ");
+                            parag += TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ")).Trim().Replace("&nbsp;", " ");
                             if (replace == 1)
-                                myCollection.Add(TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ").ToLower()).Trim().Replace("&nbsp;", " "));
-                            else myCollection.Add(TextHelper.StripHTML(paragraphs[pp].ToLower()).Trim().Replace("&nbsp;", " "));
+                                myCollection.Add(TextHelper.StripHTML(paragraphs[pp].Replace("#!#!#!", " ")).Trim().Replace("&nbsp;", " "));
+                            else myCollection.Add(TextHelper.StripHTML(paragraphs[pp]).Trim().Replace("&nbsp;", " "));
                             if (paragraphs.Length != 1 && pp < p.Length)
                             {
                                 if (parag.Trim() != "")
                                 {
-                                    doc = WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
+                                    WriteAttendantInWord(sessionItem, sessionItem.Attendant);
                                     doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
                                     doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
                                     long lineNum = doc.CountLineNum(doc, docPath, xmlFilesPaths, srvMapPath, out doc);
@@ -596,7 +625,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                     }
                     if (lastparag.Trim() != "")
                     {
-                        doc = WriteAttendantInWord(sessionItem, sessionItem.Attendant, doc);
+                        WriteAttendantInWord(sessionItem, sessionItem.Attendant);
                         doc.AddParagraph(myCollection, ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, true, myCollection2);
 
                         doc.AddParagraph("space", ParagraphStyle.ParagraphTitle, ParagrapJustification.RTL, false, "");
@@ -614,7 +643,7 @@ namespace TayaIT.Enterprise.EMadbatah.BLL
                 LogHelper.LogException(ex, "TayaIT.Enterprise.EMadbatah.BLL.MabatahCreatorFacade.WriteParagraphInWord(" + TextHelper.StripHTML(contentItemAsText) + ")");
                 System.Threading.Thread.ResetAbort();
             }
-            doc.Dispose();
+           // doc.Dispose();
         }
 
         public static string[] GetParagraphsArr(string parag, out string[] p)
